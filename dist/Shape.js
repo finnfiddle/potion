@@ -30,9 +30,19 @@ var _isFunction = require('lodash/isFunction');
 
 var _isFunction2 = _interopRequireDefault(_isFunction);
 
+var _isNumber = require('lodash/isNumber');
+
+var _isNumber2 = _interopRequireDefault(_isNumber);
+
+var _intersection = require('lodash/intersection');
+
+var _intersection2 = _interopRequireDefault(_intersection);
+
 var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
+
+var _helpers = require('./helpers');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64,13 +74,11 @@ exports.default = {
     return this.getAttrNames().reduce(function (acc, key) {
       var result = props[key];
       if (!(0, _itsSet2.default)(result)) return acc;
-      if ((0, _isFunction2.default)(props[key])) {
-        result = props[key](props.datum || _this.props.datum, props.index || _this.props.index);
-      }
+      if ((0, _isFunction2.default)(props[key])) result = _this.getValue(key, props);
       return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, result));
     }, {});
   },
-  getAttrGenerators: function getAttrGenerators(props) {
+  getAttrGenerators: function getAttrGenerators() {
     var _this2 = this;
 
     return this.getGeneratedAttrNames().reduce(function (acc, key) {
@@ -84,24 +92,24 @@ exports.default = {
         enter = _props2.enter,
         _key = _props2._key;
 
+    var attrGenerators = this.getAttrGenerators();
     var startAttrs = enter(this.props.datum, this.props.index);
     var endAttrs = this.getAttrs(this.props);
-    var attrGenerators = this.getAttrGenerators(this.props);
-    var generatedEndAttrs = (0, _keys2.default)(attrGenerators).reduce(function (acc, key) {
-      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, attrGenerators[key](_this3.props)));
-    }, {});
+    var generatedEndAttrs = (0, _helpers.mapObject)(attrGenerators, function (value, key) {
+      return attrGenerators[key](_this3.props);
+    });
 
     this.selection = this.selectSelf();
 
     this.selection.attr(startAttrs);
 
-    var t = this.selection.transition(_key + '_enter').duration(1000);
+    var trans = this.selection.transition(_key + '_enter').duration(1000);
 
     (0, _keys2.default)(endAttrs).forEach(function (key) {
-      t.attr(key, endAttrs[key]);
+      trans.attr(key, endAttrs[key]);
     });
-    console.log((0, _assign2.default)({}, endAttrs, generatedEndAttrs));
-    t.on('end', function () {
+
+    trans.on('end', function () {
       _this3.setState((0, _assign2.default)({}, endAttrs, generatedEndAttrs), callback);
     });
   },
@@ -111,26 +119,60 @@ exports.default = {
   componentWillEnter: function componentWillEnter(callback) {
     this.componentWillAppearOrEnter(callback);
   },
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+  tweenProps: function tweenProps(startProps, endProps) {
+    var whitelist = (0, _intersection2.default)((0, _keys2.default)(startProps), (0, _keys2.default)(endProps));
+    return function (t) {
+      return whitelist.reduce(function (acc, key) {
+        return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, startProps[key] + (endProps[key] - startProps[key]) * t));
+      }, {});
+    };
+  },
+  getPropsForGenerators: function getPropsForGenerators(props) {
     var _this4 = this;
+
+    var whitelist = this.getPropNamesForGenerators();
+    return (0, _helpers.mapObject)(whitelist, function (value, key) {
+      return _this4.getValue(key, props);
+    });
+  },
+  getValue: function getValue(key, props) {
+    var prop = props[key];
+    var datum = props.datum,
+        index = props.index;
+
+    if ((0, _isFunction2.default)(prop)) return prop(datum || this.props.datum, index || this.props.index);
+    return prop;
+  },
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    var _this5 = this;
 
     var _key = this.props._key;
 
+    var attrGenerators = this.getAttrGenerators();
     var endAttrs = this.getAttrs(nextProps);
-    var attrGenerators = this.getAttrGenerators(this.props);
-    var generatedEndAttrs = (0, _keys2.default)(attrGenerators).reduce(function (acc, key) {
-      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, attrGenerators[key](_this4.props)));
-    }, {});
-
-    this.selection = this.selectSelf();
-    var t = this.selection.transition(_key + '_update').duration(1000);
-
-    (0, _keys2.default)(endAttrs).forEach(function (key) {
-      t.attr(key, endAttrs[key]);
+    var generatedEndAttrs = (0, _helpers.mapObject)(attrGenerators, function (value, key) {
+      return attrGenerators[key](nextProps);
     });
 
-    t.on('end', function () {
-      _this4.setState((0, _assign2.default)({}, endAttrs, generatedEndAttrs));
+    this.selection = this.selectSelf();
+    var trans = this.selection.transition(_key + '_update').duration(1000);
+
+    (0, _keys2.default)(endAttrs).forEach(function (key) {
+      trans.attr(key, endAttrs[key]);
+    });
+
+    var tweener = this.tweenProps(this.getPropsForGenerators(this.props), this.getPropsForGenerators(nextProps));
+
+    (0, _keys2.default)(attrGenerators).forEach(function (key) {
+      trans.attrTween(key, function () {
+        return function (t) {
+          return attrGenerators[key](tweener(t));
+        };
+      });
+    });
+
+    trans.on('end', function () {
+      _this5.setState((0, _assign2.default)({}, endAttrs, generatedEndAttrs));
     });
   },
   componentWillLeave: function componentWillLeave(callback) {
@@ -140,13 +182,13 @@ exports.default = {
 
     var attrs = leave(this.props.datum, this.props.index);
 
-    var t = this.selectSelf().transition(_key + '_leave').duration(1000);
+    var trans = this.selectSelf().transition(_key + '_leave').duration(1000);
 
     (0, _keys2.default)(attrs).forEach(function (key) {
-      t.attr(key, attrs[key]);
+      trans.attr(key, attrs[key]);
     });
 
-    t.on('end', function () {
+    trans.on('end', function () {
       callback();
     });
   },
@@ -154,6 +196,5 @@ exports.default = {
     this.selection.interrupt(this.props._key + '_enter');
     this.selection.interrupt(this.props._key + '_update');
     this.selection.interrupt(this.props._key + '_leave');
-  },
-  componentDidLeave: function componentDidLeave() {}
+  }
 };

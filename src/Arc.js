@@ -19,6 +19,10 @@ export default stamp(React).compose(SelectSelfMixin, Shape, {
     return ['d'];
   },
 
+  getPropNamesForGenerators() {
+    return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
+  },
+
   render() {
     return (
       <path {...this.state} />
@@ -26,22 +30,19 @@ export default stamp(React).compose(SelectSelfMixin, Shape, {
   },
 
   getGenerator(attrName) {
+    let generator = () => {};
     switch (attrName) {
     case 'd':
-      let generator = arc();
-      ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'].forEach((attrName) => {
-        if (itsSet(this.props[attrName])) {
-          generator = generator[attrName](this.getValue(this.props[attrName]));
-        }
-      });
-      return props => generator(props);
+      return props => {
+        generator = arc();
+        ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'].forEach(attrName => {
+          if (itsSet(props[attrName])) {
+            generator = generator[attrName](this.getValue(attrName, props));
+          }
+        });
+        return generator(props);
+      };
     }
-  },
-
-  getValue(value) {
-    const { datum, index } = this.props;
-    if (isFunction(value)) return value(datum, index);
-    return value;
   },
 
 });
