@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _keys = require('babel-runtime/core-js/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
-
 var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
@@ -15,6 +11,10 @@ var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
 
 var _react = require('react');
 
@@ -24,93 +24,63 @@ var _reactStamp = require('react-stamp');
 
 var _reactStamp2 = _interopRequireDefault(_reactStamp);
 
-var _d3Transition = require('d3-transition');
+var _itsSet = require('its-set');
+
+var _itsSet2 = _interopRequireDefault(_itsSet);
 
 var _isFunction = require('lodash/isFunction');
 
 var _isFunction2 = _interopRequireDefault(_isFunction);
 
-var _isNumber = require('lodash/isNumber');
+var _pick = require('lodash/pick');
 
-var _isNumber2 = _interopRequireDefault(_isNumber);
+var _pick2 = _interopRequireDefault(_pick);
 
-var _intersection = require('lodash/intersection');
+require('d3-transition');
 
-var _intersection2 = _interopRequireDefault(_intersection);
+var _SelectSelfMixin = require('./mixins/SelectSelfMixin');
 
-var _itsSet = require('its-set');
-
-var _itsSet2 = _interopRequireDefault(_itsSet);
-
-var _helpers = require('./helpers');
+var _SelectSelfMixin2 = _interopRequireDefault(_SelectSelfMixin);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = {
+exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelfMixin2.default, {
 
-  propTypes: {
-    // enter
-    // leave
-  },
-
-  defaultProps: {
-    enter: function enter() {},
-    leave: function leave() {}
-  },
+  displayName: 'Shape',
 
   init: function init() {
-    var _props = this.props,
-        enter = _props.enter,
-        datum = _props.datum,
-        index = _props.index;
-
-    var enterAttrs = this.getAttrs(enter(datum, index));
-    var attrs = this.getAttrs(this.props);
-    this.state = (0, _assign2.default)({}, attrs, enterAttrs);
-  },
-  getAttrs: function getAttrs(props) {
-    var _this = this;
-
-    return this.getAttrNames().reduce(function (acc, key) {
-      var result = props[key];
-      if (!(0, _itsSet2.default)(result)) return acc;
-      if ((0, _isFunction2.default)(props[key])) result = _this.getValue(key, props);
-      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, result));
-    }, {});
-  },
-  getAttrGenerators: function getAttrGenerators() {
-    var _this2 = this;
-
-    return this.getGeneratedAttrNames().reduce(function (acc, key) {
-      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, _this2.getGenerator(key)));
-    }, {});
+    this.attrNames = this.getAttrNames();
+    this.derivedAttrNames = this.getDerivedAttrNames();
+    this.state = this.attrs = this.getAttrs(this.props);
+    this.style = this.getStyle(this.props);
   },
   componentWillAppearOrEnter: function componentWillAppearOrEnter(callback) {
-    var _this3 = this;
+    var _this = this;
 
-    var _props2 = this.props,
-        enter = _props2.enter,
-        _key = _props2._key;
+    var _props = this.props,
+        _key = _props._key,
+        enterDuration = _props.enterDuration,
+        datum = _props.datum,
+        data = _props.data,
+        index = _props.index,
+        enterDatum = _props.enterDatum;
 
-    var attrGenerators = this.getAttrGenerators();
-    var startAttrs = enter(this.props.datum, this.props.index);
-    var endAttrs = this.getAttrs(this.props);
-    var generatedEndAttrs = (0, _helpers.mapObject)(attrGenerators, function (value, key) {
-      return attrGenerators[key](_this3.props);
-    });
+    var calculatedEnterDatum = enterDatum(datum, index, data);
+    var enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum);
+    var enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
 
     this.selection = this.selectSelf();
 
-    this.selection.attr(startAttrs);
+    this.applyAttrsToSelection(enterAttrs, this.selection);
+    this.applyStyleToSelection(enterStyle, this.selection);
 
-    var trans = this.selection.transition(_key + '_enter').duration(1000);
+    var transition = this.selection.transition(_key + '_enter').duration(enterDuration);
 
-    (0, _keys2.default)(endAttrs).forEach(function (key) {
-      trans.attr(key, endAttrs[key]);
-    });
+    this.applyAttrsToSelection(this.attrs, transition);
+    this.applyStyleToSelection(this.style, transition);
 
-    trans.on('end', function () {
-      _this3.setState((0, _assign2.default)({}, endAttrs, generatedEndAttrs), callback);
+    transition.on('end', function () {
+      _this.setState(_this.attrs, callback);
     });
   },
   componentWillAppear: function componentWillAppear(callback) {
@@ -119,82 +89,110 @@ exports.default = {
   componentWillEnter: function componentWillEnter(callback) {
     this.componentWillAppearOrEnter(callback);
   },
-  tweenProps: function tweenProps(startProps, endProps) {
-    var whitelist = (0, _intersection2.default)((0, _keys2.default)(startProps), (0, _keys2.default)(endProps));
-    return function (t) {
-      return whitelist.reduce(function (acc, key) {
-        return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, startProps[key] + (endProps[key] - startProps[key]) * t));
-      }, {});
-    };
-  },
-  getPropsForGenerators: function getPropsForGenerators(props) {
-    var _this4 = this;
-
-    var whitelist = this.getPropNamesForGenerators();
-    return (0, _helpers.mapObject)(whitelist, function (value, key) {
-      return _this4.getValue(key, props);
-    });
-  },
-  getValue: function getValue(key, props) {
-    var prop = props[key];
-    var datum = props.datum,
-        index = props.index;
-
-    if ((0, _isFunction2.default)(prop)) return prop(datum || this.props.datum, index || this.props.index);
-    return prop;
-  },
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    var _this5 = this;
+    var _this2 = this;
 
-    var _key = this.props._key;
+    var _key = nextProps._key,
+        updateDuration = nextProps.updateDuration;
 
-    var attrGenerators = this.getAttrGenerators();
-    var endAttrs = this.getAttrs(nextProps);
-    var generatedEndAttrs = (0, _helpers.mapObject)(attrGenerators, function (value, key) {
-      return attrGenerators[key](nextProps);
-    });
+    var nextAttrs = this.getAttrs(nextProps);
+    var nextStyle = this.getStyle(nextProps);
 
     this.selection = this.selectSelf();
-    var trans = this.selection.transition(_key + '_update').duration(1000);
 
-    (0, _keys2.default)(endAttrs).forEach(function (key) {
-      trans.attr(key, endAttrs[key]);
-    });
+    var transition = this.selection.transition(_key + '_update').duration(updateDuration);
 
-    var tweener = this.tweenProps(this.getPropsForGenerators(this.props), this.getPropsForGenerators(nextProps));
+    this.applyAttrsToSelection(nextAttrs, transition);
+    this.applyStyleToSelection(nextStyle, transition);
 
-    (0, _keys2.default)(attrGenerators).forEach(function (key) {
-      trans.attrTween(key, function () {
-        return function (t) {
-          return attrGenerators[key](tweener(t));
-        };
-      });
-    });
-
-    trans.on('end', function () {
-      _this5.setState((0, _assign2.default)({}, endAttrs, generatedEndAttrs));
+    transition.on('end', function () {
+      _this2.setState(nextAttrs);
     });
   },
   componentWillLeave: function componentWillLeave(callback) {
-    var _props3 = this.props,
-        leave = _props3.leave,
-        _key = _props3._key;
+    var _props2 = this.props,
+        exitDatum = _props2.exitDatum,
+        exitDuration = _props2.exitDuration,
+        _key = _props2._key,
+        datum = _props2.datum,
+        index = _props2.index,
+        data = _props2.data;
 
-    var attrs = leave(this.props.datum, this.props.index);
+    this.selection.interrupt(_key + '_enter');
+    this.selection.interrupt(_key + '_update');
+    var computedExitDatum = exitDatum(datum, index, data);
+    var exitAttrs = this.getAttrsFromDatum(computedExitDatum);
+    var exitStyle = this.getStyleFromDatum(computedExitDatum);
 
-    var trans = this.selectSelf().transition(_key + '_leave').duration(1000);
+    var transition = this.selectSelf().transition(_key + '_leave').duration(exitDuration);
 
-    (0, _keys2.default)(attrs).forEach(function (key) {
-      trans.attr(key, attrs[key]);
-    });
+    this.applyAttrsToSelection(exitAttrs, transition);
+    this.applyStyleToSelection(exitStyle, transition);
 
-    trans.on('end', function () {
+    transition.on('end', function () {
       callback();
     });
   },
   componentWillUnmount: function componentWillUnmount() {
-    this.selection.interrupt(this.props._key + '_enter');
-    this.selection.interrupt(this.props._key + '_update');
-    this.selection.interrupt(this.props._key + '_leave');
+    var _key = this.props._key;
+
+    this.selection.interrupt(_key + '_enter');
+    this.selection.interrupt(_key + '_update');
+    this.selection.interrupt(_key + '_leave');
+  },
+  getAttrNames: function getAttrNames() {
+    return [];
+  },
+  getDerivedAttrNames: function getDerivedAttrNames() {
+    return [];
+  },
+  applyAttrsToSelection: function applyAttrsToSelection(attrs, selection) {
+    this.attrNames.forEach(function (name) {
+      selection.attr(name, attrs[name]);
+    });
+  },
+  applyStyleToSelection: function applyStyleToSelection(style, selection) {
+    (0, _keys2.default)(style).forEach(function (name) {
+      selection.attr(name, style[name]);
+    });
+  },
+  getAttrsFromDatum: function getAttrsFromDatum(datum) {
+    return this.getAttrs((0, _assign2.default)({}, this.props, { datum: datum }));
+  },
+  getStyleFromDatum: function getStyleFromDatum(datum) {
+    return this.getStyle((0, _assign2.default)({}, this.props, { datum: datum }));
+  },
+  getAttrs: function getAttrs(props) {
+    var _this3 = this;
+
+    var datum = props.datum,
+        data = props.data,
+        index = props.index;
+
+
+    var attrs = (0, _pick2.default)(this.attrNames.reduce(function (acc, key) {
+      var prop = props[key];
+      if (!(0, _itsSet2.default)(prop)) return acc;
+      if ((0, _isFunction2.default)(prop)) prop = prop(datum, index, data);
+      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, prop));
+    }, {}), this.attrNames);
+
+    var derivedAttrs = this.derivedAttrNames.reduce(function (acc, key) {
+      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, _this3.getDerivedAttr(key)));
+    }, {});
+
+    return (0, _assign2.default)({}, attrs, derivedAttrs);
+  },
+  getStyle: function getStyle(props) {
+    var style = props.style,
+        datum = props.datum,
+        data = props.data,
+        index = props.index;
+
+    if ((0, _isFunction2.default)(style)) return style(datum, index, data);
+    return style;
+  },
+  render: function render() {
+    return _react2.default.createElement('g', null);
   }
-};
+});

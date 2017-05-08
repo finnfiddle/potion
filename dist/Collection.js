@@ -12,9 +12,9 @@ var _reactStamp = require('react-stamp');
 
 var _reactStamp2 = _interopRequireDefault(_reactStamp);
 
-var _reactAddonsTransitionGroup = require('react-addons-transition-group');
+var _TransitionGroup = require('react-transition-group/TransitionGroup');
 
-var _reactAddonsTransitionGroup2 = _interopRequireDefault(_reactAddonsTransitionGroup);
+var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,7 +28,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
 
   render: function render() {
     return _react2.default.createElement(
-      _reactAddonsTransitionGroup2.default,
+      _TransitionGroup2.default,
       { component: 'g' },
       this.renderChildren()
     );
@@ -40,8 +40,9 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
 
     return data.reduce(function (acc, datum, index) {
       return acc.concat(_react.Children.map(children, function (child, c) {
-        return (0, _react.cloneElement)(child, { datum: datum, index: index, key: index + '_' + c, _key: index + '_' + c });
+        return (0, _react.cloneElement)(child, { datum: datum, index: index, data: data, key: index + '_' + c, _key: index + '_' + c });
       }));
     }, []);
   }
 });
+// import ReactTransitionGroup from 'react-addons-transition-group';

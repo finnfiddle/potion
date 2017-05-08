@@ -1,17 +1,15 @@
 import React, { PropTypes } from 'react';
 import stamp from 'react-stamp';
-import itsSet from 'its-set';
-import isFunction from 'lodash/isFunction';
-import pick from 'lodash/pick';
 
+import SelectSelfMixin from './mixins/SelectSelfMixin';
 import Shape from './Shape';
 
-export default stamp(React).compose(Shape, {
+export default stamp(React).compose(SelectSelfMixin, Shape, {
 
   displayName: 'Circle',
 
   getAttrNames() {
-    return ['cx', 'cy', 'fill', 'stroke', 'r'];
+    return ['cx', 'cy', 'fill', 'opacity', 'r'];
   },
 
   render() {

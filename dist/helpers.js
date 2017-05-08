@@ -18,10 +18,19 @@ var _keys2 = _interopRequireDefault(_keys);
 
 exports.cap = cap;
 exports.mapObject = mapObject;
+exports.flattenHierarchy = flattenHierarchy;
 
 var _isArray = require('lodash/isArray');
 
 var _isArray2 = _interopRequireDefault(_isArray);
+
+var _isObject = require('lodash/isObject');
+
+var _isObject2 = _interopRequireDefault(_isObject);
+
+var _itsSet = require('its-set');
+
+var _itsSet2 = _interopRequireDefault(_itsSet);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34,4 +43,14 @@ function mapObject(object, iterator) {
   return ((0, _isArray2.default)(object) ? object : (0, _keys2.default)(object)).reduce(function (acc, key) {
     return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, iterator(object[key], key)));
   }, {});
+}
+
+function flattenHierarchy(object) {
+  var result = [object];
+  if ((0, _itsSet2.default)(object.children)) {
+    result = result.concat(object.children.reduce(function (acc, child) {
+      return acc.concat(flattenHierarchy(child));
+    }, []));
+  }
+  return result;
 }

@@ -22,39 +22,47 @@ var _isFunction = require('lodash/isFunction');
 
 var _isFunction2 = _interopRequireDefault(_isFunction);
 
+var _SelectSelfMixin = require('./mixins/SelectSelfMixin');
+
+var _SelectSelfMixin2 = _interopRequireDefault(_SelectSelfMixin);
+
 var _Shape = require('./Shape');
 
 var _Shape2 = _interopRequireDefault(_Shape);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _reactStamp2.default)(_react2.default).compose(_Shape2.default, {
+exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelfMixin2.default, _Shape2.default, {
 
   displayName: 'Arc',
 
   getAttrNames: function getAttrNames() {
-    return ['fill'];
+    return ['fill', 'opacity'];
   },
-  getDerivedAttrNames: function getDerivedAttrNames() {
+  getGeneratedAttrNames: function getGeneratedAttrNames() {
     return ['d'];
   },
-  getDerivedAttr: function getDerivedAttr(key) {
+  getPropNamesForGenerators: function getPropNamesForGenerators() {
+    return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
+  },
+  render: function render() {
+    return _react2.default.createElement('path', this.state);
+  },
+  getGenerator: function getGenerator(attrName) {
     var _this = this;
 
-    switch (key) {
+    var generator = function generator() {};
+    switch (attrName) {
       case 'd':
         return function (props) {
-          var generator = (0, _d3Shape.arc)();
-          ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'].forEach(function (attrName) {
+          generator = (0, _d3Shape.arc)();
+          _this.getPropNamesForGenerators().forEach(function (attrName) {
             if ((0, _itsSet2.default)(props[attrName])) {
               generator = generator[attrName](_this.getValue(attrName, props));
             }
           });
           return generator(props);
         };
-    };
-  },
-  render: function render() {
-    return _react2.default.createElement('path', this.state);
+    }
   }
 });

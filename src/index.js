@@ -9,6 +9,7 @@ import Circle from './Circle';
 import Collection from './Collection';
 import Item from './Item';
 import Line from './Line';
+import Pack from './Pack';
 import Pie from './Pie';
 import RadialArea from './RadialArea';
 import RadialLine from './RadialLine';
@@ -28,6 +29,7 @@ export default {
   Collection,
   Item,
   Line,
+  Pack,
   Pie,
   RadialArea,
   RadialLine,
@@ -48,6 +50,7 @@ export {
   Collection,
   Item,
   Line,
+  Pack,
   Pie,
   RadialArea,
   RadialLine,

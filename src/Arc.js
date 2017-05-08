@@ -4,37 +4,25 @@ import { arc } from 'd3-shape';
 import itsSet from 'its-set';
 import isFunction from 'lodash/isFunction';
 
-import SelectSelfMixin from './mixins/SelectSelfMixin';
 import Shape from './Shape';
 
-export default stamp(React).compose(SelectSelfMixin, Shape, {
+export default stamp(React).compose(Shape, {
 
   displayName: 'Arc',
 
   getAttrNames() {
-    return ['fill', 'opacity'];
+    return ['fill'];
   },
 
-  getGeneratedAttrNames() {
+  getDerivedAttrNames() {
     return ['d'];
   },
 
-  getPropNamesForGenerators() {
-    return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
-  },
-
-  render() {
-    return (
-      <path {...this.state} />
-    );
-  },
-
-  getGenerator(attrName) {
-    let generator = () => {};
-    switch (attrName) {
+  getDerivedAttr(key) {
+    switch (key) {
     case 'd':
       return props => {
-        generator = arc();
+        let generator = arc();
         ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'].forEach(attrName => {
           if (itsSet(props[attrName])) {
             generator = generator[attrName](this.getValue(attrName, props));
@@ -42,7 +30,13 @@ export default stamp(React).compose(SelectSelfMixin, Shape, {
         });
         return generator(props);
       };
-    }
+    };
+  },
+
+  render() {
+    return (
+      <path {...this.state} />
+    );
   },
 
 });

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Symbol = exports.Stack = exports.Rect = exports.RadialLine = exports.RadialArea = exports.Pie = exports.Line = exports.Item = exports.Collection = exports.Circle = exports.AxisTop = exports.AxisRight = exports.AxisLeft = exports.AxisBottom = exports.Axis = exports.Area = exports.Arc = undefined;
+exports.Symbol = exports.Stack = exports.Rect = exports.RadialLine = exports.RadialArea = exports.Pie = exports.Pack = exports.Line = exports.Item = exports.Collection = exports.Circle = exports.AxisTop = exports.AxisRight = exports.AxisLeft = exports.AxisBottom = exports.Axis = exports.Area = exports.Arc = undefined;
 
 var _Arc = require('./Arc');
 
@@ -49,6 +49,10 @@ var _Line = require('./Line');
 
 var _Line2 = _interopRequireDefault(_Line);
 
+var _Pack = require('./Pack');
+
+var _Pack2 = _interopRequireDefault(_Pack);
+
 var _Pie = require('./Pie');
 
 var _Pie2 = _interopRequireDefault(_Pie);
@@ -87,6 +91,7 @@ exports.default = {
   Collection: _Collection2.default,
   Item: _Item2.default,
   Line: _Line2.default,
+  Pack: _Pack2.default,
   Pie: _Pie2.default,
   RadialArea: _RadialArea2.default,
   RadialLine: _RadialLine2.default,
@@ -105,6 +110,7 @@ exports.Circle = _Circle2.default;
 exports.Collection = _Collection2.default;
 exports.Item = _Item2.default;
 exports.Line = _Line2.default;
+exports.Pack = _Pack2.default;
 exports.Pie = _Pie2.default;
 exports.RadialArea = _RadialArea2.default;
 exports.RadialLine = _RadialLine2.default;
