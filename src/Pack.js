@@ -28,10 +28,10 @@ export default stamp(React).compose({
   },
 
   renderChildren() {
-    const { data, children } = this.props;
+    const { data, children, includeRoot } = this.props;
     const packData = this.getPack()(data);
 
-    return flattenHierarchy(packData).reduce((acc, datum, index) =>
+    return flattenHierarchy(packData).slice(includeRoot ? 0 : 1).reduce((acc, datum, index) =>
       acc.concat(Children.map(children, (child, c) =>
         cloneElement(child, {
           datum,

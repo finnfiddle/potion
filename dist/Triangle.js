@@ -30,13 +30,13 @@ var _isFunction = require('lodash/isFunction');
 
 var _isFunction2 = _interopRequireDefault(_isFunction);
 
-var _AnimatedElement = require('./AnimatedElement');
+var _Shape = require('./Shape');
 
-var _AnimatedElement2 = _interopRequireDefault(_AnimatedElement);
+var _Shape2 = _interopRequireDefault(_Shape);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedElement2.default, {
+exports.default = (0, _reactStamp2.default)(_react2.default).compose(_Shape2.default, {
 
   displayName: 'Arc',
 

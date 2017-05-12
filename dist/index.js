@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Symbol = exports.Stack = exports.Rect = exports.RadialLine = exports.RadialArea = exports.Pie = exports.Pack = exports.Line = exports.Item = exports.Collection = exports.Circle = exports.AxisTop = exports.AxisRight = exports.AxisLeft = exports.AxisBottom = exports.Axis = exports.Area = exports.Arc = undefined;
+exports.Text = exports.Symbol = exports.Stack = exports.Rect = exports.RadialLine = exports.RadialArea = exports.Pie = exports.Pack = exports.Line = exports.Item = exports.Group = exports.Curve = exports.Collection = exports.Circle = exports.AxisTop = exports.AxisRight = exports.AxisLeft = exports.AxisBottom = exports.Axis = exports.Area = exports.Arc = undefined;
 
 var _Arc = require('./Arc');
 
@@ -41,6 +41,14 @@ var _Collection = require('./Collection');
 
 var _Collection2 = _interopRequireDefault(_Collection);
 
+var _Curve = require('./Curve');
+
+var _Curve2 = _interopRequireDefault(_Curve);
+
+var _Group = require('./Group');
+
+var _Group2 = _interopRequireDefault(_Group);
+
 var _Item = require('./Item');
 
 var _Item2 = _interopRequireDefault(_Item);
@@ -77,6 +85,10 @@ var _Symbol2 = require('./Symbol');
 
 var _Symbol3 = _interopRequireDefault(_Symbol2);
 
+var _Text = require('./Text');
+
+var _Text2 = _interopRequireDefault(_Text);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -89,6 +101,8 @@ exports.default = {
   AxisTop: _AxisTop2.default,
   Circle: _Circle2.default,
   Collection: _Collection2.default,
+  Curve: _Curve2.default,
+  Group: _Group2.default,
   Item: _Item2.default,
   Line: _Line2.default,
   Pack: _Pack2.default,
@@ -97,7 +111,8 @@ exports.default = {
   RadialLine: _RadialLine2.default,
   Rect: _Rect2.default,
   Stack: _Stack2.default,
-  Symbol: _Symbol3.default
+  Symbol: _Symbol3.default,
+  Text: _Text2.default
 };
 exports.Arc = _Arc2.default;
 exports.Area = _Area2.default;
@@ -108,6 +123,8 @@ exports.AxisRight = _AxisRight2.default;
 exports.AxisTop = _AxisTop2.default;
 exports.Circle = _Circle2.default;
 exports.Collection = _Collection2.default;
+exports.Curve = _Curve2.default;
+exports.Group = _Group2.default;
 exports.Item = _Item2.default;
 exports.Line = _Line2.default;
 exports.Pack = _Pack2.default;
@@ -117,3 +134,4 @@ exports.RadialLine = _RadialLine2.default;
 exports.Rect = _Rect2.default;
 exports.Stack = _Stack2.default;
 exports.Symbol = _Symbol3.default;
+exports.Text = _Text2.default;

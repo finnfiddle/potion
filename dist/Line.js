@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -12,37 +16,24 @@ var _reactStamp = require('react-stamp');
 
 var _reactStamp2 = _interopRequireDefault(_reactStamp);
 
-var _itsSet = require('its-set');
+var _AnimatedElement = require('./AnimatedElement');
 
-var _itsSet2 = _interopRequireDefault(_itsSet);
-
-var _d3Shape = require('d3-shape');
-
-var _d3Shape2 = _interopRequireDefault(_d3Shape);
+var _AnimatedElement2 = _interopRequireDefault(_AnimatedElement);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _reactStamp2.default)(_react2.default).compose({
+exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedElement2.default, {
 
   displayName: 'Line',
 
-  propTypes: {
-    // x,
-    // y,
-    // defined,
-    // curve,
+  getAttrNames: function getAttrNames() {
+    return ['x1', 'x2', 'y1', 'y2', 'stroke', 'strokeWidth'];
   },
-
   render: function render() {
-    return _react2.default.createElement('path', { d: this.getLine()() });
-  },
-  getLine: function getLine() {
-    var _this = this;
+    var _state = this.state,
+        didEnter = _state.didEnter,
+        restState = (0, _objectWithoutProperties3.default)(_state, ['didEnter']);
 
-    var line = _d3Shape2.default.line();
-    ['x', 'y', 'defined', 'curve'].forEach(function (key) {
-      if ((0, _itsSet2.default)(_this.props[key])) line = line[key](_this.props[key]);
-    });
-    return line;
+    return _react2.default.createElement('line', restState);
   }
 });

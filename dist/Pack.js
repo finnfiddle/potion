@@ -49,11 +49,12 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
   renderChildren: function renderChildren() {
     var _props = this.props,
         data = _props.data,
-        children = _props.children;
+        children = _props.children,
+        includeRoot = _props.includeRoot;
 
     var packData = this.getPack()(data);
 
-    return (0, _helpers.flattenHierarchy)(packData).reduce(function (acc, datum, index) {
+    return (0, _helpers.flattenHierarchy)(packData).slice(includeRoot ? 0 : 1).reduce(function (acc, datum, index) {
       return acc.concat(_react.Children.map(children, function (child, c) {
         return (0, _react.cloneElement)(child, {
           datum: datum,

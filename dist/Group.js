@@ -30,37 +30,18 @@ var _AnimatedElement = require('./AnimatedElement');
 
 var _AnimatedElement2 = _interopRequireDefault(_AnimatedElement);
 
-var _Group = require('./Group');
-
-var _Group2 = _interopRequireDefault(_Group);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SYMBOLS = {
-  symbolCircle: _d3Shape.symbolCircle,
-  symbolCross: _d3Shape.symbolCross,
-  symbolDiamond: _d3Shape.symbolDiamond,
-  symbolSquare: _d3Shape.symbolSquare,
-  symbolStar: _d3Shape.symbolStar,
-  symbolTriangle: _d3Shape.symbolTriangle,
-  symbolWye: _d3Shape.symbolWye
-};
 
 exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedElement2.default, {
 
-  displayName: 'Symbol',
+  displayName: 'Group',
 
   getDerivedAttrNames: function getDerivedAttrNames() {
-    return ['d'];
+    return ['transform'];
   },
   getDerivedAttrInputNames: function getDerivedAttrInputNames() {
     return {
-      d: ['size', 'type']
-    };
-  },
-  getDerivedAttrSelectors: function getDerivedAttrSelectors() {
-    return {
-      d: 'path'
+      transform: ['x', 'y', 'rotation']
     };
   },
   getDerivationMethod: function getDerivationMethod(key, props) {
@@ -71,17 +52,12 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
         value = props.value;
 
     switch (key) {
-      case 'd':
+      case 'transform':
         return function (datum) {
           var attrInputNames = _this.derivedAttrInputNames[key];
           var attrValues = _this.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames);
-          var symbolInstance = (0, _d3Shape.symbol)();
-          var size = attrValues.size,
-              type = attrValues.type;
-
-          if ((0, _itsSet2.default)(size)) symbolInstance = symbolInstance.size(size);
-          if ((0, _itsSet2.default)(type)) symbolInstance = symbolInstance.type(SYMBOLS[type]);
-          return symbolInstance;
+          console.log({ attrValues: attrValues, attrInputNames: attrInputNames }, _this.props);
+          return 'translate(' + attrValues.x + ', ' + attrValues.y + ') rotate(' + attrValues.rotation + ')';
         };
     };
   },
@@ -90,15 +66,15 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
         enterDatum = _state.enterDatum,
         enterDuration = _state.enterDuration,
         updateDuration = _state.updateDuration,
-        size = _state.size,
-        type = _state.type,
-        restState = (0, _objectWithoutProperties3.default)(_state, ['enterDatum', 'enterDuration', 'updateDuration', 'size', 'type']);
+        x = _state.x,
+        y = _state.y,
+        restState = (0, _objectWithoutProperties3.default)(_state, ['enterDatum', 'enterDuration', 'updateDuration', 'x', 'y']);
 
 
     return _react2.default.createElement(
-      _Group2.default,
-      this.props,
-      _react2.default.createElement('path', restState)
+      'g',
+      restState,
+      this.props.children
     );
   }
 });

@@ -1,12 +1,9 @@
 import React, { PropTypes } from 'react';
 import stamp from 'react-stamp';
-import itsSet from 'its-set';
-import isFunction from 'lodash/isFunction';
-import pick from 'lodash/pick';
 
-import Shape from './Shape';
+import AnimatedElement from './AnimatedElement';
 
-export default stamp(React).compose(Shape, {
+export default stamp(React).compose(AnimatedElement, {
 
   displayName: 'Circle',
 
@@ -15,8 +12,9 @@ export default stamp(React).compose(Shape, {
   },
 
   render() {
+    const { didEnter, ...restState } = this.state;
     return (
-      <circle {...this.state} />
+      <circle {...restState} />
     );
   },
 

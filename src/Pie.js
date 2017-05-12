@@ -18,29 +18,6 @@ export default stamp(React).compose({
     // data
   },
 
-  // init() {
-  //   this.state = { data: this.props.data };
-  // },
-  //
-  // componentWillReceiveProps(nextProps) {
-  //   const { data } = nextProps;
-  //   if (data.length > this.props.data.length) {
-  //     const diff = data.length - this.props.data.length;
-  //     this.setState({
-  //       data: data.slice(0, this.props.data.length).concat(
-  //         data.slice(this.props.data.length).map(datum =>
-  //           Object.assign({}, datum, { override: 0 })
-  //         )
-  //       )
-  //     }, () => {
-  //       this.setState({ data });
-  //     });
-  //   }
-  //   else {
-  //     this.setState({ data });
-  //   }
-  // },
-
   render() {
     return (
       <ReactTransitionGroup component='g'>
@@ -50,18 +27,20 @@ export default stamp(React).compose({
   },
 
   renderChildren() {
-    const { data, children } = this.props;
+    const { data, children, id } = this.props;
     const pieData = this.getPie()(data);
+    console.log({ data, pieData });
     return pieData.reduce((acc, datum, index) =>
-      acc.concat(Children.map(children, (child, c) =>
-        cloneElement(child, {
+      acc.concat(Children.map(children, (child, c) => {
+        const key = id(datum.data);
+        return cloneElement(child, {
           datum,
           index,
           data: pieData,
-          key: `${index}_${c}`,
-          _key: `${index}_${c}`,
-        })
-      ))
+          key,
+          _key: key,
+        });
+      }))
     , []);
   },
 

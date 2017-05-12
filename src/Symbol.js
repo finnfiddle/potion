@@ -1,29 +1,81 @@
 import React from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
-import d3Shape from 'd3-shape';
+import {
+  symbol,
+  symbolCircle,
+  symbolCross,
+  symbolDiamond,
+  symbolSquare,
+  symbolStar,
+  symbolTriangle,
+  symbolWye,
+} from 'd3-shape';
 
-export default stamp(React).compose({
+const SYMBOLS = {
+  symbolCircle,
+  symbolCross,
+  symbolDiamond,
+  symbolSquare,
+  symbolStar,
+  symbolTriangle,
+  symbolWye,
+};
+
+import AnimatedElement from './AnimatedElement';
+import Group from './Group';
+
+export default stamp(React).compose(AnimatedElement, {
 
   displayName: 'Symbol',
 
-  propTypes: {
-    // type,
-    // size,
+  getDerivedAttrNames() {
+    return ['d'];
+  },
+
+  getDerivedAttrInputNames() {
+    return {
+      d: ['size', 'type'],
+    };
+  },
+
+  getDerivedAttrSelectors() {
+    return {
+      d: 'path',
+    };
+  },
+
+  getDerivationMethod(key, props) {
+    const { datum, index, value } = props;
+    switch (key) {
+    case 'd':
+      return datum => {
+        const attrInputNames = this.derivedAttrInputNames[key];
+        const attrValues = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames);
+        let symbolInstance = symbol();
+        const { size, type } = attrValues;
+        if (itsSet(size)) symbolInstance = symbolInstance.size(size);
+        if (itsSet(type)) symbolInstance = symbolInstance.type(SYMBOLS[type]);
+        return symbolInstance;
+      };
+    };
   },
 
   render() {
-    return (
-      <path d={this.getSymbol()()} />
-    );
-  },
+    const {
+      enterDatum,
+      enterDuration,
+      updateDuration,
+      size,
+      type,
+      ...restState,
+    } = this.state;
 
-  getSymbol() {
-    let symbol = d3Shape.symbol();
-    ['type', 'size'].forEach((key) => {
-      if (itsSet(this.props[key])) symbol = symbol[key](this.props[key]);
-    });
-    return symbol;
+    return (
+      <Group {...this.props}>
+        <path {...restState} />
+      </Group>
+    );
   },
 
 });

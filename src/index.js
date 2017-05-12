@@ -7,6 +7,8 @@ import AxisRight from './AxisRight';
 import AxisTop from './AxisTop';
 import Circle from './Circle';
 import Collection from './Collection';
+import Curve from './Curve';
+import Group from './Group';
 import Item from './Item';
 import Line from './Line';
 import Pack from './Pack';
@@ -16,6 +18,7 @@ import RadialLine from './RadialLine';
 import Rect from './Rect';
 import Stack from './Stack';
 import Symbol from './Symbol';
+import Text from './Text';
 
 export default {
   Arc,
@@ -27,6 +30,8 @@ export default {
   AxisTop,
   Circle,
   Collection,
+  Curve,
+  Group,
   Item,
   Line,
   Pack,
@@ -36,6 +41,7 @@ export default {
   Rect,
   Stack,
   Symbol,
+  Text,
 };
 
 export {
@@ -48,6 +54,8 @@ export {
   AxisTop,
   Circle,
   Collection,
+  Curve,
+  Group,
   Item,
   Line,
   Pack,
@@ -57,4 +65,5 @@ export {
   Rect,
   Stack,
   Symbol,
+  Text,
 };

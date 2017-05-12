@@ -26,13 +26,13 @@ var _SelectSelfMixin = require('./mixins/SelectSelfMixin');
 
 var _SelectSelfMixin2 = _interopRequireDefault(_SelectSelfMixin);
 
-var _Shape = require('./Shape');
+var _AnimatedElement = require('./AnimatedElement');
 
-var _Shape2 = _interopRequireDefault(_Shape);
+var _AnimatedElement2 = _interopRequireDefault(_AnimatedElement);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelfMixin2.default, _Shape2.default, {
+exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelfMixin2.default, _AnimatedElement2.default, {
 
   displayName: 'Arc',
 

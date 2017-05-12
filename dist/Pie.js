@@ -38,29 +38,6 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
     // data
   },
 
-  // init() {
-  //   this.state = { data: this.props.data };
-  // },
-  //
-  // componentWillReceiveProps(nextProps) {
-  //   const { data } = nextProps;
-  //   if (data.length > this.props.data.length) {
-  //     const diff = data.length - this.props.data.length;
-  //     this.setState({
-  //       data: data.slice(0, this.props.data.length).concat(
-  //         data.slice(this.props.data.length).map(datum =>
-  //           Object.assign({}, datum, { override: 0 })
-  //         )
-  //       )
-  //     }, () => {
-  //       this.setState({ data });
-  //     });
-  //   }
-  //   else {
-  //     this.setState({ data });
-  //   }
-  // },
-
   render: function render() {
     return _react2.default.createElement(
       _reactAddonsTransitionGroup2.default,
@@ -71,17 +48,20 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
   renderChildren: function renderChildren() {
     var _props = this.props,
         data = _props.data,
-        children = _props.children;
+        children = _props.children,
+        id = _props.id;
 
     var pieData = this.getPie()(data);
+    console.log({ data: data, pieData: pieData });
     return pieData.reduce(function (acc, datum, index) {
       return acc.concat(_react.Children.map(children, function (child, c) {
+        var key = id(datum.data);
         return (0, _react.cloneElement)(child, {
           datum: datum,
           index: index,
           data: pieData,
-          key: index + '_' + c,
-          _key: index + '_' + c
+          key: key,
+          _key: key
         });
       }));
     }, []);

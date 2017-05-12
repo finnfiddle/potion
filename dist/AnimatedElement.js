@@ -108,6 +108,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     var calculatedEnterDatum = enterDatum(this.props);
     var enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum);
     var enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
+    console.log({ enterAttrs: enterAttrs, 'this.attrs': this.attrs });
 
     this.selection = this.selectSelf();
 
@@ -198,11 +199,12 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     return {};
   },
   applyAttrsToSelection: function applyAttrsToSelection(attrs, selection, selector) {
+    console.log(attrs, selection, selector);
     if (!(0, _itsSet2.default)(attrs)) return;
     this.attrNames.concat(this.derivedAttrNames).forEach(function (name) {
       if ((0, _itsSet2.default)(attrs[name])) {
         if ((0, _itsSet2.default)(selector)) {
-          selection.select(selector);
+          selection.select(selector).attr(name, attrs[name]);
         } else {
           selection.attr(name, attrs[name]);
         }

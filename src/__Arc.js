@@ -5,9 +5,9 @@ import itsSet from 'its-set';
 import isFunction from 'lodash/isFunction';
 
 import SelectSelfMixin from './mixins/SelectSelfMixin';
-import Shape from './Shape';
+import AnimatedElement from './AnimatedElement';
 
-export default stamp(React).compose(SelectSelfMixin, Shape, {
+export default stamp(React).compose(SelectSelfMixin, AnimatedElement, {
 
   displayName: 'Arc',
 

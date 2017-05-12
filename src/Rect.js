@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import stamp from 'react-stamp';
 
 import SelectSelfMixin from './mixins/SelectSelfMixin';
-import Shape from './Shape';
+import AnimatedElement from './AnimatedElement';
 
-export default stamp(React).compose(SelectSelfMixin, Shape, {
+export default stamp(React).compose(SelectSelfMixin, AnimatedElement, {
 
   displayName: 'Rect',
 
@@ -13,8 +13,9 @@ export default stamp(React).compose(SelectSelfMixin, Shape, {
   },
 
   render() {
+    const { didEnter, ...restState } = this.state;
     return (
-      <rect {...this.state} />
+      <rect {...restState} />
     );
   },
 
