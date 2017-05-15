@@ -26,16 +26,16 @@ Renders an svg `<circle cx='10' cy='20' r='30' fill='black' />`.
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
-cx | number\|function | undefined | x coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
-cy | number\|function | undefined | y coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
-r | number\|function | undefined | radius of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
-fill | string\|function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
-stroke | string\|function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
-enterDatum | object\|function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
+cx | number OR function | undefined | x coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
+cy | number OR function | undefined | y coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
+r | number OR function | undefined | radius of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
+fill | string OR function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
+stroke | string OR function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
+enterDatum | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
 enterEase | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
 enterDuration | number | 0 | duration of shape tween on enter
 updateEase | string | 'linearEasing' | D3 easing function name used to tween the shape on update
 updateDuration | number | 0 | duration of shape tween on update
-exitDatum | object\|function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
+exitDatum | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 exitEase | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 exitDuration | number | 0 | duration of shape tween on exit
