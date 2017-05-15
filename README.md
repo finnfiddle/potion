@@ -9,6 +9,7 @@ The library is part of a bigger project which aims to list, categorize and rank 
 
 ## Contents
 
+- [Installation](#installation)
 - [Shapes/Elements](#shapes-elements)
   - [Circle](#circle)
   - [Arc](#arc)
@@ -39,6 +40,25 @@ The library is part of a bigger project which aims to list, categorize and rank 
   - [Annotations](#annotations)
   - [Patterns](#patterns)
   - [Helpers](#helpers)
+- [Contributing/Issues](#contibuting-issues)
+
+## Installation
+
+```
+npm install number-picture
+```
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Circle, Group } from 'number-picture';
+
+ReactDOM.render(
+  <svg width='400' height='400'>
+    <Circle cx={200} cy={200} r={40} fill='black' />
+  </svg>
+, 'body');
+```
 
 ## Shapes/Elements
 
@@ -70,7 +90,28 @@ exitDuration | number | 0 | duration of shape tween on exit
 
 ### Arc
 
-`// TODO`
+Renders an svg `path` element and generates the `d` attribute from props to draw an arc shape.
+
+```xml
+<Arc innerRadius={50) outerRadius={100} startAngle={0} endAngle={Math.PI} fill='black' />
+```
+
+Prop | Type | Default | Description
+--- | --- | --- | ---
+innerRadius | number OR function | undefined | inner radius of arc. Either a number or a function that receives one argument (the props of the component) and returns a number.
+outerRadius | number OR function | undefined | outer radius of arc. Either a number or a function that receives one argument (the props of the component) and returns a number.
+startAngle | number OR function | undefined | start angle of arc in radians. Either a number or a function that receives one argument (the props of the component) and returns a number.
+endAngle | number OR function | undefined | end angle of arc in radians. Either a number or a function that receives one argument (the props of the component) and returns a number.
+fill | string OR function | undefined | fill of arc. Either a number or a function that receives one argument (the props of the component) and returns a color string.
+stroke | string OR function | undefined | fill of arc. Either a number or a function that receives one argument (the props of the component) and returns a color string.
+enterDatum | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
+enterEase | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
+enterDuration | number | 0 | duration of shape tween on enter
+updateEase | string | 'linearEasing' | D3 easing function name used to tween the shape on update
+updateDuration | number | 0 | duration of shape tween on update
+exitDatum | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
+exitEase | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
+exitDuration | number | 0 | duration of shape tween on exit
 
 ### Line
 
