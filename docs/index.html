@@ -25,9 +25,13 @@
     Flatdoc.run({
       fetcher: Flatdoc.github('finnfiddle/number-picture')
     });
+    $(document).on('flatdoc:ready', function() {
+      $("#number-picture-contents + ul").remove();
+      $("#number-picture-contents").remove();
+    });
   </script>
 </head>
-<body role='flatdoc' class='big-h3 large-brief'>
+<body role='flatdoc' class='big-h3 large-brief no-literate'>
 
   <div class='header'>
     <div class='left'>
