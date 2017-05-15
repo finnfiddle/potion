@@ -7,7 +7,40 @@ Normally, a charting library will give you a collection of high-level chart comp
 
 The library is part of a bigger project which aims to list, categorize and rank every single available chart - there are over [450 charts which you can see here](http://numberpicture.com/browse).
 
-## Shapes
+## Contents
+
+- [Shapes/Elements](#shapes-elements)
+  - [Circle](#circle)
+  - [Arc](#arc)
+  - [Line](#line)
+  - [RadialLine](#radialline)
+  - [Curve](#curve)
+  - [Rect](#rect)
+  - [Text](#text)
+  - [Symbol](#symbol)
+  - [Group](#group)
+- [Collections & Layouts](#collections-layouts)
+  - [Collection](#collection)
+  - [TransitionGroup](#transitiongroup)
+  - [Pack](#pack)
+  - [Stack](#stack)
+  - [Pie](#pie)
+  - [Area](#area)
+  - [RadialArea](#radialarea)
+- [Animation](#animation)
+- [Interaction](#interaction)
+- [Axes](#axes)
+  - [Axis](#axis)
+  - [AxisTop](#axistop)
+  - [AxisRight](#axisright)
+  - [AxisBottom](#axisbottom)
+  - [AxisLeft](#axisleft)
+- [Misc](#misc)
+  - [Annotations](#annotations)
+  - [Patterns](#patterns)
+  - [Helpers](#helpers)
+
+## Shapes/Elements
 
 Number Picture provides several primitive shapes for constructing visualizations. They all render SVG elements and come animation-ready. You just need to configure them correctly (ie. pass the correct props to them) and they will just work.
 
@@ -39,3 +72,115 @@ updateDuration | number | 0 | duration of shape tween on update
 exitDatum | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 exitEase | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 exitDuration | number | 0 | duration of shape tween on exit
+
+### Arc
+
+`// TODO`
+
+### Line
+
+`// TODO`
+
+### RadialLine
+
+`// TODO`
+
+### Curve
+
+`// TODO`
+
+### Rect
+
+`// TODO`
+
+### Text
+
+`// TODO`
+
+### Symbol
+
+`// TODO`
+
+### Group
+
+`// TODO`
+
+## Collections
+
+`// TODO`
+
+### Collection
+
+`// TODO`
+
+### TransitionGroup
+
+`// TODO`
+
+### Pack
+
+`// TODO`
+
+### Stack
+
+`// TODO`
+
+### Pie
+
+`// TODO`
+
+### Area
+
+`// TODO`
+
+### RadialArea
+
+`// TODO`
+
+## Animation
+
+`// TODO`
+
+## Interaction
+
+`// TODO`
+
+## Axes
+
+`// TODO`
+
+### Axis
+
+`// TODO`
+
+### AxisTop
+
+`// TODO`
+
+### AxisRight
+
+`// TODO`
+
+### AxisBottom
+
+`// TODO`
+
+### AxisLeft
+
+`// TODO`
+
+## Misc
+
+`// TODO`
+
+### Annotations
+
+`// TODO`
+
+### Patterns
+
+`// TODO`
+
+### Helpers
+
+`// TODO`
