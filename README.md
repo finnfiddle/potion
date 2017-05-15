@@ -76,7 +76,7 @@ Prop | Type | Default | Description
 --- | --- | --- | ---
 `cx` | number OR function | undefined | x coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
 `cy` | number OR function | undefined | y coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
-`r |` number OR function | undefined | radius of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
+`r` | number OR function | undefined | radius of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
 `fill` | string OR function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
 `stroke` | string OR function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
 `enterDatum` | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
