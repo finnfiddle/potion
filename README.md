@@ -105,7 +105,7 @@ exitDuration | number | 0 | duration of shape tween on exit
 
 `// TODO`
 
-## Collections
+## Collections & Layouts
 
 `// TODO`
 
