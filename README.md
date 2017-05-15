@@ -74,19 +74,19 @@ Renders an svg `circle` element.
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
-cx | number OR function | undefined | x coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
-cy | number OR function | undefined | y coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
-r | number OR function | undefined | radius of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
-fill | string OR function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
-stroke | string OR function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
-enterDatum | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
-enterEase | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
-enterDuration | number | 0 | duration of shape tween on enter
-updateEase | string | 'linearEasing' | D3 easing function name used to tween the shape on update
-updateDuration | number | 0 | duration of shape tween on update
-exitDatum | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
-exitEase | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
-exitDuration | number | 0 | duration of shape tween on exit
+`cx` | number OR function | undefined | x coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
+`cy` | number OR function | undefined | y coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
+`r |` number OR function | undefined | radius of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
+`fill` | string OR function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
+`stroke` | string OR function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
+`enterDatum` | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
+`enterEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
+`enterDuration` | number | 0 | duration of shape tween on enter
+`updateEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on update
+`updateDuration` | number | 0 | duration of shape tween on update
+`exitDatum` | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
+`exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
+`exitDuration` | number | 0 | duration of shape tween on exit
 
 ### Arc
 
@@ -98,20 +98,20 @@ Renders an svg `path` element and generates the `d` attribute from props to draw
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
-innerRadius | number OR function | undefined | inner radius of arc. Either a number or a function that receives one argument (the props of the component) and returns a number.
-outerRadius | number OR function | undefined | outer radius of arc. Either a number or a function that receives one argument (the props of the component) and returns a number.
-startAngle | number OR function | undefined | start angle of arc in radians. Either a number or a function that receives one argument (the props of the component) and returns a number.
-endAngle | number OR function | undefined | end angle of arc in radians. Either a number or a function that receives one argument (the props of the component) and returns a number.
-fill | string OR function | undefined | fill of arc. Either a number or a function that receives one argument (the props of the component) and returns a color string.
-stroke | string OR function | undefined | fill of arc. Either a number or a function that receives one argument (the props of the component) and returns a color string.
-enterDatum | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
-enterEase | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
-enterDuration | number | 0 | duration of shape tween on enter
-updateEase | string | 'linearEasing' | D3 easing function name used to tween the shape on update
-updateDuration | number | 0 | duration of shape tween on update
-exitDatum | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
-exitEase | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
-exitDuration | number | 0 | duration of shape tween on exit
+`innerRadius` | number OR function | undefined | inner radius of arc. Either a number or a function that receives one argument (the props of the component) and returns a number.
+`outerRadius` | number OR function | undefined | outer radius of arc. Either a number or a function that receives one argument (the props of the component) and returns a number.
+`startAngle` | number OR function | undefined | start angle of arc in radians. Either a number or a function that receives one argument (the props of the component) and returns a number.
+`endAngle` | number OR function | undefined | end angle of arc in radians. Either a number or a function that receives one argument (the props of the component) and returns a number.
+`fill` | string OR function | undefined | fill of arc. Either a number or a function that receives one argument (the props of the component) and returns a color string.
+`stroke` | string OR function | undefined | fill of arc. Either a number or a function that receives one argument (the props of the component) and returns a color string.
+`enterDatum` | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
+`enterEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
+`enterDuration` | number | 0 | duration of shape tween on enter
+`updateEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on update
+`updateDuration` | number | 0 | duration of shape tween on update
+`exitDatum` | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
+`exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
+`exitDuration` | number | 0 | duration of shape tween on exit
 
 ### Line
 
