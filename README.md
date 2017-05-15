@@ -26,7 +26,7 @@ Renders an svg `<circle cx='10' cy='20' r='30' fill='black' />`.
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
-cx | number|function | undefined | x coordinate of circle. Either a number or a function that receives on argument, the props of the component, and returns a number.
+cx | number\|function | undefined | x coordinate of circle. Either a number or a function that receives on argument, the props of the component, and returns a number.
 cy |
 r |
 fill |
