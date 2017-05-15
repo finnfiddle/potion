@@ -46,15 +46,10 @@ Number Picture provides several primitive shapes for constructing visualizations
 
 ### Circle
 
-Renders an svg `<circle cx='10' cy='20' r='30' fill='black' />`.
+Renders an svg `circle` element.
 
 ```xml
-<Circle
-  cx={10)
-  cy={20}
-  r={30}
-  fill='black'
-/>
+<Circle cx={10) cy={20} r={30} fill='black' />
 ```
 
 Prop | Type | Default | Description
