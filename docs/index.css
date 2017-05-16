@@ -1,5 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700|Lato);
 
+/* general */
+
 body,
 td,
 textarea,
@@ -14,16 +16,28 @@ input,
 body::-moz-selection,
 body::selection {
   color: white;
-  background: #00e150;
+  background-color: #00e150;
+}
+
+.content h1:before,
+.content h2:before,
+.content .big-heading:before,
+body.big-h3 .content h3:before {
+  background: #333;
 }
 
 a {
-  color: #00e150;
+  color: #333;
+  text-decoration: underline;
 }
+
+/* headings */
 
 .content h1, .content h2, .content h3 {
   font-family: 'Roboto', sans-serif;
 }
+
+/* header */
 
 .header {
   background: white;
@@ -36,40 +50,48 @@ a {
   color: #333;
 }
 
+.header a {
+  text-decoration: none;
+}
+
+/* menu */
+
 .menu a,
 .menu a:visited,
-.menu a:hover {
-  color: #333;
+.menu a:hover,
+.menu a.active,
+.menu a.active:visited,
+.menu a.active:hover {
+  color: #333 !important;
+  text-decoration: none;
 }
 
 .menu a.active:after {
-  background: #00e150;
-}
-
-body.no-literate .content pre > code {
-  background: white;
-  border: 1px solid #333;
-  color: #333;
-}
-
-code .string, code .number {
-  color: #333;
-  font-weight: bold;
-}
-
-.content h1:before,
-.content h2:before,
-.content .big-heading:before,
-body.big-h3 .content h3:before {
   background: #333;
-}
-
-.content table tr :nth-child(2n) {
-  background: #fdfdfd;
+   right: 0;
+   top: 0;
+   width: 3px;
+   height: 100%;
 }
 
 @media (min-width: 768px) {
   .menubar {
     border-color: #333;
   }
+}
+
+/* code */
+
+code {
+  /*background-color: #333 !important;*/
+  color: white;
+  background-color: #00e150 !important;
+  /*color: #333;*/
+}
+
+/* tables */
+
+.content table tr :nth-child(2n) {
+  background: #fdfdfd;
+  background: rgba(0, 225, 80, 0.05);
 }
