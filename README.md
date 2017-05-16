@@ -1,11 +1,11 @@
 # Number Picture
 
-Number Picture is a collection of React components for declaratively constructing animated, interactive SVG visualizations.
-React handles the DOM structure wherease D3 handles the animations and math.
+Number Picture is a collection of **React** components for declaratively constructing animated, interactive SVG visualizations.
+React handles the DOM structure and **D3** handles the animations + math.
 
-Normally, a charting library will give you a collection of high-level chart components (eg. Bar, Pie, Scatter...) but Number Picture instead gives you the low-level building blocks (Circle, Arc, Force Layout) so that you can build your own visualizations.
+Normally, a charting library will give you a collection of high-level chart components (eg. Bar, Pie, Scatter...) but Number Picture instead gives you the low-level building blocks (Circle, Arc, Force Layout, Axis...) so that you can build your own visualizations.
 
-The library is part of a bigger project which aims to list, categorize and rank every single available chart - there are over [450 charts which you can see here](http://numberpicture.com/browse).
+The library is part of a bigger project by the same name which aims to list, categorize and rank every single available chart - there are over [450 charts which you can see here](http://numberpicture.com/browse).
 
 ## Contents
 
@@ -62,161 +62,249 @@ ReactDOM.render(
 
 ## Shapes/Elements
 
-Number Picture provides several primitive shapes for constructing visualizations. They all render SVG elements and come animation-ready. You just need to configure them correctly (ie. pass the correct props to them) and they will just work.
+Number Picture provides several shape primitives for constructing visualizations. They all render SVG elements and come animation-ready which cover in the [Animation](#animation) section. The prop names are designed to be as similar to the API of D3 so if you know how to use D3 you will know how to use the components.
+
+> **Inportant:** every single prop can either be defined as a constant value (String, Number, etc...) or as a function that takes one argument - an object containing the props for the component - and returns the desired value. This becomes useful when we want to do animations and set values according to sibling items in collections.
+
+For example:
+
+```xml
+<Circle
+  propA={ownProps => ownProps.propB}
+  propB={20}
+/>
+```
+
+Will evaluate to:
+
+```xml
+<Circle
+  propA={20}
+  propB={20}
+/>
+```
 
 ### Circle
 
 Renders an svg `circle` element.
 
 ```xml
+import { Circle } from 'number-picture';
+// usage:
 <Circle cx={10) cy={20} r={30} fill='black' />
 ```
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
-`cx` | number OR function | undefined | x coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
-`cy` | number OR function | undefined | y coordinate of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
-`r` | number OR function | undefined | radius of circle. Either a number or a function that receives one argument (the props of the component) and returns a number.
-`fill` | string OR function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
-`stroke` | string OR function | undefined | fill of circle. Either a number or a function that receives one argument (the props of the component) and returns a color string.
-`enterDatum` | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
+`cx` | number | undefined | X coordinate of center of circle
+`cy` | number | undefined | Y coordinate of center of circle
+`r` | number | undefined | radius of circle
+`fill` | string | undefined | fill color of circle
+`stroke` | string | undefined | stroke color of circle
+`strokeWidth` | number | undefined | stroke width of circle
+`style` | object | {} | css style to be applied to circle
+`datum` | object | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself.
+`enterDatum` | object | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
 `enterEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
-`enterDuration` | number | 0 | duration of shape tween on enter
+`enterDuration` | number | 0 | duration of shape tween on enter in milliseconds
 `updateEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on update
-`updateDuration` | number | 0 | duration of shape tween on update
-`exitDatum` | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
+`updateDuration` | number | 0 | duration of shape tween on update in milliseconds
+`exitDatum` | object | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
-`exitDuration` | number | 0 | duration of shape tween on exit
+`exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
 
 ### Arc
 
 Renders an svg `path` element and generates the `d` attribute from props to draw an arc shape.
 
 ```xml
+import { Arc } from 'number-picture';
+// usage:
 <Arc innerRadius={50) outerRadius={100} startAngle={0} endAngle={Math.PI} fill='black' />
 ```
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
-`innerRadius` | number OR function | undefined | inner radius of arc. Either a number or a function that receives one argument (the props of the component) and returns a number.
-`outerRadius` | number OR function | undefined | outer radius of arc. Either a number or a function that receives one argument (the props of the component) and returns a number.
-`startAngle` | number OR function | undefined | start angle of arc in radians. Either a number or a function that receives one argument (the props of the component) and returns a number.
-`endAngle` | number OR function | undefined | end angle of arc in radians. Either a number or a function that receives one argument (the props of the component) and returns a number.
-`fill` | string OR function | undefined | fill of arc. Either a number or a function that receives one argument (the props of the component) and returns a color string.
-`stroke` | string OR function | undefined | fill of arc. Either a number or a function that receives one argument (the props of the component) and returns a color string.
-`enterDatum` | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
+`innerRadius` | number | undefined | inner radius of arc
+`outerRadius` | number | undefined | outer radius of arc
+`startAngle` | number | undefined | start angle of arc in radians
+`endAngle` | number | undefined | end angle of arc in radians
+`fill` | string | undefined | fill color of arc
+`stroke` | string | undefined | stroke color of arc
+`strokeWidth` | number | undefined | stroke width of arc
+`style` | object | {} | css style to be applied to arc
+`datum` | object | {} | The datum (when Arc is nested within a Collection or Layout) that it uses to render itself.
+`enterDatum` | object | {} | The datum (when Arc is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
 `enterEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
-`enterDuration` | number | 0 | duration of shape tween on enter
+`enterDuration` | number | 0 | duration of shape tween on enter in milliseconds
 `updateEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on update
-`updateDuration` | number | 0 | duration of shape tween on update
-`exitDatum` | object OR function | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
+`updateDuration` | number | 0 | duration of shape tween on update in milliseconds
+`exitDatum` | object | {} | The datum (when Arc is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
-`exitDuration` | number | 0 | duration of shape tween on exit
+`exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
 
 ### Line
 
-`// TODO`
+`// TODO: implement`
 
 ### RadialLine
 
-`// TODO`
+`// TODO: implement`
 
 ### Curve
 
-`// TODO`
+`// TODO: implement`
 
 ### Rect
 
-`// TODO`
+Renders an svg `rect` element.
+
+```xml
+import { Rect } from 'number-picture';
+// usage:
+<Rect x={50) y={100} width={100} height={40} fill='black' />
+```
+
+Prop | Type | Default | Description
+--- | --- | --- | ---
+`x` | number | undefined | x coordinate of top left corner of rect
+`y` | number | undefined | y coordinate of top left corner of rect
+`width` | number | undefined | width of rect
+`height` | number | undefined | height of rect
+`fill` | string | undefined | fill color of rect
+`stroke` | string | undefined | stroke color of rect
+`strokeWidth` | number | undefined | stroke width of rect
+`style` | object | {} | css style to be applied to rect
+`datum` | object | {} | The datum (when Rect is nested within a Collection or Layout) that it uses to render itself.
+`enterDatum` | object | {} | The datum (when Rect is nested within a Collection or Layout) that it uses to render itself.
+`enterEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
+`enterDuration` | number | 0 | duration of shape tween on enter in milliseconds
+`updateEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on update
+`updateDuration` | number | 0 | duration of shape tween on update in milliseconds
+`exitDatum` | object | {} | The datum (when Rect is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
+`exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
+`exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
 
 ### Text
 
-`// TODO`
+Renders an svg `text` element.
+
+```xml
+import { Text } from 'number-picture';
+// usage:
+<Text x={50) y={100} width={100} height={40} fill='black'>
+  My text goes here...
+</Text>
+```
+
+Prop | Type | Default | Description
+--- | --- | --- | ---
+`x` | number | undefined | x coordinate of top left corner of text
+`y` | number | undefined | y coordinate of top left corner of text
+`dx` | number | undefined | dx of text
+`dy` | number | undefined | dy of text
+`textAnchor` | string | undefined | text-anchor of text
+`transform` | string | undefined | transformation (translation/rotation) of text
+`alignmentBaseline` | string | undefined | alignment-baseline of text
+`dominantBaseline` | string | undefined | dominant-baseline of text
+`fill` | string | undefined | fill color of text
+`stroke` | string | undefined | stroke color of text
+`strokeWidth` | number | undefined | stroke width of text
+`style` | object | {} | css style to be applied to text
+`datum` | object | {} | The datum (when Text is nested within a Collection or Layout) that it uses to render itself.
+`enterDatum` | object | {} | The datum (when Text is nested within a Collection or Layout) that it uses to render itself.
+`enterEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
+`enterDuration` | number | 0 | duration of shape tween on enter in milliseconds
+`updateEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on update
+`updateDuration` | number | 0 | duration of shape tween on update in milliseconds
+`exitDatum` | object | {} | The datum (when Text is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
+`exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
+`exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
 
 ### Symbol
 
-`// TODO`
+`// TODO: document`
 
 ### Group
 
-`// TODO`
+`// TODO: document`
 
 ## Collections & Layouts
 
-`// TODO`
+`// TODO: document`
 
 ### Collection
 
-`// TODO`
+`// TODO: document`
 
 ### TransitionGroup
 
-`// TODO`
+`// TODO: document`
 
 ### Pack
 
-`// TODO`
+`// TODO: document`
 
 ### Stack
 
-`// TODO`
+`// TODO: implement`
 
 ### Pie
 
-`// TODO`
+`// TODO: document`
 
 ### Area
 
-`// TODO`
+`// TODO: implement`
 
 ### RadialArea
 
-`// TODO`
+`// TODO: implement`
 
 ## Animation
 
-`// TODO`
+`// TODO: document`
 
 ## Interaction
 
-`// TODO`
+`// TODO: implement`
 
 ## Axes
 
-`// TODO`
+`// TODO: document`
 
 ### Axis
 
-`// TODO`
+`// TODO: document`
 
 ### AxisTop
 
-`// TODO`
+`// TODO: document`
 
 ### AxisRight
 
-`// TODO`
+`// TODO: document`
 
 ### AxisBottom
 
-`// TODO`
+`// TODO: document`
 
 ### AxisLeft
 
-`// TODO`
+`// TODO: document`
 
 ## Misc
 
-`// TODO`
+`// TODO: document`
 
 ### Annotations
 
-`// TODO`
+`// TODO: implement`
 
 ### Patterns
 
-`// TODO`
+`// TODO: implement`
 
 ### Helpers
 
-`// TODO`
+`// TODO: document`
