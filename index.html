@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Number Picture</title>
+
+  <!-- Flatdoc -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src='//cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/legacy.js'></script>
+  <script src='//cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/flatdoc.js'></script>
+
+  <!-- Flatdoc theme -->
+  <link  href='//cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/style.css' rel='stylesheet'>
+  <link
+  rel="stylesheet"
+  href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css"
+  >
+  <link  href='/docs/index.css' rel='stylesheet'>
+  <link  href='/docs/highlight.css' rel='stylesheet'>
+  <script src='//cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/script.js'></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+
+
+  <!-- Meta -->
+  <meta content="Number Picture" property="og:title">
+  <meta content="React + D3" name="description">
+
+  <!-- Initializer -->
+  <script>
+    Flatdoc.run({
+      fetcher: Flatdoc.file('README.md')
+    });
+    $(document).on('flatdoc:ready', function() {
+      $("#number-picture-contents + ul").remove();
+      $("#number-picture-contents").remove();
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });
+  </script>
+</head>
+<body role='flatdoc' class='big-h3 large-brief no-literate'>
+
+  <div class='header'>
+    <div class='left'>
+      <h1>Number Picture</h1>
+      <ul>
+        <li><a href='//github.com/finnfiddle/number-picture'>View on GitHub</a></li>
+        <li><a href='//github.com/finnfiddle/number-picture/issues'>Issues</a></li>
+      </ul>
+    </div>
+    <div class='right'>
+      <!-- GitHub buttons: see //ghbtns.com -->
+      <iframe src="//ghbtns.com/github-btn.html?user=finnfiddle&amp;repo=number-picture&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+    </div>
+  </div>
+
+  <div class='content-root'>
+    <div class='menubar'>
+      <div class='menu section' role='flatdoc-menu'></div>
+    </div>
+    <div role='flatdoc-content' class='content'></div>
+  </div>
+
+</body>
+</html>
