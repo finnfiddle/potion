@@ -46,6 +46,14 @@ a {
   font-family: 'Roboto', sans-serif;
 }
 
+.content h4,
+.content h5,
+.content .small-heading,
+body:not(.big-h3) .content h3 {
+  color: #00e150;
+  border-color: #00e150;
+}
+
 /* header */
 
 .header {
