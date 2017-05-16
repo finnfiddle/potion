@@ -44,7 +44,7 @@ The library is part of a bigger project which aims to list, categorize and rank 
 
 ## Installation
 
-```
+```shell
 npm install number-picture
 ```
 
