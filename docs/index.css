@@ -1,0 +1,75 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700|Lato);
+
+body,
+td,
+textarea,
+input,
+.large-brief .content > h1:first-child + p,
+.content > p.brief {
+  font-family: 'Lato', sans-serif;
+  color: #333;
+  font-size: 16px;
+}
+
+body::-moz-selection,
+body::selection {
+  color: white;
+  background: #00e150;
+}
+
+a {
+  color: #00e150;
+}
+
+.content h1, .content h2, .content h3 {
+  font-family: 'Roboto', sans-serif;
+}
+
+.header {
+  background: white;
+  border-color: #333;
+  color: #333;
+  text-shadow: none;
+}
+
+.header h1, .header li a {
+  color: #333;
+}
+
+.menu a,
+.menu a:visited,
+.menu a:hover {
+  color: #333;
+}
+
+.menu a.active:after {
+  background: #00e150;
+}
+
+body.no-literate .content pre > code {
+  background: white;
+  border: 1px solid #333;
+  color: #333;
+}
+
+code .string, code .number {
+  color: #333;
+  font-weight: bold;
+}
+
+.content h1:before,
+.content h2:before,
+.content .big-heading:before,
+body.big-h3 .content h3:before {
+  background: #333;
+}
+
+.content table tr :nth-child(2n) {
+  background: #fdfdfd;
+}
+
+@media (min-width: 768px) {
+  .menubar {
+    border-color: #333;
+  }
+}
