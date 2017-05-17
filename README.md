@@ -1,11 +1,13 @@
 # Number Picture
 
 Number Picture is a collection of **React** components for declaratively composing animated, interactive SVG visualizations.
-React handles the DOM structure and **D3** handles the animations + math.
+**React** handles the DOM structure and **D3** handles the animations + math.
 
 Normally, a charting library will give you a collection of high-level chart components (eg. Bar, Pie, Scatter...) but Number Picture instead gives you the low-level building blocks (Circle, Arc, Force Layout, Axis...) so that you can build your own visualizations.
 
 The library is part of a bigger project by the same name which aims to list, categorize and rank every single available chart - there are over [450 charts which you can see here](http://numberpicture.com/browse).
+
+> **Important:** This project is still in active development and it is possible that we will be making breaking changes as we go. Use in production with caution before we release v1.
 
 ## Contents
 
@@ -65,11 +67,11 @@ ReactDOM.render(
 
 ## Shapes/Elements
 
-Number Picture provides several shape primitives for constructing visualizations. They all render SVG elements and come animation-ready which cover in the [Animation](#animation) section. The prop names are designed to be as similar to the API of D3 so if you know how to use D3 you will know how to use the components.
+Number Picture provides several shape primitives for constructing visualizations. They all render SVG elements and come animation-ready. The prop names are designed to be as similar to the API of D3 so if you know how to use D3 you will know how to use the components.
 
-> **Inportant:** every single prop for Shapes/Elements can either be passed a constant value, a variable, or a function that takes one argument - an object containing the props for the component - and returns the desired value. This becomes useful when we want to do animations and set values according to sibling items in collections.
+> **Important:** every single prop for Shapes/Elements can either be passed a constant value, a variable, or a function that takes one argument - an object containing the props for the component - and returns the desired value. This becomes useful when we want to do animations and set values according to sibling items in collections.
 
-#### For example
+#### For example:
 
 ```javascript
 <Circle
@@ -78,7 +80,7 @@ Number Picture provides several shape primitives for constructing visualizations
 />
 ```
 
-#### Will evaluate to
+#### Will evaluate to:
 
 ```javascript
 <Circle
@@ -266,7 +268,7 @@ Prop | Type | Default | Description
 
 ### SymbolShape
 
-Renders an svg `path` element using the `d3.SymbolShape()` generator for the `d` attribute.
+Renders an svg `path` element using the `d3.symbol()` generator for the `d` attribute.
 
 ```javascript
 import { SymbolShape } from 'number-picture';
@@ -413,9 +415,9 @@ const hierarchy = d3.hierarchy({
   includeRoot={false}
 >
   <Circle
-    cx={ownProps => ownProps.x}
-    cy={ownProps => ownProps.y}
-    r={ownProps => ownProps.r}
+    cx={ownProps => ownProps.datum.x}
+    cy={ownProps => ownProps.datum.y}
+    r={ownProps => ownProps.datum.r}
     fill='black'
   />
 </Pack>
@@ -439,7 +441,7 @@ Prop | Type | Default | Description
 
 Passed Prop | Value
 --- | ---
-`datum` | item from the `data` input array
+`datum` | mutated item from the `data` input array
 `data` | the whole `data` input array
 `index` | index of the `datum` in the `data` input array
 
@@ -450,7 +452,7 @@ Key | Value
 `x` | X coordinate of item
 `y` | Y coordinate of item
 `r` | radius of item
-`data` | original datum from input data
+`data` | original datum from input `data`
 
 ### Stack
 
@@ -458,7 +460,83 @@ Key | Value
 
 ### Pie
 
-`// TODO: document`
+`// TODO: description`
+
+```javascript
+import { Pie, Arc } from 'number-picture';
+```
+
+#### Usage
+
+```javascript
+<Pie
+  data={[
+    { id: 1, value: 1 },
+    { id: 2, value: 2 },
+    { id: 3, value: 3 },
+  ]}
+  value={datum => datum.value}
+  id={datum => datum.id}
+  sort={(a, b) => a.id - b.id}
+>
+  <Arc
+    innerRadius={0}
+    outerRadius={200}
+    startAngle={ownProps => ownProps.datum.startAngle}
+    endAngle={ownProps => ownProps.datum.endAngle}
+    fill='black'
+  />
+</Pie>
+```
+
+#### Result
+
+```javascript
+<g>
+  <path d={...} fill='black' />
+  <path d={...} fill='black' />
+  <path d={...} fill='black' />
+</g>
+```
+
+Prop | Type | Default | Description
+--- | --- | --- | ---
+`data` | array | {} | array that gets iterated over and renders one child node for each item
+`value` | function | datum => datum.value | Pie Layout value accessor
+`id` | function | datum => datum.id | Pie Layout id accessor used for adding and removing items from the collection
+`sort` | function | datum => datum.sort | Pie Layout data comparator
+`sortValues` | function | undefined | Pie Layout value comparator
+`startAngle` | function | undefined | overall start angle of the pie in radians
+`endAngle` | number | undefined | overall end angle of the pie in radians
+`padAngle` | number | undefined | pad angle of Pie Layout in radians
+`singularChildren` | node | undefined | React children nodes that will only be rendered once - not per each datum
+
+#### Child Props
+
+Passed Prop | Value
+--- | ---
+`datum` | mutated item from the `data` input array
+`data` | the whole mutated `data` input array
+`index` | index of the `datum` in the `data` input array
+
+#### Child Prop `datum` Signature
+
+Key | Value
+--- | ---
+`startAngle` | start angle of item arc in radians
+`endAngle` | start angle of item arc in radians
+`innerRadius` | inner radius of item arc
+`outerRadius` | outer radius of item arc
+`value` | resolved value of datum (from the Pie `value` prop function)
+`data` | original datum from input `data`
+
+#### Singular Child Props
+
+Passed Prop | Value
+--- | ---
+`data` | the whole mutated `data` input array
+`index` | index of the `datum` in the `data` input array
+
 
 ### Area
 
@@ -470,15 +548,168 @@ Key | Value
 
 ## Animation
 
-`// TODO: document`
+All Shapes/Elements components are built with animation capabilities as a high priority. By default shapes are not animated but if they are nested within Collections or TransitionGroups (below) they become activated and will animate on update if you pass an `updateDuration` prop.
+
+They can also be animated when they enter and exit the DOM by passing `enterDatum` + `enterDuration`, and `exitDuration` + `exitDatum` props respectively.
+
+Easing can also be accomplished by passing `updateEase`, `enterEase` and `exitEase` props (see below).
 
 ### Lifecycle Hooks
 
-`// TODO: document`
+#### Enter
+
+When a Shape/Element enters or appears within a Collection/TransitionGroup it will attempt to animate itself. First, it will check that the `enterDatum` and `enterDuration` props are set.
+
+If they are set then it will calculate its props using the `enterDatum` instead of the usual `datum` prop. In other words it will substitute `datum` with the `enterDatum` prop when evaluating all other props accessor functions. And then it will tween to the actual prop values using D3 to handle the animations.
+
+So say for example we have an Collection with an unanimated Circle child:
+
+```javascript
+<Collection data={[1, 2, 3]}>
+  <Circle
+    cx={ownProps => ownProps.datum * 100}
+    cy={100}
+    r={20}
+    fill='black'
+  />
+</Collection>
+```
+
+And we wanted to animate it on enter. We would pass added `enterDatum` and `enterDuration` props:
+
+```javascript
+<Collection data={[1, 2, 3]}>
+  <Circle
+    cx={ownProps => ownProps.datum * 100}
+    cy={100}
+    r={20}
+    fill='black'
+    enterDatum={ownProps => 0}
+    enterDuration={5000}
+  />
+</Collection>
+```
+
+This would result in each circle animating on enter for 5 seconds from 0 `cx` to its proper `cx` value.
+
+Notice that we do not need to change the `cx` prop accessor function. `ownProps.datum` is substituted with `ownProps.enterDatum` on enter.
+
+#### Update
+
+Shapes/Elements nested in Collections/TransitionGroups can be animated when they receive new props by passing an `updateDuration` prop.
+
+Using our previous example:
+
+```javascript
+<Collection data={[1, 2, 3]}>
+  <Circle
+    cx={ownProps => ownProps.datum * 100}
+    cy={100}
+    r={20}
+    fill='black'
+    updateDuration={5000}
+  />
+</Collection>
+```
+
+This would result in the circles animating for 5 seconds to new `cx` positions every time they receive a new `datum` prop.
+
+#### Exit
+
+Shapes/Elements nested in Collections/TransitionGroups can be animated on exit in exactly the same way as on enter (above).
 
 ### TransitionGroup
 
-`// TODO: document`
+Sometimes we do not want to have a Shape/Element nested within a Collection but we still want to trigger the animation hooks. Say for example we just want to render one animated Circle. We need to wrap it in an TransitionGroup in order to trigger the animation hooks on enter, update and exit.
+
+The TransitionGroup will wrap the rendered children in an svg `g` element.
+
+#### Example
+
+```javascript
+import { Circle, TransitionGroup } from 'number-picture';
+
+<TransitionGroup>
+  <Circle
+    cx={ownProps => ownProps.datum * 100}
+    cy={100}
+    r={20}
+    fill='black'
+    enterDatum={ownProps => 0}
+    enterDuration={5000}
+    updateDuration={5000}
+    exitDatum={ownProps => 400}
+    exitDuration={5000}
+  />
+</TransitionGroup>
+```
+
+### Easing
+
+Each Shape/Element when animating can be eased using [D3 easing functions](https://github.com/d3/d3-ease) by passing the name of the easing function to the `enterEase`, `updateEase` and `exitEase` props.
+
+Available values are:
+
+* 'easeLinear' (default)
+* 'easePolyIn'
+* 'easePolyOut'
+* 'easePoly'
+* 'easePolyInOut'
+* 'easeQuadIn'
+* 'easeQuadOut'
+* 'easeQuad'
+* 'easeQuadInOut'
+* 'easeCubicIn'
+* 'easeCubicOut'
+* 'easeCubic'
+* 'easeCubicInOut'
+* 'easeSinIn'
+* 'easeSinOut'
+* 'easeSin'
+* 'easeSinInOut'
+* 'easeExpIn'
+* 'easeExpOut'
+* 'easeExp'
+* 'easeExpInOut'
+* 'easeCircleIn'
+* 'easeCircleOut'
+* 'easeCircle'
+* 'easeCircleInOut'
+* 'easeElasticIn'
+* 'easeElastic'
+* 'easeElasticOut'
+* 'easeElasticInOut'
+* 'easeBackIn'
+* 'easeBackOut'
+* 'easeBack'
+* 'easeBackInOut'
+* 'easeBounceIn'
+* 'easeBounce'
+* 'easeBounceOut'
+* 'easeBounceInOut'
+
+#### Example:
+
+```javascript
+import { Circle, TransitionGroup } from 'number-picture';
+
+<TransitionGroup>
+  <Circle
+    cx={ownProps => ownProps.datum * 100}
+    cy={100}
+    r={20}
+    fill='black'
+    enterDatum={ownProps => 0}
+    enterDuration={5000}
+    enterEase='easeBounce'
+    updateDuration={5000}
+    enterEase='easeBack'
+    exitDatum={ownProps => 400}
+    exitDuration={5000}
+    enterEase='easeElastic'
+  />
+</TransitionGroup>
+```
 
 ## Interaction
 
@@ -488,25 +719,61 @@ Key | Value
 
 `// TODO: document`
 
-### Axis
-
-`// TODO: document`
-
 ### AxisTop
 
 `// TODO: document`
+
+```javascript
+import { AxisTop } from 'number-picture';
+
+const scale = scaleLinear()
+  .domain([0, 100])
+  .range([0, 400]);
+
+<AxisTop scale={scale} />
+```
 
 ### AxisRight
 
 `// TODO: document`
 
+```javascript
+import { AxisRight } from 'number-picture';
+
+const scale = scaleLinear()
+  .domain([0, 100])
+  .range([0, 400]);
+
+<AxisRight scale={scale} />
+```
+
 ### AxisBottom
 
 `// TODO: document`
 
+```javascript
+import { AxisBottom } from 'number-picture';
+
+const scale = scaleLinear()
+  .domain([0, 100])
+  .range([0, 400]);
+
+<AxisBottom scale={scale} />
+```
+
 ### AxisLeft
 
 `// TODO: document`
+
+```javascript
+import { AxisLeft } from 'number-picture';
+
+const scale = scaleLinear()
+  .domain([0, 100])
+  .range([0, 400]);
+
+<AxisLeft scale={scale} />
+```
 
 ## Misc
 

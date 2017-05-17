@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700|Lato);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700|Lato:400,700);
 
 /* general */
 
@@ -51,7 +51,9 @@ a {
 .content .small-heading,
 body:not(.big-h3) .content h3 {
   color: #00e150;
-  border-color: #00e150;
+  /*border-color: #00e150;*/
+  border: none;
+  padding-bottom: 0;
 }
 
 /* header */
@@ -61,6 +63,7 @@ body:not(.big-h3) .content h3 {
   border-color: #333;
   color: #333;
   text-shadow: none;
+  padding-left: 10px;
 }
 
 .header h1, .header li a {
@@ -69,6 +72,24 @@ body:not(.big-h3) .content h3 {
 
 .header a {
   text-decoration: none;
+}
+
+.header li a {
+  font-size: 13px;
+}
+
+.header .brand img {
+  float: left;
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+.header ul {
+  margin-left: 10px;
+}
+
+.header ul li {
+  margin-top: 3px;
 }
 
 /* menu */

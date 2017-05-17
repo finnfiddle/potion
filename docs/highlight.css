@@ -212,3 +212,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <ManiacthisSoftwareMan
 /*//     }*/
 /*//   }*/
 /*// }*/
+
+code .string, code .number {
+  color: #00e150;
+}
