@@ -78,7 +78,8 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     exitEase: 'easeLinear',
     enterDuration: 0,
     updateDuration: 0,
-    exitDuration: 0
+    exitDuration: 0,
+    propsToCheckForChanges: []
   },
 
   init: function init() {
@@ -88,6 +89,9 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     this.derivedAttrNames = this.getDerivedAttrNames();
     this.derivedAttrInputNames = this.getDerivedAttrInputNames();
     this.derivedAttrSelectors = this.getDerivedAttrSelectors();
+    this.allAttrInputNames = this.attrNames.concat((0, _keys2.default)(this.derivedAttrInputNames).reduce(function (acc, key) {
+      return acc.concat(_this.derivedAttrInputNames[key]);
+    }, []));
     this.allDerivedAttrInputNames = (0, _uniq2.default)((0, _keys2.default)(this.derivedAttrInputNames).reduce(function (acc, key) {
       return acc.concat(_this.derivedAttrInputNames[key]);
     }, []));
@@ -99,16 +103,14 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     var _props = this.props,
         _key = _props._key,
         enterDuration = _props.enterDuration,
-        datum = _props.datum,
         data = _props.data,
         index = _props.index,
         enterDatum = _props.enterDatum,
         enterEase = _props.enterEase;
 
-    var calculatedEnterDatum = enterDatum(this.props);
+    var calculatedEnterDatum = this.assignAbsolutePropsToDatum(enterDatum(this.props), this.props);
     var enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum);
     var enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
-    console.log({ enterAttrs: enterAttrs, 'this.attrs': this.attrs });
 
     this.selection = this.selectSelf();
 
@@ -118,7 +120,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
 
     var transition = this.selection.transition().duration(enterDuration).ease(ease[enterEase]);
 
-    this.tweenDerivedAttrs(calculatedEnterDatum, datum, this.props, transition);
+    this.tweenDerivedAttrs(calculatedEnterDatum, this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props), this.props, transition);
     this.applyAttrsToSelection(this.attrs, transition);
     this.applyStyleToSelection(this.getStyle(this.props), transition);
 
@@ -136,7 +138,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextState) {
     var _this3 = this;
 
-    var propsToCheckForChanges = this.attrNames.concat(this.allDerivedAttrInputNames);
+    var propsToCheckForChanges = this.attrNames.concat(this.allDerivedAttrInputNames).concat(nextProps.propsToCheckForChanges);
 
     if ((0, _deepEqual2.default)(this.getAttrs(this.props, propsToCheckForChanges), this.getAttrs(nextProps, propsToCheckForChanges))) return;
 
@@ -153,7 +155,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
 
     this.applyAttrsToSelection(nextAttrs, transition);
     this.applyStyleToSelection(nextStyle, transition);
-    this.tweenDerivedAttrs(this.props.datum, nextProps.datum, nextProps, transition);
+    this.tweenDerivedAttrs(this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props), this.assignAbsolutePropsToDatum(this.getDatum(nextProps), nextProps), nextProps, transition);
 
     transition.on('end', function () {
       _this3.setState(nextAttrs);
@@ -165,12 +167,11 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
         exitDatum = _props2.exitDatum,
         exitDuration = _props2.exitDuration,
         _key = _props2._key,
-        datum = _props2.datum,
         index = _props2.index,
         data = _props2.data,
         exitEase = _props2.exitEase;
 
-    var computedExitDatum = exitDatum(this.props);
+    var computedExitDatum = this.assignAbsolutePropsToDatum(exitDatum(this.props), this.props);
     var exitAttrs = this.getAttrsFromDatum(computedExitDatum);
     var exitStyle = this.getStyleFromDatum(computedExitDatum);
 
@@ -178,13 +179,16 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
 
     this.applyAttrsToSelection(exitAttrs, transition);
     this.applyStyleToSelection(exitStyle, transition);
-    this.tweenDerivedAttrs(this.props.datum, computedExitDatum, this.props, transition);
+    this.tweenDerivedAttrs(this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props), computedExitDatum, this.props, transition);
 
     this.leaveTimeout = setTimeout(callback, exitDuration);
+    this.leaveCallback = callback;
   },
   componentWillUnmount: function componentWillUnmount() {
-    clearTimeout(this.leaveTimeout);
     this.selection.interrupt();
+    clearTimeout(this.leaveTimeout);
+    // if (isFunction(this.leaveCallback)) this.leaveCallback();
+    // delete this.leaveCallback;
   },
   getAttrNames: function getAttrNames() {
     return [];
@@ -198,8 +202,19 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   getDerivedAttrSelectors: function getDerivedAttrSelectors() {
     return {};
   },
+  getDatum: function getDatum(props) {
+    var datum = props.datum;
+
+    return (0, _isFunction2.default)(datum) ? datum(props) : datum;
+  },
+  assignAbsolutePropsToDatum: function assignAbsolutePropsToDatum(datum, props) {
+    return this.allAttrInputNames.filter(function (name) {
+      return !(0, _isFunction2.default)(props[name]);
+    }).reduce(function (acc, name) {
+      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, name, props[name]));
+    }, (0, _assign2.default)({}, datum));
+  },
   applyAttrsToSelection: function applyAttrsToSelection(attrs, selection, selector) {
-    console.log(attrs, selection, selector);
     if (!(0, _itsSet2.default)(attrs)) return;
     this.attrNames.concat(this.derivedAttrNames).forEach(function (name) {
       if ((0, _itsSet2.default)(attrs[name])) {
@@ -227,7 +242,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     return (attrNames || this.attrNames).reduce(function (acc, key) {
       var prop = props[key];
       if (!(0, _itsSet2.default)(prop)) return acc;
-      if ((0, _isFunction2.default)(prop)) prop = prop(props);
+      if ((0, _isFunction2.default)(prop) && (0, _itsSet2.default)(props.datum)) prop = prop(props);
       return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, prop));
     }, {});
   },
@@ -256,10 +271,8 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   },
   attrTween: function attrTween(attrName, fromDatum, toDatum, transition, derivationMethod) {
     var derivedAttrInputNames = this.derivedAttrInputNames[attrName];
-
-    var keysToInterpolate = (0, _keys2.default)(toDatum).filter(function (key) {
-      return derivedAttrInputNames.includes(key);
-    });
+    // TODO: put whitelist datum keys prop on collection to minimize num interpolations
+    var keysToInterpolate = (0, _keys2.default)(toDatum);
 
     var interpolater = keysToInterpolate.reduce(function (acc, key) {
       return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _d3Interpolate.interpolate)(fromDatum[key], toDatum[key])));

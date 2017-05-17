@@ -17,8 +17,10 @@ import RadialArea from './RadialArea';
 import RadialLine from './RadialLine';
 import Rect from './Rect';
 import Stack from './Stack';
-import Symbol from './Symbol';
+import SymbolShape from './SymbolShape';
 import Text from './Text';
+import TransitionGroup from './TransitionGroup';
+import helpers from './helpers';
 
 export default {
   Arc,
@@ -40,8 +42,10 @@ export default {
   RadialLine,
   Rect,
   Stack,
-  Symbol,
+  SymbolShape,
   Text,
+  TransitionGroup,
+  helpers,
 };
 
 export {
@@ -64,6 +68,8 @@ export {
   RadialLine,
   Rect,
   Stack,
-  Symbol,
+  SymbolShape,
   Text,
+  TransitionGroup,
+  helpers,
 };

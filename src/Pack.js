@@ -2,8 +2,8 @@ import React, { Children, cloneElement } from 'react';
 import stamp from 'react-stamp';
 import { pack } from 'd3-hierarchy';
 import itsSet from 'its-set';
-import ReactTransitionGroup from 'react-addons-transition-group';
 
+import TransitionGroup from './TransitionGroup';
 import { flattenHierarchy } from './helpers';
 
 export default stamp(React).compose({
@@ -21,9 +21,9 @@ export default stamp(React).compose({
 
   render() {
     return (
-      <ReactTransitionGroup component='g'>
+      <TransitionGroup>
         {this.renderChildren()}
-      </ReactTransitionGroup>
+      </TransitionGroup>
     );
   },
 

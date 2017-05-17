@@ -18,9 +18,9 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _reactAddonsTransitionGroup = require('react-addons-transition-group');
+var _TransitionGroup = require('./TransitionGroup');
 
-var _reactAddonsTransitionGroup2 = _interopRequireDefault(_reactAddonsTransitionGroup);
+var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,23 +36,38 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
     // endAngle
     // padAngle
     // data
+    // id
   },
 
   render: function render() {
-    return _react2.default.createElement(
-      _reactAddonsTransitionGroup2.default,
-      { component: 'g' },
-      this.renderChildren()
-    );
-  },
-  renderChildren: function renderChildren() {
     var _props = this.props,
         data = _props.data,
-        children = _props.children,
-        id = _props.id;
+        sort = _props.sort;
 
-    var pieData = this.getPie()(data);
-    console.log({ data: data, pieData: pieData });
+    var pieData = this.getPie()(data).sort(function (a, b) {
+      return sort(a.data, b.data);
+    });
+
+    return _react2.default.createElement(
+      _TransitionGroup2.default,
+      null,
+      this.renderSingularChildren(pieData),
+      this.renderChildren(pieData)
+    );
+  },
+  renderSingularChildren: function renderSingularChildren(pieData) {
+    var singularChildren = this.props.singularChildren;
+
+    return _react.Children.map(singularChildren, function (child) {
+      return (0, _react.cloneElement)(child, { data: pieData });
+    });
+  },
+  renderChildren: function renderChildren(pieData) {
+    var _props2 = this.props,
+        data = _props2.data,
+        children = _props2.children,
+        id = _props2.id;
+
     return pieData.reduce(function (acc, datum, index) {
       return acc.concat(_react.Children.map(children, function (child, c) {
         var key = id(datum.data);

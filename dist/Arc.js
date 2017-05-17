@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
 var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
@@ -74,10 +70,6 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
     };
   },
   render: function render() {
-    var _state = this.state,
-        didEnter = _state.didEnter,
-        restState = (0, _objectWithoutProperties3.default)(_state, ['didEnter']);
-
-    return _react2.default.createElement('path', restState);
+    return _react2.default.createElement('path', this.state);
   }
 });

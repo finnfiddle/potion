@@ -24,3 +24,14 @@ export function flattenHierarchy(object) {
   }
   return result;
 }
+
+export function radiansToDegrees(radians) {
+  return radians * 180 / Math.PI;
+}
+
+export default {
+  cap,
+  mapObject,
+  flattenHierarchy,
+  radiansToDegrees,
+};

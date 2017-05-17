@@ -43,9 +43,8 @@ export default stamp(React).compose(AnimatedElement, {
   },
 
   render() {
-    const { didEnter, ...restState } = this.state;
     return (
-      <path {...restState} />
+      <path {...this.state} />
     );
   },
 

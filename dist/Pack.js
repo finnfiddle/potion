@@ -18,9 +18,9 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _reactAddonsTransitionGroup = require('react-addons-transition-group');
+var _TransitionGroup = require('./TransitionGroup');
 
-var _reactAddonsTransitionGroup2 = _interopRequireDefault(_reactAddonsTransitionGroup);
+var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
 var _helpers = require('./helpers');
 
@@ -41,8 +41,8 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
 
   render: function render() {
     return _react2.default.createElement(
-      _reactAddonsTransitionGroup2.default,
-      { component: 'g' },
+      _TransitionGroup2.default,
+      null,
       this.renderChildren()
     );
   },

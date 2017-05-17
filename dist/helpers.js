@@ -19,6 +19,7 @@ var _keys2 = _interopRequireDefault(_keys);
 exports.cap = cap;
 exports.mapObject = mapObject;
 exports.flattenHierarchy = flattenHierarchy;
+exports.radiansToDegrees = radiansToDegrees;
 
 var _isArray = require('lodash/isArray');
 
@@ -54,3 +55,14 @@ function flattenHierarchy(object) {
   }
   return result;
 }
+
+function radiansToDegrees(radians) {
+  return radians * 180 / Math.PI;
+}
+
+exports.default = {
+  cap: cap,
+  mapObject: mapObject,
+  flattenHierarchy: flattenHierarchy,
+  radiansToDegrees: radiansToDegrees
+};

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Text = exports.Symbol = exports.Stack = exports.Rect = exports.RadialLine = exports.RadialArea = exports.Pie = exports.Pack = exports.Line = exports.Item = exports.Group = exports.Curve = exports.Collection = exports.Circle = exports.AxisTop = exports.AxisRight = exports.AxisLeft = exports.AxisBottom = exports.Axis = exports.Area = exports.Arc = undefined;
+exports.helpers = exports.TransitionGroup = exports.Text = exports.Symbol = exports.Stack = exports.Rect = exports.RadialLine = exports.RadialArea = exports.Pie = exports.Pack = exports.Line = exports.Item = exports.Group = exports.Curve = exports.Collection = exports.Circle = exports.AxisTop = exports.AxisRight = exports.AxisLeft = exports.AxisBottom = exports.Axis = exports.Area = exports.Arc = undefined;
 
 var _Arc = require('./Arc');
 
@@ -89,6 +89,14 @@ var _Text = require('./Text');
 
 var _Text2 = _interopRequireDefault(_Text);
 
+var _TransitionGroup = require('./TransitionGroup');
+
+var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
+
+var _helpers = require('./helpers');
+
+var _helpers2 = _interopRequireDefault(_helpers);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
@@ -112,7 +120,9 @@ exports.default = {
   Rect: _Rect2.default,
   Stack: _Stack2.default,
   Symbol: _Symbol3.default,
-  Text: _Text2.default
+  Text: _Text2.default,
+  TransitionGroup: _TransitionGroup2.default,
+  helpers: _helpers2.default
 };
 exports.Arc = _Arc2.default;
 exports.Area = _Area2.default;
@@ -135,3 +145,5 @@ exports.Rect = _Rect2.default;
 exports.Stack = _Stack2.default;
 exports.Symbol = _Symbol3.default;
 exports.Text = _Text2.default;
+exports.TransitionGroup = _TransitionGroup2.default;
+exports.helpers = _helpers2.default;

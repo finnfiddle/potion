@@ -23,11 +23,14 @@ const SYMBOLS = {
 };
 
 import AnimatedElement from './AnimatedElement';
-import Group from './Group';
 
 export default stamp(React).compose(AnimatedElement, {
 
   displayName: 'Symbol',
+
+  getAttrNames() {
+    return ['fill', 'stroke', 'strokeWidth'];
+  },
 
   getDerivedAttrNames() {
     return ['d'];
@@ -36,12 +39,6 @@ export default stamp(React).compose(AnimatedElement, {
   getDerivedAttrInputNames() {
     return {
       d: ['size', 'type'],
-    };
-  },
-
-  getDerivedAttrSelectors() {
-    return {
-      d: 'path',
     };
   },
 
@@ -56,25 +53,14 @@ export default stamp(React).compose(AnimatedElement, {
         const { size, type } = attrValues;
         if (itsSet(size)) symbolInstance = symbolInstance.size(size);
         if (itsSet(type)) symbolInstance = symbolInstance.type(SYMBOLS[type]);
-        return symbolInstance;
+        return symbolInstance();
       };
     };
   },
 
   render() {
-    const {
-      enterDatum,
-      enterDuration,
-      updateDuration,
-      size,
-      type,
-      ...restState,
-    } = this.state;
-
     return (
-      <Group {...this.props}>
-        <path {...restState} />
-      </Group>
+      <path {...this.state} />
     );
   },
 

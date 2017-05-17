@@ -2,7 +2,8 @@ import React, { Children, cloneElement } from 'react';
 import stamp from 'react-stamp';
 import { pie } from 'd3-shape';
 import itsSet from 'its-set';
-import ReactTransitionGroup from 'react-addons-transition-group';
+
+import TransitionGroup from './TransitionGroup';
 
 export default stamp(React).compose({
 
@@ -16,20 +17,30 @@ export default stamp(React).compose({
     // endAngle
     // padAngle
     // data
+    // id
   },
 
   render() {
+    const { data, sort } = this.props;
+    const pieData = this.getPie()(data).sort((a, b) => sort(a.data, b.data));
+
     return (
-      <ReactTransitionGroup component='g'>
-        {this.renderChildren()}
-      </ReactTransitionGroup>
+      <TransitionGroup>
+        {this.renderSingularChildren(pieData)}
+        {this.renderChildren(pieData)}
+      </TransitionGroup>
     );
   },
 
-  renderChildren() {
+  renderSingularChildren(pieData) {
+    const { singularChildren } = this.props;
+    return Children.map(singularChildren, child =>
+      cloneElement(child, { data: pieData })
+    );
+  },
+
+  renderChildren(pieData) {
     const { data, children, id } = this.props;
-    const pieData = this.getPie()(data);
-    console.log({ data, pieData });
     return pieData.reduce((acc, datum, index) =>
       acc.concat(Children.map(children, (child, c) => {
         const key = id(datum.data);

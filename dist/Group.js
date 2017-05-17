@@ -26,6 +26,10 @@ var _itsSet2 = _interopRequireDefault(_itsSet);
 
 var _d3Shape = require('d3-shape');
 
+var _TransitionGroup = require('./TransitionGroup');
+
+var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
+
 var _AnimatedElement = require('./AnimatedElement');
 
 var _AnimatedElement2 = _interopRequireDefault(_AnimatedElement);
@@ -36,12 +40,20 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
 
   displayName: 'Group',
 
+  defaultProps: {
+    x: 0,
+    y: 0,
+    rotation: 0,
+    rotationOriginX: 0,
+    rotationOriginY: 0
+  },
+
   getDerivedAttrNames: function getDerivedAttrNames() {
     return ['transform'];
   },
   getDerivedAttrInputNames: function getDerivedAttrInputNames() {
     return {
-      transform: ['x', 'y', 'rotation']
+      transform: ['x', 'y', 'rotation', 'rotationOriginX', 'rotationOriginY']
     };
   },
   getDerivationMethod: function getDerivationMethod(key, props) {
@@ -55,9 +67,15 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
       case 'transform':
         return function (datum) {
           var attrInputNames = _this.derivedAttrInputNames[key];
-          var attrValues = _this.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames);
-          console.log({ attrValues: attrValues, attrInputNames: attrInputNames }, _this.props);
-          return 'translate(' + attrValues.x + ', ' + attrValues.y + ') rotate(' + attrValues.rotation + ')';
+
+          var _getAttrs = _this.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames),
+              x = _getAttrs.x,
+              y = _getAttrs.y,
+              rotation = _getAttrs.rotation,
+              rotationOriginX = _getAttrs.rotationOriginX,
+              rotationOriginY = _getAttrs.rotationOriginY;
+
+          return 'translate(' + x + ', ' + y + ') rotate(' + rotation + ', ' + rotationOriginX + ', ' + rotationOriginY + ')';
         };
     };
   },
@@ -69,12 +87,27 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
         x = _state.x,
         y = _state.y,
         restState = (0, _objectWithoutProperties3.default)(_state, ['enterDatum', 'enterDuration', 'updateDuration', 'x', 'y']);
+    var _props = this.props,
+        datum = _props.datum,
+        data = _props.data,
+        index = _props.index;
 
 
     return _react2.default.createElement(
-      'g',
+      _TransitionGroup2.default,
       restState,
-      this.props.children
+      this.renderChildren()
     );
+  },
+  renderChildren: function renderChildren() {
+    var _props2 = this.props,
+        datum = _props2.datum,
+        data = _props2.data,
+        index = _props2.index,
+        children = _props2.children;
+
+    return _react.Children.map(children, function (child) {
+      return (0, _react.cloneElement)(child, { datum: datum, data: data, index: index });
+    });
   }
 });

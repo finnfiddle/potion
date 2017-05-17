@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { cloneElement, Children } from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
 import { symbol, symbols } from 'd3-shape';
 
+import TransitionGroup from './TransitionGroup';
 import AnimatedElement from './AnimatedElement';
 
 export default stamp(React).compose(AnimatedElement, {
 
   displayName: 'Group',
+
+  defaultProps: {
+    x: 0,
+    y: 0,
+    rotation: 0,
+    rotationOriginX: 0,
+    rotationOriginY: 0,
+  },
 
   getDerivedAttrNames() {
     return ['transform'];
@@ -15,7 +24,7 @@ export default stamp(React).compose(AnimatedElement, {
 
   getDerivedAttrInputNames() {
     return {
-      transform: ['x', 'y', 'rotation'],
+      transform: ['x', 'y', 'rotation', 'rotationOriginX', 'rotationOriginY'],
     };
   },
 
@@ -25,9 +34,14 @@ export default stamp(React).compose(AnimatedElement, {
     case 'transform':
       return datum => {
         const attrInputNames = this.derivedAttrInputNames[key];
-        const attrValues = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames);
-        console.log({ attrValues, attrInputNames }, this.props);
-        return `translate(${attrValues.x}, ${attrValues.y}) rotate(${attrValues.rotation})`;
+        const {
+          x,
+          y,
+          rotation,
+          rotationOriginX,
+          rotationOriginY,
+        } = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames);
+        return `translate(${x}, ${y}) rotate(${rotation}, ${rotationOriginX}, ${rotationOriginY})`;
       };
     };
   },
@@ -42,11 +56,18 @@ export default stamp(React).compose(AnimatedElement, {
       ...restState,
     } = this.state;
 
+    const { datum, data, index } = this.props;
+
     return (
-      <g {...restState}>
-        {this.props.children}
-      </g>
+      <TransitionGroup {...restState}>
+        {this.renderChildren()}
+      </TransitionGroup>
     );
+  },
+
+  renderChildren() {
+    const { datum, data, index, children } = this.props;
+    return Children.map(children, child => cloneElement(child, { datum, data, index }));
   },
 
 });

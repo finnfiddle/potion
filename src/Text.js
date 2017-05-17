@@ -9,8 +9,6 @@ export default stamp(React).compose(AnimatedElement, {
 
   getAttrNames() {
     return [
-      'x',
-      'y',
       'dx',
       'dy',
       'textAnchor',

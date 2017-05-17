@@ -30,6 +30,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
     return ['x1', 'x2', 'y1', 'y2', 'stroke', 'strokeWidth'];
   },
   render: function render() {
+    console.log(this.props);
     var _state = this.state,
         didEnter = _state.didEnter,
         restState = (0, _objectWithoutProperties3.default)(_state, ['didEnter']);
