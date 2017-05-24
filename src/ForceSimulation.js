@@ -2,6 +2,7 @@ import React, { Children, cloneElement } from 'react';
 import stamp from 'react-stamp';
 import { forceSimulation } from 'd3-force';
 import itsSet from 'its-set';
+import isObject from 'lodash/isObject';
 
 import TransitionGroup from './TransitionGroup';
 import SelectSelfMixin from './mixins/SelectSelfMixin';
@@ -26,7 +27,17 @@ export default stamp(React).compose(SelectSelfMixin, {
     // running
   },
 
-  defaultProps: {},
+  defaultProps: {
+    onTick: () => {},
+    onEnd: () => {},
+    id: datum => datum.index,
+    nodes: [],
+    links: [],
+    forces: {},
+    node: null,
+    link: null,
+    running: true,
+  },
 
   state: {},
 
@@ -36,7 +47,12 @@ export default stamp(React).compose(SelectSelfMixin, {
 
   componentWillReceiveProps(nextProps) {
     this.forces = nextProps.forces;
-    this.getSimulation();
+  },
+
+  componentDidUpdate() {
+    setTimeout(() => {
+      this.getSimulation();
+    });
   },
 
   getSimulation(callback = () => {}) {
@@ -44,20 +60,23 @@ export default stamp(React).compose(SelectSelfMixin, {
       nodes,
       links,
       forces,
-      // node,
-      // link,
-      // alpha,
-      // alphaMin,
-      // alphaDecay,
-      // alphaTarget,
-      // velocityDecay,
-      // onTick,
-      // onEnd,
-      // running,
+      onTick,
+      onEnd,
+      running,
     } = this.props;
 
     this.simulation = forceSimulation();
     this.simulation.nodes(nodes);
+
+    [
+      'alpha',
+      'alphaMin',
+      'alphaDecay',
+      'alphaTarget',
+      'velocityDecay',
+    ].forEach(key => {
+      if (itsSet(this.props[key])) this.simulation[key](this.props[key]);
+    });
 
     this.applyForces(forces, this.simulation);
 
@@ -70,6 +89,7 @@ export default stamp(React).compose(SelectSelfMixin, {
       .data(links);
 
     this.simulation.on('tick', () => {
+      onTick({ nodes: this.simulation.nodes(), links });
       graphNodes.attr('cx', d => d.x);
       graphNodes.attr('cy', d => d.y);
       graphLinks.attr('x1', d => d.source.x);
@@ -80,11 +100,14 @@ export default stamp(React).compose(SelectSelfMixin, {
     });
 
     this.simulation.on('end', () => {
-      console.log('callback');
+      onEnd({ nodes: this.simulation.nodes(), links });
       callback();
     });
 
-    this.simulation.restart();
+    if (!running) {
+      this.simulation.stop();
+    }
+
   },
 
   applyForces(forces, simulation) {
@@ -107,8 +130,11 @@ export default stamp(React).compose(SelectSelfMixin, {
     this.getSimulation(callback);
   },
 
-  render() {
+  componentWillUnmount() {
+    this.simulation.stop();
+  },
 
+  render() {
     return (
       <TransitionGroup>
         {this.renderChildren()}
@@ -117,31 +143,65 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   renderChildren() {
-    const { nodes, node, links, link } = this.props;
-
-    return nodes.reduce((acc, datum, index) =>
-      acc.concat(Children.map(node, child =>
+    const { nodes, node, links, link, id } = this.props;
+    return nodes.reduce((acc, datum, index) => {
+      const key = id(datum);
+      return acc.concat(Children.map(node, child =>
         cloneElement(child, {
           datum,
           index,
           nodes,
-          key: datum.id,
-          _key: datum.id,
+          key,
+          _key: key,
           className: `${node.className || ''} node`,
         })
-      ))
-    , links.reduce((acc, datum, index) =>
-      acc.concat(Children.map(link, child =>
+      ));
+    }, links.reduce((acc, datum, index) => {
+      const key = `${datum.source.id}_${datum.target.id}`;
+      return acc.concat(Children.map(link, child =>
         cloneElement(child, {
           datum,
           index,
           links,
-          key: datum.index || index,
-          _key: datum.index || index,
+          key,
+          _key: key,
           className: `${link.className || ''} link`,
         })
-      ))
-    , []));
+      ));
+    }, []));
+  },
+
+  normalizeLinks(links) {
+    return isObject(links[links.length - 1].source) ?
+      links :
+      links.map(link => ({
+        source: {
+          id: link.source,
+          x: 0,
+          y: 0,
+          vx: 0,
+          vy: 0,
+        },
+        target: {
+          id: link.target,
+          x: 0,
+          y: 0,
+          vx: 0,
+          vy: 0,
+        },
+      }));
+  },
+
+  stop() {
+    this.simulation.stop();
+  },
+
+  restart() {
+    this.simulation.restart();
+  },
+
+  tick() {
+    this.simulation.tick();
   },
 
 });

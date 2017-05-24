@@ -27,7 +27,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
   displayName: 'Rect',
 
   getAttrNames: function getAttrNames() {
-    return ['x', 'y', 'height', 'width', 'fill', 'opacity'];
+    return ['x', 'y', 'height', 'width', 'fill', 'opacity', 'stroke', 'strokeWidth'];
   },
   render: function render() {
     var _state = this.state,

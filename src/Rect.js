@@ -8,7 +8,7 @@ export default stamp(React).compose(AnimatedElement, {
   displayName: 'Rect',
 
   getAttrNames() {
-    return ['x', 'y', 'height', 'width', 'fill', 'opacity'];
+    return ['x', 'y', 'height', 'width', 'fill', 'opacity', 'stroke', 'strokeWidth'];
   },
 
   render() {

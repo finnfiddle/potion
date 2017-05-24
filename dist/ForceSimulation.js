@@ -22,6 +22,10 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
+var _isObject = require('lodash/isObject');
+
+var _isObject2 = _interopRequireDefault(_isObject);
+
 var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
@@ -52,7 +56,19 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     // running
   },
 
-  defaultProps: {},
+  defaultProps: {
+    onTick: function onTick() {},
+    onEnd: function onEnd() {},
+    id: function id(datum) {
+      return datum.index;
+    },
+    nodes: [],
+    links: [],
+    forces: {},
+    node: null,
+    link: null,
+    running: true
+  },
 
   state: {},
 
@@ -61,18 +77,33 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   },
   componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     this.forces = nextProps.forces;
-    this.getSimulation();
+  },
+  componentDidUpdate: function componentDidUpdate() {
+    var _this = this;
+
+    setTimeout(function () {
+      _this.getSimulation();
+    });
   },
   getSimulation: function getSimulation() {
+    var _this2 = this;
+
     var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
     var _props = this.props,
         nodes = _props.nodes,
         links = _props.links,
-        forces = _props.forces;
+        forces = _props.forces,
+        onTick = _props.onTick,
+        onEnd = _props.onEnd,
+        running = _props.running;
 
 
     this.simulation = (0, _d3Force.forceSimulation)();
     this.simulation.nodes(nodes);
+
+    ['alpha', 'alphaMin', 'alphaDecay', 'alphaTarget', 'velocityDecay'].forEach(function (key) {
+      if ((0, _itsSet2.default)(_this2.props[key])) _this2.simulation[key](_this2.props[key]);
+    });
 
     this.applyForces(forces, this.simulation);
 
@@ -81,6 +112,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     var graphLinks = this.selectSelf().selectAll('.link').data(links);
 
     this.simulation.on('tick', function () {
+      onTick({ nodes: _this2.simulation.nodes(), links: links });
       graphNodes.attr('cx', function (d) {
         return d.x;
       });
@@ -103,11 +135,13 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     });
 
     this.simulation.on('end', function () {
-      console.log('callback');
+      onEnd({ nodes: _this2.simulation.nodes(), links: links });
       callback();
     });
 
-    this.simulation.restart();
+    if (!running) {
+      this.simulation.stop();
+    }
   },
   applyForces: function applyForces(forces, simulation) {
     (0, _keys2.default)(forces).concat((0, _keys2.default)(this.forces)).forEach(function (key) {
@@ -121,8 +155,10 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   componentDidMount: function componentDidMount(callback) {
     this.getSimulation(callback);
   },
+  componentWillUnmount: function componentWillUnmount() {
+    this.simulation.stop();
+  },
   render: function render() {
-
     return _react2.default.createElement(
       _TransitionGroup2.default,
       null,
@@ -134,31 +170,62 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
         nodes = _props2.nodes,
         node = _props2.node,
         links = _props2.links,
-        link = _props2.link;
-
+        link = _props2.link,
+        id = _props2.id;
 
     return nodes.reduce(function (acc, datum, index) {
+      var key = id(datum);
       return acc.concat(_react.Children.map(node, function (child) {
         return (0, _react.cloneElement)(child, {
           datum: datum,
           index: index,
           nodes: nodes,
-          key: datum.id,
-          _key: datum.id,
+          key: key,
+          _key: key,
           className: (node.className || '') + ' node'
         });
       }));
     }, links.reduce(function (acc, datum, index) {
+      var key = datum.source.id + '_' + datum.target.id;
       return acc.concat(_react.Children.map(link, function (child) {
         return (0, _react.cloneElement)(child, {
           datum: datum,
           index: index,
           links: links,
-          key: datum.index || index,
-          _key: datum.index || index,
+          key: key,
+          _key: key,
           className: (link.className || '') + ' link'
         });
       }));
     }, []));
+  },
+  normalizeLinks: function normalizeLinks(links) {
+    return (0, _isObject2.default)(links[links.length - 1].source) ? links : links.map(function (link) {
+      return {
+        source: {
+          id: link.source,
+          x: 0,
+          y: 0,
+          vx: 0,
+          vy: 0
+        },
+        target: {
+          id: link.target,
+          x: 0,
+          y: 0,
+          vx: 0,
+          vy: 0
+        }
+      };
+    });
+  },
+  stop: function stop() {
+    this.simulation.stop();
+  },
+  restart: function restart() {
+    this.simulation.restart();
+  },
+  tick: function tick() {
+    this.simulation.tick();
   }
 });
