@@ -27,7 +27,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
   displayName: 'Text',
 
   getAttrNames: function getAttrNames() {
-    return ['x', 'y', 'dx', 'dy', 'textAnchor', 'stroke', 'transform', 'fill', 'alignmentBaseline', 'dominantBaseline'];
+    return ['dx', 'dy', 'textAnchor', 'stroke', 'transform', 'fill', 'alignmentBaseline', 'dominantBaseline'];
   },
   render: function render() {
     var _state = this.state,

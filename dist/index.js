@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.helpers = exports.TransitionGroup = exports.Text = exports.Symbol = exports.Stack = exports.Rect = exports.RadialLine = exports.RadialArea = exports.Pie = exports.Pack = exports.Line = exports.Item = exports.Group = exports.Curve = exports.Collection = exports.Circle = exports.AxisTop = exports.AxisRight = exports.AxisLeft = exports.AxisBottom = exports.Axis = exports.Area = exports.Arc = undefined;
+exports.helpers = exports.TransitionGroup = exports.Text = exports.SymbolShape = exports.Stack = exports.Rect = exports.RadialLine = exports.RadialArea = exports.Pie = exports.Pack = exports.Line = exports.ForceSimulation = exports.Group = exports.Grid = exports.Curve = exports.Collection = exports.Circle = exports.AxisTop = exports.AxisRight = exports.AxisLeft = exports.AxisBottom = exports.Axis = exports.Area = exports.Arc = undefined;
 
 var _Arc = require('./Arc');
 
@@ -45,13 +45,17 @@ var _Curve = require('./Curve');
 
 var _Curve2 = _interopRequireDefault(_Curve);
 
+var _Grid = require('./Grid');
+
+var _Grid2 = _interopRequireDefault(_Grid);
+
 var _Group = require('./Group');
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _Item = require('./Item');
+var _ForceSimulation = require('./ForceSimulation');
 
-var _Item2 = _interopRequireDefault(_Item);
+var _ForceSimulation2 = _interopRequireDefault(_ForceSimulation);
 
 var _Line = require('./Line');
 
@@ -81,9 +85,9 @@ var _Stack = require('./Stack');
 
 var _Stack2 = _interopRequireDefault(_Stack);
 
-var _Symbol2 = require('./Symbol');
+var _SymbolShape = require('./SymbolShape');
 
-var _Symbol3 = _interopRequireDefault(_Symbol2);
+var _SymbolShape2 = _interopRequireDefault(_SymbolShape);
 
 var _Text = require('./Text');
 
@@ -110,8 +114,9 @@ exports.default = {
   Circle: _Circle2.default,
   Collection: _Collection2.default,
   Curve: _Curve2.default,
+  Grid: _Grid2.default,
   Group: _Group2.default,
-  Item: _Item2.default,
+  ForceSimulation: _ForceSimulation2.default,
   Line: _Line2.default,
   Pack: _Pack2.default,
   Pie: _Pie2.default,
@@ -119,7 +124,7 @@ exports.default = {
   RadialLine: _RadialLine2.default,
   Rect: _Rect2.default,
   Stack: _Stack2.default,
-  Symbol: _Symbol3.default,
+  SymbolShape: _SymbolShape2.default,
   Text: _Text2.default,
   TransitionGroup: _TransitionGroup2.default,
   helpers: _helpers2.default
@@ -134,8 +139,9 @@ exports.AxisTop = _AxisTop2.default;
 exports.Circle = _Circle2.default;
 exports.Collection = _Collection2.default;
 exports.Curve = _Curve2.default;
+exports.Grid = _Grid2.default;
 exports.Group = _Group2.default;
-exports.Item = _Item2.default;
+exports.ForceSimulation = _ForceSimulation2.default;
 exports.Line = _Line2.default;
 exports.Pack = _Pack2.default;
 exports.Pie = _Pie2.default;
@@ -143,7 +149,7 @@ exports.RadialArea = _RadialArea2.default;
 exports.RadialLine = _RadialLine2.default;
 exports.Rect = _Rect2.default;
 exports.Stack = _Stack2.default;
-exports.Symbol = _Symbol3.default;
+exports.SymbolShape = _SymbolShape2.default;
 exports.Text = _Text2.default;
 exports.TransitionGroup = _TransitionGroup2.default;
 exports.helpers = _helpers2.default;

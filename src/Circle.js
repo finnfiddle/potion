@@ -13,8 +13,9 @@ export default stamp(React).compose(AnimatedElement, {
 
   render() {
     const { didEnter, ...restState } = this.state;
+    const { className } = this.props;
     return (
-      <circle {...restState} />
+      <circle {...restState} className={className} />
     );
   },
 

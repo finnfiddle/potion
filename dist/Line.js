@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
@@ -30,11 +34,11 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
     return ['x1', 'x2', 'y1', 'y2', 'stroke', 'strokeWidth'];
   },
   render: function render() {
-    console.log(this.props);
     var _state = this.state,
         didEnter = _state.didEnter,
         restState = (0, _objectWithoutProperties3.default)(_state, ['didEnter']);
+    var className = this.props.className;
 
-    return _react2.default.createElement('line', restState);
+    return _react2.default.createElement('line', (0, _extends3.default)({}, restState, { className: className }));
   }
 });

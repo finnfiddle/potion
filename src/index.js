@@ -8,8 +8,9 @@ import AxisTop from './AxisTop';
 import Circle from './Circle';
 import Collection from './Collection';
 import Curve from './Curve';
+import Grid from './Grid';
 import Group from './Group';
-import Item from './Item';
+import ForceSimulation from './ForceSimulation';
 import Line from './Line';
 import Pack from './Pack';
 import Pie from './Pie';
@@ -33,8 +34,9 @@ export default {
   Circle,
   Collection,
   Curve,
+  Grid,
   Group,
-  Item,
+  ForceSimulation,
   Line,
   Pack,
   Pie,
@@ -59,8 +61,9 @@ export {
   Circle,
   Collection,
   Curve,
+  Grid,
   Group,
-  Item,
+  ForceSimulation,
   Line,
   Pack,
   Pie,

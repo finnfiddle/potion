@@ -30,6 +30,8 @@ The library is part of a bigger project by the same name which aims to list, cat
   - [Pie](#pie)
   - [Area](#area)
   - [RadialArea](#radialarea)
+  - [Grid](#grid)
+  - [Force Simulation](#force-simulation)
 - [Animation](#animation)
   - [Easing](#easing)
 - [Interaction](#interaction)
@@ -545,6 +547,14 @@ Passed Prop | Value
 ### RadialArea
 
 `// TODO: implement`
+
+### Grid
+
+`// TODO: document`
+
+### Force Simulation
+
+`// TODO: document`
 
 ## Animation
 
