@@ -44,15 +44,16 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
         data = _props.data,
         sort = _props.sort;
 
-    var pieData = this.getPie()(data).sort(function (a, b) {
+    var pieData = this.getPie()(data);
+    if ((0, _itsSet2.default)(sort)) pieData = pieData.sort(function (a, b) {
       return sort(a.data, b.data);
     });
 
     return _react2.default.createElement(
       _TransitionGroup2.default,
       null,
-      this.renderSingularChildren(pieData),
-      this.renderChildren(pieData)
+      this.renderChildren(pieData),
+      this.renderSingularChildren(pieData)
     );
   },
   renderSingularChildren: function renderSingularChildren(pieData) {
@@ -64,12 +65,12 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
   },
   renderChildren: function renderChildren(pieData) {
     var _props2 = this.props,
-        data = _props2.data,
         children = _props2.children,
         id = _props2.id;
+    // TODO: throw error if non unique ids
 
     return pieData.reduce(function (acc, datum, index) {
-      return acc.concat(_react.Children.map(children, function (child, c) {
+      return acc.concat(_react.Children.map(children, function (child) {
         var key = id(datum.data);
         return (0, _react.cloneElement)(child, {
           datum: datum,

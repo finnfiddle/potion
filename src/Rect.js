@@ -14,7 +14,7 @@ export default stamp(React).compose(AnimatedElement, {
   render() {
     const { didEnter, ...restState } = this.state;
     return (
-      <rect {...restState} />
+      <rect {...restState} style={this.getStyle(this.props)} />
     );
   },
 

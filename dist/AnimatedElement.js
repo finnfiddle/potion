@@ -36,8 +36,6 @@ var _uniq = require('lodash/uniq');
 
 var _uniq2 = _interopRequireDefault(_uniq);
 
-var _d3Transition = require('d3-transition');
-
 var _d3Interpolate = require('d3-interpolate');
 
 var _d3Ease = require('d3-ease');
@@ -47,6 +45,8 @@ var ease = _interopRequireWildcard(_d3Ease);
 var _deepEqual = require('deep-equal');
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
+
+require('d3-transition');
 
 var _SelectSelfMixin = require('./mixins/SelectSelfMixin');
 
@@ -65,6 +65,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   },
 
   defaultProps: {
+    datum: {},
     enterDatum: function enterDatum(_ref) {
       var datum = _ref.datum;
       return datum;
@@ -87,6 +88,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
 
     this.attrNames = this.getAttrNames();
     this.derivedAttrNames = this.getDerivedAttrNames();
+    this.derivedAttrDefaults = this.getDerivedAttrDefaults();
     this.derivedAttrInputNames = this.getDerivedAttrInputNames();
     this.derivedAttrSelectors = this.getDerivedAttrSelectors();
     this.allAttrInputNames = this.attrNames.concat((0, _keys2.default)(this.derivedAttrInputNames).reduce(function (acc, key) {
@@ -101,10 +103,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     var _this2 = this;
 
     var _props = this.props,
-        _key = _props._key,
         enterDuration = _props.enterDuration,
-        data = _props.data,
-        index = _props.index,
         enterDatum = _props.enterDatum,
         enterEase = _props.enterEase;
 
@@ -135,15 +134,14 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   componentWillEnter: function componentWillEnter(callback) {
     this.componentWillAppearOrEnter(callback);
   },
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextState) {
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
     var _this3 = this;
 
     var propsToCheckForChanges = this.attrNames.concat(this.allDerivedAttrInputNames).concat(nextProps.propsToCheckForChanges);
 
     if ((0, _deepEqual2.default)(this.getAttrs(this.props, propsToCheckForChanges), this.getAttrs(nextProps, propsToCheckForChanges))) return;
 
-    var _key = nextProps._key,
-        updateDuration = nextProps.updateDuration,
+    var updateDuration = nextProps.updateDuration,
         updateEase = nextProps.updateEase;
 
     var nextAttrs = this.getAttrs(nextProps);
@@ -166,9 +164,6 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     var _props2 = this.props,
         exitDatum = _props2.exitDatum,
         exitDuration = _props2.exitDuration,
-        _key = _props2._key,
-        index = _props2.index,
-        data = _props2.data,
         exitEase = _props2.exitEase;
 
     var computedExitDatum = this.assignAbsolutePropsToDatum(exitDatum(this.props), this.props);
@@ -195,6 +190,9 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   },
   getDerivedAttrNames: function getDerivedAttrNames() {
     return [];
+  },
+  getDerivedAttrDefaults: function getDerivedAttrDefaults() {
+    return {};
   },
   getDerivedAttrInputNames: function getDerivedAttrInputNames() {
     return [];
@@ -239,38 +237,38 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     return this.getStyle((0, _assign2.default)({}, this.props, { datum: datum }));
   },
   getAttrs: function getAttrs(props, attrNames) {
+    var _this4 = this;
+
     return (attrNames || this.attrNames).reduce(function (acc, key) {
       var prop = props[key];
       if (!(0, _itsSet2.default)(prop)) return acc;
-      if ((0, _isFunction2.default)(prop) && (0, _itsSet2.default)(props.datum)) prop = prop(props);
-      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, prop));
+      if ((0, _isFunction2.default)(prop) && (0, _itsSet2.default)(props.datum)) {
+        prop = prop((0, _assign2.default)({}, props, { datum: _this4.getDatum(props) }));
+      }
+      return (0, _assign2.default)({}, _this4.attrDefaults, acc, (0, _defineProperty3.default)({}, key, prop));
     }, {});
   },
   getStyle: function getStyle(props) {
-    var style = props.style,
-        datum = props.datum,
-        data = props.data,
-        index = props.index;
+    var style = props.style;
 
     if ((0, _isFunction2.default)(style)) return style(props);
     return style;
   },
   applyDerivedAttrsToSelection: function applyDerivedAttrsToSelection(props, datum, selection) {
-    var _this4 = this;
-
-    this.derivedAttrNames.forEach(function (key) {
-      _this4.applyAttrsToSelection((0, _defineProperty3.default)({}, key, _this4.getDerivationMethod(key, props)(datum)), selection, _this4.derivedAttrSelectors[key]);
-    });
-  },
-  tweenDerivedAttrs: function tweenDerivedAttrs(fromDatum, toDatum, props, transition) {
     var _this5 = this;
 
     this.derivedAttrNames.forEach(function (key) {
-      _this5.attrTween(key, fromDatum, toDatum, transition, _this5.getDerivationMethod(key, props));
+      _this5.applyAttrsToSelection((0, _defineProperty3.default)({}, key, _this5.getDerivationMethod(key, props)(datum)), selection, _this5.derivedAttrSelectors[key]);
+    });
+  },
+  tweenDerivedAttrs: function tweenDerivedAttrs(fromDatum, toDatum, props, transition) {
+    var _this6 = this;
+
+    this.derivedAttrNames.forEach(function (key) {
+      _this6.attrTween(key, fromDatum, toDatum, transition, _this6.getDerivationMethod(key, props));
     });
   },
   attrTween: function attrTween(attrName, fromDatum, toDatum, transition, derivationMethod) {
-    var derivedAttrInputNames = this.derivedAttrInputNames[attrName];
     // TODO: put whitelist datum keys prop on collection to minimize num interpolations
     var keysToInterpolate = (0, _keys2.default)(toDatum);
 
@@ -288,11 +286,11 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
       };
     });
   },
-  getDerivedAttrs: function getDerivedAttrs(props) {
-    var _this6 = this;
+  getDerivedAttrs: function getDerivedAttrs() {
+    var _this7 = this;
 
     return this.derivedAttrNames.reduce(function (acc, key) {
-      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, _this6.getDerivedAttr(key)));
+      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, _this7.getDerivedAttr(key)));
     }, {});
   }
 });

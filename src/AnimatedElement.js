@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
 import isFunction from 'lodash/isFunction';
 import uniq from 'lodash/uniq';
-import { attrTween } from 'd3-transition';
 import { interpolate } from 'd3-interpolate';
 import * as ease from 'd3-ease';
 import deepEqual from 'deep-equal';
+import 'd3-transition';
 
 import SelectSelfMixin from './mixins/SelectSelfMixin';
 
@@ -19,6 +19,7 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   defaultProps: {
+    datum: {},
     enterDatum: ({ datum }) => datum,
     exitDatum: ({ datum }) => datum,
     enterEase: 'easeLinear',
@@ -33,6 +34,7 @@ export default stamp(React).compose(SelectSelfMixin, {
   init() {
     this.attrNames = this.getAttrNames();
     this.derivedAttrNames = this.getDerivedAttrNames();
+    this.derivedAttrDefaults = this.getDerivedAttrDefaults();
     this.derivedAttrInputNames = this.getDerivedAttrInputNames();
     this.derivedAttrSelectors = this.getDerivedAttrSelectors();
     this.allAttrInputNames = this.attrNames.concat(
@@ -50,7 +52,7 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   componentWillAppearOrEnter(callback) {
-    const { _key, enterDuration, data, index, enterDatum, enterEase } = this.props;
+    const { enterDuration, enterDatum, enterEase } = this.props;
     const calculatedEnterDatum = this.assignAbsolutePropsToDatum(
       enterDatum(this.props),
       this.props
@@ -92,7 +94,7 @@ export default stamp(React).compose(SelectSelfMixin, {
     this.componentWillAppearOrEnter(callback);
   },
 
-  componentWillReceiveProps(nextProps, nextState) {
+  componentWillReceiveProps(nextProps) {
     const propsToCheckForChanges = this.attrNames
       .concat(this.allDerivedAttrInputNames)
       .concat(nextProps.propsToCheckForChanges);
@@ -104,7 +106,7 @@ export default stamp(React).compose(SelectSelfMixin, {
       )
     ) return;
 
-    const { _key, updateDuration, updateEase } = nextProps;
+    const { updateDuration, updateEase } = nextProps;
     const nextAttrs = this.getAttrs(nextProps);
     const nextStyle = this.getStyle(nextProps);
 
@@ -131,7 +133,7 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   componentWillLeave(callback) {
-    const { exitDatum, exitDuration, _key, index, data, exitEase } = this.props;
+    const { exitDatum, exitDuration, exitEase } = this.props;
     const computedExitDatum = this.assignAbsolutePropsToDatum(exitDatum(this.props), this.props);
     const exitAttrs = this.getAttrsFromDatum(computedExitDatum);
     const exitStyle = this.getStyleFromDatum(computedExitDatum);
@@ -169,6 +171,10 @@ export default stamp(React).compose(SelectSelfMixin, {
     return [];
   },
 
+  getDerivedAttrDefaults() {
+    return {};
+  },
+
   getDerivedAttrInputNames() {
     return [];
   },
@@ -179,7 +185,7 @@ export default stamp(React).compose(SelectSelfMixin, {
 
   getDatum(props) {
     const { datum } = props;
-    return isFunction(datum) ? datum(props) : datum
+    return isFunction(datum) ? datum(props) : datum;
   },
 
   assignAbsolutePropsToDatum(datum, props) {
@@ -224,13 +230,15 @@ export default stamp(React).compose(SelectSelfMixin, {
     return (attrNames || this.attrNames).reduce((acc, key) => {
       let prop = props[key];
       if (!itsSet(prop)) return acc;
-      if (isFunction(prop) && itsSet(props.datum)) prop = prop(props);
-      return Object.assign({}, acc, { [key]: prop });
+      if (isFunction(prop) && itsSet(props.datum)) {
+        prop = prop(Object.assign({}, props, { datum: this.getDatum(props) }));
+      }
+      return Object.assign({}, this.attrDefaults, acc, { [key]: prop });
     }, {});
   },
 
   getStyle(props) {
-    const { style, datum, data, index } = props;
+    const { style } = props;
     if (isFunction(style)) return style(props);
     return style;
   },
@@ -256,7 +264,6 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   attrTween(attrName, fromDatum, toDatum, transition, derivationMethod) {
-    const derivedAttrInputNames = this.derivedAttrInputNames[attrName];
     // TODO: put whitelist datum keys prop on collection to minimize num interpolations
     const keysToInterpolate = Object.keys(toDatum);
 
@@ -275,10 +282,10 @@ export default stamp(React).compose(SelectSelfMixin, {
     );
   },
 
-  getDerivedAttrs(props) {
-    return this.derivedAttrNames.reduce((acc, key) => {
-      return Object.assign({}, acc, { [key]: this.getDerivedAttr(key) });
-    }, {});
+  getDerivedAttrs() {
+    return this.derivedAttrNames.reduce((acc, key) =>
+      Object.assign({}, acc, { [key]: this.getDerivedAttr(key) })
+    , {});
   },
 
 });

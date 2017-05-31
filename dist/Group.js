@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
 var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
@@ -20,11 +16,13 @@ var _reactStamp = require('react-stamp');
 
 var _reactStamp2 = _interopRequireDefault(_reactStamp);
 
-var _itsSet = require('its-set');
+var _isString = require('lodash/isString');
 
-var _itsSet2 = _interopRequireDefault(_itsSet);
+var _isString2 = _interopRequireDefault(_isString);
 
-var _d3Shape = require('d3-shape');
+var _get = require('lodash/get');
+
+var _get2 = _interopRequireDefault(_get);
 
 var _TransitionGroup = require('./TransitionGroup');
 
@@ -56,12 +54,17 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
       transform: ['x', 'y', 'rotation', 'rotationOriginX', 'rotationOriginY']
     };
   },
+  getAttrDefaults: function getAttrDefaults() {
+    return {
+      x: 0,
+      y: 0,
+      rotation: 0,
+      rotationOriginX: 0,
+      rotationOriginY: 0
+    };
+  },
   getDerivationMethod: function getDerivationMethod(key, props) {
     var _this = this;
-
-    var datum = props.datum,
-        index = props.index,
-        value = props.value;
 
     switch (key) {
       case 'transform':
@@ -75,39 +78,29 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
               rotationOriginX = _getAttrs.rotationOriginX,
               rotationOriginY = _getAttrs.rotationOriginY;
 
-          return 'translate(' + x + ', ' + y + ') rotate(' + rotation + ', ' + rotationOriginX + ', ' + rotationOriginY + ')';
+          return 'translate(' + x + ', ' + y + ') rotate(' + rotation + ', ' + rotationOriginX + ', ' + rotationOriginY + ')'; // eslint-disable-line max-len
         };
-    };
+      // no default
+    }
   },
   render: function render() {
-    var _state = this.state,
-        enterDatum = _state.enterDatum,
-        enterDuration = _state.enterDuration,
-        updateDuration = _state.updateDuration,
-        x = _state.x,
-        y = _state.y,
-        restState = (0, _objectWithoutProperties3.default)(_state, ['enterDatum', 'enterDuration', 'updateDuration', 'x', 'y']);
-    var _props = this.props,
-        datum = _props.datum,
-        data = _props.data,
-        index = _props.index;
-
-
+    var style = this.getStyle(this.props);
     return _react2.default.createElement(
       _TransitionGroup2.default,
-      restState,
+      { style: style },
       this.renderChildren()
     );
   },
   renderChildren: function renderChildren() {
-    var _props2 = this.props,
-        datum = _props2.datum,
-        data = _props2.data,
-        index = _props2.index,
-        children = _props2.children;
+    var _props = this.props,
+        datum = _props.datum,
+        data = _props.data,
+        index = _props.index,
+        children = _props.children;
 
     return _react.Children.map(children, function (child) {
-      return (0, _react.cloneElement)(child, { datum: datum, data: data, index: index });
+      if ((0, _isString2.default)(child.type)) return child;
+      return ['Arc', 'Area', 'Axis', 'AxisBottom', 'AxisLeft', 'AxisRight', 'AxisTop', 'Circle', 'Collection', 'Curve', 'ForceSimulation', 'Grid', 'Group', 'Line', 'Pack', 'Pie', 'RadialArea', 'RadialLine', 'Rect', 'Stack', 'SymbolShape', 'Text', 'TransitionGroup'].includes((0, _get2.default)(child, 'type.displayName')) ? (0, _react.cloneElement)(child, { datum: datum, data: data, index: index }) : child;
     });
   }
 });
