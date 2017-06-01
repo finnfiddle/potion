@@ -1,7 +1,7 @@
 import React, { cloneElement, Children } from 'react';
 import stamp from 'react-stamp';
-import isString from 'lodash/isString';
-import get from 'lodash/get';
+// import isString from 'lodash/isString';
+// import get from 'lodash/get';
 
 import TransitionGroup from './TransitionGroup';
 import AnimatedElement from './AnimatedElement';
@@ -67,36 +67,9 @@ export default stamp(React).compose(AnimatedElement, {
 
   renderChildren() {
     const { datum, data, index, children } = this.props;
-    return Children.map(children, child => {
-      if (isString(child.type)) return child;
-      return [
-        'Arc',
-        'Area',
-        'Axis',
-        'AxisBottom',
-        'AxisLeft',
-        'AxisRight',
-        'AxisTop',
-        'Circle',
-        'Collection',
-        'Curve',
-        'ForceSimulation',
-        'Grid',
-        'Group',
-        'Line',
-        'Pack',
-        'Pie',
-        'RadialArea',
-        'RadialLine',
-        'Rect',
-        'Stack',
-        'SymbolShape',
-        'Text',
-        'TransitionGroup',
-      ].includes(get(child, 'type.displayName')) ?
-        cloneElement(child, { datum, data, index }) :
-        child;
-    });
+    return Children.map(children, child =>
+      cloneElement(child, Object.assign({ datum, data, index }, child.props))
+    );
   },
 
 });

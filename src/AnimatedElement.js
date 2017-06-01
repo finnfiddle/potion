@@ -19,7 +19,7 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   defaultProps: {
-    datum: {},
+    // datum: {},
     enterDatum: ({ datum }) => datum,
     exitDatum: ({ datum }) => datum,
     enterEase: 'easeLinear',
@@ -57,6 +57,7 @@ export default stamp(React).compose(SelectSelfMixin, {
       enterDatum(this.props),
       this.props
     );
+
     const enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum);
     const enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
 
@@ -193,7 +194,7 @@ export default stamp(React).compose(SelectSelfMixin, {
       .filter(name => !isFunction(props[name]))
       .reduce(
         (acc, name) => Object.assign({}, acc, { [name]: props[name] }),
-        Object.assign({}, datum)
+        Object.assign({}, this.getDatum(Object.assign({}, props, { datum })))
       );
   },
 
@@ -228,10 +229,12 @@ export default stamp(React).compose(SelectSelfMixin, {
 
   getAttrs(props, attrNames) {
     return (attrNames || this.attrNames).reduce((acc, key) => {
-      let prop = props[key];
+      const datum = this.getDatum(props);
+      const propsWithResolvedDatum = Object.assign({}, props, { datum });
+      let prop = propsWithResolvedDatum[key];
       if (!itsSet(prop)) return acc;
-      if (isFunction(prop) && itsSet(props.datum)) {
-        prop = prop(Object.assign({}, props, { datum: this.getDatum(props) }));
+      if (isFunction(prop) && itsSet(datum)) {
+        prop = prop(propsWithResolvedDatum);
       }
       return Object.assign({}, this.attrDefaults, acc, { [key]: prop });
     }, {});

@@ -65,7 +65,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   },
 
   defaultProps: {
-    datum: {},
+    // datum: {},
     enterDatum: function enterDatum(_ref) {
       var datum = _ref.datum;
       return datum;
@@ -108,6 +108,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
         enterEase = _props.enterEase;
 
     var calculatedEnterDatum = this.assignAbsolutePropsToDatum(enterDatum(this.props), this.props);
+
     var enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum);
     var enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
 
@@ -210,7 +211,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
       return !(0, _isFunction2.default)(props[name]);
     }).reduce(function (acc, name) {
       return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, name, props[name]));
-    }, (0, _assign2.default)({}, datum));
+    }, (0, _assign2.default)({}, this.getDatum((0, _assign2.default)({}, props, { datum: datum }))));
   },
   applyAttrsToSelection: function applyAttrsToSelection(attrs, selection, selector) {
     if (!(0, _itsSet2.default)(attrs)) return;
@@ -240,10 +241,12 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     var _this4 = this;
 
     return (attrNames || this.attrNames).reduce(function (acc, key) {
-      var prop = props[key];
+      var datum = _this4.getDatum(props);
+      var propsWithResolvedDatum = (0, _assign2.default)({}, props, { datum: datum });
+      var prop = propsWithResolvedDatum[key];
       if (!(0, _itsSet2.default)(prop)) return acc;
-      if ((0, _isFunction2.default)(prop) && (0, _itsSet2.default)(props.datum)) {
-        prop = prop((0, _assign2.default)({}, props, { datum: _this4.getDatum(props) }));
+      if ((0, _isFunction2.default)(prop) && (0, _itsSet2.default)(datum)) {
+        prop = prop(propsWithResolvedDatum);
       }
       return (0, _assign2.default)({}, _this4.attrDefaults, acc, (0, _defineProperty3.default)({}, key, prop));
     }, {});

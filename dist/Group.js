@@ -16,14 +16,6 @@ var _reactStamp = require('react-stamp');
 
 var _reactStamp2 = _interopRequireDefault(_reactStamp);
 
-var _isString = require('lodash/isString');
-
-var _isString2 = _interopRequireDefault(_isString);
-
-var _get = require('lodash/get');
-
-var _get2 = _interopRequireDefault(_get);
-
 var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
@@ -33,6 +25,9 @@ var _AnimatedElement = require('./AnimatedElement');
 var _AnimatedElement2 = _interopRequireDefault(_AnimatedElement);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import isString from 'lodash/isString';
+// import get from 'lodash/get';
 
 exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedElement2.default, {
 
@@ -99,8 +94,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
         children = _props.children;
 
     return _react.Children.map(children, function (child) {
-      if ((0, _isString2.default)(child.type)) return child;
-      return ['Arc', 'Area', 'Axis', 'AxisBottom', 'AxisLeft', 'AxisRight', 'AxisTop', 'Circle', 'Collection', 'Curve', 'ForceSimulation', 'Grid', 'Group', 'Line', 'Pack', 'Pie', 'RadialArea', 'RadialLine', 'Rect', 'Stack', 'SymbolShape', 'Text', 'TransitionGroup'].includes((0, _get2.default)(child, 'type.displayName')) ? (0, _react.cloneElement)(child, { datum: datum, data: data, index: index }) : child;
+      return (0, _react.cloneElement)(child, (0, _assign2.default)({ datum: datum, data: data, index: index }, child.props));
     });
   }
 });
