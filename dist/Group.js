@@ -16,6 +16,10 @@ var _reactStamp = require('react-stamp');
 
 var _reactStamp2 = _interopRequireDefault(_reactStamp);
 
+var _itsSet = require('its-set');
+
+var _itsSet2 = _interopRequireDefault(_itsSet);
+
 var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
@@ -94,7 +98,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
         children = _props.children;
 
     return _react.Children.map(children, function (child) {
-      return (0, _react.cloneElement)(child, (0, _assign2.default)({ datum: datum, data: data, index: index }, child.props));
+      return (0, _itsSet2.default)(child) ? (0, _react.cloneElement)(child, (0, _assign2.default)({ datum: datum, data: data, index: index }, child.props)) : null;
     });
   }
 });

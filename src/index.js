@@ -19,6 +19,7 @@ import RadialLine from './RadialLine';
 import Rect from './Rect';
 import Stack from './Stack';
 import SymbolShape from './SymbolShape';
+import Svg from './Svg';
 import Text from './Text';
 import TransitionGroup from './TransitionGroup';
 import helpers from './helpers';
@@ -45,6 +46,7 @@ export default {
   Rect,
   Stack,
   SymbolShape,
+  Svg,
   Text,
   TransitionGroup,
   helpers,
@@ -72,6 +74,7 @@ export {
   Rect,
   Stack,
   SymbolShape,
+  Svg,
   Text,
   TransitionGroup,
   helpers,

@@ -1,5 +1,6 @@
 import React, { cloneElement, Children } from 'react';
 import stamp from 'react-stamp';
+import itsSet from 'its-set';
 // import isString from 'lodash/isString';
 // import get from 'lodash/get';
 
@@ -68,7 +69,7 @@ export default stamp(React).compose(AnimatedElement, {
   renderChildren() {
     const { datum, data, index, children } = this.props;
     return Children.map(children, child =>
-      cloneElement(child, Object.assign({ datum, data, index }, child.props))
+      itsSet(child) ? cloneElement(child, Object.assign({ datum, data, index }, child.props)) : null
     );
   },
 

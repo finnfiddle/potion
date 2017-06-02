@@ -1,14 +1,20 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import stamp from 'react-stamp';
 import { arc } from 'd3-shape';
 import itsSet from 'its-set';
-import isFunction from 'lodash/isFunction';
 
 import AnimatedElement from './AnimatedElement';
 
 export default stamp(React).compose(AnimatedElement, {
 
   displayName: 'Arc',
+
+  defaultProps: {
+    innerRadius: 0,
+    outerRadius: 0,
+    startAngle: 0,
+    endAngle: 0,
+  },
 
   getAttrNames() {
     return ['fill', 'stroke', 'strokeWidth'];
@@ -27,19 +33,19 @@ export default stamp(React).compose(AnimatedElement, {
   getDerivationMethod(key, props) {
     const { datum, index, value } = props;
     switch (key) {
-    case 'd':
-      return datum => {
-        let derivationMethod = arc();
-        const attrInputNames = this.derivedAttrInputNames[key];
-        const attrValues = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames);
-        attrInputNames.forEach(attrName => {
-          if (itsSet(props[attrName])) {
-            derivationMethod = derivationMethod[attrName](attrValues[attrName]);
-          }
-        });
-        return derivationMethod();
-      };
-    };
+      case 'd':
+        return datum => {
+          let derivationMethod = arc();
+          const attrInputNames = this.derivedAttrInputNames[key];
+          const attrValues = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames);
+          attrInputNames.forEach(attrName => {
+            if (itsSet(props[attrName])) {
+              derivationMethod = derivationMethod[attrName](attrValues[attrName]);
+            }
+          });
+          return derivationMethod();
+        };
+    }
   },
 
   render() {

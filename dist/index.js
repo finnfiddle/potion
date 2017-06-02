@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.helpers = exports.TransitionGroup = exports.Text = exports.SymbolShape = exports.Stack = exports.Rect = exports.RadialLine = exports.RadialArea = exports.Pie = exports.Pack = exports.Line = exports.ForceSimulation = exports.Group = exports.Grid = exports.Curve = exports.Collection = exports.Circle = exports.AxisTop = exports.AxisRight = exports.AxisLeft = exports.AxisBottom = exports.Axis = exports.Area = exports.Arc = undefined;
+exports.helpers = exports.TransitionGroup = exports.Text = exports.Svg = exports.SymbolShape = exports.Stack = exports.Rect = exports.RadialLine = exports.RadialArea = exports.Pie = exports.Pack = exports.Line = exports.ForceSimulation = exports.Group = exports.Grid = exports.Curve = exports.Collection = exports.Circle = exports.AxisTop = exports.AxisRight = exports.AxisLeft = exports.AxisBottom = exports.Axis = exports.Area = exports.Arc = undefined;
 
 var _Arc = require('./Arc');
 
@@ -89,6 +89,10 @@ var _SymbolShape = require('./SymbolShape');
 
 var _SymbolShape2 = _interopRequireDefault(_SymbolShape);
 
+var _Svg = require('./Svg');
+
+var _Svg2 = _interopRequireDefault(_Svg);
+
 var _Text = require('./Text');
 
 var _Text2 = _interopRequireDefault(_Text);
@@ -125,6 +129,7 @@ exports.default = {
   Rect: _Rect2.default,
   Stack: _Stack2.default,
   SymbolShape: _SymbolShape2.default,
+  Svg: _Svg2.default,
   Text: _Text2.default,
   TransitionGroup: _TransitionGroup2.default,
   helpers: _helpers2.default
@@ -150,6 +155,7 @@ exports.RadialLine = _RadialLine2.default;
 exports.Rect = _Rect2.default;
 exports.Stack = _Stack2.default;
 exports.SymbolShape = _SymbolShape2.default;
+exports.Svg = _Svg2.default;
 exports.Text = _Text2.default;
 exports.TransitionGroup = _TransitionGroup2.default;
 exports.helpers = _helpers2.default;

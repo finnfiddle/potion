@@ -22,10 +22,6 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _isFunction = require('lodash/isFunction');
-
-var _isFunction2 = _interopRequireDefault(_isFunction);
-
 var _AnimatedElement = require('./AnimatedElement');
 
 var _AnimatedElement2 = _interopRequireDefault(_AnimatedElement);
@@ -35,6 +31,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedElement2.default, {
 
   displayName: 'Arc',
+
+  defaultProps: {
+    innerRadius: 0,
+    outerRadius: 0,
+    startAngle: 0,
+    endAngle: 0
+  },
 
   getAttrNames: function getAttrNames() {
     return ['fill', 'stroke', 'strokeWidth'];
@@ -67,7 +70,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
           });
           return derivationMethod();
         };
-    };
+    }
   },
   render: function render() {
     return _react2.default.createElement('path', this.state);
