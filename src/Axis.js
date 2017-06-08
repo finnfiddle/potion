@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import stamp from 'react-stamp';
 import * as d3Axis from 'd3-axis';
-import { select } from 'd3-selection';
 import { interpolate } from 'd3-interpolate';
 
 import { cap } from './helpers';
@@ -12,8 +11,8 @@ export default stamp(React).compose(SelectSelfMixin, {
   displayName: 'Axis',
 
   propTypes: {
-    // placement,
-    // scale,
+    placement: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+    scale: PropTypes.func.isRequired,
   },
 
   defaultProps: {
@@ -51,24 +50,11 @@ export default stamp(React).compose(SelectSelfMixin, {
       });
   },
 
-  // componentDidMount() {
-  //   this.renderAxis(this.props);
-  // },
-  //
-  // componentWillReceiveProps(nextProps) {
-  //   this.renderAxis(this.props);
-  // },
-
   render() {
-    const { scale, placement, ...props } = this.props;
+    const { scale, placement, ...restProps } = this.props;
     return (
-      <g {...props} />
+      <g {...restProps} />
     );
   },
-
-  // renderAxis(props) {
-  //   const { placement, scale } = props;
-  //   d3Axis[`axis${cap(placement)}`](scale)(select(this.container));
-  // },
 
 });

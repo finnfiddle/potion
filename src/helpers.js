@@ -1,6 +1,10 @@
 import isArray from 'lodash/isArray';
-import isObject from 'lodash/isObject';
+// import isObject from 'lodash/isObject';
+import intersection from 'lodash/intersection';
 import itsSet from 'its-set';
+import without from 'lodash/without';
+
+import { MOUSE_EVENTS } from './constants';
 
 // convert first letter of word to uppercase
 export function cap(word) {
@@ -27,6 +31,19 @@ export function flattenHierarchy(object) {
 
 export function radiansToDegrees(radians) {
   return radians * 180 / Math.PI;
+}
+
+export function bindMouseEvents(props) {
+  const setProps = intersection(Object.keys(props), MOUSE_EVENTS);
+  return setProps.reduce((acc, key) =>
+    Object.assign({}, acc, { [key]: () => props[key](props) })
+  , {});
+}
+
+export function filter(array, whiteList = [], blackList = []) {
+  return whiteList.length ?
+    without(intersection(array, whiteList), blackList) :
+    without(array, blackList);
 }
 
 export default {

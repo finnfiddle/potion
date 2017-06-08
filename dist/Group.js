@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
@@ -20,6 +24,8 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
+var _helpers = require('./helpers');
+
 var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
@@ -29,9 +35,6 @@ var _AnimatedElement = require('./AnimatedElement');
 var _AnimatedElement2 = _interopRequireDefault(_AnimatedElement);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// import isString from 'lodash/isString';
-// import get from 'lodash/get';
 
 exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedElement2.default, {
 
@@ -86,7 +89,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
     var style = this.getStyle(this.props);
     return _react2.default.createElement(
       _TransitionGroup2.default,
-      { style: style },
+      (0, _extends3.default)({ style: style }, (0, _helpers.bindMouseEvents)(this.props)),
       this.renderChildren()
     );
   },

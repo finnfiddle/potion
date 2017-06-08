@@ -1,4 +1,4 @@
-import React, { Children, cloneElement } from 'react';
+import React, { Children, cloneElement, PropTypes } from 'react';
 import stamp from 'react-stamp';
 import d3Shape from 'd3-shape';
 import itsSet from 'its-set';

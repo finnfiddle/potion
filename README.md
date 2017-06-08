@@ -42,6 +42,8 @@ The library is part of a bigger project by the same name which aims to list, cat
   - [AxisBottom](#axisbottom)
   - [AxisLeft](#axisleft)
 - [Misc](#misc)
+  - [Optimization](#optimization)
+  - [Gotchas](#gotchas)
   - [Annotations](#annotations)
   - [Patterns](#patterns)
   - [Helpers](#helpers)
@@ -723,7 +725,7 @@ import { Circle, TransitionGroup } from 'number-picture';
 
 ## Interaction
 
-`// TODO: implement`
+`// TODO: document`
 
 ## Axes
 
@@ -788,6 +790,16 @@ const scale = scaleLinear()
 ## Misc
 
 `// TODO: document`
+
+### Optimization
+
+`// TODO: document`
+
+### Gotchas
+
+`// TODO: document`
+
+- use Group component for transforms
 
 ### Annotations
 

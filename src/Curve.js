@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import stamp from 'react-stamp';
-import itsSet from 'its-set';
-import d3Shape from 'd3-shape';
+// import itsSet from 'its-set';
+// import d3Shape from 'd3-shape';
+//
+// import { bindMouseEvents } from './helpers';
 
 export default stamp(React).compose({
 
@@ -15,17 +17,15 @@ export default stamp(React).compose({
   },
 
   render() {
-    return (
-      <path d={this.getLine()()} />
-    );
+    return null;
   },
 
-  getLine() {
-    let line = d3Shape.line();
-    ['x', 'y', 'defined', 'curve'].forEach((key) => {
-      if (itsSet(this.props[key])) line = line[key](this.props[key]);
-    });
-    return line;
-  },
+  // getLine() {
+  //   let line = d3Shape.line();
+  //   ['x', 'y', 'defined', 'curve'].forEach((key) => {
+  //     if (itsSet(this.props[key])) line = line[key](this.props[key]);
+  //   });
+  //   return line;
+  // },
 
 });

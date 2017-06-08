@@ -1,9 +1,8 @@
-import React, { cloneElement, Children } from 'react';
+import React, { cloneElement, Children, PropTypes } from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
-// import isString from 'lodash/isString';
-// import get from 'lodash/get';
 
+import { bindMouseEvents } from './helpers';
 import TransitionGroup from './TransitionGroup';
 import AnimatedElement from './AnimatedElement';
 
@@ -60,7 +59,7 @@ export default stamp(React).compose(AnimatedElement, {
   render() {
     const style = this.getStyle(this.props);
     return (
-      <TransitionGroup style={style}>
+      <TransitionGroup style={style} {...bindMouseEvents(this.props)}>
         {this.renderChildren()}
       </TransitionGroup>
     );

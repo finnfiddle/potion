@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
+var _extends2 = require('babel-runtime/helpers/extends');
 
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _react = require('react');
 
@@ -15,6 +15,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactStamp = require('react-stamp');
 
 var _reactStamp2 = _interopRequireDefault(_reactStamp);
+
+var _constants = require('./constants');
+
+var _helpers = require('./helpers');
 
 var _AnimatedElement = require('./AnimatedElement');
 
@@ -27,16 +31,12 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
   displayName: 'Text',
 
   getAttrNames: function getAttrNames() {
-    return ['dx', 'dy', 'textAnchor', 'stroke', 'transform', 'fill', 'alignmentBaseline', 'dominantBaseline'];
+    return ['dx', 'dy'].concat(_constants.TWEENABLE_SVG_PRESENTATION_ATTRS);
   },
   render: function render() {
-    var _state = this.state,
-        didEnter = _state.didEnter,
-        restState = (0, _objectWithoutProperties3.default)(_state, ['didEnter']);
-
     return _react2.default.createElement(
       'text',
-      restState,
+      (0, _extends3.default)({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)),
       this.props.children
     );
   }

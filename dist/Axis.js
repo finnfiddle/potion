@@ -24,8 +24,6 @@ var _d3Axis = require('d3-axis');
 
 var d3Axis = _interopRequireWildcard(_d3Axis);
 
-var _d3Selection = require('d3-selection');
-
 var _d3Interpolate = require('d3-interpolate');
 
 var _helpers = require('./helpers');
@@ -43,8 +41,8 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   displayName: 'Axis',
 
   propTypes: {
-    // placement,
-    // scale,
+    placement: _react.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+    scale: _react.PropTypes.func.isRequired
   },
 
   defaultProps: {
@@ -84,22 +82,12 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
       }
     });
   },
-
-
-  // componentDidMount() {
-  //   this.renderAxis(this.props);
-  // },
-  //
-  // componentWillReceiveProps(nextProps) {
-  //   this.renderAxis(this.props);
-  // },
-
   render: function render() {
     var _props = this.props,
         scale = _props.scale,
         placement = _props.placement,
-        props = (0, _objectWithoutProperties3.default)(_props, ['scale', 'placement']);
+        restProps = (0, _objectWithoutProperties3.default)(_props, ['scale', 'placement']);
 
-    return _react2.default.createElement('g', props);
+    return _react2.default.createElement('g', restProps);
   }
 });

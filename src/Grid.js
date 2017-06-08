@@ -1,4 +1,4 @@
-import React, { Children, cloneElement } from 'react';
+import React, { Children, cloneElement, PropTypes } from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
 import grid from 'd3-v4-grid';

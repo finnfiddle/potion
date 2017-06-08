@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
 import {
@@ -22,6 +22,8 @@ const SYMBOLS = {
   symbolWye,
 };
 
+import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
+import { bindMouseEvents } from './helpers';
 import AnimatedElement from './AnimatedElement';
 
 export default stamp(React).compose(AnimatedElement, {
@@ -29,7 +31,7 @@ export default stamp(React).compose(AnimatedElement, {
   displayName: 'Symbol',
 
   getAttrNames() {
-    return ['fill', 'stroke', 'strokeWidth'];
+    return TWEENABLE_SVG_PRESENTATION_ATTRS;
   },
 
   getDerivedAttrNames() {
@@ -43,24 +45,24 @@ export default stamp(React).compose(AnimatedElement, {
   },
 
   getDerivationMethod(key, props) {
-    const { datum, index, value } = props;
     switch (key) {
-    case 'd':
-      return datum => {
-        const attrInputNames = this.derivedAttrInputNames[key];
-        const attrValues = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames);
-        let symbolInstance = symbol();
-        const { size, type } = attrValues;
-        if (itsSet(size)) symbolInstance = symbolInstance.size(size);
-        if (itsSet(type)) symbolInstance = symbolInstance.type(SYMBOLS[type]);
-        return symbolInstance();
-      };
-    };
+      case 'd':
+        return datum => {
+          const attrInputNames = this.derivedAttrInputNames[key];
+          const attrValues = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames);
+          let symbolInstance = symbol();
+          const { size, type } = attrValues;
+          if (itsSet(size)) symbolInstance = symbolInstance.size(size);
+          if (itsSet(type)) symbolInstance = symbolInstance.type(SYMBOLS[type]);
+          return symbolInstance();
+        };
+      // no default
+    }
   },
 
   render() {
     return (
-      <path {...this.state} />
+      <path {...this.state} style={this.getStyle(this.props)} {...bindMouseEvents(this.props)} />
     );
   },
 

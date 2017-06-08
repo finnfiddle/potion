@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
@@ -22,6 +26,10 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
+var _constants = require('./constants');
+
+var _helpers = require('./helpers');
+
 var _AnimatedElement = require('./AnimatedElement');
 
 var _AnimatedElement2 = _interopRequireDefault(_AnimatedElement);
@@ -32,6 +40,13 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
 
   displayName: 'Arc',
 
+  propTypes: {
+    innerRadius: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
+    outerRadius: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
+    startAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
+    endAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
+  },
+
   defaultProps: {
     innerRadius: 0,
     outerRadius: 0,
@@ -40,7 +55,10 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
   },
 
   getAttrNames: function getAttrNames() {
-    return ['fill', 'stroke', 'strokeWidth'];
+    return _constants.TWEENABLE_SVG_PRESENTATION_ATTRS;
+  },
+  getPrivatePropNames: function getPrivatePropNames() {
+    return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
   },
   getDerivedAttrNames: function getDerivedAttrNames() {
     return ['d'];
@@ -52,10 +70,6 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
   },
   getDerivationMethod: function getDerivationMethod(key, props) {
     var _this = this;
-
-    var datum = props.datum,
-        index = props.index,
-        value = props.value;
 
     switch (key) {
       case 'd':
@@ -70,9 +84,10 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
           });
           return derivationMethod();
         };
+      // no default
     }
   },
   render: function render() {
-    return _react2.default.createElement('path', this.state);
+    return _react2.default.createElement('path', (0, _extends3.default)({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
   }
 });

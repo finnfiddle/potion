@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import stamp from 'react-stamp';
 import { arc } from 'd3-shape';
 import itsSet from 'its-set';
 
+import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
+import { bindMouseEvents } from './helpers';
 import AnimatedElement from './AnimatedElement';
 
 export default stamp(React).compose(AnimatedElement, {
 
   displayName: 'Arc',
+
+  propTypes: {
+    innerRadius: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.func,
+    ]),
+    outerRadius: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.func,
+    ]),
+    startAngle: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.func,
+    ]),
+    endAngle: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.func,
+    ]),
+  },
 
   defaultProps: {
     innerRadius: 0,
@@ -17,7 +38,11 @@ export default stamp(React).compose(AnimatedElement, {
   },
 
   getAttrNames() {
-    return ['fill', 'stroke', 'strokeWidth'];
+    return TWEENABLE_SVG_PRESENTATION_ATTRS;
+  },
+
+  getPrivatePropNames() {
+    return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
   },
 
   getDerivedAttrNames() {
@@ -31,7 +56,6 @@ export default stamp(React).compose(AnimatedElement, {
   },
 
   getDerivationMethod(key, props) {
-    const { datum, index, value } = props;
     switch (key) {
       case 'd':
         return datum => {
@@ -45,12 +69,13 @@ export default stamp(React).compose(AnimatedElement, {
           });
           return derivationMethod();
         };
+      // no default
     }
   },
 
   render() {
     return (
-      <path {...this.state} />
+      <path {...this.state} style={this.getStyle(this.props)} {...bindMouseEvents(this.props)} />
     );
   },
 
