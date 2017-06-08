@@ -16,12 +16,13 @@ export default stamp(React).compose({
   },
 
   render() {
-    const { children, name, data } = this.props;
-    const stackData = this.getStack(data);
-
-    return Children.map(children, child =>
-      cloneElement(child, { [name]: stackData }),
-    );
+    return 'TODO';
+    // const { children, name, data } = this.props;
+    // const stackData = this.getStack(data);
+    //
+    // return Children.map(children, child =>
+    //   cloneElement(child, { [name]: stackData }),
+    // );
   },
 
   getStack() {

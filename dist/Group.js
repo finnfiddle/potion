@@ -24,6 +24,10 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
+var _isString = require('lodash/isString');
+
+var _isString2 = _interopRequireDefault(_isString);
+
 var _helpers = require('./helpers');
 
 var _TransitionGroup = require('./TransitionGroup');
@@ -39,6 +43,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedElement2.default, {
 
   displayName: 'Group',
+
+  propTypes: {
+    x: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
+    y: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
+    rotation: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
+    rotationOriginX: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
+    rotationOriginY: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number])
+  },
 
   defaultProps: {
     x: 0,
@@ -101,7 +113,8 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
         children = _props.children;
 
     return _react.Children.map(children, function (child) {
-      return (0, _itsSet2.default)(child) ? (0, _react.cloneElement)(child, (0, _assign2.default)({ datum: datum, data: data, index: index }, child.props)) : null;
+      var props = (0, _isString2.default)(child.type.displayName) ? (0, _assign2.default)({ datum: datum, data: data, index: index }, child.props) : child.props;
+      return (0, _itsSet2.default)(child) ? (0, _react.cloneElement)(child, props) : null;
     });
   }
 });

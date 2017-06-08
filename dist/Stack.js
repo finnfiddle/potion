@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -39,16 +35,13 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
   },
 
   render: function render() {
-    var _props = this.props,
-        children = _props.children,
-        name = _props.name,
-        data = _props.data;
-
-    var stackData = this.getStack(data);
-
-    return _react.Children.map(children, function (child) {
-      return (0, _react.cloneElement)(child, (0, _defineProperty3.default)({}, name, stackData));
-    });
+    return 'TODO';
+    // const { children, name, data } = this.props;
+    // const stackData = this.getStack(data);
+    //
+    // return Children.map(children, child =>
+    //   cloneElement(child, { [name]: stackData }),
+    // );
   },
   getStack: function getStack() {
     var _this = this;

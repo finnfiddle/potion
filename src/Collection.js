@@ -8,7 +8,7 @@ export default stamp(React).compose({
   displayName: 'Collection',
 
   propTypes: {
-    // data required
+    data: PropTypes.array.isRequired,
   },
 
   render() {

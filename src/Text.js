@@ -9,6 +9,11 @@ export default stamp(React).compose(AnimatedElement, {
 
   displayName: 'Text',
 
+  propTypes: {
+    dx: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    dy: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+  },
+
   getAttrNames() {
     return ['dx', 'dy'].concat(TWEENABLE_SVG_PRESENTATION_ATTRS);
   },

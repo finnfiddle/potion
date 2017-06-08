@@ -35,14 +35,13 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
   displayName: 'Grid',
 
   propTypes: {
-    // size
-    // nodeSize
-    // rows
-    // cols
-    // bands
-    // points
-    // padding
-    // data
+    size: _react.PropTypes.arrayOf(_react.PropTypes.number),
+    nodeSize: _react.PropTypes.arrayOf(_react.PropTypes.number),
+    rows: _react.PropTypes.number,
+    cols: _react.PropTypes.number,
+    bands: _react.PropTypes.bool,
+    padding: _react.PropTypes.arrayOf(_react.PropTypes.number),
+    data: _react.PropTypes.arrayOf(_react.PropTypes.object).isRequired
   },
 
   render: function render() {

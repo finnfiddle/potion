@@ -35,7 +35,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
   render: function render() {
     return _react2.default.createElement(
       'svg',
-      (0, _extends3.default)({}, this.props, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)),
+      (0, _extends3.default)({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)),
       _react2.default.createElement(
         _TransitionGroup2.default,
         null,

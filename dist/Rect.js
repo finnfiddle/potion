@@ -30,6 +30,13 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
 
   displayName: 'Rect',
 
+  propTypes: {
+    x: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
+    y: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
+    height: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
+    width: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number])
+  },
+
   getAttrNames: function getAttrNames() {
     return ['x', 'y', 'height', 'width'].concat(_constants.TWEENABLE_SVG_PRESENTATION_ATTRS);
   },

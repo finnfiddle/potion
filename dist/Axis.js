@@ -86,7 +86,9 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     var _props = this.props,
         scale = _props.scale,
         placement = _props.placement,
-        restProps = (0, _objectWithoutProperties3.default)(_props, ['scale', 'placement']);
+        datum = _props.datum,
+        index = _props.index,
+        restProps = (0, _objectWithoutProperties3.default)(_props, ['scale', 'placement', 'datum', 'index']);
 
     return _react2.default.createElement('g', restProps);
   }

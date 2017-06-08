@@ -51,7 +51,7 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   render() {
-    const { scale, placement, ...restProps } = this.props;
+    const { scale, placement, datum, index, ...restProps } = this.props;
     return (
       <g {...restProps} />
     );

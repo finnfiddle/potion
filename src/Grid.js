@@ -10,14 +10,13 @@ export default stamp(React).compose({
   displayName: 'Grid',
 
   propTypes: {
-    // size
-    // nodeSize
-    // rows
-    // cols
-    // bands
-    // points
-    // padding
-    // data
+    size: PropTypes.arrayOf(PropTypes.number),
+    nodeSize: PropTypes.arrayOf(PropTypes.number),
+    rows: PropTypes.number,
+    cols: PropTypes.number,
+    bands: PropTypes.bool,
+    padding: PropTypes.arrayOf(PropTypes.number),
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
   },
 
   render() {

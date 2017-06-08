@@ -30,6 +30,13 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
 
   displayName: 'Line',
 
+  propTypes: {
+    x1: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]).isRequired,
+    x2: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]).isRequired,
+    y1: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]).isRequired,
+    y2: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]).isRequired
+  },
+
   getAttrNames: function getAttrNames() {
     return ['x1', 'x2', 'y1', 'y2'].concat(_constants.TWEENABLE_SVG_PRESENTATION_ATTRS);
   },

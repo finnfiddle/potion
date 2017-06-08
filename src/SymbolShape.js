@@ -30,6 +30,11 @@ export default stamp(React).compose(AnimatedElement, {
 
   displayName: 'Symbol',
 
+  propTypes: {
+    size: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    type: PropTypes.oneOf(Object.keys(SYMBOLS)),
+  },
+
   getAttrNames() {
     return TWEENABLE_SVG_PRESENTATION_ATTRS;
   },

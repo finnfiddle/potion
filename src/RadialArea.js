@@ -23,9 +23,10 @@ export default stamp(React).compose({
   },
 
   render() {
-    return (
-      <path d={this.getRadialArea()()} />
-    );
+    return 'TODO';
+    // return (
+    //   <path d={this.getRadialArea()()} />
+    // );
   },
 
   getRadialArea() {

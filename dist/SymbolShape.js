@@ -12,6 +12,10 @@ var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
 
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -49,6 +53,11 @@ var SYMBOLS = {
 exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedElement2.default, {
 
   displayName: 'Symbol',
+
+  propTypes: {
+    size: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
+    type: _react.PropTypes.oneOf((0, _keys2.default)(SYMBOLS))
+  },
 
   getAttrNames: function getAttrNames() {
     return _constants.TWEENABLE_SVG_PRESENTATION_ATTRS;

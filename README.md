@@ -395,7 +395,7 @@ Passed Prop | Value
 
 ### Pack
 
-`// TODO: description`
+`// TODO: description, datumPropsToTween`
 
 ```javascript
 import { Pack } from 'number-picture';
@@ -795,11 +795,16 @@ const scale = scaleLinear()
 
 `// TODO: document`
 
+- datumPropsToTween
+- datum filtering
+- data count
+
 ### Gotchas
 
 `// TODO: document`
 
 - use Group component for transforms
+- no stateless components (inside Group only?)
 
 ### Annotations
 

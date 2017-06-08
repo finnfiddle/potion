@@ -30,6 +30,11 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
 
   displayName: 'Text',
 
+  propTypes: {
+    dx: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
+    dy: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
+  },
+
   getAttrNames: function getAttrNames() {
     return ['dx', 'dy'].concat(_constants.TWEENABLE_SVG_PRESENTATION_ATTRS);
   },

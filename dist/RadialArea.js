@@ -42,7 +42,10 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
   },
 
   render: function render() {
-    return _react2.default.createElement('path', { d: this.getRadialArea()() });
+    return 'TODO';
+    // return (
+    //   <path d={this.getRadialArea()()} />
+    // );
   },
   getRadialArea: function getRadialArea() {
     var _this = this;

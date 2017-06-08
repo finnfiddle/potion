@@ -9,6 +9,13 @@ export default stamp(React).compose(AnimatedElement, {
 
   displayName: 'Line',
 
+  propTypes: {
+    x1: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
+    x2: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
+    y1: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
+    y2: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
+  },
+
   getAttrNames() {
     return ['x1', 'x2', 'y1', 'y2'].concat(TWEENABLE_SVG_PRESENTATION_ATTRS);
   },

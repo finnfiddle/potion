@@ -11,12 +11,18 @@ export default stamp(React).compose({
   displayName: 'Pack',
 
   propTypes: {
-    // 'radius',
-    // 'size',
-    // 'padding',
-    // 'packSiblings',
-    // 'packEnclose',
-    // data
+    radius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    size: PropTypes.arrayOf(PropTypes.number),
+    padding: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    // packSiblings: PropTypes.arrayOf(
+    //  PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })
+    // ),
+    // packEnclose: PropTypes.number,
+    data: PropTypes.object.isRequired,
+  },
+
+  defaultProps: {
+    datumPropsToTween: ['x', 'y', 'r'],
   },
 
   render() {
@@ -28,17 +34,27 @@ export default stamp(React).compose({
   },
 
   renderChildren() {
-    const { data, children, includeRoot } = this.props;
-    const packData = this.getPack()(data);
+    const { data, children, includeRoot, datumPropsToTween } = this.props;
 
-    return flattenHierarchy(packData).slice(includeRoot ? 0 : 1).reduce((acc, datum, index) =>
+    const packData = this.getPack()(data);
+    const filteredData = flattenHierarchy(packData)
+      .slice(includeRoot ? 0 : 1)
+      .map(datum => {
+        const result = Object.assign({}, datum.data, datum);
+        delete result.data;
+        delete result.parent;
+        return result;
+      });
+
+    return filteredData.reduce((acc, datum, index) =>
       acc.concat(Children.map(children, (child, c) =>
         cloneElement(child, {
           datum,
           index,
-          data: packData,
+          data: filteredData,
           key: `${index}_${c}`,
           _key: `${index}_${c}`,
+          datumPropsToTween,
         })
       ))
     , []);
@@ -50,8 +66,8 @@ export default stamp(React).compose({
       'radius',
       'size',
       'padding',
-      'packSiblings',
-      'packEnclose',
+      // 'packSiblings',
+      // 'packEnclose',
     ].forEach((key) => {
       if (itsSet(this.props[key])) p = p[key](this.props[key]);
     });

@@ -38,6 +38,6 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
   },
 
   render: function render() {
-    return null;
+    return 'TODO';
   }
 });

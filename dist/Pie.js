@@ -29,14 +29,14 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
   displayName: 'Pie',
 
   propTypes: {
-    // value
-    // sort
-    // sortValues
-    // startAngle
-    // endAngle
-    // padAngle
-    // data
-    // id
+    value: _react.PropTypes.func,
+    sort: _react.PropTypes.func,
+    sortValues: _react.PropTypes.func,
+    startAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
+    endAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
+    padAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
+    data: _react.PropTypes.arrayOf(_react.PropTypes.object),
+    id: _react.PropTypes.func
   },
 
   render: function render() {

@@ -10,14 +10,14 @@ export default stamp(React).compose({
   displayName: 'Pie',
 
   propTypes: {
-    // value
-    // sort
-    // sortValues
-    // startAngle
-    // endAngle
-    // padAngle
-    // data
-    // id
+    value: PropTypes.func,
+    sort: PropTypes.func,
+    sortValues: PropTypes.func,
+    startAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    endAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    padAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    data: PropTypes.arrayOf(PropTypes.object),
+    id: PropTypes.func,
   },
 
   render() {

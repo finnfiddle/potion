@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import stamp from 'react-stamp';
 
 import { bindMouseEvents } from './helpers';
@@ -11,7 +11,7 @@ export default stamp(React).compose(AnimatedElement, {
 
   render() {
     return (
-      <svg {...this.props} style={this.getStyle(this.props)} {...bindMouseEvents(this.props)}>
+      <svg {...this.state} style={this.getStyle(this.props)} {...bindMouseEvents(this.props)}>
         <TransitionGroup>
           {this.props.children}
         </TransitionGroup>

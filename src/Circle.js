@@ -22,14 +22,6 @@ export default stamp(React).compose(AnimatedElement, {
       PropTypes.number,
       PropTypes.func,
     ]),
-    fill: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.func,
-    ]),
-    stroke: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.func,
-    ]),
   },
 
   getAttrNames() {

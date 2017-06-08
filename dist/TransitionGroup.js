@@ -33,7 +33,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
   displayName: 'TransitionGroup',
 
   propTypes: {
-    // component
+    component: _react.PropTypes.oneOfType([_react.PropTypes.element, _react.PropTypes.string])
   },
 
   defaultProps: {

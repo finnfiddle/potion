@@ -33,9 +33,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
   propTypes: {
     cx: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
     cy: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-    r: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-    fill: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-    stroke: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
+    r: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
   },
 
   getAttrNames: function getAttrNames() {

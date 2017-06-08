@@ -9,7 +9,7 @@ export default stamp(React).compose({
   displayName: 'TransitionGroup',
 
   propTypes: {
-    // component
+    component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   },
 
   defaultProps: {

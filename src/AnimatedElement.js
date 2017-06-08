@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
 import isFunction from 'lodash/isFunction';
+import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import uniq from 'lodash/uniq';
 import { interpolate } from 'd3-interpolate';
@@ -12,6 +13,25 @@ import 'd3-transition';
 import SelectSelfMixin from './mixins/SelectSelfMixin';
 
 const EASE_TYPES = Object.keys(ease);
+const PRIVATE_PROP_NAMES = [
+  'enterDatum',
+  'exitDatum',
+  'enterDuration',
+  'updateDuration',
+  'exitDuration',
+  'enterEase',
+  'updateEase',
+  'exitEase',
+  'propsToCheckForChanges',
+  'datum',
+  'index',
+  'style',
+  '_key',
+  'data',
+  'nodes',
+  'links',
+  'datumPropsToTween',
+];
 
 export default stamp(React).compose(SelectSelfMixin, {
 
@@ -37,6 +57,7 @@ export default stamp(React).compose(SelectSelfMixin, {
     updateDuration: PropTypes.number,
     exitDuration: PropTypes.number,
     propsToCheckForChanges: PropTypes.arrayOf(PropTypes.string),
+    datumPropsToTween: PropTypes.arrayOf(PropTypes.string),
   },
 
   defaultProps: {
@@ -49,6 +70,7 @@ export default stamp(React).compose(SelectSelfMixin, {
     updateDuration: 0,
     exitDuration: 0,
     propsToCheckForChanges: [],
+    datumPropsToTween: [],
   },
 
   init() {
@@ -56,21 +78,7 @@ export default stamp(React).compose(SelectSelfMixin, {
     this.derivedAttrNames = this.getDerivedAttrNames();
     this.derivedAttrDefaults = this.getDerivedAttrDefaults();
     this.derivedAttrInputNames = this.getDerivedAttrInputNames();
-    this.privatePropNames = this.getPrivatePropNames().concat([
-      'enterDatum',
-      'exitDatum',
-      'enterDuration',
-      'updateDuration',
-      'exitDuration',
-      'updateBlacklist',
-      'enterEase',
-      'updateEase',
-      'exitEase',
-      'propsToCheckForChanges',
-      'datum',
-      'index',
-      'style',
-    ]);
+    this.privatePropNames = this.getPrivatePropNames().concat(PRIVATE_PROP_NAMES);
     this.allAttrInputNames = this.attrNames.concat(
       Object.keys(this.derivedAttrInputNames).reduce((acc, key) =>
         acc.concat(this.derivedAttrInputNames[key])
@@ -361,8 +369,10 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   attrTween(attrName, fromDatum, toDatum, transition, derivationMethod) {
-    // TODO: put whitelist datum keys prop on collection to minimize num interpolations
-    const keysToInterpolate = Object.keys(toDatum);
+    const { datumPropsToTween } = this.props;
+    const keysToInterpolate = Object.keys(
+      datumPropsToTween.length ? pick(toDatum, datumPropsToTween) : toDatum
+    );
 
     const interpolater = keysToInterpolate.reduce((acc, key) =>
       Object.assign({}, acc, { [key]: interpolate(fromDatum[key], toDatum[key]) })

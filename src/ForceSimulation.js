@@ -12,19 +12,19 @@ export default stamp(React).compose(SelectSelfMixin, {
   displayName: 'ForceSimulation',
 
   propTypes: {
-    // nodes
-    // links
-    // forces
-    // node
-    // link
-    // alpha
-    // alphaMin
-    // alphaDecay
-    // alphaTarget
-    // velocityDecay
-    // onTick
-    // onEnd
-    // running
+    nodes: PropTypes.array.isRequired,
+    links: PropTypes.array,
+    forces: PropTypes.object,
+    node: PropTypes.node.isRequired,
+    link: PropTypes.node,
+    alpha: PropTypes.number,
+    alphaMin: PropTypes.number,
+    alphaDecay: PropTypes.number,
+    alphaTarget: PropTypes.number,
+    velocityDecay: PropTypes.number,
+    onTick: PropTypes.func,
+    onEnd: PropTypes.func,
+    running: PropTypes.bool,
   },
 
   defaultProps: {
@@ -150,7 +150,7 @@ export default stamp(React).compose(SelectSelfMixin, {
         cloneElement(child, {
           datum,
           index,
-          nodes,
+          data: nodes,
           key,
           _key: key,
           className: `${node.className || ''} node`,
@@ -162,7 +162,7 @@ export default stamp(React).compose(SelectSelfMixin, {
         cloneElement(child, {
           datum,
           index,
-          links,
+          data: links,
           key,
           _key: key,
           className: `${link.className || ''} link`,

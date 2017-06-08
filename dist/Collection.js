@@ -23,7 +23,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
   displayName: 'Collection',
 
   propTypes: {
-    // data required
+    data: _react.PropTypes.array.isRequired
   },
 
   render: function render() {

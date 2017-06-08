@@ -32,6 +32,10 @@ var _isFunction = require('lodash/isFunction');
 
 var _isFunction2 = _interopRequireDefault(_isFunction);
 
+var _pick = require('lodash/pick');
+
+var _pick2 = _interopRequireDefault(_pick);
+
 var _omit = require('lodash/omit');
 
 var _omit2 = _interopRequireDefault(_omit);
@@ -61,6 +65,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EASE_TYPES = (0, _keys2.default)(ease);
+var PRIVATE_PROP_NAMES = ['enterDatum', 'exitDatum', 'enterDuration', 'updateDuration', 'exitDuration', 'enterEase', 'updateEase', 'exitEase', 'propsToCheckForChanges', 'datum', 'index', 'style', '_key', 'data', 'nodes', 'links', 'datumPropsToTween'];
 
 exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelfMixin2.default, {
 
@@ -76,7 +81,8 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     enterDuration: _react.PropTypes.number,
     updateDuration: _react.PropTypes.number,
     exitDuration: _react.PropTypes.number,
-    propsToCheckForChanges: _react.PropTypes.arrayOf(_react.PropTypes.string)
+    propsToCheckForChanges: _react.PropTypes.arrayOf(_react.PropTypes.string),
+    datumPropsToTween: _react.PropTypes.arrayOf(_react.PropTypes.string)
   },
 
   defaultProps: {
@@ -94,7 +100,8 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     enterDuration: 0,
     updateDuration: 0,
     exitDuration: 0,
-    propsToCheckForChanges: []
+    propsToCheckForChanges: [],
+    datumPropsToTween: []
   },
 
   init: function init() {
@@ -104,7 +111,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     this.derivedAttrNames = this.getDerivedAttrNames();
     this.derivedAttrDefaults = this.getDerivedAttrDefaults();
     this.derivedAttrInputNames = this.getDerivedAttrInputNames();
-    this.privatePropNames = this.getPrivatePropNames().concat(['enterDatum', 'exitDatum', 'enterDuration', 'updateDuration', 'exitDuration', 'updateBlacklist', 'enterEase', 'updateEase', 'exitEase', 'propsToCheckForChanges', 'datum', 'index', 'style']);
+    this.privatePropNames = this.getPrivatePropNames().concat(PRIVATE_PROP_NAMES);
     this.allAttrInputNames = this.attrNames.concat((0, _keys2.default)(this.derivedAttrInputNames).reduce(function (acc, key) {
       return acc.concat(_this.derivedAttrInputNames[key]);
     }, []));
@@ -330,8 +337,9 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     });
   },
   attrTween: function attrTween(attrName, fromDatum, toDatum, transition, derivationMethod) {
-    // TODO: put whitelist datum keys prop on collection to minimize num interpolations
-    var keysToInterpolate = (0, _keys2.default)(toDatum);
+    var datumPropsToTween = this.props.datumPropsToTween;
+
+    var keysToInterpolate = (0, _keys2.default)(datumPropsToTween.length ? (0, _pick2.default)(toDatum, datumPropsToTween) : toDatum);
 
     var interpolater = keysToInterpolate.reduce(function (acc, key) {
       return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _d3Interpolate.interpolate)(fromDatum[key], toDatum[key])));

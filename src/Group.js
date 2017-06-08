@@ -1,6 +1,7 @@
 import React, { cloneElement, Children, PropTypes } from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
+import isString from 'lodash/isString';
 
 import { bindMouseEvents } from './helpers';
 import TransitionGroup from './TransitionGroup';
@@ -9,6 +10,14 @@ import AnimatedElement from './AnimatedElement';
 export default stamp(React).compose(AnimatedElement, {
 
   displayName: 'Group',
+
+  propTypes: {
+    x: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    y: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    rotation: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    rotationOriginX: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    rotationOriginY: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+  },
 
   defaultProps: {
     x: 0,
@@ -67,9 +76,12 @@ export default stamp(React).compose(AnimatedElement, {
 
   renderChildren() {
     const { datum, data, index, children } = this.props;
-    return Children.map(children, child =>
-      itsSet(child) ? cloneElement(child, Object.assign({ datum, data, index }, child.props)) : null
-    );
+    return Children.map(children, child => {
+      const props = isString(child.type.displayName) ?
+        Object.assign({ datum, data, index }, child.props) :
+        child.props;
+      return itsSet(child) ? cloneElement(child, props) : null;
+    });
   },
 
 });

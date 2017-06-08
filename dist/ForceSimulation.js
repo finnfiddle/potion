@@ -41,19 +41,19 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   displayName: 'ForceSimulation',
 
   propTypes: {
-    // nodes
-    // links
-    // forces
-    // node
-    // link
-    // alpha
-    // alphaMin
-    // alphaDecay
-    // alphaTarget
-    // velocityDecay
-    // onTick
-    // onEnd
-    // running
+    nodes: _react.PropTypes.array.isRequired,
+    links: _react.PropTypes.array,
+    forces: _react.PropTypes.object,
+    node: _react.PropTypes.node.isRequired,
+    link: _react.PropTypes.node,
+    alpha: _react.PropTypes.number,
+    alphaMin: _react.PropTypes.number,
+    alphaDecay: _react.PropTypes.number,
+    alphaTarget: _react.PropTypes.number,
+    velocityDecay: _react.PropTypes.number,
+    onTick: _react.PropTypes.func,
+    onEnd: _react.PropTypes.func,
+    running: _react.PropTypes.bool
   },
 
   defaultProps: {
@@ -179,7 +179,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
         return (0, _react.cloneElement)(child, {
           datum: datum,
           index: index,
-          nodes: nodes,
+          data: nodes,
           key: key,
           _key: key,
           className: (node.className || '') + ' node'
@@ -191,7 +191,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
         return (0, _react.cloneElement)(child, {
           datum: datum,
           index: index,
-          links: links,
+          data: links,
           key: key,
           _key: key,
           className: (link.className || '') + ' link'
