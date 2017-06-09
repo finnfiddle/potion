@@ -1,6 +1,6 @@
 {
   "name": "number-picture",
-  "version": "0.1.0",
+  "version": "1.0.0-0",
   "description": "React input component that defers onChange handler until input is blurred",
   "repository": {
     "type": "git",
