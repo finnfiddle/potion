@@ -2,6 +2,7 @@ import React, { cloneElement, Children, PropTypes } from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
 import isString from 'lodash/isString';
+import get from 'lodash/get';
 
 import { bindMouseEvents } from './helpers';
 import TransitionGroup from './TransitionGroup';
@@ -77,10 +78,11 @@ export default stamp(React).compose(AnimatedElement, {
   renderChildren() {
     const { datum, data, index, children } = this.props;
     return Children.map(children, child => {
-      const props = isString(child.type.displayName) ?
+      if (!itsSet(child)) return null;
+      const props = (child !== null && isString(get(child, 'type.displayName'))) ?
         Object.assign({ datum, data, index }, child.props) :
         child.props;
-      return itsSet(child) ? cloneElement(child, props) : null;
+      return cloneElement(child, props);
     });
   },
 

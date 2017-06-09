@@ -28,6 +28,10 @@ var _isString = require('lodash/isString');
 
 var _isString2 = _interopRequireDefault(_isString);
 
+var _get = require('lodash/get');
+
+var _get2 = _interopRequireDefault(_get);
+
 var _helpers = require('./helpers');
 
 var _TransitionGroup = require('./TransitionGroup');
@@ -113,8 +117,9 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
         children = _props.children;
 
     return _react.Children.map(children, function (child) {
-      var props = (0, _isString2.default)(child.type.displayName) ? (0, _assign2.default)({ datum: datum, data: data, index: index }, child.props) : child.props;
-      return (0, _itsSet2.default)(child) ? (0, _react.cloneElement)(child, props) : null;
+      if (!(0, _itsSet2.default)(child)) return null;
+      var props = child !== null && (0, _isString2.default)((0, _get2.default)(child, 'type.displayName')) ? (0, _assign2.default)({ datum: datum, data: data, index: index }, child.props) : child.props;
+      return (0, _react.cloneElement)(child, props);
     });
   }
 });
