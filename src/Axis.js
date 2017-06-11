@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import stamp from 'react-stamp';
 import * as d3Axis from 'd3-axis';
 import { interpolate } from 'd3-interpolate';
+import omit from 'lodash.omit';
 
 import { cap } from './helpers';
 import SelectSelfMixin from './mixins/SelectSelfMixin';
@@ -51,9 +52,8 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   render() {
-    const { scale, placement, datum, index, ...restProps } = this.props;
     return (
-      <g {...restProps} />
+      <g {...omit(this.props, ['scale', 'placement', 'datum', 'index'])} />
     );
   },
 

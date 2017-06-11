@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
 import d3Shape from 'd3-shape';

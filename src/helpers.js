@@ -1,8 +1,7 @@
-import isArray from 'lodash/isArray';
-// import isObject from 'lodash/isObject';
-import intersection from 'lodash/intersection';
+import isArray from 'lodash.isarray';
+import intersection from 'lodash.intersection';
 import itsSet from 'its-set';
-import without from 'lodash/without';
+import without from 'lodash.without';
 
 import { MOUSE_EVENTS } from './constants';
 

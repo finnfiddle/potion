@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
-import isFunction from 'lodash/isFunction';
-import pick from 'lodash/pick';
-import omit from 'lodash/omit';
-import uniq from 'lodash/uniq';
+import isFunction from 'lodash.isfunction';
+import pick from 'lodash.pick';
+import omit from 'lodash.omit';
+import uniq from 'lodash.uniq';
 import { interpolate } from 'd3-interpolate';
 import * as ease from 'd3-ease';
 import deepEqual from 'deep-equal';

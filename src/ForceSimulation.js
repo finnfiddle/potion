@@ -2,7 +2,7 @@ import React, { Children, cloneElement, PropTypes } from 'react';
 import stamp from 'react-stamp';
 import { forceSimulation } from 'd3-force';
 import itsSet from 'its-set';
-import isObject from 'lodash/isObject';
+import isObject from 'lodash.isobject';
 
 import TransitionGroup from './TransitionGroup';
 import SelectSelfMixin from './mixins/SelectSelfMixin';

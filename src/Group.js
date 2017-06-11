@@ -1,8 +1,8 @@
 import React, { cloneElement, Children, PropTypes } from 'react';
 import stamp from 'react-stamp';
 import itsSet from 'its-set';
-import isString from 'lodash/isString';
-import get from 'lodash/get';
+import isString from 'lodash.isstring';
+import get from 'lodash.get';
 
 import { bindMouseEvents } from './helpers';
 import TransitionGroup from './TransitionGroup';
