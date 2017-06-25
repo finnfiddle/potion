@@ -48,7 +48,7 @@ export default stamp(React).compose(AnimatedElement, {
     };
   },
 
-  getDerivationMethod(key, props) {
+  getDerivationMethod(key, props, shouldGetDatum) {
     switch (key) {
       case 'transform':
         return datum => {
@@ -59,7 +59,7 @@ export default stamp(React).compose(AnimatedElement, {
             rotation,
             rotationOriginX,
             rotationOriginY,
-          } = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames);
+          } = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames, shouldGetDatum);
           return `translate(${x}, ${y}) rotate(${rotation}, ${rotationOriginX}, ${rotationOriginY})`; // eslint-disable-line max-len
         };
       // no default
@@ -76,11 +76,11 @@ export default stamp(React).compose(AnimatedElement, {
   },
 
   renderChildren() {
-    const { datum, data, index, children } = this.props;
+    const { datum, data, index, children, enterDatum, exitDatum } = this.props;
     return Children.map(children, child => {
       if (!itsSet(child)) return null;
       const props = (child !== null && isString(get(child, 'type.displayName'))) ?
-        Object.assign({ datum, data, index }, child.props) :
+        Object.assign({ datum, data, index, enterDatum, exitDatum }, child.props) :
         child.props;
       return cloneElement(child, props);
     });

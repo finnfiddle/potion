@@ -22,9 +22,9 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _isObject = require('lodash/isObject');
+var _lodash = require('lodash.isobject');
 
-var _isObject2 = _interopRequireDefault(_isObject);
+var _lodash2 = _interopRequireDefault(_lodash);
 
 var _TransitionGroup = require('./TransitionGroup');
 
@@ -200,7 +200,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     }, []));
   },
   normalizeLinks: function normalizeLinks(links) {
-    return (0, _isObject2.default)(links[links.length - 1].source) ? links : links.map(function (link) {
+    return (0, _lodash2.default)(links[links.length - 1].source) ? links : links.map(function (link) {
       return {
         source: {
           id: link.source,

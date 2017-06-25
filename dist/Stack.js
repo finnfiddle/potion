@@ -53,3 +53,4 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose({
     return stack;
   }
 });
+// import React, { Children, cloneElement, PropTypes } from 'react';

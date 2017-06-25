@@ -68,7 +68,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
       d: ['innerRadius', 'outerRadius', 'startAngle', 'endAngle']
     };
   },
-  getDerivationMethod: function getDerivationMethod(key, props) {
+  getDerivationMethod: function getDerivationMethod(key, props, shouldGetDatum) {
     var _this = this;
 
     switch (key) {
@@ -76,7 +76,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
         return function (datum) {
           var derivationMethod = (0, _d3Shape.arc)();
           var attrInputNames = _this.derivedAttrInputNames[key];
-          var attrValues = _this.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames);
+          var attrValues = _this.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames, shouldGetDatum);
           attrInputNames.forEach(function (attrName) {
             if ((0, _itsSet2.default)(props[attrName])) {
               derivationMethod = derivationMethod[attrName](attrValues[attrName]);

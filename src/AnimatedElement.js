@@ -31,15 +31,17 @@ const PRIVATE_PROP_NAMES = [
   'nodes',
   'links',
   'datumPropsToTween',
+  'datumAccessor',
 ];
+const DONT_GET_DATUM = false;
 
 export default stamp(React).compose(SelectSelfMixin, {
 
   displayName: 'AnimatedElement',
 
   propTypes: {
-    datum: PropTypes.oneOfType([
-      PropTypes.object,
+    datum: PropTypes.object,
+    datumAccessor: PropTypes.oneOfType([
       PropTypes.func,
     ]),
     enterDatum: PropTypes.oneOfType([
@@ -61,8 +63,9 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   defaultProps: {
-    enterDatum: ({ datum }) => datum,
-    exitDatum: ({ datum }) => datum,
+    // enterDatum: ({ datum }) => datum,
+    // exitDatum: ({ datum }) => datum,
+    datumAccessor: ({ datum }) => datum,
     enterEase: 'easeLinear',
     updateEase: 'easeLinear',
     exitEase: 'easeLinear',
@@ -97,19 +100,31 @@ export default stamp(React).compose(SelectSelfMixin, {
 
   componentWillAppearOrEnter(callback) {
     const { enterDuration, enterDatum, enterEase } = this.props;
+
+    let resolvedEnterDatum = this.getDatum(this.props);
+    if (itsSet(enterDatum)) {
+      resolvedEnterDatum = isFunction(enterDatum) ? enterDatum(this.props) : enterDatum;
+    }
+
     const calculatedEnterDatum = this.assignAbsolutePropsToDatum(
-      enterDatum(this.props),
-      this.props
+      resolvedEnterDatum,
+      this.props,
+      !itsSet(enterDatum)
     );
 
-    const enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum);
+    const enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum, DONT_GET_DATUM);
     const enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
 
     this.selection = this.selectSelf();
 
     this.applyAttrsToSelection(enterAttrs, this.selection);
     this.applyStyleToSelection(enterStyle, this.selection);
-    this.applyDerivedAttrsToSelection(this.props, calculatedEnterDatum, this.selection);
+    this.applyDerivedAttrsToSelection(
+      this.props,
+      calculatedEnterDatum,
+      this.selection,
+      DONT_GET_DATUM
+    );
 
     const transition = this.selection
       .transition()
@@ -120,7 +135,8 @@ export default stamp(React).compose(SelectSelfMixin, {
       calculatedEnterDatum,
       this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props),
       this.props,
-      transition
+      transition,
+      DONT_GET_DATUM
     );
     this.applyAttrsToSelection(this.attrs, transition);
     this.applyStyleToSelection(this.getStyle(this.props), transition);
@@ -148,71 +164,62 @@ export default stamp(React).compose(SelectSelfMixin, {
     const nextDatum = this.getDatum(nextProps);
     const nextDerivedAttrs = this.getDerivedAttrs(nextProps, nextDatum);
     const nextCombinedAttrs = Object.assign({}, nextAttrs, nextDerivedAttrs);
-    // TODO: this below is probably not a very good idea (slow) but I cant see any other way...
+
     if (
-      itsSet(this.currentDatum) &&
       itsSet(nextDatum) &&
-      deepEqual(this.currentDatum, nextDatum)
+      itsSet(this.currentDatum) &&
+      !deepEqual(this.currentDatum, nextDatum)
     ) {
-      if (!deepEqual(this.currentAttrs, nextCombinedAttrs)) {
-        this.updateFromNonDatumChange(nextProps);
-        this.currentAttrs = nextCombinedAttrs;
-      }
-      return;
+      const nextStyle = this.getStyle(nextProps);
+
+      this.selection = this.selectSelf();
+
+      const transition = this.selection
+        .transition()
+        .duration(updateDuration)
+        .ease(ease[updateEase]);
+
+      this.applyAttrsToSelection(nextAttrs, transition);
+      this.applyStyleToSelection(nextStyle, transition);
+      this.tweenDerivedAttrs(
+        this.currentDatum,
+        this.assignAbsolutePropsToDatum(nextDatum, nextProps),
+        nextProps,
+        transition
+      );
+
+      transition.on('end', () => {
+        this.setState(this.getState(nextProps, nextAttrs));
+      });
     }
-
-    const nextStyle = this.getStyle(nextProps);
-
-    this.selection = this.selectSelf();
-
-    const transition = this.selection
-      .transition()
-      .duration(updateDuration)
-      .ease(ease[updateEase]);
-
-    this.applyAttrsToSelection(nextAttrs, transition);
-    this.applyStyleToSelection(nextStyle, transition);
-    this.tweenDerivedAttrs(
-      this.assignAbsolutePropsToDatum(this.currentDatum, this.props),
-      this.assignAbsolutePropsToDatum(nextDatum, nextProps),
-      nextProps,
-      transition
-    );
+    else if (
+      itsSet(this.currentAttrs) &&
+      itsSet(nextCombinedAttrs) &&
+      !deepEqual(this.currentAttrs, nextCombinedAttrs)
+    ) {
+      this.updateFromNonDatumChange(nextProps);
+      this.currentAttrs = nextCombinedAttrs;
+    }
 
     this.currentAttrs = nextCombinedAttrs;
     this.currentDatum = nextDatum;
-
-    transition.on('end', () => {
-      this.setState(this.getState(nextProps, nextAttrs));
-    });
-  },
-
-  updateFromNonDatumChange(nextProps) {
-    const nextAttrs = this.getAttrs(nextProps);
-    const nextStyle = this.getStyle(nextProps);
-    this.selection = this.selectSelf();
-
-    this.applyAttrsToSelection(
-      nextAttrs,
-      this.selection,
-    );
-    this.applyStyleToSelection(
-      nextStyle,
-      this.selection,
-    );
-    this.applyDerivedAttrs(
-      this.assignAbsolutePropsToDatum(this.getDatum(nextProps), nextProps),
-      nextProps,
-      this.selection,
-    );
   },
 
   componentWillLeave(callback) {
-    const { exitDatum, exitDuration, exitEase } = this.props;
+    const { exitDatum, exitDuration, exitEase, datum } = this.props;
 
     if (exitDuration <= 0) callback();
 
-    const computedExitDatum = this.assignAbsolutePropsToDatum(exitDatum(this.props), this.props);
+    let resolvedExitDatum = datum;
+    if (itsSet(exitDatum)) {
+      resolvedExitDatum = isFunction(exitDatum) ? exitDatum(this.props) : exitDatum;
+    }
+
+    const computedExitDatum = this.assignAbsolutePropsToDatum(
+      resolvedExitDatum,
+      this.props,
+      DONT_GET_DATUM
+    );
     const exitAttrs = this.getAttrsFromDatum(computedExitDatum);
     const exitStyle = this.getStyleFromDatum(computedExitDatum);
 
@@ -237,6 +244,26 @@ export default stamp(React).compose(SelectSelfMixin, {
   componentWillUnmount() {
     this.selection.interrupt();
     clearTimeout(this.leaveTimeout);
+  },
+
+  updateFromNonDatumChange(nextProps) {
+    const nextAttrs = this.getAttrs(nextProps);
+    const nextStyle = this.getStyle(nextProps);
+    this.selection = this.selectSelf();
+
+    this.applyAttrsToSelection(
+      nextAttrs,
+      this.selection,
+    );
+    this.applyStyleToSelection(
+      nextStyle,
+      this.selection,
+    );
+    this.applyDerivedAttrs(
+      this.assignAbsolutePropsToDatum(this.getDatum(nextProps), nextProps),
+      nextProps,
+      this.selection,
+    );
   },
 
   getState(props, attrs) {
@@ -271,16 +298,18 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   getDatum(props) {
-    const { datum } = props;
-    return isFunction(datum) ? datum(props) : datum;
+    return props.datumAccessor(props);
   },
 
-  assignAbsolutePropsToDatum(datum, props) {
+  assignAbsolutePropsToDatum(datum, props, shouldGetDatum = true) {
+    const startingAcc = shouldGetDatum ?
+      Object.assign({}, this.getDatum(Object.assign({}, props, { datum }))) :
+      datum;
     return this.allAttrInputNames
       .filter(name => !isFunction(props[name]))
       .reduce(
         (acc, name) => Object.assign({}, acc, { [name]: props[name] }),
-        Object.assign({}, this.getDatum(Object.assign({}, props, { datum })))
+        startingAcc
       );
   },
 
@@ -303,19 +332,19 @@ export default stamp(React).compose(SelectSelfMixin, {
       });
   },
 
-  getAttrsFromDatum(datum) {
-    return this.getAttrs(Object.assign({}, this.props, { datum }));
+  getAttrsFromDatum(datum, shouldGetDatum = true) {
+    return this.getAttrs(Object.assign({}, this.props, { datum }), undefined, shouldGetDatum);
   },
 
   getStyleFromDatum(datum) {
     return this.getStyle(Object.assign({}, this.props, { datum }));
   },
 
-  getAttrs(props, attrNames) {
+  getAttrs(props, attrNames, shouldGetDatum = true) {
     return (attrNames || this.attrNames)
       .filter(key => itsSet(props[key]))
       .reduce((acc, key) => {
-        const datum = this.getDatum(props);
+        const datum = shouldGetDatum ? this.getDatum(props) : props.datum;
         const propsWithResolvedDatum = Object.assign({}, props, { datum });
         let prop = propsWithResolvedDatum[key];
         if (!itsSet(prop)) return acc;
@@ -332,30 +361,30 @@ export default stamp(React).compose(SelectSelfMixin, {
     return style;
   },
 
-  applyDerivedAttrsToSelection(props, datum, selection) {
+  applyDerivedAttrsToSelection(props, datum, selection, shouldGetDatum) {
     this.derivedAttrNames.forEach(key => {
       this.applyAttrsToSelection({
-        [key]: this.getDerivationMethod(key, props)(datum),
+        [key]: this.getDerivationMethod(key, props, shouldGetDatum)(datum),
       }, selection);
     });
   },
 
-  getDerivedAttrs(props, datum) {
+  getDerivedAttrs(props, datum, shouldGetDatum) {
     return this.derivedAttrNames.reduce((acc, key) =>
       Object.assign({}, acc, {
-        [key]: this.getDerivationMethod(key, props)(datum),
+        [key]: this.getDerivationMethod(key, props, shouldGetDatum)(datum),
       })
     , {});
   },
 
-  applyDerivedAttrs(toDatum, props, selection) {
+  applyDerivedAttrs(toDatum, props, selection, shouldGetDatum) {
     this.derivedAttrNames
       .forEach(key => {
-        selection.attr(key, this.getDerivationMethod(key, props)(toDatum));
+        selection.attr(key, this.getDerivationMethod(key, props, shouldGetDatum)(toDatum));
       });
   },
 
-  tweenDerivedAttrs(fromDatum, toDatum, props, transition) {
+  tweenDerivedAttrs(fromDatum, toDatum, props, transition, shouldGetDatum) {
     this.derivedAttrNames
       .forEach(key => {
         this.attrTween(
@@ -363,7 +392,7 @@ export default stamp(React).compose(SelectSelfMixin, {
           fromDatum,
           toDatum,
           transition,
-          this.getDerivationMethod(key, props)
+          this.getDerivationMethod(key, props, shouldGetDatum)
         );
       });
   },

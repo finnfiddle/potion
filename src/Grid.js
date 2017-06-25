@@ -20,29 +20,22 @@ export default stamp(React).compose({
   },
 
   render() {
+    const gridData = this.getGrid();
     return (
       <TransitionGroup>
-        {this.renderChildren()}
+        {this.renderChildren(gridData)}
+        {this.renderSingularChildren(gridData)}
       </TransitionGroup>
     );
   },
 
-  renderChildren() {
+  renderChildren(gridData) {
     const { children } = this.props;
-    const gridData = this.getGrid();
-    const meta = {
-      size: gridData.size(),
-      nodeSize: gridData.nodeSize(),
-      rows: gridData.rows(),
-      cols: gridData.cols(),
-      bands: gridData.bands(),
-      padding: gridData.padding(),
-    };
 
-    return gridData.nodes().reduce((acc, datum, index) =>
+    return gridData.reduce((acc, datum, index) =>
       acc.concat(Children.map(children, (child, c) =>
         cloneElement(child, {
-          datum: Object.assign({}, meta, datum),
+          datum,
           index,
           data: gridData,
           key: `${index}_${c}`,
@@ -52,8 +45,15 @@ export default stamp(React).compose({
     , []);
   },
 
+  renderSingularChildren(gridData) {
+    const { singularChildren } = this.props;
+    return Children.map(singularChildren, child =>
+      cloneElement(child, { data: gridData })
+    );
+  },
+
   getGrid() {
-    let p = grid();
+    let gridData = grid();
 
     [
       'size',
@@ -64,12 +64,21 @@ export default stamp(React).compose({
       'padding',
       'data',
     ].forEach((key) => {
-      if (itsSet(this.props[key])) p = p[key](this.props[key]);
+      if (itsSet(this.props[key])) gridData = gridData[key](this.props[key]);
     });
 
-    p.layout();
+    gridData.layout();
 
-    return p;
+    const meta = {
+      size: gridData.size(),
+      nodeSize: gridData.nodeSize(),
+      rows: gridData.rows(),
+      cols: gridData.cols(),
+      bands: gridData.bands(),
+      padding: gridData.padding(),
+    };
+
+    return gridData.nodes().map(d => Object.assign({}, d, meta));
   },
 
 });

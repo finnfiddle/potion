@@ -28,21 +28,21 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _isFunction = require('lodash/isFunction');
+var _lodash = require('lodash.isfunction');
 
-var _isFunction2 = _interopRequireDefault(_isFunction);
+var _lodash2 = _interopRequireDefault(_lodash);
 
-var _pick = require('lodash/pick');
+var _lodash3 = require('lodash.pick');
 
-var _pick2 = _interopRequireDefault(_pick);
+var _lodash4 = _interopRequireDefault(_lodash3);
 
-var _omit = require('lodash/omit');
+var _lodash5 = require('lodash.omit');
 
-var _omit2 = _interopRequireDefault(_omit);
+var _lodash6 = _interopRequireDefault(_lodash5);
 
-var _uniq = require('lodash/uniq');
+var _lodash7 = require('lodash.uniq');
 
-var _uniq2 = _interopRequireDefault(_uniq);
+var _lodash8 = _interopRequireDefault(_lodash7);
 
 var _d3Interpolate = require('d3-interpolate');
 
@@ -65,14 +65,16 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EASE_TYPES = (0, _keys2.default)(ease);
-var PRIVATE_PROP_NAMES = ['enterDatum', 'exitDatum', 'enterDuration', 'updateDuration', 'exitDuration', 'enterEase', 'updateEase', 'exitEase', 'propsToCheckForChanges', 'datum', 'index', 'style', '_key', 'data', 'nodes', 'links', 'datumPropsToTween'];
+var PRIVATE_PROP_NAMES = ['enterDatum', 'exitDatum', 'enterDuration', 'updateDuration', 'exitDuration', 'enterEase', 'updateEase', 'exitEase', 'propsToCheckForChanges', 'datum', 'index', 'style', '_key', 'data', 'nodes', 'links', 'datumPropsToTween', 'datumAccessor'];
+var DONT_GET_DATUM = false;
 
 exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelfMixin2.default, {
 
   displayName: 'AnimatedElement',
 
   propTypes: {
-    datum: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.func]),
+    datum: _react.PropTypes.object,
+    datumAccessor: _react.PropTypes.oneOfType([_react.PropTypes.func]),
     enterDatum: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.func]),
     exitDatum: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.func]),
     enterEase: _react.PropTypes.oneOf(EASE_TYPES),
@@ -86,12 +88,10 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   },
 
   defaultProps: {
-    enterDatum: function enterDatum(_ref) {
+    // enterDatum: ({ datum }) => datum,
+    // exitDatum: ({ datum }) => datum,
+    datumAccessor: function datumAccessor(_ref) {
       var datum = _ref.datum;
-      return datum;
-    },
-    exitDatum: function exitDatum(_ref2) {
-      var datum = _ref2.datum;
       return datum;
     },
     enterEase: 'easeLinear',
@@ -115,7 +115,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     this.allAttrInputNames = this.attrNames.concat((0, _keys2.default)(this.derivedAttrInputNames).reduce(function (acc, key) {
       return acc.concat(_this.derivedAttrInputNames[key]);
     }, []));
-    this.allDerivedAttrInputNames = (0, _uniq2.default)((0, _keys2.default)(this.derivedAttrInputNames).reduce(function (acc, key) {
+    this.allDerivedAttrInputNames = (0, _lodash8.default)((0, _keys2.default)(this.derivedAttrInputNames).reduce(function (acc, key) {
       return acc.concat(_this.derivedAttrInputNames[key]);
     }, []));
     this.propsToCheckForChanges = ['datum'].concat(this.props.propsToCheckForChanges);
@@ -130,20 +130,26 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
         enterDatum = _props.enterDatum,
         enterEase = _props.enterEase;
 
-    var calculatedEnterDatum = this.assignAbsolutePropsToDatum(enterDatum(this.props), this.props);
 
-    var enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum);
+    var resolvedEnterDatum = this.getDatum(this.props);
+    if ((0, _itsSet2.default)(enterDatum)) {
+      resolvedEnterDatum = (0, _lodash2.default)(enterDatum) ? enterDatum(this.props) : enterDatum;
+    }
+
+    var calculatedEnterDatum = this.assignAbsolutePropsToDatum(resolvedEnterDatum, this.props, !(0, _itsSet2.default)(enterDatum));
+
+    var enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum, DONT_GET_DATUM);
     var enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
 
     this.selection = this.selectSelf();
 
     this.applyAttrsToSelection(enterAttrs, this.selection);
     this.applyStyleToSelection(enterStyle, this.selection);
-    this.applyDerivedAttrsToSelection(this.props, calculatedEnterDatum, this.selection);
+    this.applyDerivedAttrsToSelection(this.props, calculatedEnterDatum, this.selection, DONT_GET_DATUM);
 
     var transition = this.selection.transition().duration(enterDuration).ease(ease[enterEase]);
 
-    this.tweenDerivedAttrs(calculatedEnterDatum, this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props), this.props, transition);
+    this.tweenDerivedAttrs(calculatedEnterDatum, this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props), this.props, transition, DONT_GET_DATUM);
     this.applyAttrsToSelection(this.attrs, transition);
     this.applyStyleToSelection(this.getStyle(this.props), transition);
 
@@ -171,51 +177,45 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     var nextDatum = this.getDatum(nextProps);
     var nextDerivedAttrs = this.getDerivedAttrs(nextProps, nextDatum);
     var nextCombinedAttrs = (0, _assign2.default)({}, nextAttrs, nextDerivedAttrs);
-    // TODO: this below is probably not a very good idea (slow) but I cant see any other way...
-    if ((0, _itsSet2.default)(this.currentDatum) && (0, _itsSet2.default)(nextDatum) && (0, _deepEqual2.default)(this.currentDatum, nextDatum)) {
-      if (!(0, _deepEqual2.default)(this.currentAttrs, nextCombinedAttrs)) {
-        this.updateFromNonDatumChange(nextProps);
-        this.currentAttrs = nextCombinedAttrs;
-      }
-      return;
+
+    if ((0, _itsSet2.default)(nextDatum) && (0, _itsSet2.default)(this.currentDatum) && !(0, _deepEqual2.default)(this.currentDatum, nextDatum)) {
+      var nextStyle = this.getStyle(nextProps);
+
+      this.selection = this.selectSelf();
+
+      var transition = this.selection.transition().duration(updateDuration).ease(ease[updateEase]);
+
+      this.applyAttrsToSelection(nextAttrs, transition);
+      this.applyStyleToSelection(nextStyle, transition);
+      this.tweenDerivedAttrs(this.currentDatum, this.assignAbsolutePropsToDatum(nextDatum, nextProps), nextProps, transition);
+
+      transition.on('end', function () {
+        _this3.setState(_this3.getState(nextProps, nextAttrs));
+      });
+    } else if ((0, _itsSet2.default)(this.currentAttrs) && (0, _itsSet2.default)(nextCombinedAttrs) && !(0, _deepEqual2.default)(this.currentAttrs, nextCombinedAttrs)) {
+      this.updateFromNonDatumChange(nextProps);
+      this.currentAttrs = nextCombinedAttrs;
     }
-
-    var nextStyle = this.getStyle(nextProps);
-
-    this.selection = this.selectSelf();
-
-    var transition = this.selection.transition().duration(updateDuration).ease(ease[updateEase]);
-
-    this.applyAttrsToSelection(nextAttrs, transition);
-    this.applyStyleToSelection(nextStyle, transition);
-    this.tweenDerivedAttrs(this.assignAbsolutePropsToDatum(this.currentDatum, this.props), this.assignAbsolutePropsToDatum(nextDatum, nextProps), nextProps, transition);
 
     this.currentAttrs = nextCombinedAttrs;
     this.currentDatum = nextDatum;
-
-    transition.on('end', function () {
-      _this3.setState(_this3.getState(nextProps, nextAttrs));
-    });
-  },
-  updateFromNonDatumChange: function updateFromNonDatumChange(nextProps) {
-    var nextAttrs = this.getAttrs(nextProps);
-    var nextStyle = this.getStyle(nextProps);
-    this.selection = this.selectSelf();
-
-    this.applyAttrsToSelection(nextAttrs, this.selection);
-    this.applyStyleToSelection(nextStyle, this.selection);
-    this.applyDerivedAttrs(this.assignAbsolutePropsToDatum(this.getDatum(nextProps), nextProps), nextProps, this.selection);
   },
   componentWillLeave: function componentWillLeave(callback) {
     var _props2 = this.props,
         exitDatum = _props2.exitDatum,
         exitDuration = _props2.exitDuration,
-        exitEase = _props2.exitEase;
+        exitEase = _props2.exitEase,
+        datum = _props2.datum;
 
 
     if (exitDuration <= 0) callback();
 
-    var computedExitDatum = this.assignAbsolutePropsToDatum(exitDatum(this.props), this.props);
+    var resolvedExitDatum = datum;
+    if ((0, _itsSet2.default)(exitDatum)) {
+      resolvedExitDatum = (0, _lodash2.default)(exitDatum) ? exitDatum(this.props) : exitDatum;
+    }
+
+    var computedExitDatum = this.assignAbsolutePropsToDatum(resolvedExitDatum, this.props, DONT_GET_DATUM);
     var exitAttrs = this.getAttrsFromDatum(computedExitDatum);
     var exitStyle = this.getStyleFromDatum(computedExitDatum);
 
@@ -232,8 +232,17 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     this.selection.interrupt();
     clearTimeout(this.leaveTimeout);
   },
+  updateFromNonDatumChange: function updateFromNonDatumChange(nextProps) {
+    var nextAttrs = this.getAttrs(nextProps);
+    var nextStyle = this.getStyle(nextProps);
+    this.selection = this.selectSelf();
+
+    this.applyAttrsToSelection(nextAttrs, this.selection);
+    this.applyStyleToSelection(nextStyle, this.selection);
+    this.applyDerivedAttrs(this.assignAbsolutePropsToDatum(this.getDatum(nextProps), nextProps), nextProps, this.selection);
+  },
   getState: function getState(props, attrs) {
-    return (0, _omit2.default)((0, _assign2.default)({}, props || this.props, attrs || this.attrs), this.privatePropNames);
+    return (0, _lodash6.default)((0, _assign2.default)({}, props || this.props, attrs || this.attrs), this.privatePropNames);
   },
   getAttrNames: function getAttrNames() {
     return [];
@@ -254,16 +263,17 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     return {};
   },
   getDatum: function getDatum(props) {
-    var datum = props.datum;
-
-    return (0, _isFunction2.default)(datum) ? datum(props) : datum;
+    return props.datumAccessor(props);
   },
   assignAbsolutePropsToDatum: function assignAbsolutePropsToDatum(datum, props) {
+    var shouldGetDatum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+    var startingAcc = shouldGetDatum ? (0, _assign2.default)({}, this.getDatum((0, _assign2.default)({}, props, { datum: datum }))) : datum;
     return this.allAttrInputNames.filter(function (name) {
-      return !(0, _isFunction2.default)(props[name]);
+      return !(0, _lodash2.default)(props[name]);
     }).reduce(function (acc, name) {
       return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, name, props[name]));
-    }, (0, _assign2.default)({}, this.getDatum((0, _assign2.default)({}, props, { datum: datum }))));
+    }, startingAcc);
   },
   applyAttrsToSelection: function applyAttrsToSelection(attrs, selection) {
     if (!(0, _itsSet2.default)(attrs)) return;
@@ -281,7 +291,9 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     });
   },
   getAttrsFromDatum: function getAttrsFromDatum(datum) {
-    return this.getAttrs((0, _assign2.default)({}, this.props, { datum: datum }));
+    var shouldGetDatum = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+    return this.getAttrs((0, _assign2.default)({}, this.props, { datum: datum }), undefined, shouldGetDatum);
   },
   getStyleFromDatum: function getStyleFromDatum(datum) {
     return this.getStyle((0, _assign2.default)({}, this.props, { datum: datum }));
@@ -289,14 +301,16 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   getAttrs: function getAttrs(props, attrNames) {
     var _this4 = this;
 
+    var shouldGetDatum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
     return (attrNames || this.attrNames).filter(function (key) {
       return (0, _itsSet2.default)(props[key]);
     }).reduce(function (acc, key) {
-      var datum = _this4.getDatum(props);
+      var datum = shouldGetDatum ? _this4.getDatum(props) : props.datum;
       var propsWithResolvedDatum = (0, _assign2.default)({}, props, { datum: datum });
       var prop = propsWithResolvedDatum[key];
       if (!(0, _itsSet2.default)(prop)) return acc;
-      if ((0, _isFunction2.default)(prop) && (0, _itsSet2.default)(datum)) {
+      if ((0, _lodash2.default)(prop) && (0, _itsSet2.default)(datum)) {
         prop = prop(propsWithResolvedDatum);
       }
       return (0, _assign2.default)({}, _this4.attrDefaults, acc, (0, _defineProperty3.default)({}, key, prop));
@@ -305,41 +319,41 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   getStyle: function getStyle(props) {
     var style = props.style;
 
-    if ((0, _isFunction2.default)(style)) return style(props);
+    if ((0, _lodash2.default)(style)) return style(props);
     return style;
   },
-  applyDerivedAttrsToSelection: function applyDerivedAttrsToSelection(props, datum, selection) {
+  applyDerivedAttrsToSelection: function applyDerivedAttrsToSelection(props, datum, selection, shouldGetDatum) {
     var _this5 = this;
 
     this.derivedAttrNames.forEach(function (key) {
-      _this5.applyAttrsToSelection((0, _defineProperty3.default)({}, key, _this5.getDerivationMethod(key, props)(datum)), selection);
+      _this5.applyAttrsToSelection((0, _defineProperty3.default)({}, key, _this5.getDerivationMethod(key, props, shouldGetDatum)(datum)), selection);
     });
   },
-  getDerivedAttrs: function getDerivedAttrs(props, datum) {
+  getDerivedAttrs: function getDerivedAttrs(props, datum, shouldGetDatum) {
     var _this6 = this;
 
     return this.derivedAttrNames.reduce(function (acc, key) {
-      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, _this6.getDerivationMethod(key, props)(datum)));
+      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, _this6.getDerivationMethod(key, props, shouldGetDatum)(datum)));
     }, {});
   },
-  applyDerivedAttrs: function applyDerivedAttrs(toDatum, props, selection) {
+  applyDerivedAttrs: function applyDerivedAttrs(toDatum, props, selection, shouldGetDatum) {
     var _this7 = this;
 
     this.derivedAttrNames.forEach(function (key) {
-      selection.attr(key, _this7.getDerivationMethod(key, props)(toDatum));
+      selection.attr(key, _this7.getDerivationMethod(key, props, shouldGetDatum)(toDatum));
     });
   },
-  tweenDerivedAttrs: function tweenDerivedAttrs(fromDatum, toDatum, props, transition) {
+  tweenDerivedAttrs: function tweenDerivedAttrs(fromDatum, toDatum, props, transition, shouldGetDatum) {
     var _this8 = this;
 
     this.derivedAttrNames.forEach(function (key) {
-      _this8.attrTween(key, fromDatum, toDatum, transition, _this8.getDerivationMethod(key, props));
+      _this8.attrTween(key, fromDatum, toDatum, transition, _this8.getDerivationMethod(key, props, shouldGetDatum));
     });
   },
   attrTween: function attrTween(attrName, fromDatum, toDatum, transition, derivationMethod) {
     var datumPropsToTween = this.props.datumPropsToTween;
 
-    var keysToInterpolate = (0, _keys2.default)(datumPropsToTween.length ? (0, _pick2.default)(toDatum, datumPropsToTween) : toDatum);
+    var keysToInterpolate = (0, _keys2.default)(datumPropsToTween.length ? (0, _lodash4.default)(toDatum, datumPropsToTween) : toDatum);
 
     var interpolater = keysToInterpolate.reduce(function (acc, key) {
       return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _d3Interpolate.interpolate)(fromDatum[key], toDatum[key])));

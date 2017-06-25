@@ -23,35 +23,33 @@ exports.radiansToDegrees = radiansToDegrees;
 exports.bindMouseEvents = bindMouseEvents;
 exports.filter = filter;
 
-var _isArray = require('lodash/isArray');
+var _lodash = require('lodash.isarray');
 
-var _isArray2 = _interopRequireDefault(_isArray);
+var _lodash2 = _interopRequireDefault(_lodash);
 
-var _intersection = require('lodash/intersection');
+var _lodash3 = require('lodash.intersection');
 
-var _intersection2 = _interopRequireDefault(_intersection);
+var _lodash4 = _interopRequireDefault(_lodash3);
 
 var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _without = require('lodash/without');
+var _lodash5 = require('lodash.without');
 
-var _without2 = _interopRequireDefault(_without);
+var _lodash6 = _interopRequireDefault(_lodash5);
 
 var _constants = require('./constants');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // convert first letter of word to uppercase
-
-// import isObject from 'lodash/isObject';
 function cap(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
 function mapObject(object, iterator) {
-  return ((0, _isArray2.default)(object) ? object : (0, _keys2.default)(object)).reduce(function (acc, key) {
+  return ((0, _lodash2.default)(object) ? object : (0, _keys2.default)(object)).reduce(function (acc, key) {
     return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, iterator(object[key], key)));
   }, {});
 }
@@ -71,7 +69,7 @@ function radiansToDegrees(radians) {
 }
 
 function bindMouseEvents(props) {
-  var setProps = (0, _intersection2.default)((0, _keys2.default)(props), _constants.MOUSE_EVENTS);
+  var setProps = (0, _lodash4.default)((0, _keys2.default)(props), _constants.MOUSE_EVENTS);
   return setProps.reduce(function (acc, key) {
     return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, function () {
       return props[key](props);
@@ -83,7 +81,7 @@ function filter(array) {
   var whiteList = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var blackList = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
-  return whiteList.length ? (0, _without2.default)((0, _intersection2.default)(array, whiteList), blackList) : (0, _without2.default)(array, blackList);
+  return whiteList.length ? (0, _lodash6.default)((0, _lodash4.default)(array, whiteList), blackList) : (0, _lodash6.default)(array, blackList);
 }
 
 exports.default = {

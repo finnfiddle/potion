@@ -49,12 +49,16 @@ export default stamp(React).compose(AnimatedElement, {
     };
   },
 
-  getDerivationMethod(key, props) {
+  getDerivationMethod(key, props, shouldGetDatum) {
     switch (key) {
       case 'd':
         return datum => {
           const attrInputNames = this.derivedAttrInputNames[key];
-          const attrValues = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames);
+          const attrValues = this.getAttrs(
+            Object.assign({}, props, { datum }),
+            attrInputNames,
+            shouldGetDatum
+          );
           let symbolInstance = symbol();
           const { size, type } = attrValues;
           if (itsSet(size)) symbolInstance = symbolInstance.size(size);

@@ -24,13 +24,13 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _isString = require('lodash/isString');
+var _lodash = require('lodash.isstring');
 
-var _isString2 = _interopRequireDefault(_isString);
+var _lodash2 = _interopRequireDefault(_lodash);
 
-var _get = require('lodash/get');
+var _lodash3 = require('lodash.get');
 
-var _get2 = _interopRequireDefault(_get);
+var _lodash4 = _interopRequireDefault(_lodash3);
 
 var _helpers = require('./helpers');
 
@@ -81,7 +81,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
       rotationOriginY: 0
     };
   },
-  getDerivationMethod: function getDerivationMethod(key, props) {
+  getDerivationMethod: function getDerivationMethod(key, props, shouldGetDatum) {
     var _this = this;
 
     switch (key) {
@@ -89,7 +89,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
         return function (datum) {
           var attrInputNames = _this.derivedAttrInputNames[key];
 
-          var _getAttrs = _this.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames),
+          var _getAttrs = _this.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames, shouldGetDatum),
               x = _getAttrs.x,
               y = _getAttrs.y,
               rotation = _getAttrs.rotation,
@@ -114,11 +114,13 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_AnimatedEl
         datum = _props.datum,
         data = _props.data,
         index = _props.index,
-        children = _props.children;
+        children = _props.children,
+        enterDatum = _props.enterDatum,
+        exitDatum = _props.exitDatum;
 
     return _react.Children.map(children, function (child) {
       if (!(0, _itsSet2.default)(child)) return null;
-      var props = child !== null && (0, _isString2.default)((0, _get2.default)(child, 'type.displayName')) ? (0, _assign2.default)({ datum: datum, data: data, index: index }, child.props) : child.props;
+      var props = child !== null && (0, _lodash2.default)((0, _lodash4.default)(child, 'type.displayName')) ? (0, _assign2.default)({ datum: datum, data: data, index: index, enterDatum: enterDatum, exitDatum: exitDatum }, child.props) : child.props;
       return (0, _react.cloneElement)(child, props);
     });
   }

@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
 var _typeof2 = require('babel-runtime/helpers/typeof');
 
 var _typeof3 = _interopRequireDefault(_typeof2);
@@ -25,6 +21,10 @@ var _d3Axis = require('d3-axis');
 var d3Axis = _interopRequireWildcard(_d3Axis);
 
 var _d3Interpolate = require('d3-interpolate');
+
+var _lodash = require('lodash.omit');
+
+var _lodash2 = _interopRequireDefault(_lodash);
 
 var _helpers = require('./helpers');
 
@@ -83,13 +83,6 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     });
   },
   render: function render() {
-    var _props = this.props,
-        scale = _props.scale,
-        placement = _props.placement,
-        datum = _props.datum,
-        index = _props.index,
-        restProps = (0, _objectWithoutProperties3.default)(_props, ['scale', 'placement', 'datum', 'index']);
-
-    return _react2.default.createElement('g', restProps);
+    return _react2.default.createElement('g', (0, _lodash2.default)(this.props, ['scale', 'placement', 'datum', 'index']));
   }
 });
