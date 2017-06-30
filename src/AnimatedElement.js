@@ -63,8 +63,6 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   defaultProps: {
-    // enterDatum: ({ datum }) => datum,
-    // exitDatum: ({ datum }) => datum,
     datumAccessor: ({ datum }) => datum,
     enterEase: 'easeLinear',
     updateEase: 'easeLinear',
@@ -102,14 +100,15 @@ export default stamp(React).compose(SelectSelfMixin, {
     const { enterDuration, enterDatum, enterEase } = this.props;
 
     let resolvedEnterDatum = this.getDatum(this.props);
-    if (itsSet(enterDatum)) {
+    const enterDatumIsSet = itsSet(enterDatum);
+    if (enterDatumIsSet) {
       resolvedEnterDatum = isFunction(enterDatum) ? enterDatum(this.props) : enterDatum;
     }
 
     const calculatedEnterDatum = this.assignAbsolutePropsToDatum(
       resolvedEnterDatum,
       this.props,
-      !itsSet(enterDatum)
+      !enterDatumIsSet
     );
 
     const enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum, DONT_GET_DATUM);
@@ -185,7 +184,8 @@ export default stamp(React).compose(SelectSelfMixin, {
         this.currentDatum,
         this.assignAbsolutePropsToDatum(nextDatum, nextProps),
         nextProps,
-        transition
+        transition,
+        DONT_GET_DATUM
       );
 
       transition.on('end', () => {
@@ -231,10 +231,11 @@ export default stamp(React).compose(SelectSelfMixin, {
     this.applyAttrsToSelection(exitAttrs, transition);
     this.applyStyleToSelection(exitStyle, transition);
     this.tweenDerivedAttrs(
-      this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props),
+      this.currentDatum,
       computedExitDatum,
       this.props,
-      transition
+      transition,
+      DONT_GET_DATUM
     );
 
     this.leaveTimeout = setTimeout(callback, exitDuration);
@@ -242,7 +243,7 @@ export default stamp(React).compose(SelectSelfMixin, {
   },
 
   componentWillUnmount() {
-    this.selection.interrupt();
+    if (itsSet(this.selection)) this.selection.interrupt();
     clearTimeout(this.leaveTimeout);
   },
 
@@ -404,7 +405,9 @@ export default stamp(React).compose(SelectSelfMixin, {
     );
 
     const interpolater = keysToInterpolate.reduce((acc, key) =>
-      Object.assign({}, acc, { [key]: interpolate(fromDatum[key], toDatum[key]) })
+      Object.assign({}, acc, {
+        [key]: interpolate(itsSet(fromDatum[key]) ? fromDatum[key] : toDatum[key], toDatum[key]),
+      })
     , {});
 
     transition.attrTween(attrName, () =>

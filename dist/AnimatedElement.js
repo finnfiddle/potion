@@ -88,8 +88,6 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
   },
 
   defaultProps: {
-    // enterDatum: ({ datum }) => datum,
-    // exitDatum: ({ datum }) => datum,
     datumAccessor: function datumAccessor(_ref) {
       var datum = _ref.datum;
       return datum;
@@ -132,11 +130,12 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
 
 
     var resolvedEnterDatum = this.getDatum(this.props);
-    if ((0, _itsSet2.default)(enterDatum)) {
+    var enterDatumIsSet = (0, _itsSet2.default)(enterDatum);
+    if (enterDatumIsSet) {
       resolvedEnterDatum = (0, _lodash2.default)(enterDatum) ? enterDatum(this.props) : enterDatum;
     }
 
-    var calculatedEnterDatum = this.assignAbsolutePropsToDatum(resolvedEnterDatum, this.props, !(0, _itsSet2.default)(enterDatum));
+    var calculatedEnterDatum = this.assignAbsolutePropsToDatum(resolvedEnterDatum, this.props, !enterDatumIsSet);
 
     var enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum, DONT_GET_DATUM);
     var enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
@@ -187,7 +186,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
 
       this.applyAttrsToSelection(nextAttrs, transition);
       this.applyStyleToSelection(nextStyle, transition);
-      this.tweenDerivedAttrs(this.currentDatum, this.assignAbsolutePropsToDatum(nextDatum, nextProps), nextProps, transition);
+      this.tweenDerivedAttrs(this.currentDatum, this.assignAbsolutePropsToDatum(nextDatum, nextProps), nextProps, transition, DONT_GET_DATUM);
 
       transition.on('end', function () {
         _this3.setState(_this3.getState(nextProps, nextAttrs));
@@ -223,13 +222,13 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
 
     this.applyAttrsToSelection(exitAttrs, transition);
     this.applyStyleToSelection(exitStyle, transition);
-    this.tweenDerivedAttrs(this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props), computedExitDatum, this.props, transition);
+    this.tweenDerivedAttrs(this.currentDatum, computedExitDatum, this.props, transition, DONT_GET_DATUM);
 
     this.leaveTimeout = setTimeout(callback, exitDuration);
     this.leaveCallback = callback;
   },
   componentWillUnmount: function componentWillUnmount() {
-    this.selection.interrupt();
+    if ((0, _itsSet2.default)(this.selection)) this.selection.interrupt();
     clearTimeout(this.leaveTimeout);
   },
   updateFromNonDatumChange: function updateFromNonDatumChange(nextProps) {
@@ -356,7 +355,7 @@ exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelf
     var keysToInterpolate = (0, _keys2.default)(datumPropsToTween.length ? (0, _lodash4.default)(toDatum, datumPropsToTween) : toDatum);
 
     var interpolater = keysToInterpolate.reduce(function (acc, key) {
-      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _d3Interpolate.interpolate)(fromDatum[key], toDatum[key])));
+      return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _d3Interpolate.interpolate)((0, _itsSet2.default)(fromDatum[key]) ? fromDatum[key] : toDatum[key], toDatum[key])));
     }, {});
 
     transition.attrTween(attrName, function () {
