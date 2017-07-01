@@ -3,18 +3,21 @@ const babelify = require('babelify');
 const path = require('path');
 const fs = require('fs');
 
-const dest = fs.createWriteStream(path.join(__dirname, '../umd/test123.js'));
+const YES_TO_MINIFY = true;
 
-browserify(path.join(__dirname, '../src/index.js'), {
-  // debug: true,
-  // cache: {},
-  // packageCache: {},
-  standalone: 'NumberPicture',
-  // fullPaths: true,
-})
-.ignore('react')
-.ignore('react-dom')
-.transform(babelify)
-.transform({ global: true }, 'uglifyify')
-.bundle()
-.pipe(dest);
+const bundle = (dest, shouldMinify = false) => {
+  const bundler = browserify(path.join(__dirname, '../src/index.js'), {
+    standalone: 'NumberPicture',
+  })
+  .ignore('react')
+  .ignore('react-dom')
+  .transform(babelify);
+
+  if (shouldMinify) bundler.transform({ global: true }, 'uglifyify');
+
+  bundler.bundle()
+    .pipe(dest);
+};
+
+bundle(fs.createWriteStream(path.join(__dirname, '../umd/number-picture.js')));
+bundle(fs.createWriteStream(path.join(__dirname, '../umd/number-picture.min.js')), YES_TO_MINIFY);

@@ -48,16 +48,48 @@
     },
 
     render: function render() {
+      var gridData = this.getGrid();
       return _react2.default.createElement(
         _TransitionGroup2.default,
         null,
-        this.renderChildren()
+        this.renderChildren(gridData),
+        this.renderSingularChildren(gridData)
       );
     },
-    renderChildren: function renderChildren() {
+    renderChildren: function renderChildren(gridData) {
       var children = this.props.children;
 
-      var gridData = this.getGrid();
+
+      return gridData.reduce(function (acc, datum, index) {
+        return acc.concat(_react.Children.map(children, function (child, c) {
+          return (0, _react.cloneElement)(child, {
+            datum: datum,
+            index: index,
+            data: gridData,
+            key: index + '_' + c,
+            _key: index + '_' + c
+          });
+        }));
+      }, []);
+    },
+    renderSingularChildren: function renderSingularChildren(gridData) {
+      var singularChildren = this.props.singularChildren;
+
+      return _react.Children.map(singularChildren, function (child) {
+        return (0, _react.cloneElement)(child, { data: gridData });
+      });
+    },
+    getGrid: function getGrid() {
+      var _this = this;
+
+      var gridData = (0, _d3V4Grid2.default)();
+
+      ['size', 'nodeSize', 'rows', 'cols', 'bands', 'padding', 'data'].forEach(function (key) {
+        if ((0, _itsSet2.default)(_this.props[key])) gridData = gridData[key](_this.props[key]);
+      });
+
+      gridData.layout();
+
       var meta = {
         size: gridData.size(),
         nodeSize: gridData.nodeSize(),
@@ -67,30 +99,9 @@
         padding: gridData.padding()
       };
 
-      return gridData.nodes().reduce(function (acc, datum, index) {
-        return acc.concat(_react.Children.map(children, function (child, c) {
-          return (0, _react.cloneElement)(child, {
-            datum: Object.assign({}, meta, datum),
-            index: index,
-            data: gridData,
-            key: index + '_' + c,
-            _key: index + '_' + c
-          });
-        }));
-      }, []);
-    },
-    getGrid: function getGrid() {
-      var _this = this;
-
-      var p = (0, _d3V4Grid2.default)();
-
-      ['size', 'nodeSize', 'rows', 'cols', 'bands', 'padding', 'data'].forEach(function (key) {
-        if ((0, _itsSet2.default)(_this.props[key])) p = p[key](_this.props[key]);
+      return gridData.nodes().map(function (d) {
+        return Object.assign({}, d, meta);
       });
-
-      p.layout();
-
-      return p;
     }
   });
 });

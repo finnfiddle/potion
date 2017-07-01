@@ -75,14 +75,14 @@
         d: ['size', 'type']
       };
     },
-    getDerivationMethod: function getDerivationMethod(key, props) {
+    getDerivationMethod: function getDerivationMethod(key, props, shouldGetDatum) {
       var _this = this;
 
       switch (key) {
         case 'd':
           return function (datum) {
             var attrInputNames = _this.derivedAttrInputNames[key];
-            var attrValues = _this.getAttrs(Object.assign({}, props, { datum: datum }), attrInputNames);
+            var attrValues = _this.getAttrs(Object.assign({}, props, { datum: datum }), attrInputNames, shouldGetDatum);
             var symbolInstance = (0, _d3Shape.symbol)();
             var size = attrValues.size,
                 type = attrValues.type;

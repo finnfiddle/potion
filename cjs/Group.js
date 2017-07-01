@@ -88,7 +88,7 @@
         rotationOriginY: 0
       };
     },
-    getDerivationMethod: function getDerivationMethod(key, props) {
+    getDerivationMethod: function getDerivationMethod(key, props, shouldGetDatum) {
       var _this = this;
 
       switch (key) {
@@ -96,7 +96,7 @@
           return function (datum) {
             var attrInputNames = _this.derivedAttrInputNames[key];
 
-            var _getAttrs = _this.getAttrs(Object.assign({}, props, { datum: datum }), attrInputNames),
+            var _getAttrs = _this.getAttrs(Object.assign({}, props, { datum: datum }), attrInputNames, shouldGetDatum),
                 x = _getAttrs.x,
                 y = _getAttrs.y,
                 rotation = _getAttrs.rotation,
@@ -121,11 +121,13 @@
           datum = _props.datum,
           data = _props.data,
           index = _props.index,
-          children = _props.children;
+          children = _props.children,
+          enterDatum = _props.enterDatum,
+          exitDatum = _props.exitDatum;
 
       return _react.Children.map(children, function (child) {
         if (!(0, _itsSet2.default)(child)) return null;
-        var props = child !== null && (0, _lodash2.default)((0, _lodash4.default)(child, 'type.displayName')) ? Object.assign({ datum: datum, data: data, index: index }, child.props) : child.props;
+        var props = child !== null && (0, _lodash2.default)((0, _lodash4.default)(child, 'type.displayName')) ? Object.assign({ datum: datum, data: data, index: index, enterDatum: enterDatum, exitDatum: exitDatum }, child.props) : child.props;
         return (0, _react.cloneElement)(child, props);
       });
     }
