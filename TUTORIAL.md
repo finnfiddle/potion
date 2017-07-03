@@ -29,7 +29,7 @@ import { Svg, Circle } from 'number-picture';
 Next, let's use the components to create a new React component that renders an SVG with a circle in it.
 
 <pre>
-    <code class="javascript">
+    <code lang="javascript">
         export default class extends React.Component {
             render () {
                 return (
