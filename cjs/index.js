@@ -74,33 +74,6 @@
     };
   }
 
-  exports.default = {
-    Arc: _Arc2.default,
-    Area: _Area2.default,
-    Axis: _Axis2.default,
-    AxisBottom: _AxisBottom2.default,
-    AxisLeft: _AxisLeft2.default,
-    AxisRight: _AxisRight2.default,
-    AxisTop: _AxisTop2.default,
-    Circle: _Circle2.default,
-    Collection: _Collection2.default,
-    Curve: _Curve2.default,
-    Grid: _Grid2.default,
-    Group: _Group2.default,
-    ForceSimulation: _ForceSimulation2.default,
-    Line: _Line2.default,
-    Pack: _Pack2.default,
-    Pie: _Pie2.default,
-    RadialArea: _RadialArea2.default,
-    RadialLine: _RadialLine2.default,
-    Rect: _Rect2.default,
-    Stack: _Stack2.default,
-    SymbolShape: _SymbolShape2.default,
-    Svg: _Svg2.default,
-    Text: _Text2.default,
-    TransitionGroup: _TransitionGroup2.default,
-    helpers: _helpers2.default
-  };
   exports.Arc = _Arc2.default;
   exports.Area = _Area2.default;
   exports.Axis = _Axis2.default;

@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import stamp from 'react-stamp';
 import itsSet from 'its-set';
 import {
   symbol,
@@ -24,30 +23,28 @@ const SYMBOLS = {
 
 import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
 import { bindMouseEvents } from './helpers';
-import AnimatedElement from './AnimatedElement';
+import AnimatedElement from './mixins/AnimatedElement';
 
-export default stamp(React).compose(AnimatedElement, {
+export default class SymbolShape extends AnimatedElement {
 
-  displayName: 'Symbol',
-
-  propTypes: {
-    size: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-    type: PropTypes.oneOf(Object.keys(SYMBOLS)),
-  },
+  constructor(props) {
+    super(props);
+    this.displayName = 'SymbolShape';
+  }
 
   getAttrNames() {
     return TWEENABLE_SVG_PRESENTATION_ATTRS;
-  },
+  }
 
   getDerivedAttrNames() {
     return ['d'];
-  },
+  }
 
   getDerivedAttrInputNames() {
     return {
       d: ['size', 'type'],
     };
-  },
+  }
 
   getDerivationMethod(key, props, shouldGetDatum) {
     switch (key) {
@@ -67,12 +64,17 @@ export default stamp(React).compose(AnimatedElement, {
         };
       // no default
     }
-  },
+  }
 
   render() {
     return (
       <path {...this.state} style={this.getStyle(this.props)} {...bindMouseEvents(this.props)} />
     );
-  },
+  }
 
-});
+}
+
+SymbolShape.propTypes = {
+  size: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+  type: PropTypes.oneOf(Object.keys(SYMBOLS)),
+};

@@ -1,45 +1,29 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(['exports', 'react', './constants', './helpers', './mixins/AnimatedElement'], factory);
+    define(['exports', 'react', 'react-dom', 'd3-selection'], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require('react'), require('./constants'), require('./helpers'), require('./mixins/AnimatedElement'));
+    factory(exports, require('react'), require('react-dom'), require('d3-selection'));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.react, global.constants, global.helpers, global.AnimatedElement);
-    global.Rect = mod.exports;
+    factory(mod.exports, global.react, global.reactDom, global.d3Selection);
+    global.SelectSelf = mod.exports;
   }
-})(this, function (exports, _react, _constants, _helpers, _AnimatedElement2) {
+})(this, function (exports, _react, _reactDom, _d3Selection) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
 
-  var _react2 = _interopRequireDefault(_react);
-
-  var _AnimatedElement3 = _interopRequireDefault(_AnimatedElement2);
+  var _reactDom2 = _interopRequireDefault(_reactDom);
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
       default: obj
     };
   }
-
-  var _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -89,40 +73,24 @@
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
   }
 
-  var Rect = function (_AnimatedElement) {
-    _inherits(Rect, _AnimatedElement);
+  var SelectSelf = function (_Component) {
+    _inherits(SelectSelf, _Component);
 
-    function Rect(props) {
-      _classCallCheck(this, Rect);
+    function SelectSelf() {
+      _classCallCheck(this, SelectSelf);
 
-      var _this = _possibleConstructorReturn(this, (Rect.__proto__ || Object.getPrototypeOf(Rect)).call(this, props));
-
-      _this.displayName = 'Rect';
-      return _this;
+      return _possibleConstructorReturn(this, (SelectSelf.__proto__ || Object.getPrototypeOf(SelectSelf)).apply(this, arguments));
     }
 
-    _createClass(Rect, [{
-      key: 'getAttrNames',
-      value: function getAttrNames() {
-        return ['x', 'y', 'height', 'width'].concat(_constants.TWEENABLE_SVG_PRESENTATION_ATTRS);
-      }
-    }, {
-      key: 'render',
-      value: function render() {
-        return _react2.default.createElement('rect', _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
+    _createClass(SelectSelf, [{
+      key: 'selectSelf',
+      value: function selectSelf() {
+        return (0, _d3Selection.select)(_reactDom2.default.findDOMNode(this));
       }
     }]);
 
-    return Rect;
-  }(_AnimatedElement3.default);
+    return SelectSelf;
+  }(_react.Component);
 
-  exports.default = Rect;
-
-
-  Rect.propTypes = {
-    x: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
-    y: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
-    height: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
-    width: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number])
-  };
+  exports.default = SelectSelf;
 });

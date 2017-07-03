@@ -1,37 +1,30 @@
-import React, { Children, cloneElement, PropTypes } from 'react';
-import stamp from 'react-stamp';
+import React, { Children, cloneElement, PropTypes, Component } from 'react';
 import { pack } from 'd3-hierarchy';
 import itsSet from 'its-set';
 
 import TransitionGroup from './TransitionGroup';
 import { flattenHierarchy } from './helpers';
 
-export default stamp(React).compose({
+export default class Pack extends Component {
 
-  displayName: 'Pack',
+  constructor(props) {
+    super(props);
+    this.displayName = 'Pack';
+  }
 
-  propTypes: {
-    radius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-    size: PropTypes.arrayOf(PropTypes.number),
-    padding: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-    // packSiblings: PropTypes.arrayOf(
-    //  PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })
-    // ),
-    // packEnclose: PropTypes.number,
-    data: PropTypes.object.isRequired,
-  },
-
-  defaultProps: {
-    datumPropsToTween: ['x', 'y', 'r'],
-  },
-
-  render() {
-    return (
-      <TransitionGroup>
-        {this.renderChildren()}
-      </TransitionGroup>
-    );
-  },
+  getPack() {
+    let p = pack();
+    [
+      'radius',
+      'size',
+      'padding',
+      // 'packSiblings',
+      // 'packEnclose',
+    ].forEach((key) => {
+      if (itsSet(this.props[key])) p = p[key](this.props[key]);
+    });
+    return p;
+  }
 
   renderChildren() {
     const { data, children, includeRoot, datumPropsToTween } = this.props;
@@ -58,20 +51,32 @@ export default stamp(React).compose({
         })
       ))
     , []);
-  },
+  }
 
-  getPack() {
-    let p = pack();
-    [
-      'radius',
-      'size',
-      'padding',
-      // 'packSiblings',
-      // 'packEnclose',
-    ].forEach((key) => {
-      if (itsSet(this.props[key])) p = p[key](this.props[key]);
-    });
-    return p;
-  },
+  render() {
+    return (
+      <TransitionGroup>
+        {this.renderChildren()}
+      </TransitionGroup>
+    );
+  }
 
-});
+}
+
+Pack.propTypes = {
+  radius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+  size: PropTypes.arrayOf(PropTypes.number),
+  padding: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+  // packSiblings: PropTypes.arrayOf(
+  //  PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })
+  // ),
+  // packEnclose: PropTypes.number,
+  data: PropTypes.object.isRequired,
+  children: PropTypes.node,
+  includeRoot: PropTypes.bool,
+  datumPropsToTween: PropTypes.arrayOf(PropTypes.string),
+};
+
+Pack.defaultProps = {
+  datumPropsToTween: ['x', 'y', 'r'],
+};

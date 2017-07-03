@@ -1,42 +1,27 @@
 import React, { cloneElement, Children, PropTypes } from 'react';
-import stamp from 'react-stamp';
 import itsSet from 'its-set';
-import isString from 'lodash.isstring';
-import get from 'lodash.get';
+import get from 'utils-deep-get';
 
-import { bindMouseEvents } from './helpers';
+import { bindMouseEvents, isString } from './helpers';
 import TransitionGroup from './TransitionGroup';
-import AnimatedElement from './AnimatedElement';
+import AnimatedElement from './mixins/AnimatedElement';
 
-export default stamp(React).compose(AnimatedElement, {
+export default class Group extends AnimatedElement {
 
-  displayName: 'Group',
-
-  propTypes: {
-    x: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-    y: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-    rotation: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-    rotationOriginX: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-    rotationOriginY: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  },
-
-  defaultProps: {
-    x: 0,
-    y: 0,
-    rotation: 0,
-    rotationOriginX: 0,
-    rotationOriginY: 0,
-  },
+  constructor(props) {
+    super(props);
+    this.displayName = 'Group';
+  }
 
   getDerivedAttrNames() {
     return ['transform'];
-  },
+  }
 
   getDerivedAttrInputNames() {
     return {
       transform: ['x', 'y', 'rotation', 'rotationOriginX', 'rotationOriginY'],
     };
-  },
+  }
 
   getAttrDefaults() {
     return {
@@ -46,7 +31,7 @@ export default stamp(React).compose(AnimatedElement, {
       rotationOriginX: 0,
       rotationOriginY: 0,
     };
-  },
+  }
 
   getDerivationMethod(key, props, shouldGetDatum) {
     switch (key) {
@@ -64,16 +49,7 @@ export default stamp(React).compose(AnimatedElement, {
         };
       // no default
     }
-  },
-
-  render() {
-    const style = this.getStyle(this.props);
-    return (
-      <TransitionGroup style={style} {...bindMouseEvents(this.props)}>
-        {this.renderChildren()}
-      </TransitionGroup>
-    );
-  },
+  }
 
   renderChildren() {
     const { datum, data, index, children, enterDatum, exitDatum } = this.props;
@@ -84,6 +60,30 @@ export default stamp(React).compose(AnimatedElement, {
         child.props;
       return cloneElement(child, props);
     });
-  },
+  }
 
-});
+  render() {
+    const style = this.getStyle(this.props);
+    return (
+      <TransitionGroup style={style} {...bindMouseEvents(this.props)}>
+        {this.renderChildren()}
+      </TransitionGroup>
+    );
+  }
+}
+
+Group.propTypes = {
+  x: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+  y: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+  rotation: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+  rotationOriginX: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+  rotationOriginY: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+};
+
+Group.defaultProps = {
+  x: 0,
+  y: 0,
+  rotation: 0,
+  rotationOriginX: 0,
+  rotationOriginY: 0,
+};

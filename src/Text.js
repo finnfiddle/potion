@@ -1,22 +1,19 @@
 import React, { PropTypes } from 'react';
-import stamp from 'react-stamp';
 
 import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
 import { bindMouseEvents } from './helpers';
-import AnimatedElement from './AnimatedElement';
+import AnimatedElement from './mixins/AnimatedElement';
 
-export default stamp(React).compose(AnimatedElement, {
+export default class Text extends AnimatedElement {
 
-  displayName: 'Text',
-
-  propTypes: {
-    dx: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-    dy: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  },
+  constructor(props) {
+    super(props);
+    this.displayName = 'Text';
+  }
 
   getAttrNames() {
     return ['dx', 'dy'].concat(TWEENABLE_SVG_PRESENTATION_ATTRS);
-  },
+  }
 
   render() {
     return (
@@ -24,6 +21,11 @@ export default stamp(React).compose(AnimatedElement, {
         {this.props.children}
       </text>
     );
-  },
+  }
 
-});
+}
+
+Text.propTypes = {
+  dx: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+  dy: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+};

@@ -1,24 +1,19 @@
-import React from 'react';
-import stamp from 'react-stamp';
+import { Component } from 'react';
 // import itsSet from 'its-set';
 // import d3Shape from 'd3-shape';
 //
 // import { bindMouseEvents } from './helpers';
 
-export default stamp(React).compose({
+export default class RadialLine extends Component {
 
-  displayName: 'RadialLine',
-
-  propTypes: {
-    // angle,
-    // radius,
-    // defined,
-    // curve,
-  },
+  constructor(props) {
+    super(props);
+    this.displayName = 'RadialLine';
+  }
 
   render() {
     return 'TODO';
-  },
+  }
 
   // getLine() {
   //   let line = d3Shape.radialLine();
@@ -28,4 +23,11 @@ export default stamp(React).compose({
   //   return line;
   // },
 
-});
+}
+
+RadialLine.propTypes = {
+  // angle,
+  // radius,
+  // defined,
+  // curve,
+};

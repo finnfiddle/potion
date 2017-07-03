@@ -1,28 +1,31 @@
-import React, { PropTypes } from 'react';
-import stamp from 'react-stamp';
-import TransitionGroup from 'react-transition-group/TransitionGroup';
+import React, { PropTypes, Component } from 'react';
+import ReactTransitionGroup from 'react-transition-group/TransitionGroup';
 
 import { bindMouseEvents } from './helpers';
 
-export default stamp(React).compose({
+export default class TransitionGroup extends Component {
 
-  displayName: 'TransitionGroup',
-
-  propTypes: {
-    component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-  },
-
-  defaultProps: {
-    component: 'g',
-  },
+  constructor(props) {
+    super(props);
+    this.displayName = 'TransitionGroup';
+  }
 
   render() {
     const { children, ...restProps } = this.props;
     return (
-      <TransitionGroup {...restProps} {...bindMouseEvents(this.props)}>
+      <ReactTransitionGroup {...restProps} {...bindMouseEvents(this.props)}>
         {children}
-      </TransitionGroup>
+      </ReactTransitionGroup>
     );
-  },
+  }
 
-});
+}
+
+TransitionGroup.propTypes = {
+  component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  children: PropTypes.node,
+};
+
+TransitionGroup.defaultProps = {
+  component: 'g',
+};

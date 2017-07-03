@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(['exports', 'react', 'react-stamp', 'd3-axis', 'd3-interpolate', 'lodash.omit', './helpers', './mixins/SelectSelfMixin'], factory);
+    define(['exports', 'react', 'd3-axis', 'd3-interpolate', './helpers', './mixins/SelectSelf'], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require('react'), require('react-stamp'), require('d3-axis'), require('d3-interpolate'), require('lodash.omit'), require('./helpers'), require('./mixins/SelectSelfMixin'));
+    factory(exports, require('react'), require('d3-axis'), require('d3-interpolate'), require('./helpers'), require('./mixins/SelectSelf'));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.react, global.reactStamp, global.d3Axis, global.d3Interpolate, global.lodash, global.helpers, global.SelectSelfMixin);
+    factory(mod.exports, global.react, global.d3Axis, global.d3Interpolate, global.helpers, global.SelectSelf);
     global.Axis = mod.exports;
   }
-})(this, function (exports, _react, _reactStamp, _d3Axis, _d3Interpolate, _lodash, _helpers, _SelectSelfMixin) {
+})(this, function (exports, _react, _d3Axis, _d3Interpolate, _helpers, _SelectSelf2) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -19,13 +19,9 @@
 
   var _react2 = _interopRequireDefault(_react);
 
-  var _reactStamp2 = _interopRequireDefault(_reactStamp);
-
   var d3Axis = _interopRequireWildcard(_d3Axis);
 
-  var _lodash2 = _interopRequireDefault(_lodash);
-
-  var _SelectSelfMixin2 = _interopRequireDefault(_SelectSelfMixin);
+  var _SelectSelf3 = _interopRequireDefault(_SelectSelf2);
 
   function _interopRequireWildcard(obj) {
     if (obj && obj.__esModule) {
@@ -50,60 +46,116 @@
     };
   }
 
-  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  function _possibleConstructorReturn(self, call) {
+    if (!self) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+  }
+
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  }
+
+  var Axis = function (_SelectSelf) {
+    _inherits(Axis, _SelectSelf);
+
+    function Axis(props) {
+      _classCallCheck(this, Axis);
+
+      var _this = _possibleConstructorReturn(this, (Axis.__proto__ || Object.getPrototypeOf(Axis)).call(this, props));
+
+      _this.displayName = 'Axis';
+      _this.state = {
+        scale: _this.props.scale
+      };
+      return _this;
+    }
+
+    _createClass(Axis, [{
+      key: 'componentDidMount',
+      value: function componentDidMount() {
+        this.renderAxis(this.props.scale);
+      }
+    }, {
+      key: 'componentWillReceiveProps',
+      value: function componentWillReceiveProps(nextProps) {
+        var _this2 = this;
+
+        this.selectSelf().transition().duration(1000).tween('axis', function () {
+          if (!_this2.IsUnmounting) {
+            var i = (0, _d3Interpolate.interpolate)(_this2.state.scale.domain(), nextProps.scale.domain());
+            _this2.setState({ scale: nextProps.scale });
+            return function (t) {
+              _this2.renderAxis(_this2.state.scale.domain(i(t)));
+            };
+          }
+        });
+      }
+    }, {
+      key: 'renderAxis',
+      value: function renderAxis(scale) {
+        var placement = this.props.placement;
+
+        var axis = d3Axis['axis' + (0, _helpers.cap)(placement)](scale);
+        this.selectSelf().call(axis);
+      }
+    }, {
+      key: 'render',
+      value: function render() {
+        return _react2.default.createElement('g', (0, _helpers.omit)(this.props, ['scale', 'placement', 'datum', 'index']));
+      }
+    }]);
+
+    return Axis;
+  }(_SelectSelf3.default);
+
+  exports.default = Axis;
+
+
+  Axis.propTypes = {
+    placement: _react.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+    scale: _react.PropTypes.func.isRequired
   };
 
-  exports.default = (0, _reactStamp2.default)(_react2.default).compose(_SelectSelfMixin2.default, {
-
-    displayName: 'Axis',
-
-    propTypes: {
-      placement: _react.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
-      scale: _react.PropTypes.func.isRequired
-    },
-
-    defaultProps: {
-      placement: 'top'
-    },
-
-    state: {},
-
-    init: function init() {
-      this.state.scale = this.props.scale;
-    },
-    componentDidMount: function componentDidMount() {
-      this.renderAxis(this.props.scale);
-    },
-    renderAxis: function renderAxis(scale) {
-      var placement = this.props.placement;
-
-      var axis = d3Axis['axis' + (0, _helpers.cap)(placement)](scale);
-      this.selectSelf().call(axis);
-    },
-    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-      var _this = this;
-
-      this.selectSelf().transition().duration(1000).tween('axis', function () {
-        if (!_this.IsUnmounting) {
-          var _ret = function () {
-            var i = (0, _d3Interpolate.interpolate)(_this.state.scale.domain(), nextProps.scale.domain());
-            _this.setState({ scale: nextProps.scale });
-            return {
-              v: function v(t) {
-                _this.renderAxis(_this.state.scale.domain(i(t)));
-              }
-            };
-          }();
-
-          if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-        }
-      });
-    },
-    render: function render() {
-      return _react2.default.createElement('g', (0, _lodash2.default)(this.props, ['scale', 'placement', 'datum', 'index']));
-    }
-  });
+  Axis.defaultProps = {
+    placement: 'top'
+  };
 });

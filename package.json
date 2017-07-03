@@ -22,20 +22,22 @@
   "scripts": {
     "start": "babel --watch --plugins \"transform-runtime\" src --ignore __tests__ --out-dir ./dist",
     "prepublish": "npm run lint && npm run build",
-    "build": "npm run build:cjs && npm run build:umd",
+    "build": "npm run build:cjs && npm run build:umd && npm run uglify",
     "build:cjs": "babel --plugins 'transform-es2015-modules-umd' src --ignore __tests__ --out-dir ./cjs",
-    "build:umd": "node ./scripts/build-umd.js",
+    "build:umd": "rollup -c",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "testonly": "mocha $npm_package_options_mocha",
     "test": "npm run lint && npm run testonly",
-    "test-watch": "npm run testonly -- --watch --watch-extensions js"
+    "test-watch": "npm run testonly -- --watch --watch-extensions js",
+    "uglify": "uglifyjs umd/number-picture.js -c -m --source-map umd/number-picture.min.js.map -o umd/number-picture.min.js"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.7.4",
     "babel-eslint": "^6.1.2",
     "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-plugin-transform-es2015-modules-umd": "^6.6.5",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
@@ -62,7 +64,9 @@
     "rollup": "^0.42.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-filesize": "^1.4.2",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-visualizer": "^0.3.1",
     "sinon": "^1.17.3",
     "uglifyify": "^3.0.4"
   },
@@ -71,26 +75,20 @@
     "react-dom": "~0.14.8 || ^15.0.0"
   },
   "dependencies": {
+    "array-uniq": "^1.0.3",
     "babel-runtime": "^6.20.0",
     "d3-axis": "^1.0.4",
     "d3-ease": "^1.0.3",
+    "d3-force": "^1.0.6",
+    "d3-hierarchy": "^1.1.5",
     "d3-selection": "^1.0.3",
     "d3-shape": "^1.0.4",
     "d3-transition": "^1.0.3",
     "d3-v4-grid": "^2.0.1",
     "deep-equal": "^1.0.1",
-    "its-set": "^1.2.0",
-    "lodash.get": "^4.4.2",
-    "lodash.intersection": "^4.4.0",
-    "lodash.isarray": "^4.0.0",
-    "lodash.isfunction": "^3.0.8",
-    "lodash.isobject": "^3.0.2",
-    "lodash.isstring": "^4.0.1",
-    "lodash.omit": "^4.5.0",
-    "lodash.pick": "^4.4.0",
-    "lodash.uniq": "^4.5.0",
-    "lodash.without": "^4.4.0",
-    "react-stamp": "^0.6.0",
-    "react-transition-group": "^1.1.3"
+    "intersect": "^1.0.1",
+    "its-set": "^1.2.1",
+    "react-transition-group": "^1.2.0",
+    "utils-deep-get": "^1.0.0"
   }
 }

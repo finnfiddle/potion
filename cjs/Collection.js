@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(['exports', 'react', 'react-stamp', './TransitionGroup'], factory);
+    define(['exports', 'react', './TransitionGroup'], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require('react'), require('react-stamp'), require('./TransitionGroup'));
+    factory(exports, require('react'), require('./TransitionGroup'));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.react, global.reactStamp, global.TransitionGroup);
+    factory(mod.exports, global.react, global.TransitionGroup);
     global.Collection = mod.exports;
   }
-})(this, function (exports, _react, _reactStamp, _TransitionGroup) {
+})(this, function (exports, _react, _TransitionGroup) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -18,8 +18,6 @@
   });
 
   var _react2 = _interopRequireDefault(_react);
-
-  var _reactStamp2 = _interopRequireDefault(_reactStamp);
 
   var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
@@ -29,31 +27,98 @@
     };
   }
 
-  exports.default = (0, _reactStamp2.default)(_react2.default).compose({
-
-    displayName: 'Collection',
-
-    propTypes: {
-      data: _react.PropTypes.array.isRequired
-    },
-
-    render: function render() {
-      return _react2.default.createElement(
-        _TransitionGroup2.default,
-        null,
-        this.renderChildren()
-      );
-    },
-    renderChildren: function renderChildren() {
-      var _props = this.props,
-          data = _props.data,
-          children = _props.children;
-
-      return data.reduce(function (acc, datum, index) {
-        return acc.concat(_react.Children.map(children, function (child, c) {
-          return (0, _react.cloneElement)(child, { datum: datum, index: index, data: data, key: index + '_' + c, _key: index + '_' + c });
-        }));
-      }, []);
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
     }
-  });
+  }
+
+  var _createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  function _possibleConstructorReturn(self, call) {
+    if (!self) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+  }
+
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  }
+
+  var Collection = function (_Component) {
+    _inherits(Collection, _Component);
+
+    function Collection(props) {
+      _classCallCheck(this, Collection);
+
+      var _this = _possibleConstructorReturn(this, (Collection.__proto__ || Object.getPrototypeOf(Collection)).call(this, props));
+
+      _this.displayName = 'Collection';
+      return _this;
+    }
+
+    _createClass(Collection, [{
+      key: 'renderChildren',
+      value: function renderChildren() {
+        var _props = this.props,
+            data = _props.data,
+            children = _props.children;
+
+        return data.reduce(function (acc, datum, index) {
+          return acc.concat(_react.Children.map(children, function (child, c) {
+            return (0, _react.cloneElement)(child, { datum: datum, index: index, data: data, key: index + '_' + c, _key: index + '_' + c });
+          }));
+        }, []);
+      }
+    }, {
+      key: 'render',
+      value: function render() {
+        return _react2.default.createElement(
+          _TransitionGroup2.default,
+          null,
+          this.renderChildren()
+        );
+      }
+    }]);
+
+    return Collection;
+  }(_react.Component);
+
+  exports.default = Collection;
+
+
+  Collection.propTypes = {
+    data: _react.PropTypes.array.isRequired,
+    children: _react.PropTypes.node
+  };
 });

@@ -1,13 +1,15 @@
 import React from 'react';
-import stamp from 'react-stamp';
 
 import { bindMouseEvents } from './helpers';
 import TransitionGroup from './TransitionGroup';
-import AnimatedElement from './AnimatedElement';
+import AnimatedElement from './mixins/AnimatedElement';
 
-export default stamp(React).compose(AnimatedElement, {
+export default class Svg extends AnimatedElement {
 
-  displayName: 'Svg',
+  constructor(props) {
+    super(props);
+    this.displayName = 'Svg';
+  }
 
   render() {
     return (
@@ -17,6 +19,6 @@ export default stamp(React).compose(AnimatedElement, {
         </TransitionGroup>
       </svg>
     );
-  },
+  }
 
-});
+}

@@ -24,34 +24,6 @@ import Text from './Text';
 import TransitionGroup from './TransitionGroup';
 import helpers from './helpers';
 
-export default {
-  Arc,
-  Area,
-  Axis,
-  AxisBottom,
-  AxisLeft,
-  AxisRight,
-  AxisTop,
-  Circle,
-  Collection,
-  Curve,
-  Grid,
-  Group,
-  ForceSimulation,
-  Line,
-  Pack,
-  Pie,
-  RadialArea,
-  RadialLine,
-  Rect,
-  Stack,
-  SymbolShape,
-  Svg,
-  Text,
-  TransitionGroup,
-  helpers,
-};
-
 export {
   Arc,
   Area,

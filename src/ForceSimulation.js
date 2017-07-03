@@ -1,59 +1,29 @@
 import React, { Children, cloneElement, PropTypes } from 'react';
-import stamp from 'react-stamp';
 import { forceSimulation } from 'd3-force';
 import itsSet from 'its-set';
-import isObject from 'lodash.isobject';
 
+import { isObject } from './helpers';
 import TransitionGroup from './TransitionGroup';
-import SelectSelfMixin from './mixins/SelectSelfMixin';
+import SelectSelf from './mixins/SelectSelf';
 
-export default stamp(React).compose(SelectSelfMixin, {
+export default class ForceSimulation extends SelectSelf {
 
-  displayName: 'ForceSimulation',
-
-  propTypes: {
-    nodes: PropTypes.array.isRequired,
-    links: PropTypes.array,
-    forces: PropTypes.object,
-    node: PropTypes.node.isRequired,
-    link: PropTypes.node,
-    alpha: PropTypes.number,
-    alphaMin: PropTypes.number,
-    alphaDecay: PropTypes.number,
-    alphaTarget: PropTypes.number,
-    velocityDecay: PropTypes.number,
-    onTick: PropTypes.func,
-    onEnd: PropTypes.func,
-    running: PropTypes.bool,
-  },
-
-  defaultProps: {
-    onTick: () => {},
-    onEnd: () => {},
-    id: datum => datum.index,
-    nodes: [],
-    links: [],
-    forces: {},
-    node: null,
-    link: null,
-    running: true,
-  },
-
-  state: {},
-
-  init() {
+  constructor(props) {
+    super(props);
+    this.displayName = 'ForceSimulation';
+    this.state = {};
     this.forces = this.props.forces;
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     this.forces = nextProps.forces;
-  },
+  }
 
   componentDidUpdate() {
     setTimeout(() => {
       this.getSimulation();
     });
-  },
+  }
 
   getSimulation(callback = () => {}) {
     const {
@@ -107,8 +77,7 @@ export default stamp(React).compose(SelectSelfMixin, {
     if (!running) {
       this.simulation.stop();
     }
-
-  },
+  }
 
   applyForces(forces, simulation) {
     Object
@@ -124,15 +93,15 @@ export default stamp(React).compose(SelectSelfMixin, {
           simulation.force(key, null);
         }
       });
-  },
+  }
 
   componentDidMount(callback) {
     this.getSimulation(callback);
-  },
+  }
 
   componentWillUnmount() {
     this.simulation.stop();
-  },
+  }
 
   render() {
     return (
@@ -140,7 +109,7 @@ export default stamp(React).compose(SelectSelfMixin, {
         {this.renderChildren()}
       </TransitionGroup>
     );
-  },
+  }
 
   renderChildren() {
     const { nodes, node, links, link, id } = this.props;
@@ -169,7 +138,7 @@ export default stamp(React).compose(SelectSelfMixin, {
         })
       ));
     }, []));
-  },
+  }
 
   normalizeLinks(links) {
     return isObject(links[links.length - 1].source) ?
@@ -190,18 +159,45 @@ export default stamp(React).compose(SelectSelfMixin, {
           vy: 0,
         },
       }));
-  },
+  }
 
   stop() {
     this.simulation.stop();
-  },
+  }
 
   restart() {
     this.simulation.restart();
-  },
+  }
 
   tick() {
     this.simulation.tick();
-  },
+  }
+}
 
-});
+ForceSimulation.propTypes = {
+  nodes: PropTypes.array.isRequired,
+  links: PropTypes.array,
+  forces: PropTypes.object,
+  node: PropTypes.node.isRequired,
+  link: PropTypes.node,
+  alpha: PropTypes.number,
+  alphaMin: PropTypes.number,
+  alphaDecay: PropTypes.number,
+  alphaTarget: PropTypes.number,
+  velocityDecay: PropTypes.number,
+  onTick: PropTypes.func,
+  onEnd: PropTypes.func,
+  running: PropTypes.bool,
+};
+
+ForceSimulation.defaultProps = {
+  onTick: () => {},
+  onEnd: () => {},
+  id: datum => datum.index,
+  nodes: [],
+  links: [],
+  forces: {},
+  node: null,
+  link: null,
+  running: true,
+};

@@ -1,7 +1,5 @@
-import isArray from 'lodash.isarray';
-import intersection from 'lodash.intersection';
 import itsSet from 'its-set';
-import without from 'lodash.without';
+import intersection from 'intersect';
 
 import { MOUSE_EVENTS } from './constants';
 
@@ -9,6 +7,8 @@ import { MOUSE_EVENTS } from './constants';
 export function cap(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
+
+export const isArray = val => Array.isArray(val);
 
 export function mapObject(object, iterator) {
   return (isArray(object) ? object : Object.keys(object)).reduce((acc, key) =>
@@ -39,11 +39,25 @@ export function bindMouseEvents(props) {
   , {});
 }
 
-export function filter(array, whiteList = [], blackList = []) {
-  return whiteList.length ?
-    without(intersection(array, whiteList), blackList) :
-    without(array, blackList);
-}
+export const isString = val => typeof val === 'string';
+
+export const isFunction = val => typeof val === 'function';
+
+export const isObject = val => ((typeof val === 'object') && (val !== null));
+
+export const pick = (obj, keys) => {
+  const result = {};
+  keys.forEach(k => {
+    result[k] = obj[k];
+  });
+  return result;
+};
+
+export const omit = (obj, keys) => {
+  const result = Object.assign({}, obj);
+  keys.forEach(key => delete result[key]);
+  return result;
+};
 
 export default {
   cap,

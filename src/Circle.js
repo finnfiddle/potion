@@ -1,32 +1,19 @@
 import React, { PropTypes } from 'react';
-import stamp from 'react-stamp';
 
 import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
 import { bindMouseEvents } from './helpers';
-import AnimatedElement from './AnimatedElement';
+import AnimatedElement from './mixins/AnimatedElement';
 
-export default stamp(React).compose(AnimatedElement, {
+export default class Circle extends AnimatedElement {
 
-  displayName: 'Circle',
-
-  propTypes: {
-    cx: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.func,
-    ]),
-    cy: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.func,
-    ]),
-    r: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.func,
-    ]),
-  },
+  constructor(props) {
+    super(props);
+    this.displayName = 'Circle';
+  }
 
   getAttrNames() {
     return ['cx', 'cy', 'r'].concat(TWEENABLE_SVG_PRESENTATION_ATTRS);
-  },
+  }
 
   render() {
     const { className } = this.props;
@@ -38,6 +25,21 @@ export default stamp(React).compose(AnimatedElement, {
         {...bindMouseEvents(this.props)}
       />
     );
-  },
+  }
 
-});
+}
+
+Circle.propTypes = {
+  cx: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.func,
+  ]),
+  cy: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.func,
+  ]),
+  r: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.func,
+  ]),
+};

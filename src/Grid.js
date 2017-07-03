@@ -1,56 +1,15 @@
-import React, { Children, cloneElement, PropTypes } from 'react';
-import stamp from 'react-stamp';
+import React, { Children, cloneElement, PropTypes, Component } from 'react';
 import itsSet from 'its-set';
 import grid from 'd3-v4-grid';
 
 import TransitionGroup from './TransitionGroup';
 
-export default stamp(React).compose({
+export default class Grid extends Component {
 
-  displayName: 'Grid',
-
-  propTypes: {
-    size: PropTypes.arrayOf(PropTypes.number),
-    nodeSize: PropTypes.arrayOf(PropTypes.number),
-    rows: PropTypes.number,
-    cols: PropTypes.number,
-    bands: PropTypes.bool,
-    padding: PropTypes.arrayOf(PropTypes.number),
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  },
-
-  render() {
-    const gridData = this.getGrid();
-    return (
-      <TransitionGroup>
-        {this.renderChildren(gridData)}
-        {this.renderSingularChildren(gridData)}
-      </TransitionGroup>
-    );
-  },
-
-  renderChildren(gridData) {
-    const { children } = this.props;
-
-    return gridData.reduce((acc, datum, index) =>
-      acc.concat(Children.map(children, (child, c) =>
-        cloneElement(child, {
-          datum,
-          index,
-          data: gridData,
-          key: `${index}_${c}`,
-          _key: `${index}_${c}`,
-        })
-      ))
-    , []);
-  },
-
-  renderSingularChildren(gridData) {
-    const { singularChildren } = this.props;
-    return Children.map(singularChildren, child =>
-      cloneElement(child, { data: gridData })
-    );
-  },
+  constructor(props) {
+    super(props);
+    this.displayName = 'Grid';
+  }
 
   getGrid() {
     let gridData = grid();
@@ -79,6 +38,50 @@ export default stamp(React).compose({
     };
 
     return gridData.nodes().map(d => Object.assign({}, d, meta));
-  },
+  }
 
-});
+  renderChildren(gridData) {
+    const { children } = this.props;
+
+    return gridData.reduce((acc, datum, index) =>
+      acc.concat(Children.map(children, (child, c) =>
+        cloneElement(child, {
+          datum,
+          index,
+          data: gridData,
+          key: `${index}_${c}`,
+          _key: `${index}_${c}`,
+        })
+      ))
+    , []);
+  }
+
+  renderSingularChildren(gridData) {
+    const { singularChildren } = this.props;
+    return Children.map(singularChildren, child =>
+      cloneElement(child, { data: gridData })
+    );
+  }
+
+  render() {
+    const gridData = this.getGrid();
+    return (
+      <TransitionGroup>
+        {this.renderChildren(gridData)}
+        {this.renderSingularChildren(gridData)}
+      </TransitionGroup>
+    );
+  }
+}
+
+Grid.propTypes = {
+  size: PropTypes.arrayOf(PropTypes.number),
+  nodeSize: PropTypes.arrayOf(PropTypes.number),
+  rows: PropTypes.number,
+  cols: PropTypes.number,
+  bands: PropTypes.bool,
+  padding: PropTypes.arrayOf(PropTypes.number),
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.node,
+  singularChildren: PropTypes.node,
+};

@@ -1,16 +1,13 @@
-import React, { PropTypes } from 'react';
-import stamp from 'react-stamp';
+import { PropTypes } from 'react';
 import itsSet from 'its-set';
-import isFunction from 'lodash.isfunction';
-import pick from 'lodash.pick';
-import omit from 'lodash.omit';
-import uniq from 'lodash.uniq';
 import { interpolate } from 'd3-interpolate';
 import * as ease from 'd3-ease';
 import deepEqual from 'deep-equal';
 import 'd3-transition';
+import uniq from 'array-uniq';
 
-import SelectSelfMixin from './mixins/SelectSelfMixin';
+import SelectSelf from './SelectSelf';
+import { isFunction, pick, omit } from '../helpers';
 
 const EASE_TYPES = Object.keys(ease);
 const PRIVATE_PROP_NAMES = [
@@ -35,46 +32,11 @@ const PRIVATE_PROP_NAMES = [
 ];
 const DONT_GET_DATUM = false;
 
-export default stamp(React).compose(SelectSelfMixin, {
+export default class AnimatedElement extends SelectSelf {
 
-  displayName: 'AnimatedElement',
-
-  propTypes: {
-    datum: PropTypes.object,
-    datumAccessor: PropTypes.oneOfType([
-      PropTypes.func,
-    ]),
-    enterDatum: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.func,
-    ]),
-    exitDatum: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.func,
-    ]),
-    enterEase: PropTypes.oneOf(EASE_TYPES),
-    updateEase: PropTypes.oneOf(EASE_TYPES),
-    exitEase: PropTypes.oneOf(EASE_TYPES),
-    enterDuration: PropTypes.number,
-    updateDuration: PropTypes.number,
-    exitDuration: PropTypes.number,
-    propsToCheckForChanges: PropTypes.arrayOf(PropTypes.string),
-    datumPropsToTween: PropTypes.arrayOf(PropTypes.string),
-  },
-
-  defaultProps: {
-    datumAccessor: ({ datum }) => datum,
-    enterEase: 'easeLinear',
-    updateEase: 'easeLinear',
-    exitEase: 'easeLinear',
-    enterDuration: 0,
-    updateDuration: 0,
-    exitDuration: 0,
-    propsToCheckForChanges: [],
-    datumPropsToTween: [],
-  },
-
-  init() {
+  constructor(props) {
+    super(props);
+    this.displayName = 'AnimatedElement';
     this.attrNames = this.getAttrNames();
     this.derivedAttrNames = this.getDerivedAttrNames();
     this.derivedAttrDefaults = this.getDerivedAttrDefaults();
@@ -94,7 +56,7 @@ export default stamp(React).compose(SelectSelfMixin, {
     this.propsToCheckForChanges = ['datum'].concat(this.props.propsToCheckForChanges);
     this.attrs = this.getAttrs(this.props);
     this.state = this.getState();
-  },
+  }
 
   componentWillAppearOrEnter(callback) {
     const { enterDuration, enterDatum, enterEase } = this.props;
@@ -146,15 +108,15 @@ export default stamp(React).compose(SelectSelfMixin, {
     transition.on('end', () => {
       this.setState(this.getState(), callback);
     });
-  },
+  }
 
   componentWillAppear(callback) {
     this.componentWillAppearOrEnter(callback);
-  },
+  }
 
   componentWillEnter(callback) {
     this.componentWillAppearOrEnter(callback);
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     const { updateDuration, updateEase } = nextProps;
@@ -203,7 +165,7 @@ export default stamp(React).compose(SelectSelfMixin, {
 
     this.currentAttrs = nextCombinedAttrs;
     this.currentDatum = nextDatum;
-  },
+  }
 
   componentWillLeave(callback) {
     const { exitDatum, exitDuration, exitEase, datum } = this.props;
@@ -240,12 +202,12 @@ export default stamp(React).compose(SelectSelfMixin, {
 
     this.leaveTimeout = setTimeout(callback, exitDuration);
     this.leaveCallback = callback;
-  },
+  }
 
   componentWillUnmount() {
     if (itsSet(this.selection)) this.selection.interrupt();
     clearTimeout(this.leaveTimeout);
-  },
+  }
 
   updateFromNonDatumChange(nextProps) {
     const nextAttrs = this.getAttrs(nextProps);
@@ -265,42 +227,42 @@ export default stamp(React).compose(SelectSelfMixin, {
       nextProps,
       this.selection,
     );
-  },
+  }
 
   getState(props, attrs) {
     return omit(
       Object.assign({}, (props || this.props), (attrs || this.attrs)),
       this.privatePropNames
     );
-  },
+  }
 
   getAttrNames() {
     return [];
-  },
+  }
 
   getPrivatePropNames() {
     return [];
-  },
+  }
 
   getDerivedAttrNames() {
     return [];
-  },
+  }
 
   getDerivedAttrDefaults() {
     return {};
-  },
+  }
 
   getDerivedAttrInputNames() {
     return [];
-  },
+  }
 
   getDerivedAttrSelectors() {
     return {};
-  },
+  }
 
   getDatum(props) {
     return props.datumAccessor(props);
-  },
+  }
 
   assignAbsolutePropsToDatum(datum, props, shouldGetDatum = true) {
     const startingAcc = shouldGetDatum ?
@@ -312,7 +274,7 @@ export default stamp(React).compose(SelectSelfMixin, {
         (acc, name) => Object.assign({}, acc, { [name]: props[name] }),
         startingAcc
       );
-  },
+  }
 
   applyAttrsToSelection(attrs, selection) {
     if (!itsSet(attrs)) return;
@@ -323,7 +285,7 @@ export default stamp(React).compose(SelectSelfMixin, {
           selection.attr(name, attrs[name]);
         }
       });
-  },
+  }
 
   applyStyleToSelection(style, selection) {
     if (!itsSet(style)) return;
@@ -331,15 +293,15 @@ export default stamp(React).compose(SelectSelfMixin, {
       .forEach(name => {
         selection.attr(name, style[name]);
       });
-  },
+  }
 
   getAttrsFromDatum(datum, shouldGetDatum = true) {
     return this.getAttrs(Object.assign({}, this.props, { datum }), undefined, shouldGetDatum);
-  },
+  }
 
   getStyleFromDatum(datum) {
     return this.getStyle(Object.assign({}, this.props, { datum }));
-  },
+  }
 
   getAttrs(props, attrNames, shouldGetDatum = true) {
     return (attrNames || this.attrNames)
@@ -354,13 +316,13 @@ export default stamp(React).compose(SelectSelfMixin, {
         }
         return Object.assign({}, this.attrDefaults, acc, { [key]: prop });
       }, {});
-  },
+  }
 
   getStyle(props) {
     const { style } = props;
     if (isFunction(style)) return style(props);
     return style;
-  },
+  }
 
   applyDerivedAttrsToSelection(props, datum, selection, shouldGetDatum) {
     this.derivedAttrNames.forEach(key => {
@@ -368,7 +330,7 @@ export default stamp(React).compose(SelectSelfMixin, {
         [key]: this.getDerivationMethod(key, props, shouldGetDatum)(datum),
       }, selection);
     });
-  },
+  }
 
   getDerivedAttrs(props, datum, shouldGetDatum) {
     return this.derivedAttrNames.reduce((acc, key) =>
@@ -376,14 +338,14 @@ export default stamp(React).compose(SelectSelfMixin, {
         [key]: this.getDerivationMethod(key, props, shouldGetDatum)(datum),
       })
     , {});
-  },
+  }
 
   applyDerivedAttrs(toDatum, props, selection, shouldGetDatum) {
     this.derivedAttrNames
       .forEach(key => {
         selection.attr(key, this.getDerivationMethod(key, props, shouldGetDatum)(toDatum));
       });
-  },
+  }
 
   tweenDerivedAttrs(fromDatum, toDatum, props, transition, shouldGetDatum) {
     this.derivedAttrNames
@@ -396,7 +358,7 @@ export default stamp(React).compose(SelectSelfMixin, {
           this.getDerivationMethod(key, props, shouldGetDatum)
         );
       });
-  },
+  }
 
   attrTween(attrName, fromDatum, toDatum, transition, derivationMethod) {
     const { datumPropsToTween } = this.props;
@@ -419,6 +381,41 @@ export default stamp(React).compose(SelectSelfMixin, {
         return derivationMethod(midDatum);
       }
     );
-  },
+  }
 
-});
+}
+
+AnimatedElement.propTypes = {
+  datum: PropTypes.object,
+  datumAccessor: PropTypes.oneOfType([
+    PropTypes.func,
+  ]),
+  enterDatum: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.func,
+  ]),
+  exitDatum: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.func,
+  ]),
+  enterEase: PropTypes.oneOf(EASE_TYPES),
+  updateEase: PropTypes.oneOf(EASE_TYPES),
+  exitEase: PropTypes.oneOf(EASE_TYPES),
+  enterDuration: PropTypes.number,
+  updateDuration: PropTypes.number,
+  exitDuration: PropTypes.number,
+  propsToCheckForChanges: PropTypes.arrayOf(PropTypes.string),
+  datumPropsToTween: PropTypes.arrayOf(PropTypes.string),
+};
+
+AnimatedElement.defaultProps = {
+  datumAccessor: ({ datum }) => datum,
+  enterEase: 'easeLinear',
+  updateEase: 'easeLinear',
+  exitEase: 'easeLinear',
+  enterDuration: 0,
+  updateDuration: 0,
+  exitDuration: 0,
+  propsToCheckForChanges: [],
+  datumPropsToTween: [],
+};
