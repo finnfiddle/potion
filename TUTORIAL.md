@@ -28,17 +28,26 @@ import { Svg, Circle } from 'number-picture';
 
 Next, let's use the components to create a new React component that renders an SVG with a circle in it.
 
-<pre>
-    <code class="javascript">
-        export default class extends React.Component {
-            render () {
-                return (
-                    <Svg width={500} height={500}>
-                        <Circle cx={250} cy={250} r={50} />
-                    </Svg>
-                );
-            }
-        }
-    </code>
-</pre>
+
+```javascript
+export default class extends React.Component {
+    render () {
+        return (
+            <Svg width={500} height={500}>
+                <Circle cx={250} cy={250} r={50} />
+            </Svg>
+        );
+    }
+}
+```
+
+<div
+    class="rc"
+    data-component="
+        <Svg width={500} height={500}>
+            <Circle cx={250} cy={250} r={50} />
+        </Svg>
+    "
+>
+</div>
 
