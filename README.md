@@ -50,6 +50,7 @@ The library is part of a bigger project by the same name which aims to list, cat
 - [Contributing/Issues](#contibuting-issues)
 
 <div id='_installation'></div>
+
 ## Installation
 
 ```shell
