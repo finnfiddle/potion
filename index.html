@@ -30,8 +30,16 @@
 
   <!-- Initializer -->
   <script>
+    var subDomain = window.location.hostname.split('.numberpicture.com')[0];
+    var mdFile;
+    switch(subDomain) {
+      case 'tutorial':
+        mdFile = 'TUTORIAL';
+      default:
+        mdFile = 'README';
+    }
     Flatdoc.run({
-      fetcher: Flatdoc.file('README.md')
+      fetcher: Flatdoc.file(mdFile + '.md'),
     });
     $(document).on('flatdoc:ready', function() {
       $("#number-picture-contents + ul").remove();
