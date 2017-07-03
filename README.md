@@ -21,7 +21,7 @@ The library is part of a bigger project by the same name which aims to list, cat
   - [Curve](#_curve)
   - [Rect](#_rect)
   - [Text](#_text)
-  - [SymbolShape](#_SymbolShape)
+  - [SymbolShape](#_symbolshape)
   - [Group](#_group)
 - [Collections & Layouts](#_collections-layouts)
   - [Collection](#_collection)
@@ -34,6 +34,11 @@ The library is part of a bigger project by the same name which aims to list, cat
   - [Grid](#_grid)
   - [Force Simulation](#_force-simulation)
 - [Animation](#_animation)
+  - [Lifecycle Hooks](#_lifecycle-hoks)
+    - [Enter](#_enter)
+    - [Update](#_update)
+    - [Exit](#_exit)
+  - [TransitionGroup](#_transitiongroup)
   - [Easing](#_easing)
 - [Interaction](#_interaction)
 - [Axes](#_axes)
@@ -793,6 +798,12 @@ import { Circle, TransitionGroup } from 'number-picture';
 
 <div id='_axistop'></div>
 
+## Axis
+
+`// TODO: document`
+
+<div id='_axis'></div>
+
 ### AxisTop
 
 `// TODO: document`
@@ -897,3 +908,11 @@ const scale = scaleLinear()
 ### Helpers
 
 `// TODO: document`
+
+<div id='_contibuting-issues'></div>
+
+### Contributing/Issues
+
+`// TODO: document`
+
+
