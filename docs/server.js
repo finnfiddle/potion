@@ -7,7 +7,7 @@ port = process.env.PORT || process.argv[2] || 4002;
 http.createServer(function (request, response) {
 
   var uri = url.parse(request.url).pathname
-    , filename = path.join(process.cwd(), '../', uri);
+    , filename = path.join(__dirname, '../', uri);
 
   console.log(filename);
 
