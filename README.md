@@ -12,42 +12,43 @@ The library is part of a bigger project by the same name which aims to list, cat
 ## Contents
 
 - [Installation](#_installation)
-- [Shapes/Elements](#shapes-elements)
-  - [Circle](#circle)
-  - [Arc](#arc)
-  - [Line](#line)
-  - [RadialLine](#radialline)
-  - [Curve](#curve)
-  - [Rect](#rect)
-  - [Text](#text)
-  - [SymbolShape](#SymbolShape)
-  - [Group](#group)
-- [Collections & Layouts](#collections-layouts)
-  - [Collection](#collection)
-  - [TransitionGroup](#transitiongroup)
-  - [Pack](#pack)
-  - [Stack](#stack)
-  - [Pie](#pie)
-  - [Area](#area)
-  - [RadialArea](#radialarea)
-  - [Grid](#grid)
-  - [Force Simulation](#force-simulation)
-- [Animation](#animation)
-  - [Easing](#easing)
-- [Interaction](#interaction)
-- [Axes](#axes)
-  - [Axis](#axis)
-  - [AxisTop](#axistop)
-  - [AxisRight](#axisright)
-  - [AxisBottom](#axisbottom)
-  - [AxisLeft](#axisleft)
-- [Misc](#misc)
-  - [Optimization](#optimization)
-  - [Gotchas](#gotchas)
-  - [Annotations](#annotations)
-  - [Patterns](#patterns)
-  - [Helpers](#helpers)
-- [Contributing/Issues](#contibuting-issues)
+- [Hello World](#_hello-world)
+- [Shapes/Elements](#_shapes-elements)
+  - [Circle](#_circle)
+  - [Arc](#_arc)
+  - [Line](#_line)
+  - [RadialLine](#_radialline)
+  - [Curve](#_curve)
+  - [Rect](#_rect)
+  - [Text](#_text)
+  - [SymbolShape](#_SymbolShape)
+  - [Group](#_group)
+- [Collections & Layouts](#_collections-layouts)
+  - [Collection](#_collection)
+  - [TransitionGroup](#_transitiongroup)
+  - [Pack](#_pack)
+  - [Stack](#_stack)
+  - [Pie](#_pie)
+  - [Area](#_area)
+  - [RadialArea](#_radialarea)
+  - [Grid](#_grid)
+  - [Force Simulation](#_force-simulation)
+- [Animation](#_animation)
+  - [Easing](#_easing)
+- [Interaction](#_interaction)
+- [Axes](#_axes)
+  - [Axis](#_axis)
+  - [AxisTop](#_axistop)
+  - [AxisRight](#_axisright)
+  - [AxisBottom](#_axisbottom)
+  - [AxisLeft](#_axisleft)
+- [Misc](#_misc)
+  - [Optimization](#_optimization)
+  - [Gotchas](#_gotchas)
+  - [Annotations](#_annotations)
+  - [Patterns](#_patterns)
+  - [Helpers](#_helpers)
+- [Contributing/Issues](#_contibuting-issues)
 
 <div id='_installation'></div>
 
@@ -56,6 +57,8 @@ The library is part of a bigger project by the same name which aims to list, cat
 ```shell
 npm install number-picture
 ```
+
+<div id='_hello-world'></div>
 
 ## Hello World
 
@@ -70,6 +73,8 @@ ReactDOM.render(
   </svg>
 , 'body');
 ```
+
+<div id='_shapes-elements'></div>
 
 ## Shapes/Elements
 
@@ -94,6 +99,8 @@ Number Picture provides several shape primitives for constructing visualizations
   propB={20}
 />
 ```
+
+<div id='_circle'></div>
 
 ### Circle
 
@@ -133,6 +140,8 @@ Prop | Type | Default | Description
 `exitDatum` | object | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
+
+<div id='_arc'></div>
 
 ### Arc
 
@@ -174,17 +183,25 @@ Prop | Type | Default | Description
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
 
+<div id='_line'></div>
+
 ### Line
 
 `// TODO: implement`
+
+<div id='_radialline'></div>
 
 ### RadialLine
 
 `// TODO: implement`
 
+<div id='_curve'></div>
+
 ### Curve
 
 `// TODO: implement`
+
+<div id='_rect'></div>
 
 ### Rect
 
@@ -225,6 +242,8 @@ Prop | Type | Default | Description
 `exitDatum` | object | {} | The datum (when Rect is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
+
+<div id='_text'></div>
 
 ### Text
 
@@ -272,6 +291,8 @@ Prop | Type | Default | Description
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
 
+<div id='_symbolshape'></div>
+
 ### SymbolShape
 
 Renders an svg `path` element using the `d3.symbol()` generator for the `d` attribute.
@@ -309,6 +330,8 @@ Prop | Type | Default | Description
 `exitDatum` | object | {} | The datum (when SymbolShape is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
+
+<div id='_group'></div>
 
 ### Group
 
@@ -351,11 +374,15 @@ Prop | Type | Default | Description
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
 
+<div id='_collections-layouts'></div>
+
 ## Collections & Layouts
 
 The purpose of Collections is to combine the Shapes/Elements above with datasets. If you wanted you could manually iterate over a dataset array and for example create a Circle element for each datum - but the benefit of letting Collections do it for you is that they also trigger animation hooks on the children when they enter and exit.
 
 Layouts are Collections that have the added benefit of mutating the input data in useful ways. For example the Pie Layout will calculate metadata from the input dataset and pass it on to the children along with the original data so that you can use it to draw a pie chart.
+
+<div id='_collection'></div>
 
 ### Collection
 
@@ -394,6 +421,8 @@ Passed Prop | Value
 `datum` | item from the `data` input array
 `data` | the whole `data` input array
 `index` | index of the `datum` in the `data` input array
+
+<div id='_pack'></div>
 
 ### Pack
 
@@ -460,9 +489,13 @@ Key | Value
 `r` | radius of item
 `data` | original datum from input `data`
 
+<div id='_stack'></div>
+
 ### Stack
 
 `// TODO: implement`
+
+<div id='_pie'></div>
 
 ### Pie
 
@@ -543,22 +576,31 @@ Passed Prop | Value
 `data` | the whole mutated `data` input array
 `index` | index of the `datum` in the `data` input array
 
+<div id='_area'></div>
 
 ### Area
 
 `// TODO: implement`
 
+<div id='_radialarea'></div>
+
 ### RadialArea
 
 `// TODO: implement`
+
+<div id='_grid'></div>
 
 ### Grid
 
 `// TODO: document`
 
+<div id='_force-simulation'></div>
+
 ### Force Simulation
 
 `// TODO: document`
+
+<div id='_animation'></div>
 
 ## Animation
 
@@ -568,7 +610,11 @@ They can also be animated when they enter and exit the DOM by passing `enterDatu
 
 Easing can also be accomplished by passing `updateEase`, `enterEase` and `exitEase` props (see below).
 
+<div id='_lifecycle-hooks'></div>
+
 ### Lifecycle Hooks
+
+<div id='_enter'></div>
 
 #### Enter
 
@@ -608,6 +654,8 @@ This would result in each circle animating on enter for 5 seconds from 0 `cx` to
 
 Notice that we do not need to change the `cx` prop accessor function. `ownProps.datum` is substituted with `ownProps.enterDatum` on enter.
 
+<div id='_update'></div>
+
 #### Update
 
 Shapes/Elements nested in Collections/TransitionGroups can be animated when they receive new props by passing an `updateDuration` prop.
@@ -628,9 +676,13 @@ Using our previous example:
 
 This would result in the circles animating for 5 seconds to new `cx` positions every time they receive a new `datum` prop.
 
+<div id='_exit'></div>
+
 #### Exit
 
 Shapes/Elements nested in Collections/TransitionGroups can be animated on exit in exactly the same way as on enter (above).
+
+<div id='_transitiongroup'></div>
 
 ### TransitionGroup
 
@@ -657,6 +709,8 @@ import { Circle, TransitionGroup } from 'number-picture';
   />
 </TransitionGroup>
 ```
+
+<div id='_easing'></div>
 
 ### Easing
 
@@ -725,13 +779,19 @@ import { Circle, TransitionGroup } from 'number-picture';
 </TransitionGroup>
 ```
 
+<div id='_interaction'></div>
+
 ## Interaction
 
 `// TODO: document`
 
+<div id='_axes'></div>
+
 ## Axes
 
 `// TODO: document`
+
+<div id='_axistop'></div>
 
 ### AxisTop
 
@@ -747,6 +807,8 @@ const scale = scaleLinear()
 <AxisTop scale={scale} />
 ```
 
+<div id='_axisright'></div>
+
 ### AxisRight
 
 `// TODO: document`
@@ -760,6 +822,8 @@ const scale = scaleLinear()
 
 <AxisRight scale={scale} />
 ```
+
+<div id='_axisbottom'></div>
 
 ### AxisBottom
 
@@ -775,6 +839,8 @@ const scale = scaleLinear()
 <AxisBottom scale={scale} />
 ```
 
+<div id='_axisleft'></div>
+
 ### AxisLeft
 
 `// TODO: document`
@@ -789,9 +855,13 @@ const scale = scaleLinear()
 <AxisLeft scale={scale} />
 ```
 
+<div id='_misc'></div>
+
 ## Misc
 
 `// TODO: document`
+
+<div id='_optimization'></div>
 
 ### Optimization
 
@@ -801,6 +871,8 @@ const scale = scaleLinear()
 - datum filtering
 - data count
 
+<div id='_gotchas'></div>
+
 ### Gotchas
 
 `// TODO: document`
@@ -808,13 +880,19 @@ const scale = scaleLinear()
 - use Group component for transforms
 - no stateless components (inside Group only?)
 
+<div id='_annotations'></div>
+
 ### Annotations
 
 `// TODO: implement`
 
+<div id='_patterns'></div>
+
 ### Patterns
 
 `// TODO: implement`
+
+<div id='_helpers'></div>
 
 ### Helpers
 
