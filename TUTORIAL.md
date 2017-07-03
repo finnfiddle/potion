@@ -28,8 +28,8 @@ import { Svg, Circle } from 'number-picture';
 
 Next, let's use the components to create a new React component that renders an SVG with a circle in it.
 
-<div class="highlight highlight-source-js render">
-    <pre>
+<pre>
+    <code class="javascript">
         export default class extends React.Component {
             render () {
                 return (
@@ -39,6 +39,6 @@ Next, let's use the components to create a new React component that renders an S
                 );
             }
         }
-    </pre>
-</div>
+    </code>
+</pre>
 
