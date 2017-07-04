@@ -6,11 +6,11 @@ import filesize from 'rollup-plugin-filesize';
 
 export default {
   entry: 'src/index.js',
-  format: 'iife',
+  format: 'umd',
   moduleName: 'NumberPicture',
   plugins: [
     rollupCommonJs({
-      ignoreGlobal: true,
+      // ignoreGlobal: true,
       include: 'node_modules/**',
       exclude: ['node_modules/react/**'],
       // namedExports: {

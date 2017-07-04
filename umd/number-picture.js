@@ -1,5 +1,8 @@
-(function (exports,React,ReactDOM) {
-'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('react-dom')) :
+	typeof define === 'function' && define.amd ? define(['exports', 'react', 'react-dom'], factory) :
+	(factory((global.NumberPicture = global.NumberPicture || {}),global.React,global.ReactDOM));
+}(this, (function (exports,React,ReactDOM) { 'use strict';
 
 var React__default = 'default' in React ? React['default'] : React;
 ReactDOM = 'default' in ReactDOM ? ReactDOM['default'] : ReactDOM;
@@ -820,6 +823,10 @@ var isArray = Array.isArray;
 
 var isArray_1 = isArray;
 
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+
+
 function unwrapExports (x) {
 	return x && x.__esModule ? x['default'] : x;
 }
@@ -919,7 +926,7 @@ var possibleConstructorReturn = function (self, call) {
 };
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
+var freeGlobal = _typeof(commonjsGlobal) == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
 
 var _freeGlobal = freeGlobal;
 
@@ -5304,7 +5311,7 @@ var index$2 = createCommonjsModule(function (module) {
 		return ret === true;
 	}
 
-	if ('Set' in global) {
+	if ('Set' in commonjsGlobal) {
 		if (typeof Set.prototype.forEach === 'function' && doesForEachActuallyWork()) {
 			module.exports = uniqSetWithForEach;
 		} else {
@@ -11752,4 +11759,6 @@ exports.Text = Text;
 exports.TransitionGroup = TransitionGroup;
 exports.helpers = helpers;
 
-}((this.NumberPicture = this.NumberPicture || {}),React,ReactDOM));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));

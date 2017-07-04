@@ -2,7 +2,8 @@ var http = require('http'),
   url = require('url'),
   path = require('path'),
   fs = require('fs');
-port = process.env.PORT || process.argv[2] || 4002;
+
+var port = process.env.PORT || process.argv[2] || 4002;
 
 http.createServer(function (request, response) {
 
@@ -11,7 +12,8 @@ http.createServer(function (request, response) {
 
   console.log(filename);
 
-  if (fs.statSync(filename).isDirectory()) filename += '/index.html';
+  var stat = fs.statSync(filename);
+  if (stat && stat.isDirectory()) filename += '/index.html';
 
   fs.readFile(filename, 'binary', function (err, file) {
     if (err) {
