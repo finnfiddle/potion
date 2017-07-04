@@ -1,8 +1,5 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('react-dom')) :
-	typeof define === 'function' && define.amd ? define(['exports', 'react', 'react-dom'], factory) :
-	(factory((global.NumberPicture = global.NumberPicture || {}),global.React,global.ReactDOM));
-}(this, (function (exports,React,ReactDOM) { 'use strict';
+(function (exports,React,ReactDOM) {
+'use strict';
 
 var React__default = 'default' in React ? React['default'] : React;
 ReactDOM = 'default' in ReactDOM ? ReactDOM['default'] : ReactDOM;
@@ -11759,6 +11756,4 @@ exports.Text = Text;
 exports.TransitionGroup = TransitionGroup;
 exports.helpers = helpers;
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
+}((this.NumberPicture = this.NumberPicture || {}),React,ReactDOM));
