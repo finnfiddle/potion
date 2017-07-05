@@ -25,6 +25,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
   <script src="//unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="//rawgit.com/finnfiddle/number-picture/master/umd/number-picture.js"></script>
 
   <!-- Meta -->
   <meta content="Number Picture" property="og:title">
@@ -32,6 +33,8 @@
 
   <!-- Initializer -->
   <script>
+    Object.assign(window, NumberPicture);
+
     function getSearchParams () {
       var result = {};
       var searchString = window.location.search;
@@ -61,9 +64,8 @@
       $("#number-picture-contents").remove();
       $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
-        const chart = $(block).parent().append('div');
-        ReactDOM.render(eval(block.innerText), chart);
-        debugger;
+        const chart = $(block).parent().parent().append('div');
+        ReactDOM.render(React.createElement(block.innerText), chart);
       });
     });
   </script>
