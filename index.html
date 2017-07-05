@@ -24,6 +24,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
+  <script src="//unpkg.com/babel-standalone@6/babel.min.js"></script>
 
   <!-- Meta -->
   <meta content="Number Picture" property="og:title">
@@ -60,6 +61,8 @@
       $("#number-picture-contents").remove();
       $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
+        const chart = $(block).parent().append('div');
+        ReactDOM.render(eval(block.innerText), chart);
         debugger;
       });
     });
