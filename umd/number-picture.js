@@ -820,10 +820,6 @@ var isArray = Array.isArray;
 
 var isArray_1 = isArray;
 
-var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-
-
 function unwrapExports (x) {
 	return x && x.__esModule ? x['default'] : x;
 }
@@ -923,7 +919,7 @@ var possibleConstructorReturn = function (self, call) {
 };
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = _typeof(commonjsGlobal) == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
 
 var _freeGlobal = freeGlobal;
 
@@ -5308,7 +5304,7 @@ var index$2 = createCommonjsModule(function (module) {
 		return ret === true;
 	}
 
-	if ('Set' in commonjsGlobal) {
+	if ('Set' in global) {
 		if (typeof Set.prototype.forEach === 'function' && doesForEachActuallyWork()) {
 			module.exports = uniqSetWithForEach;
 		} else {
@@ -6154,7 +6150,7 @@ var emptyFunction_1 = emptyFunction;
 
 var validateFormat = function validateFormat(format) {};
 
-if (process.env.NODE_ENV !== 'production') {
+if (undefined !== 'production') {
   validateFormat = function validateFormat(format) {
     if (format === undefined) {
       throw new Error('invariant requires an error message argument');
@@ -6194,7 +6190,7 @@ var invariant_1 = invariant;
 
 var warning = emptyFunction_1;
 
-if (process.env.NODE_ENV !== 'production') {
+if (undefined !== 'production') {
   (function () {
     var printWarning = function printWarning(format) {
       for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -6251,7 +6247,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 var ReactPropTypesSecret_1 = ReactPropTypesSecret;
 
-if (process.env.NODE_ENV !== 'production') {
+if (undefined !== 'production') {
   var invariant$1 = invariant_1;
   var warning$1 = warning_1;
   var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
@@ -6270,7 +6266,7 @@ if (process.env.NODE_ENV !== 'production') {
  * @private
  */
 function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (undefined !== 'production') {
     for (var typeSpecName in typeSpecs) {
       if (typeSpecs.hasOwnProperty(typeSpecName)) {
         var error;
@@ -6432,7 +6428,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
   PropTypeError.prototype = Error.prototype;
 
   function createChainableTypeChecker(validate) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (undefined !== 'production') {
       var manualPropTypeCallCache = {};
       var manualPropTypeWarningCount = 0;
     }
@@ -6444,7 +6440,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
         if (throwOnDirectAccess) {
           // New behavior only for users of `prop-types` package
           invariant_1(false, 'Calling PropTypes validators directly is not supported by the `prop-types` package. ' + 'Use `PropTypes.checkPropTypes()` to call them. ' + 'Read more at http://fb.me/use-check-prop-types');
-        } else if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
+        } else if (undefined !== 'production' && typeof console !== 'undefined') {
           // Old behavior for people using React.PropTypes
           var cacheKey = componentName + ':' + propName;
           if (!manualPropTypeCallCache[cacheKey] &&
@@ -6543,7 +6539,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
 
   function createEnumTypeChecker(expectedValues) {
     if (!Array.isArray(expectedValues)) {
-      process.env.NODE_ENV !== 'production' ? warning_1(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
+      undefined !== 'production' ? warning_1(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
       return emptyFunction_1.thatReturnsNull;
     }
 
@@ -6586,7 +6582,7 @@ var factoryWithTypeCheckers = function factoryWithTypeCheckers(isValidElement, t
 
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
-      process.env.NODE_ENV !== 'production' ? warning_1(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+      undefined !== 'production' ? warning_1(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
       return emptyFunction_1.thatReturnsNull;
     }
 
@@ -6825,7 +6821,7 @@ var index$5 = createCommonjsModule(function (module) {
    * of patent rights can be found in the PATENTS file in the same directory.
    */
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (undefined !== 'production') {
     var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol.for && Symbol.for('react.element') || 0xeac7;
 
     var isValidElement = function isValidElement(object) {
@@ -6859,7 +6855,7 @@ var index$5 = createCommonjsModule(function (module) {
  * same logic and follow the same code paths.
  */
 
-var __DEV__ = process.env.NODE_ENV !== 'production';
+var __DEV__ = undefined !== 'production';
 
 var warning$2 = function warning() {};
 
@@ -7227,7 +7223,7 @@ var TransitionGroup_1 = createCommonjsModule(function (module, exports) {
             _this3.childRefs[key] = r;
           };
 
-          process.env.NODE_ENV !== 'production' ? (0, _warning2.default)(isCallbackRef, 'string refs are not supported on children of TransitionGroup and will be ignored. ' + 'Please use a callback ref instead: https://facebook.github.io/react/docs/refs-and-the-dom.html#the-ref-callback-attribute') : void 0;
+          undefined !== 'production' ? (0, _warning2.default)(isCallbackRef, 'string refs are not supported on children of TransitionGroup and will be ignored. ' + 'Please use a callback ref instead: https://facebook.github.io/react/docs/refs-and-the-dom.html#the-ref-callback-attribute') : void 0;
 
           // Always chaining the refs leads to problems when the childFactory
           // wraps the child. The child ref callback gets called twice with the
@@ -7273,7 +7269,7 @@ var TransitionGroup_1 = createCommonjsModule(function (module, exports) {
 
   TransitionGroup.displayName = 'TransitionGroup';
 
-  TransitionGroup.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
+  TransitionGroup.propTypes = undefined !== "production" ? propTypes : {};
   TransitionGroup.defaultProps = defaultProps;
 
   exports.default = TransitionGroup;
