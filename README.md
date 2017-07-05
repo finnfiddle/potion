@@ -93,8 +93,8 @@ Number Picture provides several shape primitives for constructing visualizations
 
 ```javascript
 <Circle
-  propA={ownProps => ownProps.propB}
-  propB={20}
+  cx={ownProps => ownProps.cy}
+  cy={20}
 />
 ```
 
@@ -102,8 +102,8 @@ Number Picture provides several shape primitives for constructing visualizations
 
 ```javascript
 <Circle
-  propA={20}
-  propB={20}
+  cx={20}
+  cy={20}
 />
 ```
 
@@ -120,7 +120,7 @@ import { Circle } from 'number-picture';
 #### Usage:
 
  ```javascript
-<Circle cx={10) cy={20} r={30} fill='black' />
+<Circle cx={10} cy={20} r={30} fill='black' />
 ```
 
 #### Result:
@@ -161,7 +161,7 @@ import { Arc } from 'number-picture';
 #### Usage:
 
  ```javascript
-<Arc innerRadius={50) outerRadius={100} startAngle={0} endAngle={Math.PI} fill='black' />
+<Arc innerRadius={50} outerRadius={100} startAngle={0} endAngle={Math.PI} fill='black' />
 ```
 
 #### Result:

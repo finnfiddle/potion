@@ -74,7 +74,7 @@ For example the following would result in the radius being animated from 0 to 50
 </Svg>
 ```
 
-## Collections
+## Collections/Layouts
 
 Collections and Layouts take data collections and map them to shapes. For example if we had an array of objects representing circles we could pass them to a collection and for each item a `Circle` would be rendered.
 
@@ -83,8 +83,8 @@ Collections and Layouts take data collections and map them to shapes. For exampl
   <Collection
     data={[
       { radius: 40, x: 40 },
-      { radius: 50, x: 80 },
-      { radius: 60, x: 130 },
+      { radius: 50, x: 130 },
+      { radius: 60, x: 240 },
     ]}
   >
     <Circle
@@ -98,3 +98,28 @@ Collections and Layouts take data collections and map them to shapes. For exampl
 
 Notice that we do not manually set the `datum` prop for each child. It is automatically passed from the `Collection`.
 
+### Animating children
+
+In exactly the same way that we animated the circle in the first animation example we can animate the items in the `Collection`:
+
+```javascript
+<Svg width={500} height={500}>
+  <Collection
+    data={[
+      { radius: 40, x: 40 },
+      { radius: 50, x: 130 },
+      { radius: 60, x: 240 },
+    ]}
+  >
+    <Circle
+        enterDatum={{ x: 0, radius: 0 }}
+        enterDuration={3000}
+        cx={ownProps => ownProps.datum.x}
+        cy={() => 250}
+        r={ownProps => ownProps.datum.radius}
+    />
+  </Collection>
+</Svg>
+```
+
+## More to come...

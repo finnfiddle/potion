@@ -64,8 +64,28 @@
       $("#number-picture-contents").remove();
       $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
-        const chart = $(block).parent().parent().append('div');
-        ReactDOM.render(React.createElement(block.innerText), chart);
+        if ($(block).hasClass('lang-javascript')) {
+          const innerText = block.innerText;
+          if (innerText.indexOf('import ') > -1 || innerText.indexOf('{') === -1) return;
+          const chart = document.createElement('DIV');
+          $(block).parent().after(chart);
+          const renderCode = `
+            const component = ${Babel.transform(innerText, {
+              presets: [['es2015', { "modules": false }], 'stage-0', 'react'],
+            }).code}
+            ReactDOM.render(component, chart);
+          `;
+          eval(renderCode);
+          $(block).parent().after(
+            $('<a />')
+              .addClass('btn btn-default')
+              .html('Run Example')
+              .on('click', () => {
+                ReactDOM.unmountComponentAtNode(chart);
+                eval(renderCode);
+              })
+          );
+        }
       });
     });
   </script>
