@@ -5,49 +5,96 @@ Number Picture is a collection of **React** components for declaratively composi
 
 This is a step-by-step tutroial to show you the main features on the library and how it works.
 
-View the docs here: [http://docs.numberpicture.com](http://docs.numberpicture.com).
+For the tutorial we will use the Playground JSFiddle [here](https://fiddle.jshell.net/finnworks/fbjs3jkt/).
 
-## Installing the library
+For the docs and installation instructions go to: [http://docs.numberpicture.com](http://docs.numberpicture.com).
 
-In an existing React project run the following command:
+## Basics
 
-```
-npm install number-picture
-```
+### Drawing a circle
 
-## Drawing a circle
-
-Let's start with a miminal example to get started - drawing an SVG circle.
-
-Firstly, import React and the `Svg` and `Circle` components from the number-picture library.
+Let's start with a miminal example to get started - drawing an SVG with a circle in it.
 
 ```javascript
-import React from 'react';
-import { Svg, Circle } from 'number-picture';
+<Svg width={500} height={500}>
+  <Circle cx={250} cy={250} r={50} />
+</Svg>
 ```
 
-Next, let's use the components to create a new React component that renders an SVG with a circle in it.
+### Props can be functions
 
+We could have written the previous example in the following way with function props.
 
 ```javascript
-export default class extends React.Component {
-    render () {
-        return (
-            <Svg width={500} height={500}>
-                <Circle cx={250} cy={250} r={50} />
-            </Svg>
-        );
-    }
-}
+<Svg width={500} height={500}>
+  <Circle
+    cx={() => 250}
+    cy={() => 250}
+    r={() => 50}
+  />
+</Svg>
 ```
 
-<div
-    class="rc"
-    data-component="
-        <Svg width={500} height={500}>
-            <Circle cx={250} cy={250} r={50} />
-        </Svg>
-    "
->
-</div>
+This will come in handy soon when we start driving the visualization with data.
+
+### Function props get passed the component's own props
+
+Props that are functions are evaluated by passing all of the props of the component to them.
+For example the previous example could be rewritten like the following:
+
+```javascript
+<Svg width={500} height={500}>
+  <Circle
+    datum={{ radius: 50 }}
+    cx={() => 250}
+    cy={() => 250}
+    r={ownProps => ownProps.datum.radius}
+  />
+</Svg>
+```
+
+### Animating shapes
+
+Let's introduce two special props used for animation: `datum` which you've seen already, `enterDatum` and `enterDuration`. (There are also similarly `exitDatum` and `exitDuration` props which we will get to later).
+
+When a shape enters its `enterDatum` prop is evaluated as well as the `datum` prop. Then it proceeds to tween the values of both from the former to the latter and respectively animate the component.
+
+For example the following would result in the radius being animated from 0 to 50 over a period of 3 seconds:
+
+```javascript
+<Svg width={500} height={500}>
+  <Circle
+    enterDatum={{ radius: 0 }}
+    enterDuration={3000}
+    datum={{ radius: 50 }}
+    cx={() => 250}
+    cy={() => 250}
+    r={ownProps => ownProps.datum.radius}
+  />
+</Svg>
+```
+
+## Collections
+
+Collections and Layouts take data collections and map them to shapes. For example if we had an array of objects representing circles we could pass them to a collection and for each item a `Circle` would be rendered.
+
+```javascript
+<Svg width={500} height={500}>
+  <Collection
+    data={[
+      { radius: 40, x: 40 },
+      { radius: 50, x: 80 },
+      { radius: 60, x: 130 },
+    ]}
+  >
+    <Circle
+        cx={ownProps => ownProps.datum.x}
+        cy={() => 250}
+        r={ownProps => ownProps.datum.radius}
+    />
+  </Collection>
+</Svg>
+```
+
+Notice that we do not manually set the `datum` prop for each child. It is automatically passed from the `Collection`.
 

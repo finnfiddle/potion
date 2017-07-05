@@ -22,6 +22,8 @@
   <link href='/docs/highlight.css' rel='stylesheet'>
   <script src='//cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/script.js'></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
 
   <!-- Meta -->
   <meta content="Number Picture" property="og:title">
@@ -58,6 +60,7 @@
       $("#number-picture-contents").remove();
       $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
+        debugger;
       });
     });
   </script>
