@@ -14,7 +14,7 @@ const config = {
   exports: 'named',
   plugins: [
     rollupCommonJs({
-      ignoreGlobal: true,
+      // ignoreGlobal: true,
       include: 'node_modules/**',
       exclude: ['node_modules/react/**'],
       //   'node_modules/react/react.js': [

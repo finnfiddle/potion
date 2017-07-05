@@ -820,6 +820,10 @@ var isArray = Array.isArray;
 
 var isArray_1 = isArray;
 
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+
+
 function unwrapExports (x) {
 	return x && x.__esModule ? x['default'] : x;
 }
@@ -919,7 +923,7 @@ var possibleConstructorReturn = function (self, call) {
 };
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = (typeof global === 'undefined' ? 'undefined' : _typeof(global)) == 'object' && global && global.Object === Object && global;
+var freeGlobal = _typeof(commonjsGlobal) == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
 
 var _freeGlobal = freeGlobal;
 
@@ -5304,7 +5308,7 @@ var index$2 = createCommonjsModule(function (module) {
 		return ret === true;
 	}
 
-	if ('Set' in global) {
+	if ('Set' in commonjsGlobal) {
 		if (typeof Set.prototype.forEach === 'function' && doesForEachActuallyWork()) {
 			module.exports = uniqSetWithForEach;
 		} else {
