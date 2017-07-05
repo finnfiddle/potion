@@ -7,6 +7,8 @@ Normally, a charting library will give you a collection of high-level chart comp
 
 The library is part of a bigger project by the same name which aims to list, categorize and rank every single available chart - there are over [450 charts which you can see here](http://numberpicture.com/browse).
 
+There is a JSFiddle playground that you can use to test out the library [here](https://fiddle.jshell.net/finnworks/fbjs3jkt/).
+
 > **Important:** This project is still in active development and it is possible that we will be making breaking changes as we go. Use in production with caution before we release v1.
 
 ## Contents

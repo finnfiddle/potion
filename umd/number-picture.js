@@ -1367,6 +1367,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _TransitionGroup = __webpack_require__(325);
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
@@ -1402,7 +1404,7 @@ var TransitionGroup = function (_Component) {
           children = _props.children,
           restProps = _objectWithoutProperties(_props, ['children']);
 
-      return React.createElement(
+      return _react2.default.createElement(
         _TransitionGroup2.default,
         _extends({}, restProps, (0, _helpers.bindMouseEvents)(this.props)),
         children
@@ -1655,6 +1657,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _d3Axis = __webpack_require__(315);
 
 var d3Axis = _interopRequireWildcard(_d3Axis);
@@ -1667,9 +1671,9 @@ var _SelectSelf2 = __webpack_require__(64);
 
 var _SelectSelf3 = _interopRequireDefault(_SelectSelf2);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1723,7 +1727,7 @@ var Axis = function (_SelectSelf) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement('g', (0, _helpers.omit)(this.props, ['scale', 'placement', 'datum', 'index']));
+      return _react2.default.createElement('g', (0, _helpers.omit)(this.props, ['scale', 'placement', 'datum', 'index']));
     }
   }]);
 
@@ -7849,6 +7853,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _d3Shape = __webpack_require__(41);
 
 var _itsSet = __webpack_require__(5);
@@ -7929,7 +7935,7 @@ var Arc = function (_AnimatedElement) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement('path', _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
+      return _react2.default.createElement('path', _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
     }
   }]);
 
@@ -14085,6 +14091,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _constants = __webpack_require__(15);
 
 var _helpers = __webpack_require__(2);
@@ -14123,7 +14131,7 @@ var Circle = function (_AnimatedElement) {
     value: function render() {
       var className = this.props.className;
 
-      return React.createElement('circle', _extends({}, this.state, {
+      return _react2.default.createElement('circle', _extends({}, this.state, {
         className: className,
         style: this.getStyle(this.props)
       }, (0, _helpers.bindMouseEvents)(this.props)));
@@ -14156,6 +14164,8 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
 
 var _TransitionGroup = __webpack_require__(13);
 
@@ -14197,7 +14207,7 @@ var Collection = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement(
+      return _react2.default.createElement(
         _TransitionGroup2.default,
         null,
         this.renderChildren()
@@ -15452,6 +15462,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _itsSet = __webpack_require__(5);
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
@@ -15541,7 +15553,7 @@ var Grid = function (_Component) {
     key: 'render',
     value: function render() {
       var gridData = this.getGrid();
-      return React.createElement(
+      return _react2.default.createElement(
         _TransitionGroup2.default,
         null,
         this.renderChildren(gridData),
@@ -18150,6 +18162,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _itsSet = __webpack_require__(5);
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
@@ -18254,7 +18268,7 @@ var Group = function (_AnimatedElement) {
     key: 'render',
     value: function render() {
       var style = this.getStyle(this.props);
-      return React.createElement(
+      return _react2.default.createElement(
         _TransitionGroup2.default,
         _extends({ style: style }, (0, _helpers.bindMouseEvents)(this.props)),
         this.renderChildren()
@@ -18459,6 +18473,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _d3Force = __webpack_require__(432);
 
 var _itsSet = __webpack_require__(5);
@@ -18595,7 +18611,7 @@ var ForceSimulation = function (_SelectSelf) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement(
+      return _react2.default.createElement(
         _TransitionGroup2.default,
         null,
         this.renderChildren()
@@ -19790,6 +19806,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _constants = __webpack_require__(15);
 
 var _helpers = __webpack_require__(2);
@@ -19828,7 +19846,7 @@ var Line = function (_AnimatedElement) {
     value: function render() {
       var className = this.props.className;
 
-      return React.createElement('line', _extends({}, this.state, {
+      return _react2.default.createElement('line', _extends({}, this.state, {
         className: className,
         style: this.getStyle(this.props)
       }, (0, _helpers.bindMouseEvents)(this.props)));
@@ -19862,6 +19880,8 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
 
 var _d3Hierarchy = __webpack_require__(454);
 
@@ -19940,7 +19960,7 @@ var Pack = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement(
+      return _react2.default.createElement(
         _TransitionGroup2.default,
         null,
         this.renderChildren()
@@ -21055,6 +21075,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _d3Shape = __webpack_require__(41);
 
 var _itsSet = __webpack_require__(5);
@@ -21138,7 +21160,7 @@ var Pie = function (_Component) {
         return sort(a.data, b.data);
       });
 
-      return React.createElement(
+      return _react2.default.createElement(
         _TransitionGroup2.default,
         null,
         this.renderChildren(pieData),
@@ -21339,6 +21361,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _constants = __webpack_require__(15);
 
 var _helpers = __webpack_require__(2);
@@ -21375,7 +21399,7 @@ var Rect = function (_AnimatedElement) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement('rect', _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
+      return _react2.default.createElement('rect', _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
     }
   }]);
 
@@ -21487,6 +21511,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _itsSet = __webpack_require__(5);
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
@@ -21572,7 +21598,7 @@ var SymbolShape = function (_AnimatedElement) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement('path', _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
+      return _react2.default.createElement('path', _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
     }
   }]);
 
@@ -21673,6 +21699,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
+var _react2 = _interopRequireDefault(_react);
+
 var _constants = __webpack_require__(15);
 
 var _helpers = __webpack_require__(2);
@@ -21709,7 +21737,7 @@ var Text = function (_AnimatedElement) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement(
+      return _react2.default.createElement(
         'text',
         _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)),
         this.props.children
