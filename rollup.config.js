@@ -9,27 +9,38 @@ import uglify from 'rollup-plugin-uglify';
 const env = process.env.NODE_ENV;
 const config = {
   entry: 'src/index.js',
-  format: 'iife',
+  format: 'umd',
   moduleName: 'NumberPicture',
   exports: 'named',
+  external: [
+    'react',
+    'react-dom',
+    'react/**',
+  ],
+  globals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+  },
+  dest: `umd/number-picture${env === 'production' ? '.min' : ''}.js`,
+  sourceMap: true,
   plugins: [
-    rollupCommonJs({
-      // ignoreGlobal: true,
-      include: 'node_modules/**',
-      exclude: ['node_modules/react/**'],
-      //   'node_modules/react/react.js': [
-      //     'Children',
-      //     'Component',
-      //     'PropTypes',
-      //     'createElement',
-      //     'cloneElement',
-      //   ],
-      // },
-    }),
     rollupNodeResolve({
       extensions: ['.js', '.jsx'],
       jsnext: true,
       main: true,
+      browser: true,
+    }),
+    rollupCommonJs({
+      include: 'node_modules/**',
+      namedExports: {
+        'node_modules/react/react.js': [
+          'Children',
+          'Component',
+          'PropTypes',
+          'createElement',
+          'cloneElement',
+        ],
+      },
     }),
     babel({
       babelrc: false,
@@ -49,12 +60,6 @@ const config = {
     }),
     filesize(),
   ],
-  external: ['react', 'react-dom'],
-  globals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-  },
-  dest: `umd/number-picture${env === 'production' ? '.min' : ''}.js`,
 };
 
 if (env === 'production') {

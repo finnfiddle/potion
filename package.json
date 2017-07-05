@@ -22,20 +22,20 @@
   "scripts": {
     "start": "babel --watch --plugins \"transform-runtime\" src --ignore __tests__ --out-dir ./dist",
     "prepublish": "npm run lint && npm run build",
-    "build": "npm run build:cjs && npm run build:umd && npm run uglify",
+    "build": "npm run build:cjs && npm run build:umd",
     "build:cjs": "babel --plugins 'transform-es2015-modules-umd' src --ignore __tests__ --out-dir ./cjs",
-    "build:umd": "rollup -c",
+    "build:umd": "webpack && NODE_ENV=production webpack",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "testonly": "mocha $npm_package_options_mocha",
     "test": "npm run lint && npm run testonly",
-    "test-watch": "npm run testonly -- --watch --watch-extensions js",
-    "uglify": "uglifyjs umd/number-picture.js -c -m --source-map umd/number-picture.min.js.map -o umd/number-picture.min.js"
+    "test-watch": "npm run testonly -- --watch --watch-extensions js"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-core": "^6.7.4",
+    "babel-core": "^6.25.0",
     "babel-eslint": "^6.1.2",
+    "babel-loader": "^7.1.1",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
@@ -66,9 +66,12 @@
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-filesize": "^1.4.2",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-uglify": "^2.0.1",
     "rollup-plugin-visualizer": "^0.3.1",
     "sinon": "^1.17.3",
-    "uglifyify": "^3.0.4"
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "^3.0.0"
   },
   "peerDependencies": {
     "react": "~0.14.8 || ^15.0.0",
