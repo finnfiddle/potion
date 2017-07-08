@@ -42,7 +42,16 @@ export default class Axis extends SelectSelf {
 
   render() {
     return (
-      <g {...omit(this.props, ['scale', 'placement', 'datum', 'index'])} />
+      <g
+        {...omit(this.props, [
+          'scale',
+          'placement',
+          'datum',
+          'index',
+          'enterDatum',
+          'exitDatum',
+        ])}
+      />
     );
   }
 

@@ -674,7 +674,6 @@ And we wanted to animate it on enter. We would pass added `enterDatum` and `ente
     fill='black'
     enterDatum={{ value: 0 }}
     enterDuration={5000}
-    updateDuration={5000}
   />
 </Collection>
 ```
@@ -692,9 +691,15 @@ Shapes/Elements nested in Collections/TransitionGroups can be animated when they
 Using our previous example:
 
 ```javascript
-<Collection data={[1, 2, 3]}>
+<Collection
+  data={[
+    { value: 1 }, 
+    { value: 2 }, 
+    { value: 3 },
+  ]}
+>
   <Circle
-    cx={ownProps => ownProps.datum * 100}
+    cx={ownProps => ownProps.datum.value * 100}
     cy={100}
     r={20}
     fill='black'
@@ -726,14 +731,15 @@ import { Circle, TransitionGroup } from 'number-picture';
 
 <TransitionGroup>
   <Circle
-    cx={ownProps => ownProps.datum * 100}
+    cx={ownProps => ownProps.datum.value * 100}
     cy={100}
     r={20}
     fill='black'
-    enterDatum={ownProps => 0}
+    datum={{ value: 100 }}
+    enterDatum={{ value: -100 }}
     enterDuration={5000}
     updateDuration={5000}
-    exitDatum={ownProps => 400}
+    exitDatum={{ value: 800 }}
     exitDuration={5000}
   />
 </TransitionGroup>
@@ -792,16 +798,16 @@ import { Circle, TransitionGroup } from 'number-picture';
 
 <TransitionGroup>
   <Circle
-    cx={ownProps => ownProps.datum * 100}
+    cx={ownProps => ownProps.datum.value * 100}
     cy={100}
     r={20}
     fill='black'
-    enterDatum={ownProps => 0}
+    enterDatum={{ value: -100 }}
     enterDuration={5000}
     enterEase='easeBounce'
     updateDuration={5000}
     enterEase='easeBack'
-    exitDatum={ownProps => 400}
+    exitDatum={{ value: 800 }}
     exitDuration={5000}
     enterEase='easeElastic'
   />
@@ -834,12 +840,16 @@ import { Circle, TransitionGroup } from 'number-picture';
 
 ```javascript
 import { AxisTop } from 'number-picture';
+```
 
-const scale = scaleLinear()
-  .domain([0, 100])
-  .range([0, 400]);
-
-<AxisTop scale={scale} />
+```javascript
+<AxisTop
+  scale={
+    d3.scaleLinear()
+      .domain([0, 100])
+      .range([0, 400])  
+  }
+/>
 ```
 
 <div id='_axisright'></div>
@@ -850,12 +860,16 @@ const scale = scaleLinear()
 
 ```javascript
 import { AxisRight } from 'number-picture';
+```
 
-const scale = scaleLinear()
-  .domain([0, 100])
-  .range([0, 400]);
-
-<AxisRight scale={scale} />
+```javascript
+<AxisRight
+  scale={
+    d3.scaleLinear()
+      .domain([0, 100])
+      .range([0, 400])  
+  }
+/>
 ```
 
 <div id='_axisbottom'></div>
@@ -866,12 +880,16 @@ const scale = scaleLinear()
 
 ```javascript
 import { AxisBottom } from 'number-picture';
+```
 
-const scale = scaleLinear()
-  .domain([0, 100])
-  .range([0, 400]);
-
-<AxisBottom scale={scale} />
+```javascript
+<AxisBottom
+  scale={
+    d3.scaleLinear()
+      .domain([0, 100])
+      .range([0, 400])  
+  }
+/>
 ```
 
 <div id='_axisleft'></div>
@@ -882,12 +900,16 @@ const scale = scaleLinear()
 
 ```javascript
 import { AxisLeft } from 'number-picture';
+```
 
-const scale = scaleLinear()
-  .domain([0, 100])
-  .range([0, 400]);
-
-<AxisLeft scale={scale} />
+```javascript
+<AxisLeft
+  scale={
+    d3.scaleLinear()
+      .domain([0, 100])
+      .range([0, 400])  
+  }
+/>
 ```
 
 <div id='_misc'></div>
@@ -914,6 +936,7 @@ const scale = scaleLinear()
 
 - use Group component for transforms
 - no stateless components (inside Group only?)
+- datum values can only be objects in order for animations to work
 
 <div id='_annotations'></div>
 
