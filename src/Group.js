@@ -2,7 +2,7 @@ import React, { cloneElement, Children, PropTypes } from 'react';
 import itsSet from 'its-set';
 import get from 'utils-deep-get';
 
-import { bindMouseEvents, isString } from './helpers';
+import { bindMouseEvents, isFunction } from './helpers';
 import TransitionGroup from './TransitionGroup';
 import AnimatedElement from './mixins/AnimatedElement';
 
@@ -55,7 +55,7 @@ export default class Group extends AnimatedElement {
     const { datum, data, index, children, enterDatum, exitDatum } = this.props;
     return Children.map(children, child => {
       if (!itsSet(child)) return null;
-      const props = (child !== null && isString(get(child, 'type.displayName'))) ?
+      const props = (child !== null && isFunction(get(child, 'type'))) ?
         Object.assign({ datum, data, index, enterDatum, exitDatum }, child.props) :
         child.props;
       return cloneElement(child, props);

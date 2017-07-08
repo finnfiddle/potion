@@ -26,6 +26,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.js"></script>
   <script src="//unpkg.com/babel-standalone@6/babel.min.js"></script>
   <script src="//rawgit.com/finnfiddle/number-picture/master/umd/number-picture.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
 
   <!-- Meta -->
   <meta content="Number Picture" property="og:title">
@@ -65,8 +66,19 @@
       $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
         if ($(block).hasClass('lang-javascript')) {
-          const innerText = block.innerText;
+          let innerText = block.innerText;
           if (innerText.indexOf('import ') > -1 || innerText.indexOf('{') === -1) return;
+          if (innerText.indexOf('Svg') === -1) {
+            innerText = `
+            <Svg width={700} height={400}>
+              <Group x={350} y={200}>
+                test
+                <Line x1={0} x2={0} y1={-200} y2={200} stroke='#00e150' strokeWidth={1} strokeDasharray='7.5,7.5' />
+                <Line x1={-350} x2={350} y1={0} y2={0} stroke='#00e150' strokeWidth={1} strokeDasharray='7.5,7.5' />
+                ${innerText}
+              </Group>
+            </Svg>`;
+          }
           const chart = document.createElement('DIV');
           $(block).parent().after(chart);
           const renderCode = `

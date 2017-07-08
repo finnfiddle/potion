@@ -9,6 +9,8 @@ The library is part of a bigger project by the same name which aims to list, cat
 
 There is a JSFiddle playground that you can use to test out the library [here](https://fiddle.jshell.net/finnworks/fbjs3jkt/).
 
+There is also a tutorial [here](http://docs.numberpicture.com?route=tutorial) which guides you through the basics of using the library.
+
 > **Important:** This project is still in active development and it is possible that we will be making breaking changes as we go. Use in production with caution before we release v1.
 
 ## Contents
@@ -93,8 +95,10 @@ Number Picture provides several shape primitives for constructing visualizations
 
 ```javascript
 <Circle
-  cx={ownProps => ownProps.cy}
-  cy={20}
+  datum={100}
+  cx={ownProps => ownProps.datum}
+  cy={ownProps => ownProps.datum}
+  r={20}
 />
 ```
 
@@ -102,8 +106,9 @@ Number Picture provides several shape primitives for constructing visualizations
 
 ```javascript
 <Circle
-  cx={20}
-  cy={20}
+  cx={100}
+  cy={100}
+  r={20}
 />
 ```
 
@@ -120,7 +125,7 @@ import { Circle } from 'number-picture';
 #### Usage:
 
  ```javascript
-<Circle cx={10} cy={20} r={30} fill='black' />
+<Circle cx={100} cy={100} r={30} fill='black' />
 ```
 
 <!--#### Result:
@@ -194,7 +199,7 @@ Prop | Type | Default | Description
 
 ### Line
 
-`// TODO: implement`
+`// TODO: document`
 
 <div id='_radialline'></div>
 
@@ -263,7 +268,7 @@ import { Text } from 'number-picture';
 #### Usage:
 
  ```javascript
-<Text dx={10} stroke='black'>
+<Text dx={100} stroke='black'>
   My text goes here...
 </Text>
 ```
@@ -311,7 +316,7 @@ import { SymbolShape } from 'number-picture';
 #### Usage:
 
  ```javascript
-<SymbolShape size={200) type='symbolShapeCross' fill='black' />
+<SymbolShape size={500} type='symbolCross' fill='black' />
 ```
 
 <!--#### Result:
@@ -351,9 +356,9 @@ import { Group } from 'number-picture';
 #### Usage:
 
  ```javascript
-<Group x={100) y={100} rotation={45}>
-  xyz
-<Group
+<Group x={100} y={100} rotation={45}>
+  <Rect width={50} height={10} />
+</Group>
 ```
 
 <!--#### Result:
@@ -405,7 +410,7 @@ import { Collection } from 'number-picture';
 </Collection>
 ```
 
-#### Result:
+<!--#### Result:
 
 ```javascript
 <g>
@@ -413,7 +418,7 @@ import { Collection } from 'number-picture';
   <circle cx={200} y={100} r={20} fill='black' />
   <circle cx={300} y={100} r={20} fill='black' />
 </g>
-```
+```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -442,26 +447,28 @@ import { Pack } from 'number-picture';
 #### Usage
 
 ```javascript
-const hierarchy = d3.hierarchy({
-  children: [
-    { value: 1 },
-    { value: 2 },
-    { value: 3 },
-  ],
-})
-.sum(datum => datum.value);
-
 <Pack
-  data={ownProps => ownProps.hierarchy}
+  data={
+    d3.hierarchy({
+      children: [
+        { value: 1 },
+        { value: 2 },
+        { value: 3 },
+      ],
+    })
+    .sum(datum => datum.value)
+  }
   size={[400, 400]}
   includeRoot={false}
 >
-  <Circle
-    cx={ownProps => ownProps.datum.x}
-    cy={ownProps => ownProps.datum.y}
-    r={ownProps => ownProps.datum.r}
-    fill='black'
-  />
+  <Group x={-200} y={-200}>
+    <Circle
+      cx={ownProps => ownProps.datum.x}
+      cy={ownProps => ownProps.datum.y}
+      r={ownProps => ownProps.datum.r}
+      fill='black'
+    />
+  </Group>
 </Pack>
 ```
 

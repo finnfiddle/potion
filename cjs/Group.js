@@ -165,7 +165,7 @@
 
         return _react.Children.map(children, function (child) {
           if (!(0, _itsSet2.default)(child)) return null;
-          var props = child !== null && (0, _helpers.isString)((0, _utilsDeepGet2.default)(child, 'type.displayName')) ? Object.assign({ datum: datum, data: data, index: index, enterDatum: enterDatum, exitDatum: exitDatum }, child.props) : child.props;
+          var props = child !== null && (0, _helpers.isFunction)((0, _utilsDeepGet2.default)(child, 'type')) ? Object.assign({ datum: datum, data: data, index: index, enterDatum: enterDatum, exitDatum: exitDatum }, child.props) : child.props;
           return (0, _react.cloneElement)(child, props);
         });
       }
