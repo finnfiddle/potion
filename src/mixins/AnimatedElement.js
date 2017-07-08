@@ -131,28 +131,33 @@ export default class AnimatedElement extends SelectSelf {
       itsSet(this.currentDatum) &&
       !deepEqual(this.currentDatum, nextDatum)
     ) {
-      const nextStyle = this.getStyle(nextProps);
-
-      this.selection = this.selectSelf();
-
-      const transition = this.selection
-        .transition()
-        .duration(updateDuration)
-        .ease(ease[updateEase]);
-
-      this.applyAttrsToSelection(nextAttrs, transition);
-      this.applyStyleToSelection(nextStyle, transition);
-      this.tweenDerivedAttrs(
-        this.currentDatum,
-        this.assignAbsolutePropsToDatum(nextDatum, nextProps),
-        nextProps,
-        transition,
-        DONT_GET_DATUM
-      );
-
-      transition.on('end', () => {
+      if (!updateDuration) {
         this.setState(this.getState(nextProps, nextAttrs));
-      });
+      }
+      else {
+        const nextStyle = this.getStyle(nextProps);
+
+        this.selection = this.selectSelf();
+
+        const transition = this.selection
+          .transition()
+          .duration(updateDuration)
+          .ease(ease[updateEase]);
+
+        this.applyAttrsToSelection(nextAttrs, transition);
+        this.applyStyleToSelection(nextStyle, transition);
+        this.tweenDerivedAttrs(
+          this.currentDatum,
+          this.assignAbsolutePropsToDatum(nextDatum, nextProps),
+          nextProps,
+          transition,
+          DONT_GET_DATUM
+        );
+
+        transition.on('end', () => {
+          this.setState(this.getState(nextProps, nextAttrs));
+        });
+      }
     }
     else if (
       itsSet(this.currentAttrs) &&

@@ -534,10 +534,12 @@ import { Pie, Arc } from 'number-picture';
 >
   <Arc
     innerRadius={0}
-    outerRadius={200}
+    outerRadius={100}
     startAngle={ownProps => ownProps.datum.startAngle}
     endAngle={ownProps => ownProps.datum.endAngle}
     fill='black'
+    stroke='white'
+    strokeWidth={1}
   />
 </Pie>
 ```
@@ -639,9 +641,15 @@ If they are set then it will calculate its props using the `enterDatum` instead 
 So say for example we have an Collection with an unanimated Circle child:
 
 ```javascript
-<Collection data={[1, 2, 3]}>
+<Collection
+  data={[
+    { value: 1 }, 
+    { value: 2 }, 
+    { value: 3 },
+  ]}
+>
   <Circle
-    cx={ownProps => ownProps.datum * 100}
+    cx={ownProps => ownProps.datum.value * 100}
     cy={100}
     r={20}
     fill='black'
@@ -652,14 +660,21 @@ So say for example we have an Collection with an unanimated Circle child:
 And we wanted to animate it on enter. We would pass added `enterDatum` and `enterDuration` props:
 
 ```javascript
-<Collection data={[1, 2, 3]}>
+<Collection
+  data={[
+    { value: 1 }, 
+    { value: 2 }, 
+    { value: 3 },
+  ]}
+>
   <Circle
-    cx={ownProps => ownProps.datum * 100}
+    cx={ownProps => ownProps.datum.value * 100}
     cy={100}
     r={20}
     fill='black'
-    enterDatum={ownProps => 0}
+    enterDatum={{ value: 0 }}
     enterDuration={5000}
+    updateDuration={5000}
   />
 </Collection>
 ```

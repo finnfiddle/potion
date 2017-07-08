@@ -984,19 +984,23 @@ var AnimatedElement = function (_SelectSelf) {
       var nextCombinedAttrs = Object.assign({}, nextAttrs, nextDerivedAttrs);
 
       if ((0, _itsSet2.default)(nextDatum) && (0, _itsSet2.default)(this.currentDatum) && !(0, _deepEqual2.default)(this.currentDatum, nextDatum)) {
-        var nextStyle = this.getStyle(nextProps);
+        if (!updateDuration) {
+          this.setState(this.getState(nextProps, nextAttrs));
+        } else {
+          var nextStyle = this.getStyle(nextProps);
 
-        this.selection = this.selectSelf();
+          this.selection = this.selectSelf();
 
-        var transition = this.selection.transition().duration(updateDuration).ease(ease[updateEase]);
+          var transition = this.selection.transition().duration(updateDuration).ease(ease[updateEase]);
 
-        this.applyAttrsToSelection(nextAttrs, transition);
-        this.applyStyleToSelection(nextStyle, transition);
-        this.tweenDerivedAttrs(this.currentDatum, this.assignAbsolutePropsToDatum(nextDatum, nextProps), nextProps, transition, DONT_GET_DATUM);
+          this.applyAttrsToSelection(nextAttrs, transition);
+          this.applyStyleToSelection(nextStyle, transition);
+          this.tweenDerivedAttrs(this.currentDatum, this.assignAbsolutePropsToDatum(nextDatum, nextProps), nextProps, transition, DONT_GET_DATUM);
 
-        transition.on('end', function () {
-          _this3.setState(_this3.getState(nextProps, nextAttrs));
-        });
+          transition.on('end', function () {
+            _this3.setState(_this3.getState(nextProps, nextAttrs));
+          });
+        }
       } else if ((0, _itsSet2.default)(this.currentAttrs) && (0, _itsSet2.default)(nextCombinedAttrs) && !(0, _deepEqual2.default)(this.currentAttrs, nextCombinedAttrs)) {
         this.updateFromNonDatumChange(nextProps);
         this.currentAttrs = nextCombinedAttrs;
