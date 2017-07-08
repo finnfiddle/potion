@@ -20,7 +20,7 @@
     "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.js"
   },
   "scripts": {
-    "start": "babel --watch --plugins \"transform-runtime\" src --ignore __tests__ --out-dir ./dist",
+    "start": "babel --watch --plugins \"transform-runtime\" src --ignore __tests__ --out-dir ./cjs",
     "prepublish": "npm run lint && npm run build",
     "build": "npm run build:cjs && npm run build:umd",
     "build:cjs": "babel --plugins 'transform-es2015-modules-umd' src --ignore __tests__ --out-dir ./cjs",
