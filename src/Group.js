@@ -80,10 +80,10 @@ Group.propTypes = {
   rotationOriginY: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
 };
 
-Group.defaultProps = {
+Group.defaultProps = Object.assign({}, AnimatedElement.defaultProps, {
   x: 0,
   y: 0,
   rotation: 0,
   rotationOriginX: 0,
   rotationOriginY: 0,
-};
+});

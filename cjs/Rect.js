@@ -125,4 +125,6 @@
     height: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
     width: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number])
   };
+
+  Rect.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
 });

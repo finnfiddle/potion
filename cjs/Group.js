@@ -195,11 +195,11 @@
     rotationOriginY: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number])
   };
 
-  Group.defaultProps = {
+  Group.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps, {
     x: 0,
     y: 0,
     rotation: 0,
     rotationOriginX: 0,
     rotationOriginY: 0
-  };
+  });
 });

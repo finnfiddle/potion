@@ -7952,12 +7952,12 @@ Arc.propTypes = {
   endAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
 };
 
-Arc.defaultProps = {
+Arc.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps, {
   innerRadius: 0,
   outerRadius: 0,
   startAngle: 0,
   endAngle: 0
-};
+});
 
 /***/ }),
 /* 162 */
@@ -14150,6 +14150,8 @@ Circle.propTypes = {
   r: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
 };
 
+Circle.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
+
 /***/ }),
 /* 324 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -18290,13 +18292,13 @@ Group.propTypes = {
   rotationOriginY: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number])
 };
 
-Group.defaultProps = {
+Group.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps, {
   x: 0,
   y: 0,
   rotation: 0,
   rotationOriginX: 0,
   rotationOriginY: 0
-};
+});
 
 /***/ }),
 /* 428 */
@@ -19866,6 +19868,8 @@ Line.propTypes = {
   y2: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]).isRequired
 };
 
+Line.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
+
 /***/ }),
 /* 453 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -21416,6 +21420,8 @@ Rect.propTypes = {
   width: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number])
 };
 
+Rect.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
+
 /***/ }),
 /* 480 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -21613,6 +21619,8 @@ SymbolShape.propTypes = {
   type: _react.PropTypes.oneOf(Object.keys(SYMBOLS))
 };
 
+SymbolShape.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
+
 /***/ }),
 /* 482 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -21681,6 +21689,9 @@ var Svg = function (_AnimatedElement) {
 }(_AnimatedElement3.default);
 
 exports.default = Svg;
+
+
+Svg.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
 
 /***/ }),
 /* 483 */
@@ -21755,6 +21766,8 @@ Text.propTypes = {
   dx: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
   dy: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
 };
+
+Text.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
 
 /***/ })
 /******/ ]);

@@ -35,3 +35,5 @@ Line.propTypes = {
   y1: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
   y2: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
 };
+
+Line.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

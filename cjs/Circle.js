@@ -129,4 +129,6 @@
     cy: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
     r: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
   };
+
+  Circle.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
 });

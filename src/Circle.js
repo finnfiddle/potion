@@ -43,3 +43,5 @@ Circle.propTypes = {
     PropTypes.func,
   ]),
 };
+
+Circle.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

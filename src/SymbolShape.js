@@ -78,3 +78,5 @@ SymbolShape.propTypes = {
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   type: PropTypes.oneOf(Object.keys(SYMBOLS)),
 };
+
+SymbolShape.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

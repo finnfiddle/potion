@@ -30,3 +30,5 @@ Rect.propTypes = {
   height: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
 };
+
+Rect.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

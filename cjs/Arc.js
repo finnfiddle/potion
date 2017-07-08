@@ -166,10 +166,10 @@
     endAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
   };
 
-  Arc.defaultProps = {
+  Arc.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps, {
     innerRadius: 0,
     outerRadius: 0,
     startAngle: 0,
     endAngle: 0
-  };
+  });
 });

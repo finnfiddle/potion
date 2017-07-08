@@ -123,11 +123,11 @@ import { Circle } from 'number-picture';
 <Circle cx={10} cy={20} r={30} fill='black' />
 ```
 
-#### Result:
+<!--#### Result:
 
 ```javascript
 <circle cx='10' cy='20' r='30' fill='black' />
-```
+```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -164,11 +164,11 @@ import { Arc } from 'number-picture';
 <Arc innerRadius={50} outerRadius={100} startAngle={0} endAngle={Math.PI} fill='black' />
 ```
 
-#### Result:
+<!--#### Result:
 
 ```javascript
 <path d='...' fill='black' />
-```
+```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -224,11 +224,11 @@ import { Rect } from 'number-picture';
 <Rect x={50} y={100} width={100} height={40} fill='black' />
 ```
 
-#### Result:
+<!--#### Result:
 
 ```javascript
 <rect x='50' y='100' width='100' height='40' fill='black' />
-```
+```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -268,13 +268,13 @@ import { Text } from 'number-picture';
 </Text>
 ```
 
-#### Result:
+<!--#### Result:
 
 ```javascript
 <text dx='10' stroke='black'>
   My text goes here...
 </text>
-```
+```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -314,11 +314,11 @@ import { SymbolShape } from 'number-picture';
 <SymbolShape size={200) type='symbolShapeCross' fill='black' />
 ```
 
-#### Result:
+<!--#### Result:
 
 ```javascript
 <path d='...' fill='black' />
-```
+```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -356,13 +356,13 @@ import { Group } from 'number-picture';
 <Group
 ```
 
-#### Result:
+<!--#### Result:
 
 ```javascript
 <g transform='translate(100, 100) rotate(45)'>
   xyz
 </g>
-```
+```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -465,15 +465,15 @@ const hierarchy = d3.hierarchy({
 </Pack>
 ```
 
-#### Result
+<!--#### Result
 
 ```javascript
 <g>
   <circle cx={...} y={...} r={...} fill='black' />
   <circle cx={...} y={...} r={...} fill='black' />
   <circle cx={...} y={...} r={...} fill='black' />
-</g>
-```
+</g>-->
+<!--```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -535,7 +535,7 @@ import { Pie, Arc } from 'number-picture';
 </Pie>
 ```
 
-#### Result
+<!--#### Result
 
 ```javascript
 <g>
@@ -543,7 +543,7 @@ import { Pie, Arc } from 'number-picture';
   <path d={...} fill='black' />
   <path d={...} fill='black' />
 </g>
-```
+```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---

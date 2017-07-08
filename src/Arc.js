@@ -80,9 +80,9 @@ Arc.propTypes = {
   ]),
 };
 
-Arc.defaultProps = {
+Arc.defaultProps = Object.assign({}, AnimatedElement.defaultProps, {
   innerRadius: 0,
   outerRadius: 0,
   startAngle: 0,
   endAngle: 0,
-};
+});

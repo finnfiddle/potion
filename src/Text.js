@@ -29,3 +29,5 @@ Text.propTypes = {
   dx: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   dy: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
 };
+
+Text.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

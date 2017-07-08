@@ -22,3 +22,5 @@ export default class Svg extends AnimatedElement {
   }
 
 }
+
+Svg.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

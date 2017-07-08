@@ -122,4 +122,7 @@
   }(_AnimatedElement3.default);
 
   exports.default = Svg;
+
+
+  Svg.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
 });

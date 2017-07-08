@@ -130,4 +130,6 @@
     y1: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]).isRequired,
     y2: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]).isRequired
   };
+
+  Line.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
 });

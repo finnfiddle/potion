@@ -127,4 +127,6 @@
     dx: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
     dy: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
   };
+
+  Text.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
 });
