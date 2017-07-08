@@ -25,9 +25,10 @@
     "build": "npm run build:cjs && npm run build:umd",
     "build:cjs": "babel --plugins 'transform-es2015-modules-umd' src --ignore __tests__ --out-dir ./cjs",
     "build:umd": "webpack && NODE_ENV=production webpack",
+    "git:add_build": "git add ./cjs ./umd",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
-    "precommit": "npm run prepublish",
+    "precommit": "npm run prepublish && npm run git:add_build",
     "testonly": "mocha $npm_package_options_mocha",
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch --watch-extensions js"

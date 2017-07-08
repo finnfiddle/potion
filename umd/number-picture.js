@@ -1731,7 +1731,7 @@ var Axis = function (_SelectSelf) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('g', (0, _helpers.omit)(this.props, ['scale', 'placement', 'datum', 'index']));
+      return _react2.default.createElement('g', (0, _helpers.omit)(this.props, ['scale', 'placement', 'datum', 'index', 'enterDatum', 'exitDatum']));
     }
   }]);
 
