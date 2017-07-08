@@ -27,6 +27,7 @@
     "build:umd": "webpack && NODE_ENV=production webpack",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
+    "precommit": "npm run prepublish",
     "testonly": "mocha $npm_package_options_mocha",
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch --watch-extensions js"
@@ -55,6 +56,7 @@
     "eslint-plugin-jsx-a11y": "^1.5.5",
     "eslint-plugin-react": "^5.2.2",
     "gulp-eslint": "^2.1.0",
+    "husky": "^0.14.3",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "nodemon": "^1.9.1",
