@@ -16,8 +16,8 @@ For the docs and installation instructions go to: [http://docs.numberpicture.com
 Let's start with a miminal example to get started - drawing an SVG with a circle in it.
 
 ```javascript
-<Svg width={500} height={500}>
-  <Circle cx={250} cy={250} r={50} />
+<Svg width={700} height={400}>
+  <Circle cx={50} cy={50} r={50} />
 </Svg>
 ```
 
@@ -26,10 +26,10 @@ Let's start with a miminal example to get started - drawing an SVG with a circle
 We could have written the previous example in the following way with function props.
 
 ```javascript
-<Svg width={500} height={500}>
+<Svg width={700} height={400}>
   <Circle
-    cx={() => 250}
-    cy={() => 250}
+    cx={() => 50}
+    cy={() => 50}
     r={() => 50}
   />
 </Svg>
@@ -43,11 +43,11 @@ Props that are functions are evaluated by passing all of the props of the compon
 For example the previous example could be rewritten like the following:
 
 ```javascript
-<Svg width={500} height={500}>
+<Svg width={700} height={400}>
   <Circle
     datum={{ radius: 50 }}
-    cx={() => 250}
-    cy={() => 250}
+    cx={() => 50}
+    cy={() => 50}
     r={ownProps => ownProps.datum.radius}
   />
 </Svg>
@@ -62,13 +62,13 @@ When a shape enters its `enterDatum` prop is evaluated as well as the `datum` pr
 For example the following would result in the radius being animated from 0 to 50 over a period of 3 seconds:
 
 ```javascript
-<Svg width={500} height={500}>
+<Svg width={700} height={400}>
   <Circle
     enterDatum={{ radius: 0 }}
     enterDuration={3000}
     datum={{ radius: 50 }}
-    cx={() => 250}
-    cy={() => 250}
+    cx={() => 50}
+    cy={() => 50}
     r={ownProps => ownProps.datum.radius}
   />
 </Svg>
@@ -79,17 +79,17 @@ For example the following would result in the radius being animated from 0 to 50
 Collections and Layouts take data collections and map them to shapes. For example if we had an array of objects representing circles we could pass them to a collection and for each item a `Circle` would be rendered.
 
 ```javascript
-<Svg width={500} height={500}>
+<Svg width={700} height={400}>
   <Collection
     data={[
-      { radius: 40, x: 40 },
-      { radius: 50, x: 130 },
-      { radius: 60, x: 240 },
+      { radius: 40, x: -160 },
+      { radius: 50, x: -70 },
+      { radius: 60, x: 40 },
     ]}
   >
     <Circle
         cx={ownProps => ownProps.datum.x}
-        cy={() => 250}
+        cy={() => 50}
         r={ownProps => ownProps.datum.radius}
     />
   </Collection>
@@ -103,19 +103,19 @@ Notice that we do not manually set the `datum` prop for each child. It is automa
 In exactly the same way that we animated the circle in the first animation example we can animate the items in the `Collection`:
 
 ```javascript
-<Svg width={500} height={500}>
+<Svg width={700} height={400}>
   <Collection
     data={[
-      { radius: 40, x: 40 },
-      { radius: 50, x: 130 },
-      { radius: 60, x: 240 },
+      { radius: 40, x: -160 },
+      { radius: 50, x: -70 },
+      { radius: 60, x: 40 },
     ]}
   >
     <Circle
         enterDatum={{ x: 0, radius: 0 }}
         enterDuration={3000}
         cx={ownProps => ownProps.datum.x}
-        cy={() => 250}
+        cy={() => 50}
         r={ownProps => ownProps.datum.radius}
     />
   </Collection>

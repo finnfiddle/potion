@@ -1,7 +1,7 @@
 {
   "name": "number-picture",
-  "version": "1.0.0-0",
-  "description": "React input component that defers onChange handler until input is blurred",
+  "version": "0.2.0",
+  "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
   "repository": {
     "type": "git",
     "url": "https://github.com/finnfiddle/number-picture"
@@ -64,14 +64,6 @@
     "react": "^15.0.0",
     "react-addons-test-utils": "^15.0.0",
     "react-dom": "^15.0.0",
-    "rollup": "^0.42.0",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-filesize": "^1.4.2",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-replace": "^1.1.1",
-    "rollup-plugin-uglify": "^2.0.1",
-    "rollup-plugin-visualizer": "^0.3.1",
     "sinon": "^1.17.3",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.0.0"

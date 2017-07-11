@@ -11,7 +11,7 @@ There is a JSFiddle playground that you can use to test out the library [here](h
 
 There is also a tutorial [here](http://docs.numberpicture.com?route=tutorial) which guides you through the basics of using the library.
 
-> **Important:** This project is still in active development and it is possible that we will be making breaking changes as we go. Use in production with caution before we release v1.
+> **Important:** This project is still in active development and we are still refining the API. Use in production with caution before we release verson 1.
 
 ## Contents
 
@@ -690,6 +690,8 @@ Shapes/Elements nested in Collections/TransitionGroups can be animated when they
 
 Using our previous example:
 
+`// TODO: make data update periodically`
+
 ```javascript
 <Collection
   data={[
@@ -739,10 +741,7 @@ import { Circle, TransitionGroup } from 'number-picture';
     fill='black'
     datum={{ value: 100 }}
     enterDatum={{ value: -100 }}
-    exitDatum={{ value: 800 }}
     enterDuration={5000}
-    updateDuration={5000}
-    exitDuration={5000}
   />
 </TransitionGroup>
 ```
@@ -847,7 +846,7 @@ import { AxisTop } from 'number-picture';
   scale={
     d3.scaleLinear()
       .domain([0, 100])
-      .range([0, 400])  
+      .range([-200, 200])  
   }
 />
 ```
@@ -867,7 +866,7 @@ import { AxisRight } from 'number-picture';
   scale={
     d3.scaleLinear()
       .domain([0, 100])
-      .range([0, 400])  
+      .range([-100, 100])  
   }
 />
 ```
@@ -887,7 +886,7 @@ import { AxisBottom } from 'number-picture';
   scale={
     d3.scaleLinear()
       .domain([0, 100])
-      .range([0, 400])  
+      .range([-200, 200])  
   }
 />
 ```
@@ -907,7 +906,7 @@ import { AxisLeft } from 'number-picture';
   scale={
     d3.scaleLinear()
       .domain([0, 100])
-      .range([0, 400])  
+      .range([-100, 100])  
   }
 />
 ```

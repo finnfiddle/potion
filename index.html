@@ -77,6 +77,18 @@
                 ${innerText}
               </Group>
             </Svg>`;
+          } else {
+            const svgStartIndex = innerText.indexOf('<Svg width={700} height={400}>') + 30;
+            const svgEndIndex = innerText.indexOf('</Svg>');
+            innerText = `
+              <Svg width={700} height={400}>
+                <Group x={350} y={200}>
+                  <Line x1={0} x2={0} y1={-200} y2={200} stroke='#00e150' strokeWidth={1} strokeDasharray='7.5,7.5' />
+                  <Line x1={-350} x2={350} y1={0} y2={0} stroke='#00e150' strokeWidth={1} strokeDasharray='7.5,7.5' />
+                  ${innerText.slice(svgStartIndex, svgEndIndex)}
+                </Group>
+              </Svg>
+            `
           }
           const chart = document.createElement('DIV');
           $(block).parent().after(chart);
