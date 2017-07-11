@@ -1,6 +1,6 @@
 {
   "name": "number-picture",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
   "repository": {
     "type": "git",
@@ -19,11 +19,12 @@
   "options": {
     "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.js"
   },
+  "main": "./cjs/index.js",
   "scripts": {
     "start": "babel --watch --plugins \"transform-runtime\" src --ignore __tests__ --out-dir ./cjs",
     "prepublish": "npm run lint && npm run build",
     "build": "npm run build:cjs && npm run build:umd",
-    "build:cjs": "babel --plugins 'transform-es2015-modules-umd' src --ignore __tests__ --out-dir ./cjs",
+    "build:cjs": "babel src --ignore __tests__ --out-dir ./cjs",
     "build:umd": "webpack && NODE_ENV=production webpack",
     "git:add_build": "git add ./cjs ./umd",
     "lint": "eslint ./src",
