@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import Axis from './Axis';
 
-export default props => (
-  <Axis {...props} placement='top' />
-);
+export default class AxisBottom extends Component {
+
+  render() {
+    return (
+      <Axis {...this.props} placement='top' />
+    );
+  }
+
+}

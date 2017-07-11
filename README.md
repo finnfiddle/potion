@@ -458,10 +458,10 @@ import { Pack } from 'number-picture';
     })
     .sum(datum => datum.value)
   }
-  size={[400, 400]}
+  size={[200, 200]}
   includeRoot={false}
 >
-  <Group x={-200} y={-200}>
+  <Group x={-100} y={-100}>
     <Circle
       cx={ownProps => ownProps.datum.x}
       cy={ownProps => ownProps.datum.y}
@@ -728,18 +728,20 @@ The TransitionGroup will wrap the rendered children in an svg `g` element.
 
 ```javascript
 import { Circle, TransitionGroup } from 'number-picture';
+```
 
+```javascript
 <TransitionGroup>
   <Circle
-    cx={ownProps => ownProps.datum.value * 100}
+    cx={ownProps => ownProps.datum.value}
     cy={100}
     r={20}
     fill='black'
     datum={{ value: 100 }}
     enterDatum={{ value: -100 }}
+    exitDatum={{ value: 800 }}
     enterDuration={5000}
     updateDuration={5000}
-    exitDatum={{ value: 800 }}
     exitDuration={5000}
   />
 </TransitionGroup>
@@ -795,21 +797,19 @@ Available values are:
 
 ```javascript
 import { Circle, TransitionGroup } from 'number-picture';
+```
 
+```javascript
 <TransitionGroup>
   <Circle
-    cx={ownProps => ownProps.datum.value * 100}
-    cy={100}
+    cx={ownProps => ownProps.datum.value}
+    cy={0}
     r={20}
     fill='black'
+    datum={{ value: 100 }}
     enterDatum={{ value: -100 }}
-    enterDuration={5000}
     enterEase='easeBounce'
-    updateDuration={5000}
-    enterEase='easeBack'
-    exitDatum={{ value: 800 }}
-    exitDuration={5000}
-    enterEase='easeElastic'
+    enterDuration={5000}
   />
 </TransitionGroup>
 ```

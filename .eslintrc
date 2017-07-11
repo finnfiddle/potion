@@ -26,6 +26,7 @@
     "radix": 0,
     "react/jsx-no-bind": 1,
     "react/no-did-mount-set-state": 1,
+    "react/prefer-stateless-function": 0,
     "spaced-comment": 0,
     "strict": 0,
   },

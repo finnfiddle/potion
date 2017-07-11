@@ -80,12 +80,14 @@
           }
           const chart = document.createElement('DIV');
           $(block).parent().after(chart);
-          const renderCode = `
-            const component = ${Babel.transform(innerText, {
+          let renderCode = `${Babel.transform(innerText, {
               presets: [['es2015', { "modules": false }], 'stage-0', 'react'],
             }).code}
             ReactDOM.render(component, chart);
           `;
+          const componentStart = renderCode.indexOf('React.createElement');
+          renderCode = `${renderCode.slice(0, componentStart)} 
+            const component = ${renderCode.slice(componentStart)}`;
           eval(renderCode);
           $(block).parent().after(
             $('<a />')
