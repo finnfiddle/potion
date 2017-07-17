@@ -72,6 +72,7 @@ export default class AnimatedElement extends SelectSelf {
       this.props,
       !enterDatumIsSet
     );
+    const currentDatum = this.getDatum(this.props);
 
     const enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum, DONT_GET_DATUM);
     const enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
@@ -94,7 +95,7 @@ export default class AnimatedElement extends SelectSelf {
 
     this.tweenDerivedAttrs(
       calculatedEnterDatum,
-      this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props),
+      this.assignAbsolutePropsToDatum(currentDatum, this.props),
       this.props,
       transition,
       DONT_GET_DATUM
@@ -102,7 +103,7 @@ export default class AnimatedElement extends SelectSelf {
     this.applyAttrsToSelection(this.attrs, transition);
     this.applyStyleToSelection(this.getStyle(this.props), transition);
 
-    this.currentDatum = calculatedEnterDatum;
+    this.currentDatum = currentDatum;
 
     transition.on('interrupt', callback);
     transition.on('end', () => {
@@ -129,7 +130,7 @@ export default class AnimatedElement extends SelectSelf {
     if (
       itsSet(nextDatum) &&
       itsSet(this.currentDatum) &&
-      !deepEqual(this.currentDatum, nextDatum)
+      !deepEqual(pick(this.currentDatum, Object.keys(nextDatum)), nextDatum)
     ) {
       if (!updateDuration) {
         this.setState(this.getState(nextProps, nextAttrs));

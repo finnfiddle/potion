@@ -94,6 +94,7 @@ var AnimatedElement = function (_SelectSelf) {
       }
 
       var calculatedEnterDatum = this.assignAbsolutePropsToDatum(resolvedEnterDatum, this.props, !enterDatumIsSet);
+      var currentDatum = this.getDatum(this.props);
 
       var enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum, DONT_GET_DATUM);
       var enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
@@ -106,11 +107,11 @@ var AnimatedElement = function (_SelectSelf) {
 
       var transition = this.selection.transition().duration(enterDuration).ease(ease[enterEase]);
 
-      this.tweenDerivedAttrs(calculatedEnterDatum, this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props), this.props, transition, DONT_GET_DATUM);
+      this.tweenDerivedAttrs(calculatedEnterDatum, this.assignAbsolutePropsToDatum(currentDatum, this.props), this.props, transition, DONT_GET_DATUM);
       this.applyAttrsToSelection(this.attrs, transition);
       this.applyStyleToSelection(this.getStyle(this.props), transition);
 
-      this.currentDatum = calculatedEnterDatum;
+      this.currentDatum = currentDatum;
 
       transition.on('interrupt', callback);
       transition.on('end', function () {
@@ -141,7 +142,7 @@ var AnimatedElement = function (_SelectSelf) {
       var nextDerivedAttrs = this.getDerivedAttrs(nextProps, nextDatum);
       var nextCombinedAttrs = Object.assign({}, nextAttrs, nextDerivedAttrs);
 
-      if ((0, _itsSet2.default)(nextDatum) && (0, _itsSet2.default)(this.currentDatum) && !(0, _deepEqual2.default)(this.currentDatum, nextDatum)) {
+      if ((0, _itsSet2.default)(nextDatum) && (0, _itsSet2.default)(this.currentDatum) && !(0, _deepEqual2.default)((0, _helpers.pick)(this.currentDatum, Object.keys(nextDatum)), nextDatum)) {
         if (!updateDuration) {
           this.setState(this.getState(nextProps, nextAttrs));
         } else {

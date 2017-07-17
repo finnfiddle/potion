@@ -91,29 +91,6 @@ ReactDOM.render(
 
 Number Picture provides several shape primitives for constructing visualizations. They all render SVG elements and come animation-ready. The prop names are designed to be as similar to the API of D3 so if you know how to use D3 you will know how to use the components.
 
-> **Important:** every single prop for Shapes/Elements can either be passed a constant value, a variable, or a function that takes one argument - an object containing the props for the component - and returns the desired value. This becomes useful when we want to do animations and set values according to sibling items in collections.
-
-#### For example:
-
-```javascript
-<Circle
-  datum={100}
-  cx={ownProps => ownProps.datum}
-  cy={ownProps => ownProps.datum}
-  r={20}
-/>
-```
-
-#### Will evaluate to:
-
-```javascript
-<Circle
-  cx={100}
-  cy={100}
-  r={20}
-/>
-```
-
 <div id='_circle'></div>
 
 ### Circle
