@@ -2,6 +2,8 @@
 
 [http://docs.numberpicture.com](http://docs.numberpicture.com)
 
+![Number Picture](https://cdn.rawgit.com/finnfiddle/number-picture/master/assets/logo.png "Number Picture")
+
 Number Picture is a collection of **React** components for declaratively composing animated, interactive SVG visualizations.
 **React** handles the DOM structure and **D3** handles the animations + math.
 
