@@ -13,7 +13,7 @@ There is a JSFiddle playground that you can use to test out the library [here](h
 
 There is also a tutorial [here](http://docs.numberpicture.com?route=tutorial) which guides you through the basics of using the library.
 
-> **Important:** This project is still in active development and we are still refining the API. Use in production with caution before we release verson 1.
+> **Important:** This project is still in active development and we are still refining the API.
 
 ## Contents
 
@@ -59,6 +59,7 @@ There is also a tutorial [here](http://docs.numberpicture.com?route=tutorial) wh
   - [Annotations](#_annotations)
   - [Patterns](#_patterns)
   - [Helpers](#_helpers)
+- [Credits](#_credits)
 - [Contributing/Issues](#_contibuting-issues)
 
 <div id='_installation'></div>
@@ -933,6 +934,12 @@ import { AxisLeft } from 'number-picture';
 ### Helpers
 
 `// TODO: document`
+
+<div id='_credits'></div>
+
+### Credits
+
+The strategy for combining React with D3 is very inspired by the work of [Swizec Teller](https://swizec.com/) and his book [Data Visualization with d3.js](https://www.packtpub.com/web-development/data-visualization-d3js).
 
 <div id='_contibuting-issues'></div>
 
