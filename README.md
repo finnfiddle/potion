@@ -937,13 +937,13 @@ import { AxisLeft } from 'number-picture';
 
 <div id='_credits'></div>
 
-### Credits
+## Credits
 
 The strategy for combining React with D3 is very inspired by the work of [Swizec Teller](https://swizec.com/) and his book [Data Visualization with d3.js](https://www.packtpub.com/web-development/data-visualization-d3js).
 
 <div id='_contibuting-issues'></div>
 
-### Contributing/Issues
+## Contributing/Issues
 
 `// TODO: document`
 
