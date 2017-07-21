@@ -1,32 +1,31 @@
-var http = require('http'),
-  url = require('url'),
-  path = require('path'),
-  fs = require('fs');
+const http = require('http');
+const url = require('url');
+const path = require('path');
+const fs = require('fs');
 
-var port = process.env.PORT || process.argv[2] || 4002;
+const port = process.env.PORT || process.argv[2] || 4002;
 
-http.createServer(function (request, response) {
+http.createServer((request, response) => {
 
-  var uri = url.parse(request.url).pathname
-    , filename = path.join(__dirname, '../', uri);
+  const uri = url.parse(request.url).pathname;
+  let filename = path.join(__dirname, '../', uri);
 
-  console.log(filename);
-
-  var stat = fs.statSync(filename);
+  const stat = fs.statSync(filename);
   if (stat && stat.isDirectory()) filename += '/index.html';
 
-  fs.readFile(filename, 'binary', function (err, file) {
+  fs.readFile(filename, 'binary', (err, file) => {
     if (err) {
       response.writeHead(500, { 'Content-Type': 'text/plain' });
-      response.write(err + '\n');
+      response.write(`${err}\n`);
       response.end();
       return;
     }
-
-    response.writeHead(200, { 'Content-Type': 'text/html' });
+    const meta = {};
+    if (filename.indexOf('.html') > -1) meta['Content-Type'] = 'text/html';
+    response.writeHead(200, meta);
     response.write(file, 'binary');
     response.end();
   });
 }).listen(parseInt(port, 10));
 
-console.log('Static file server running at\n  => http://localhost:' + port + '/\nCTRL + C to shutdown');
+console.log(`Static file server running at\n  => http://localhost:${port}/\nCTRL + C to shutdown`);
