@@ -936,7 +936,17 @@ var AnimatedElement = function (_SelectSelf) {
       }
 
       var calculatedEnterDatum = this.assignAbsolutePropsToDatum(resolvedEnterDatum, this.props, !enterDatumIsSet);
-      var currentDatum = this.getDatum(this.props);
+      var currentDatum = this.assignAbsolutePropsToDatum(this.getDatum(this.props), this.props);
+
+      var derivedAttrs = this.getDerivedAttrs(this.props, currentDatum);
+      var nextCombinedAttrs = Object.assign({}, this.attrs, derivedAttrs);
+      var nextState = this.getState(this.props, nextCombinedAttrs);
+
+      if (!enterDuration) {
+        this.currentDatum = currentDatum;
+        this.setState(nextState, callback);
+        return;
+      }
 
       var enterAttrs = this.getAttrsFromDatum(calculatedEnterDatum, DONT_GET_DATUM);
       var enterStyle = this.getStyleFromDatum(calculatedEnterDatum);
@@ -949,7 +959,7 @@ var AnimatedElement = function (_SelectSelf) {
 
       var transition = this.selection.transition().duration(enterDuration).ease(ease[enterEase]);
 
-      this.tweenDerivedAttrs(calculatedEnterDatum, this.assignAbsolutePropsToDatum(currentDatum, this.props), this.props, transition, DONT_GET_DATUM);
+      this.tweenDerivedAttrs(calculatedEnterDatum, currentDatum, this.props, transition, DONT_GET_DATUM);
       this.applyAttrsToSelection(this.attrs, transition);
       this.applyStyleToSelection(this.getStyle(this.props), transition);
 
@@ -957,7 +967,7 @@ var AnimatedElement = function (_SelectSelf) {
 
       transition.on('interrupt', callback);
       transition.on('end', function () {
-        _this2.setState(_this2.getState(), callback);
+        _this2.setState(nextState, callback);
       });
     }
   }, {
@@ -980,13 +990,14 @@ var AnimatedElement = function (_SelectSelf) {
 
 
       var nextAttrs = this.getAttrs(nextProps);
-      var nextDatum = this.getDatum(nextProps);
+      var nextDatum = this.assignAbsolutePropsToDatum(this.getDatum(nextProps), nextProps);
       var nextDerivedAttrs = this.getDerivedAttrs(nextProps, nextDatum);
       var nextCombinedAttrs = Object.assign({}, nextAttrs, nextDerivedAttrs);
+      var nextState = this.getState(nextProps, nextCombinedAttrs);
 
       if ((0, _itsSet2.default)(nextDatum) && (0, _itsSet2.default)(this.currentDatum) && !(0, _deepEqual2.default)((0, _helpers.pick)(this.currentDatum, Object.keys(nextDatum)), nextDatum)) {
         if (!updateDuration) {
-          this.setState(this.getState(nextProps, nextAttrs));
+          this.setState(nextState);
         } else {
           var nextStyle = this.getStyle(nextProps);
 
@@ -996,15 +1007,18 @@ var AnimatedElement = function (_SelectSelf) {
 
           this.applyAttrsToSelection(nextAttrs, transition);
           this.applyStyleToSelection(nextStyle, transition);
-          this.tweenDerivedAttrs(this.currentDatum, this.assignAbsolutePropsToDatum(nextDatum, nextProps), nextProps, transition, DONT_GET_DATUM);
+          this.tweenDerivedAttrs(this.currentDatum, nextDatum, nextProps, transition, DONT_GET_DATUM);
 
           transition.on('end', function () {
-            _this3.setState(_this3.getState(nextProps, nextAttrs));
+            _this3.setState(nextState);
           });
         }
       } else if ((0, _itsSet2.default)(this.currentAttrs) && (0, _itsSet2.default)(nextCombinedAttrs) && !(0, _deepEqual2.default)(this.currentAttrs, nextCombinedAttrs)) {
         this.updateFromNonDatumChange(nextProps);
         this.currentAttrs = nextCombinedAttrs;
+        this.setState(nextState);
+      } else {
+        this.setState(nextState);
       }
 
       this.currentAttrs = nextCombinedAttrs;
@@ -1020,7 +1034,7 @@ var AnimatedElement = function (_SelectSelf) {
           datum = _props2.datum;
 
 
-      if (exitDuration <= 0) callback();
+      if (!exitDuration) callback();
 
       var resolvedExitDatum = datum;
       if ((0, _itsSet2.default)(exitDatum)) {
@@ -18333,6 +18347,11 @@ var Group = function (_AnimatedElement) {
       };
     }
   }, {
+    key: 'getPrivatePropNames',
+    value: function getPrivatePropNames() {
+      return ['rotation', 'rotationOriginX', 'rotationOriginY'];
+    }
+  }, {
     key: 'getDerivationMethod',
     value: function getDerivationMethod(key, props, shouldGetDatum) {
       var _this2 = this;
@@ -18377,7 +18396,7 @@ var Group = function (_AnimatedElement) {
       var style = this.getStyle(this.props);
       return _react2.default.createElement(
         _TransitionGroup2.default,
-        _extends({ style: style }, (0, _helpers.bindMouseEvents)(this.props)),
+        _extends({}, this.state, { style: style }, (0, _helpers.bindMouseEvents)(this.props)),
         this.renderChildren()
       );
     }

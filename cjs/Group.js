@@ -74,6 +74,11 @@ var Group = function (_AnimatedElement) {
       };
     }
   }, {
+    key: 'getPrivatePropNames',
+    value: function getPrivatePropNames() {
+      return ['rotation', 'rotationOriginX', 'rotationOriginY'];
+    }
+  }, {
     key: 'getDerivationMethod',
     value: function getDerivationMethod(key, props, shouldGetDatum) {
       var _this2 = this;
@@ -118,7 +123,7 @@ var Group = function (_AnimatedElement) {
       var style = this.getStyle(this.props);
       return _react2.default.createElement(
         _TransitionGroup2.default,
-        _extends({ style: style }, (0, _helpers.bindMouseEvents)(this.props)),
+        _extends({}, this.state, { style: style }, (0, _helpers.bindMouseEvents)(this.props)),
         this.renderChildren()
       );
     }

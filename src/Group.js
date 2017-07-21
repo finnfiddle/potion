@@ -33,6 +33,10 @@ export default class Group extends AnimatedElement {
     };
   }
 
+  getPrivatePropNames() {
+    return ['rotation', 'rotationOriginX', 'rotationOriginY'];
+  }
+
   getDerivationMethod(key, props, shouldGetDatum) {
     switch (key) {
       case 'transform':
@@ -65,7 +69,7 @@ export default class Group extends AnimatedElement {
   render() {
     const style = this.getStyle(this.props);
     return (
-      <TransitionGroup style={style} {...bindMouseEvents(this.props)}>
+      <TransitionGroup {...this.state} style={style} {...bindMouseEvents(this.props)}>
         {this.renderChildren()}
       </TransitionGroup>
     );
