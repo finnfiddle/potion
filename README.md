@@ -92,7 +92,7 @@ ReactDOM.render(
 
 ## Shapes/Elements
 
-Number Picture provides several shape primitives for constructing visualizations. They all render SVG elements and come animation-ready. The prop names are designed to be as similar to the API of D3 so if you know how to use D3 you will know how to use the components.
+Number Picture provides several shape primitives for constructing visualizations. They all render SVG elements and come animation-ready. The prop names are designed to be as similar to the API of D3 and native SVG.
 
 <div id='_circle'></div>
 
@@ -109,12 +109,6 @@ import { Circle } from 'number-picture';
  ```javascript
 <Circle cx={100} cy={100} r={30} fill='black' />
 ```
-
-<!--#### Result:
-
-```javascript
-<circle cx='10' cy='20' r='30' fill='black' />
-```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -134,6 +128,9 @@ Prop | Type | Default | Description
 `exitDatum` | object | {} | The datum (when Circle is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
+`datumAccessor` | function | `ownProps => ownProps.datum` | accessor function for extracting datum from all props passed to component
+`propsToCheckForChanges` | array | ['datum'] | props to check for changes when component receives new props to determine whether to update component or not
+`datumPropsToTween` | array | undefined | if set then during update animations only these named properties of the `datum` prop will be interpolated
 
 <div id='_arc'></div>
 
@@ -150,12 +147,6 @@ import { Arc } from 'number-picture';
  ```javascript
 <Arc innerRadius={50} outerRadius={100} startAngle={0} endAngle={Math.PI} fill='black' />
 ```
-
-<!--#### Result:
-
-```javascript
-<path d='...' fill='black' />
-```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -176,12 +167,47 @@ Prop | Type | Default | Description
 `exitDatum` | object | {} | The datum (when Arc is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
+`datumAccessor` | function | `ownProps => ownProps.datum` | accessor function for extracting datum from all props passed to component
+`propsToCheckForChanges` | array | ['datum'] | props to check for changes when component receives new props to determine whether to update component or not
+`datumPropsToTween` | array | undefined | if set then during update animations only these named properties of the `datum` prop will be interpolated
 
 <div id='_line'></div>
 
 ### Line
 
-`// TODO: document`
+Renders an svg `line` element.
+
+```javascript
+import { Line } from 'number-picture';
+```
+
+#### Usage:
+
+ ```javascript
+<Line x1={-50} y1={-50} x2={50} y2={50} stroke='black' strokeWidth={2} />
+```
+
+Prop | Type | Default | Description
+--- | --- | --- | ---
+`x1` | number | undefined | starting x coordinate of line
+`y1` | number | undefined | starting y coordinate of line
+`x2` | number | undefined | ending x coordinate of line
+`y2` | number | undefined | ending y coordinate of line
+`stroke` | string | undefined | stroke color of line
+`strokeWidth` | number | undefined | stroke width of line
+`style` | object | {} | css style to be applied to line
+`datum` | object | {} | The datum (when Line is nested within a Collection or Layout) that it uses to render itself.
+`enterDatum` | object | {} | The datum (when Line is nested within a Collection or Layout) that it uses to render itself when it enters the DOM.
+`enterEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on enter
+`enterDuration` | number | 0 | duration of shape tween on enter in milliseconds
+`updateEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on update
+`updateDuration` | number | 0 | duration of shape tween on update in milliseconds
+`exitDatum` | object | {} | The datum (when Line is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
+`exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
+`exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
+`datumAccessor` | function | `ownProps => ownProps.datum` | accessor function for extracting datum from all props passed to component
+`propsToCheckForChanges` | array | ['datum'] | props to check for changes when component receives new props to determine whether to update component or not
+`datumPropsToTween` | array | undefined | if set then during update animations only these named properties of the `datum` prop will be interpolated
 
 <div id='_radialline'></div>
 
@@ -211,12 +237,6 @@ import { Rect } from 'number-picture';
 <Rect x={50} y={100} width={100} height={40} fill='black' />
 ```
 
-<!--#### Result:
-
-```javascript
-<rect x='50' y='100' width='100' height='40' fill='black' />
-```-->
-
 Prop | Type | Default | Description
 --- | --- | --- | ---
 `x` | number | undefined | x coordinate of top left corner of rect
@@ -236,6 +256,9 @@ Prop | Type | Default | Description
 `exitDatum` | object | {} | The datum (when Rect is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
+`datumAccessor` | function | `ownProps => ownProps.datum` | accessor function for extracting datum from all props passed to component
+`propsToCheckForChanges` | array | ['datum'] | props to check for changes when component receives new props to determine whether to update component or not
+`datumPropsToTween` | array | undefined | if set then during update animations only these named properties of the `datum` prop will be interpolated
 
 <div id='_text'></div>
 
@@ -254,14 +277,6 @@ import { Text } from 'number-picture';
   My text goes here...
 </Text>
 ```
-
-<!--#### Result:
-
-```javascript
-<text dx='10' stroke='black'>
-  My text goes here...
-</text>
-```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -284,6 +299,9 @@ Prop | Type | Default | Description
 `exitDatum` | object | {} | The datum (when Text is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
+`datumAccessor` | function | `ownProps => ownProps.datum` | accessor function for extracting datum from all props passed to component
+`propsToCheckForChanges` | array | ['datum'] | props to check for changes when component receives new props to determine whether to update component or not
+`datumPropsToTween` | array | undefined | if set then during update animations only these named properties of the `datum` prop will be interpolated
 
 <div id='_symbolshape'></div>
 
@@ -300,12 +318,6 @@ import { SymbolShape } from 'number-picture';
  ```javascript
 <SymbolShape size={500} type='symbolCross' fill='black' />
 ```
-
-<!--#### Result:
-
-```javascript
-<path d='...' fill='black' />
-```-->
 
 Prop | Type | Default | Description
 --- | --- | --- | ---
@@ -324,6 +336,9 @@ Prop | Type | Default | Description
 `exitDatum` | object | {} | The datum (when SymbolShape is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
+`datumAccessor` | function | `ownProps => ownProps.datum` | accessor function for extracting datum from all props passed to component
+`propsToCheckForChanges` | array | ['datum'] | props to check for changes when component receives new props to determine whether to update component or not
+`datumPropsToTween` | array | undefined | if set then during update animations only these named properties of the `datum` prop will be interpolated
 
 <div id='_group'></div>
 
@@ -343,14 +358,6 @@ import { Group } from 'number-picture';
 </Group>
 ```
 
-<!--#### Result:
-
-```javascript
-<g transform='translate(100, 100) rotate(45)'>
-  xyz
-</g>
-```-->
-
 Prop | Type | Default | Description
 --- | --- | --- | ---
 `x` | number | undefined | X coordinate of group
@@ -367,6 +374,9 @@ Prop | Type | Default | Description
 `exitDatum` | object | {} | The datum (when Group is nested within a Collection or Layout) that it uses to render itself when it leaves the DOM.
 `exitEase` | string | 'linearEasing' | D3 easing function name used to tween the shape on exit
 `exitDuration` | number | 0 | duration of shape tween on exit in milliseconds
+`datumAccessor` | function | `ownProps => ownProps.datum` | accessor function for extracting datum from all props passed to component
+`propsToCheckForChanges` | array | ['datum'] | props to check for changes when component receives new props to determine whether to update component or not
+`datumPropsToTween` | array | undefined | if set then during update animations only these named properties of the `datum` prop will be interpolated
 
 <div id='_collections-layouts'></div>
 
@@ -392,16 +402,6 @@ import { Collection } from 'number-picture';
 </Collection>
 ```
 
-<!--#### Result:
-
-```javascript
-<g>
-  <circle cx={100} y={100} r={20} fill='black' />
-  <circle cx={200} y={100} r={20} fill='black' />
-  <circle cx={300} y={100} r={20} fill='black' />
-</g>
-```-->
-
 Prop | Type | Default | Description
 --- | --- | --- | ---
 `data` | array | [] | array of data that gets iterated over and renders one child node for each item
@@ -420,7 +420,7 @@ Passed Prop | Value
 
 ### Pack
 
-`// TODO: description, datumPropsToTween`
+Implements a [D3 Pack layout](https://github.com/d3/d3-hierarchy/blob/master/README.md#pack) that takes a [D3 hierarchy](https://github.com/d3/d3-hierarchy/blob/master/README.md#hierarchy) as input. Each item of the hierarchy renders one child node of the Pack. Each child gets passed a `datum` prop with added metatdata (eg. `x`, `y`, `r`).
 
 ```javascript
 import { Pack } from 'number-picture';
@@ -454,19 +454,13 @@ import { Pack } from 'number-picture';
 </Pack>
 ```
 
-<!--#### Result
-
-```javascript
-<g>
-  <circle cx={...} y={...} r={...} fill='black' />
-  <circle cx={...} y={...} r={...} fill='black' />
-  <circle cx={...} y={...} r={...} fill='black' />
-</g>-->
-<!--```-->
-
 Prop | Type | Default | Description
 --- | --- | --- | ---
 `data` | array | {} | D3 Hierarchy that gets iterated over and renders one child node for each item
+`radius` | number | undefined | pack radius accessor (see D3 Pack docs) 
+`size` | array | [1, 1] | sets this pack layout’s size to the specified two-element array of numbers [width, height]  (see D3 Pack docs)
+`padding` | number | undefined | sets the pack layout padding (see D3 Pack docs)
+`includeRoot` | boolean | true | render the root node of the hierarchy or not
 
 #### Child Props
 
@@ -495,7 +489,7 @@ Key | Value
 
 ### Pie
 
-`// TODO: description`
+Implements a [D3 Pie layout](https://github.com/d3/d3-shape/blob/master/README.md#pie) that takes an array as input. Each item of the input array renders one child node of the Pie. Each child gets passed a `datum` prop with added metatdata (eg. `startAngle`, `endAngle`, `innerRadius`, etc).
 
 ```javascript
 import { Pie, Arc } from 'number-picture';
@@ -526,19 +520,9 @@ import { Pie, Arc } from 'number-picture';
 </Pie>
 ```
 
-<!--#### Result
-
-```javascript
-<g>
-  <path d={...} fill='black' />
-  <path d={...} fill='black' />
-  <path d={...} fill='black' />
-</g>
-```-->
-
 Prop | Type | Default | Description
 --- | --- | --- | ---
-`data` | array | {} | array that gets iterated over and renders one child node for each item
+`data` | array | [] | array that gets iterated over and renders one child node for each item
 `value` | function | datum => datum.value | Pie Layout value accessor
 `id` | function | datum => datum.id | Pie Layout id accessor used for adding and removing items from the collection
 `sort` | function | datum => datum.sort | Pie Layout data comparator
@@ -590,11 +574,76 @@ Passed Prop | Value
 
 ### Grid
 
-`// TODO: document`
+Implements a [D3 v4 Grid Layout](https://github.com/finnfiddle/d3-v4-grid). Takes an input data array and renders one child node for each item of the data array. Metadata for the grid is added to each `datum` prop passed to children.
+
+```javascript
+import { Grid, Circle } from 'number-picture';
+```
+
+#### Usage
+
+```javascript
+<Grid
+  data={[
+    { value: 1 },
+    { value: 2 },
+    { value: 3 },
+    { value: 4 },
+    { value: 5 },
+    { value: 6 },
+    { value: 7 },
+    { value: 8 },
+    { value: 9 },
+    { value: 10 },
+  ]}
+  bands
+  size={[200, 200]}
+>
+  <Circle
+    cx={({ datum }) => datum.x + datum.nodeSize[0] / 2}
+    cy={({ datum }) => datum.y + datum.nodeSize[1] / 2}
+    r={({ datum }) => datum.value}
+    fill='black'
+  />
+</Grid>
+```
+
+Prop | Type | Default | Description
+--- | --- | --- | ---
+`data` | array | undefined | array that gets iterated over and renders one child node for each item
+`size` | array | [1, 1] | sets the overall size of the layout as [width, height]
+`nodeSize` | array | undefined | sets the size of an individual node as [width, height]
+`rows` | number | undefined | fixes the layout to num rows
+`cols` | number | undefined | fixes the layout to num columns
+`bands` | boolean | false | configure the grid to treat nodes as bands instead of points
+`padding` | array | [0, 0] | specify the padding between the node bands. Paddings are relative to the band width/height, similar to the padding parameter of d3.scale.ordinal().rangeBands(). If `nodeSize` prop is set padding is absolute.
+
+#### Child Props
+
+Passed Prop | Value
+--- | ---
+`datum` | mutated item from the `data` input array
+`data` | the whole mutated `data` input array
+`index` | index of the `datum` in the `data` input array
+
+#### Child Prop `datum` Signature
+
+Key | Value
+--- | ---
+`bands` | whether using bands instead of points
+`cols` | number of columns
+`rows` | number of rows
+`nodeSize` | array [width, height] of node dimensions
+`padding` | array [x, y] of node padding
+`size` | size of overall grid
+`x` | x position of node
+`y` | y position of node
 
 <div id='_force-simulation'></div>
 
 ### Force Simulation
+
+> **Note:** The API of the ForceSimulation component is unstable and might be refined/changed.
 
 `// TODO: document`
 
@@ -736,43 +785,43 @@ Each Shape/Element when animating can be eased using [D3 easing functions](https
 
 Available values are:
 
-* 'easeLinear' (default)
-* 'easePolyIn'
-* 'easePolyOut'
-* 'easePoly'
-* 'easePolyInOut'
-* 'easeQuadIn'
-* 'easeQuadOut'
-* 'easeQuad'
-* 'easeQuadInOut'
-* 'easeCubicIn'
-* 'easeCubicOut'
-* 'easeCubic'
-* 'easeCubicInOut'
-* 'easeSinIn'
-* 'easeSinOut'
-* 'easeSin'
-* 'easeSinInOut'
-* 'easeExpIn'
-* 'easeExpOut'
-* 'easeExp'
-* 'easeExpInOut'
-* 'easeCircleIn'
-* 'easeCircleOut'
-* 'easeCircle'
-* 'easeCircleInOut'
-* 'easeElasticIn'
-* 'easeElastic'
-* 'easeElasticOut'
-* 'easeElasticInOut'
-* 'easeBackIn'
-* 'easeBackOut'
-* 'easeBack'
-* 'easeBackInOut'
-* 'easeBounceIn'
-* 'easeBounce'
-* 'easeBounceOut'
-* 'easeBounceInOut'
+* `easeLinear` (default)
+* `easePolyIn`
+* `easePolyOut`
+* `easePoly`
+* `easePolyInOut`
+* `easeQuadIn`
+* `easeQuadOut`
+* `easeQuad`
+* `easeQuadInOut`
+* `easeCubicIn`
+* `easeCubicOut`
+* `easeCubic`
+* `easeCubicInOut`
+* `easeSinIn`
+* `easeSinOut`
+* `easeSin`
+* `easeSinInOut`
+* `easeExpIn`
+* `easeExpOut`
+* `easeExp`
+* `easeExpInOut`
+* `easeCircleIn`
+* `easeCircleOut`
+* `easeCircle`
+* `easeCircleInOut`
+* `easeElasticIn`
+* `easeElastic`
+* `easeElasticOut`
+* `easeElasticInOut`
+* `easeBackIn`
+* `easeBackOut`
+* `easeBack`
+* `easeBackInOut`
+* `easeBounceIn`
+* `easeBounce`
+* `easeBounceOut`
+* `easeBounceInOut`
 
 #### Example:
 
