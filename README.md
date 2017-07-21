@@ -79,12 +79,12 @@ npm install number-picture
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Circle } from 'number-picture';
+import { Svg, Circle } from 'number-picture';
 
 ReactDOM.render(
-  <svg width='400' height='400'>
+  <Svg width={400} height={400}>
     <Circle cx={200} cy={200} r={40} fill='black' />
-  </svg>
+  </Svg>
 , 'body');
 ```
 
