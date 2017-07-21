@@ -23,7 +23,7 @@ http.createServer(function (request, response) {
       return;
     }
 
-    response.writeHead(200);
+    response.writeHead(200, { 'Content-Type': 'text/html' });
     response.write(file, 'binary');
     response.end();
   });
