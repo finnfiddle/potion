@@ -2,6 +2,10 @@
 
 /* general */
 
+html {
+  overflow-x: auto;
+}
+
 body,
 td,
 textarea,
