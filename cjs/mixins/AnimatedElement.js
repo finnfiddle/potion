@@ -338,7 +338,7 @@ var AnimatedElement = function (_SelectSelf) {
       var style = props.style;
 
       if ((0, _helpers.isFunction)(style)) return style(props);
-      return style;
+      return style || {};
     }
   }, {
     key: 'applyDerivedAttrsToSelection',

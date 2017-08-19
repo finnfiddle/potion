@@ -76,7 +76,7 @@ var Group = function (_AnimatedElement) {
   }, {
     key: 'getPrivatePropNames',
     value: function getPrivatePropNames() {
-      return ['rotation', 'rotationOriginX', 'rotationOriginY'];
+      return ['x', 'y', 'rotation', 'rotationOriginX', 'rotationOriginY'];
     }
   }, {
     key: 'getDerivationMethod',

@@ -36,6 +36,10 @@ export default class SymbolShape extends AnimatedElement {
     return TWEENABLE_SVG_PRESENTATION_ATTRS;
   }
 
+  getPrivatePropNames() {
+    return ['size', 'type'];
+  }
+
   getDerivedAttrNames() {
     return ['d'];
   }

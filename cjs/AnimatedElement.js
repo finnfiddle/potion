@@ -1,11 +1,11 @@
 (function (global, factory) {
-  if (typeof define === "function" && define.amd) {
+  if (typeof define === 'function' && define.amd) {
     define(['exports', 'react', 'react-stamp', 'its-set', 'lodash.isfunction', 'lodash.pick', 'lodash.omit', 'lodash.uniq', 'd3-interpolate', 'd3-ease', 'deep-equal', './mixins/SelectSelfMixin', 'd3-transition'], factory);
-  } else if (typeof exports !== "undefined") {
+  } else if (typeof exports !== 'undefined') {
     factory(exports, require('react'), require('react-stamp'), require('its-set'), require('lodash.isfunction'), require('lodash.pick'), require('lodash.omit'), require('lodash.uniq'), require('d3-interpolate'), require('d3-ease'), require('deep-equal'), require('./mixins/SelectSelfMixin'), require('d3-transition'));
   } else {
     var mod = {
-      exports: {}
+      exports: {},
     };
     factory(mod.exports, global.react, global.reactStamp, global.itsSet, global.lodash, global.lodash, global.lodash, global.lodash, global.d3Interpolate, global.d3Ease, global.deepEqual, global.SelectSelfMixin, global.d3Transition);
     global.AnimatedElement = mod.exports;
@@ -13,8 +13,8 @@
 })(this, function (exports, _react, _reactStamp, _itsSet, _lodash, _lodash3, _lodash5, _lodash7, _d3Interpolate, _d3Ease, _deepEqual, _SelectSelfMixin) {
   'use strict';
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
+  Object.defineProperty(exports, '__esModule', {
+    value: true,
   });
 
   var _react2 = _interopRequireDefault(_react);
@@ -56,17 +56,17 @@
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
-      default: obj
+      default: obj,
     };
   }
 
   function _defineProperty(obj, key, value) {
     if (key in obj) {
       Object.defineProperty(obj, key, {
-        value: value,
+        value,
         enumerable: true,
         configurable: true,
-        writable: true
+        writable: true,
       });
     } else {
       obj[key] = value;
@@ -95,7 +95,7 @@
       updateDuration: _react.PropTypes.number,
       exitDuration: _react.PropTypes.number,
       propsToCheckForChanges: _react.PropTypes.arrayOf(_react.PropTypes.string),
-      datumPropsToTween: _react.PropTypes.arrayOf(_react.PropTypes.string)
+      datumPropsToTween: _react.PropTypes.arrayOf(_react.PropTypes.string),
     },
 
     defaultProps: {
@@ -110,7 +110,7 @@
       updateDuration: 0,
       exitDuration: 0,
       propsToCheckForChanges: [],
-      datumPropsToTween: []
+      datumPropsToTween: [],
     },
 
     init: function init() {
@@ -135,9 +135,9 @@
       var _this2 = this;
 
       var _props = this.props,
-          enterDuration = _props.enterDuration,
-          enterDatum = _props.enterDatum,
-          enterEase = _props.enterEase;
+        enterDuration = _props.enterDuration,
+        enterDatum = _props.enterDatum,
+        enterEase = _props.enterEase;
 
 
       var resolvedEnterDatum = this.getDatum(this.props);
@@ -167,7 +167,7 @@
 
       transition.on('interrupt', callback);
       transition.on('end', function () {
-        _this2.setState(_this2.getState(), callback);
+        // _this2.setState(_this2.getState(), callback);
       });
     },
     componentWillAppear: function componentWillAppear(callback) {
@@ -180,7 +180,7 @@
       var _this3 = this;
 
       var updateDuration = nextProps.updateDuration,
-          updateEase = nextProps.updateEase;
+        updateEase = nextProps.updateEase;
 
 
       var nextAttrs = this.getAttrs(nextProps);
@@ -200,7 +200,7 @@
         this.tweenDerivedAttrs(this.currentDatum, this.assignAbsolutePropsToDatum(nextDatum, nextProps), nextProps, transition, DONT_GET_DATUM);
 
         transition.on('end', function () {
-          _this3.setState(_this3.getState(nextProps, nextAttrs));
+          // _this3.setState(_this3.getState(nextProps, nextAttrs));
         });
       } else if ((0, _itsSet2.default)(this.currentAttrs) && (0, _itsSet2.default)(nextCombinedAttrs) && !(0, _deepEqual2.default)(this.currentAttrs, nextCombinedAttrs)) {
         this.updateFromNonDatumChange(nextProps);
@@ -212,10 +212,10 @@
     },
     componentWillLeave: function componentWillLeave(callback) {
       var _props2 = this.props,
-          exitDatum = _props2.exitDatum,
-          exitDuration = _props2.exitDuration,
-          exitEase = _props2.exitEase,
-          datum = _props2.datum;
+        exitDatum = _props2.exitDatum,
+        exitDuration = _props2.exitDuration,
+        exitEase = _props2.exitEase,
+        datum = _props2.datum;
 
 
       if (exitDuration <= 0) callback();
@@ -278,7 +278,7 @@
     assignAbsolutePropsToDatum: function assignAbsolutePropsToDatum(datum, props) {
       var shouldGetDatum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
-      var startingAcc = shouldGetDatum ? Object.assign({}, this.getDatum(Object.assign({}, props, { datum: datum }))) : datum;
+      var startingAcc = shouldGetDatum ? Object.assign({}, this.getDatum(Object.assign({}, props, { datum }))) : datum;
       return this.allAttrInputNames.filter(function (name) {
         return !(0, _lodash2.default)(props[name]);
       }).reduce(function (acc, name) {
@@ -303,10 +303,10 @@
     getAttrsFromDatum: function getAttrsFromDatum(datum) {
       var shouldGetDatum = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-      return this.getAttrs(Object.assign({}, this.props, { datum: datum }), undefined, shouldGetDatum);
+      return this.getAttrs(Object.assign({}, this.props, { datum }), undefined, shouldGetDatum);
     },
     getStyleFromDatum: function getStyleFromDatum(datum) {
-      return this.getStyle(Object.assign({}, this.props, { datum: datum }));
+      return this.getStyle(Object.assign({}, this.props, { datum }));
     },
     getAttrs: function getAttrs(props, attrNames) {
       var _this4 = this;
@@ -317,7 +317,7 @@
         return (0, _itsSet2.default)(props[key]);
       }).reduce(function (acc, key) {
         var datum = shouldGetDatum ? _this4.getDatum(props) : props.datum;
-        var propsWithResolvedDatum = Object.assign({}, props, { datum: datum });
+        var propsWithResolvedDatum = Object.assign({}, props, { datum });
         var prop = propsWithResolvedDatum[key];
         if (!(0, _itsSet2.default)(prop)) return acc;
         if ((0, _lodash2.default)(prop) && (0, _itsSet2.default)(datum)) {
@@ -378,6 +378,6 @@
           return derivationMethod(midDatum);
         };
       });
-    }
+    },
   });
 });

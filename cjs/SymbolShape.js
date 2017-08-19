@@ -62,6 +62,11 @@ var SymbolShape = function (_AnimatedElement) {
       return _constants.TWEENABLE_SVG_PRESENTATION_ATTRS;
     }
   }, {
+    key: 'getPrivatePropNames',
+    value: function getPrivatePropNames() {
+      return ['size', 'type'];
+    }
+  }, {
     key: 'getDerivedAttrNames',
     value: function getDerivedAttrNames() {
       return ['d'];

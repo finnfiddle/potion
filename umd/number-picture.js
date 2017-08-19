@@ -1180,7 +1180,7 @@ var AnimatedElement = function (_SelectSelf) {
       var style = props.style;
 
       if ((0, _helpers.isFunction)(style)) return style(props);
-      return style;
+      return style || {};
     }
   }, {
     key: 'applyDerivedAttrsToSelection',
@@ -18349,7 +18349,7 @@ var Group = function (_AnimatedElement) {
   }, {
     key: 'getPrivatePropNames',
     value: function getPrivatePropNames() {
-      return ['rotation', 'rotationOriginX', 'rotationOriginY'];
+      return ['x', 'y', 'rotation', 'rotationOriginX', 'rotationOriginY'];
     }
   }, {
     key: 'getDerivationMethod',
@@ -20060,8 +20060,7 @@ var Pack = function (_Component) {
       var _props = this.props,
           data = _props.data,
           children = _props.children,
-          includeRoot = _props.includeRoot,
-          datumPropsToTween = _props.datumPropsToTween;
+          includeRoot = _props.includeRoot;
 
 
       var packData = this.getPack()(data);
@@ -20079,8 +20078,7 @@ var Pack = function (_Component) {
             index: index,
             data: filteredData,
             key: index + '_' + c,
-            _key: index + '_' + c,
-            datumPropsToTween: datumPropsToTween
+            _key: index + '_' + c
           });
         }));
       }, []);
@@ -20112,12 +20110,11 @@ Pack.propTypes = {
   // packEnclose: PropTypes.number,
   data: _react.PropTypes.object.isRequired,
   children: _react.PropTypes.node,
-  includeRoot: _react.PropTypes.bool,
-  datumPropsToTween: _react.PropTypes.arrayOf(_react.PropTypes.string)
+  includeRoot: _react.PropTypes.bool
 };
 
 Pack.defaultProps = {
-  datumPropsToTween: ['x', 'y', 'r']
+  includeRoot: true
 };
 
 /***/ }),
@@ -21691,6 +21688,11 @@ var SymbolShape = function (_AnimatedElement) {
     key: 'getAttrNames',
     value: function getAttrNames() {
       return _constants.TWEENABLE_SVG_PRESENTATION_ATTRS;
+    }
+  }, {
+    key: 'getPrivatePropNames',
+    value: function getPrivatePropNames() {
+      return ['size', 'type'];
     }
   }, {
     key: 'getDerivedAttrNames',

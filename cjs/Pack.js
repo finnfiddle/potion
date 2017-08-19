@@ -59,8 +59,7 @@ var Pack = function (_Component) {
       var _props = this.props,
           data = _props.data,
           children = _props.children,
-          includeRoot = _props.includeRoot,
-          datumPropsToTween = _props.datumPropsToTween;
+          includeRoot = _props.includeRoot;
 
 
       var packData = this.getPack()(data);
@@ -78,8 +77,7 @@ var Pack = function (_Component) {
             index: index,
             data: filteredData,
             key: index + '_' + c,
-            _key: index + '_' + c,
-            datumPropsToTween: datumPropsToTween
+            _key: index + '_' + c
           });
         }));
       }, []);
@@ -111,10 +109,9 @@ Pack.propTypes = {
   // packEnclose: PropTypes.number,
   data: _react.PropTypes.object.isRequired,
   children: _react.PropTypes.node,
-  includeRoot: _react.PropTypes.bool,
-  datumPropsToTween: _react.PropTypes.arrayOf(_react.PropTypes.string)
+  includeRoot: _react.PropTypes.bool
 };
 
 Pack.defaultProps = {
-  datumPropsToTween: ['x', 'y', 'r']
+  includeRoot: true
 };

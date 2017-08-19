@@ -342,7 +342,7 @@ export default class AnimatedElement extends SelectSelf {
   getStyle(props) {
     const { style } = props;
     if (isFunction(style)) return style(props);
-    return style;
+    return style || {};
   }
 
   applyDerivedAttrsToSelection(props, datum, selection, shouldGetDatum) {

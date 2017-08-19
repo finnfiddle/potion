@@ -34,7 +34,7 @@ export default class Group extends AnimatedElement {
   }
 
   getPrivatePropNames() {
-    return ['rotation', 'rotationOriginX', 'rotationOriginY'];
+    return ['x', 'y', 'rotation', 'rotationOriginX', 'rotationOriginY'];
   }
 
   getDerivationMethod(key, props, shouldGetDatum) {

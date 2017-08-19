@@ -22,7 +22,7 @@
   "main": "./cjs/index.js",
   "scripts": {
     "start": "babel --watch --plugins \"transform-runtime\" src --ignore __tests__ --out-dir ./cjs",
-    "prepublish": "npm run lint && npm run build",
+    "prepublish": "npm run lint && npm test && npm run build",
     "build": "npm run build:cjs && npm run build:umd",
     "build:cjs": "babel src --ignore __tests__ --out-dir ./cjs",
     "build:umd": "webpack && NODE_ENV=production webpack",
@@ -50,6 +50,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-2": "^6.5.0",
     "chai": "^3.5.0",
+    "chai-string": "^1.4.0",
     "enzyme": "^2.2.0",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",

@@ -27,7 +27,7 @@ export default class Pack extends Component {
   }
 
   renderChildren() {
-    const { data, children, includeRoot, datumPropsToTween } = this.props;
+    const { data, children, includeRoot } = this.props;
 
     const packData = this.getPack()(data);
     const filteredData = flattenHierarchy(packData)
@@ -47,7 +47,6 @@ export default class Pack extends Component {
           data: filteredData,
           key: `${index}_${c}`,
           _key: `${index}_${c}`,
-          datumPropsToTween,
         })
       ))
     , []);
@@ -74,9 +73,8 @@ Pack.propTypes = {
   data: PropTypes.object.isRequired,
   children: PropTypes.node,
   includeRoot: PropTypes.bool,
-  datumPropsToTween: PropTypes.arrayOf(PropTypes.string),
 };
 
 Pack.defaultProps = {
-  datumPropsToTween: ['x', 'y', 'r'],
+  includeRoot: true,
 };
