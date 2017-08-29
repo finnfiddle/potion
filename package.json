@@ -14,7 +14,17 @@
   "homepage": "https://github.com/finnfiddle/number-picture",
   "keywords": [
     "react-component",
-    "react"
+    "react",
+    "d3",
+    "visualisation",
+    "visualization",
+    "datavis",
+    "dataviz",
+    "data",
+    "svg",
+    "graphics",
+    "chart",
+    "charting"
   ],
   "options": {
     "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.js"
