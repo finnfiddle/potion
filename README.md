@@ -978,7 +978,7 @@ import { AxisLeft } from 'number-picture';
 
 ### Patterns
 
-`// TODO: implement`
+`// TODO: document`
 
 <div id='_helpers'></div>
 

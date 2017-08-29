@@ -8,9 +8,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _deepEqual = require('deep-equal');
+
+var _deepEqual2 = _interopRequireDefault(_deepEqual);
+
+var _constants = require('./constants');
 
 var _helpers = require('./helpers');
 
@@ -43,11 +51,44 @@ var Svg = function (_AnimatedElement) {
   }
 
   _createClass(Svg, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.addPatterns(this.props);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (!(0, _deepEqual2.default)(this.props.patterns, nextProps.patterns)) {
+        this.addPatterns(nextProps);
+      }
+      _get(Svg.prototype.__proto__ || Object.getPrototypeOf(Svg.prototype), 'componentWillReceiveProps', this).call(this, nextProps);
+    }
+  }, {
+    key: 'getAttrNames',
+    value: function getAttrNames() {
+      return ['width', 'height'].concat(_constants.TWEENABLE_SVG_PRESENTATION_ATTRS);
+    }
+  }, {
+    key: 'getPrivatePropNames',
+    value: function getPrivatePropNames() {
+      return ['patterns'];
+    }
+  }, {
+    key: 'addPatterns',
+    value: function addPatterns(props) {
+      var selection = this.selectSelf();
+      props.patterns.forEach(function (pattern) {
+        selection.call(pattern);
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'svg',
-        _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)),
+        _extends({}, this.state, {
+          style: this.getStyle(this.props)
+        }, (0, _helpers.bindMouseEvents)(this.props)),
         _react2.default.createElement(
           _TransitionGroup2.default,
           null,
@@ -63,4 +104,10 @@ var Svg = function (_AnimatedElement) {
 exports.default = Svg;
 
 
-Svg.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
+Svg.propTypes = {
+  patterns: _react.PropTypes.array
+};
+
+Svg.defaultProps = Object.assign({
+  patterns: []
+}, _AnimatedElement3.default.defaultProps);
