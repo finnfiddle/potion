@@ -1,6 +1,6 @@
 {
   "name": "number-picture",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
   "repository": {
     "type": "git",
