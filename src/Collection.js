@@ -30,6 +30,9 @@ export default class Collection extends Component {
 }
 
 Collection.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func,
+  ]),
   children: PropTypes.node,
 };

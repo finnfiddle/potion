@@ -86,7 +86,10 @@ Grid.propTypes = {
   cols: PropTypes.number,
   bands: PropTypes.bool,
   padding: PropTypes.arrayOf(PropTypes.number),
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func,
+  ]),
   children: PropTypes.node,
   singularChildren: PropTypes.node,
 };

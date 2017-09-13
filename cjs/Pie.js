@@ -117,7 +117,7 @@ Pie.propTypes = {
   startAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
   endAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
   padAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  data: _react.PropTypes.arrayOf(_react.PropTypes.object),
+  data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.func]),
   id: _react.PropTypes.func,
   singularChildren: _react.PropTypes.node,
   children: _react.PropTypes.node

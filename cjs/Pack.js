@@ -107,7 +107,7 @@ Pack.propTypes = {
   //  PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })
   // ),
   // packEnclose: PropTypes.number,
-  data: _react.PropTypes.object.isRequired,
+  data: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.func]),
   children: _react.PropTypes.node,
   includeRoot: _react.PropTypes.bool
 };

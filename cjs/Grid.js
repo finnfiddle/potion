@@ -125,7 +125,7 @@ Grid.propTypes = {
   cols: _react.PropTypes.number,
   bands: _react.PropTypes.bool,
   padding: _react.PropTypes.arrayOf(_react.PropTypes.number),
-  data: _react.PropTypes.arrayOf(_react.PropTypes.object).isRequired,
+  data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.func]),
   children: _react.PropTypes.node,
   singularChildren: _react.PropTypes.node
 };

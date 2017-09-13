@@ -14345,7 +14345,7 @@ exports.default = Collection;
 
 
 Collection.propTypes = {
-  data: _react.PropTypes.array.isRequired,
+  data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.func]),
   children: _react.PropTypes.node
 };
 
@@ -15702,7 +15702,7 @@ Grid.propTypes = {
   cols: _react.PropTypes.number,
   bands: _react.PropTypes.bool,
   padding: _react.PropTypes.arrayOf(_react.PropTypes.number),
-  data: _react.PropTypes.arrayOf(_react.PropTypes.object).isRequired,
+  data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.func]),
   children: _react.PropTypes.node,
   singularChildren: _react.PropTypes.node
 };
@@ -20114,7 +20114,7 @@ Pack.propTypes = {
   //  PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })
   // ),
   // packEnclose: PropTypes.number,
-  data: _react.PropTypes.object.isRequired,
+  data: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.func]),
   children: _react.PropTypes.node,
   includeRoot: _react.PropTypes.bool
 };
@@ -21315,7 +21315,7 @@ Pie.propTypes = {
   startAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
   endAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
   padAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  data: _react.PropTypes.arrayOf(_react.PropTypes.object),
+  data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.func]),
   id: _react.PropTypes.func,
   singularChildren: _react.PropTypes.node,
   children: _react.PropTypes.node

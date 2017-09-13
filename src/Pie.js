@@ -73,7 +73,10 @@ Pie.propTypes = {
   startAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   endAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   padAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  data: PropTypes.arrayOf(PropTypes.object),
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func,
+  ]),
   id: PropTypes.func,
   singularChildren: PropTypes.node,
   children: PropTypes.node,

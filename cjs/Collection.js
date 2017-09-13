@@ -67,6 +67,6 @@ exports.default = Collection;
 
 
 Collection.propTypes = {
-  data: _react.PropTypes.array.isRequired,
+  data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.func]),
   children: _react.PropTypes.node
 };

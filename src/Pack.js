@@ -70,7 +70,10 @@ Pack.propTypes = {
   //  PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })
   // ),
   // packEnclose: PropTypes.number,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.func,
+  ]),
   children: PropTypes.node,
   includeRoot: PropTypes.bool,
 };
