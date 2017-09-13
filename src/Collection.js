@@ -12,9 +12,16 @@ export default class Collection extends Component {
 
   renderChildren() {
     const { data, children } = this.props;
-    return (isFunction(data) ? data(this.props) : data).reduce((acc, datum, index) =>
+    const resolvedData = isFunction(data) ? data(this.props) : data;
+    return resolvedData.reduce((acc, datum, index) =>
       acc.concat(Children.map(children, (child, c) =>
-        cloneElement(child, { datum, index, data, key: `${index}_${c}`, _key: `${index}_${c}` })
+        cloneElement(child, {
+          datum,
+          index,
+          data: resolvedData,
+          key: `${index}_${c}`,
+          _key: `${index}_${c}`,
+        })
       ))
     , []);
   }

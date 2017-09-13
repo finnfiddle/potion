@@ -43,9 +43,16 @@ var Collection = function (_Component) {
           data = _props.data,
           children = _props.children;
 
-      return ((0, _helpers.isFunction)(data) ? data(this.props) : data).reduce(function (acc, datum, index) {
+      var resolvedData = (0, _helpers.isFunction)(data) ? data(this.props) : data;
+      return resolvedData.reduce(function (acc, datum, index) {
         return acc.concat(_react.Children.map(children, function (child, c) {
-          return (0, _react.cloneElement)(child, { datum: datum, index: index, data: data, key: index + '_' + c, _key: index + '_' + c });
+          return (0, _react.cloneElement)(child, {
+            datum: datum,
+            index: index,
+            data: resolvedData,
+            key: index + '_' + c,
+            _key: index + '_' + c
+          });
         }));
       }, []);
     }
