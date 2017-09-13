@@ -3,7 +3,7 @@ import { pack } from 'd3-hierarchy';
 import itsSet from 'its-set';
 
 import TransitionGroup from './TransitionGroup';
-import { flattenHierarchy } from './helpers';
+import { flattenHierarchy, isFunction } from './helpers';
 
 export default class Pack extends Component {
 
@@ -29,7 +29,7 @@ export default class Pack extends Component {
   renderChildren() {
     const { data, children, includeRoot } = this.props;
 
-    const packData = this.getPack()(data);
+    const packData = this.getPack()((isFunction(data) ? data(this.props) : data));
     const filteredData = flattenHierarchy(packData)
       .slice(includeRoot ? 0 : 1)
       .map(datum => {

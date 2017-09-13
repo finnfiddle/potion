@@ -3,6 +3,7 @@ import { pie } from 'd3-shape';
 import itsSet from 'its-set';
 
 import TransitionGroup from './TransitionGroup';
+import { isFunction } from './helpers';
 
 export default class Pie extends Component {
 
@@ -52,7 +53,7 @@ export default class Pie extends Component {
 
   render() {
     const { data, sort } = this.props;
-    let pieData = this.getPie()(data);
+    let pieData = this.getPie()((isFunction(data) ? data(this.props) : data));
     if (itsSet(sort)) pieData = pieData.sort((a, b) => sort(a.data, b.data));
 
     return (

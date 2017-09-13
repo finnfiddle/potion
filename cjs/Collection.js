@@ -10,6 +10,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _helpers = require('./helpers');
+
 var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
@@ -41,7 +43,7 @@ var Collection = function (_Component) {
           data = _props.data,
           children = _props.children;
 
-      return data.reduce(function (acc, datum, index) {
+      return ((0, _helpers.isFunction)(data) ? data(this.props) : data).reduce(function (acc, datum, index) {
         return acc.concat(_react.Children.map(children, function (child, c) {
           return (0, _react.cloneElement)(child, { datum: datum, index: index, data: data, key: index + '_' + c, _key: index + '_' + c });
         }));

@@ -81,81 +81,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = newInterval;
-var t0 = new Date,
-    t1 = new Date;
-
-function newInterval(floori, offseti, count, field) {
-
-  function interval(date) {
-    return floori(date = new Date(+date)), date;
-  }
-
-  interval.floor = interval;
-
-  interval.ceil = function(date) {
-    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
-  };
-
-  interval.round = function(date) {
-    var d0 = interval(date),
-        d1 = interval.ceil(date);
-    return date - d0 < d1 - date ? d0 : d1;
-  };
-
-  interval.offset = function(date, step) {
-    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
-  };
-
-  interval.range = function(start, stop, step) {
-    var range = [];
-    start = interval.ceil(start);
-    step = step == null ? 1 : Math.floor(step);
-    if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
-    do range.push(new Date(+start)); while (offseti(start, step), floori(start), start < stop)
-    return range;
-  };
-
-  interval.filter = function(test) {
-    return newInterval(function(date) {
-      if (date >= date) while (floori(date), !test(date)) date.setTime(date - 1);
-    }, function(date, step) {
-      if (date >= date) {
-        if (step < 0) while (++step <= 0) {
-          while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
-        } else while (--step >= 0) {
-          while (offseti(date, +1), !test(date)) {} // eslint-disable-line no-empty
-        }
-      }
-    });
-  };
-
-  if (count) {
-    interval.count = function(start, end) {
-      t0.setTime(+start), t1.setTime(+end);
-      floori(t0), floori(t1);
-      return Math.floor(count(t0, t1));
-    };
-
-    interval.every = function(step) {
-      step = Math.floor(step);
-      return !isFinite(step) || !(step > 0) ? null
-          : !(step > 1) ? interval
-          : interval.filter(field
-              ? function(d) { return field(d) % step === 0; }
-              : function(d) { return interval.count(0, d) % step === 0; });
-    };
-  }
-
-  return interval;
-}
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -260,6 +185,81 @@ exports.default = {
   flattenHierarchy: flattenHierarchy,
   radiansToDegrees: radiansToDegrees
 };
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = newInterval;
+var t0 = new Date,
+    t1 = new Date;
+
+function newInterval(floori, offseti, count, field) {
+
+  function interval(date) {
+    return floori(date = new Date(+date)), date;
+  }
+
+  interval.floor = interval;
+
+  interval.ceil = function(date) {
+    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+  };
+
+  interval.round = function(date) {
+    var d0 = interval(date),
+        d1 = interval.ceil(date);
+    return date - d0 < d1 - date ? d0 : d1;
+  };
+
+  interval.offset = function(date, step) {
+    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+  };
+
+  interval.range = function(start, stop, step) {
+    var range = [];
+    start = interval.ceil(start);
+    step = step == null ? 1 : Math.floor(step);
+    if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
+    do range.push(new Date(+start)); while (offseti(start, step), floori(start), start < stop)
+    return range;
+  };
+
+  interval.filter = function(test) {
+    return newInterval(function(date) {
+      if (date >= date) while (floori(date), !test(date)) date.setTime(date - 1);
+    }, function(date, step) {
+      if (date >= date) {
+        if (step < 0) while (++step <= 0) {
+          while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
+        } else while (--step >= 0) {
+          while (offseti(date, +1), !test(date)) {} // eslint-disable-line no-empty
+        }
+      }
+    });
+  };
+
+  if (count) {
+    interval.count = function(start, end) {
+      t0.setTime(+start), t1.setTime(+end);
+      floori(t0), floori(t1);
+      return Math.floor(count(t0, t1));
+    };
+
+    interval.every = function(step) {
+      step = Math.floor(step);
+      return !isFinite(step) || !(step > 0) ? null
+          : !(step > 1) ? interval
+          : interval.filter(field
+              ? function(d) { return field(d) % step === 0; }
+              : function(d) { return interval.count(0, d) % step === 0; });
+    };
+  }
+
+  return interval;
+}
+
 
 /***/ }),
 /* 3 */
@@ -936,7 +936,7 @@ var _SelectSelf2 = __webpack_require__(64);
 
 var _SelectSelf3 = _interopRequireDefault(_SelectSelf2);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -1454,7 +1454,7 @@ var _TransitionGroup = __webpack_require__(325);
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1684,7 +1684,7 @@ var d3Axis = _interopRequireWildcard(_d3Axis);
 
 var _d3Interpolate = __webpack_require__(6);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _SelectSelf2 = __webpack_require__(64);
 
@@ -4034,7 +4034,7 @@ function map(object, f) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_interval__ = __webpack_require__(2);
 /* unused harmony reexport timeInterval */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_millisecond__ = __webpack_require__(403);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__src_millisecond__["a"]; });
@@ -7923,7 +7923,7 @@ var _TransitionGroup = __webpack_require__(14);
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _helpers2 = _interopRequireDefault(_helpers);
 
@@ -7982,7 +7982,7 @@ var _itsSet2 = _interopRequireDefault(_itsSet);
 
 var _constants = __webpack_require__(11);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _AnimatedElement2 = __webpack_require__(12);
 
@@ -14214,7 +14214,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _constants = __webpack_require__(11);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _AnimatedElement2 = __webpack_require__(12);
 
@@ -14288,6 +14288,8 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _helpers = __webpack_require__(1);
+
 var _TransitionGroup = __webpack_require__(14);
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
@@ -14319,7 +14321,7 @@ var Collection = function (_Component) {
           data = _props.data,
           children = _props.children;
 
-      return data.reduce(function (acc, datum, index) {
+      return ((0, _helpers.isFunction)(data) ? data(this.props) : data).reduce(function (acc, datum, index) {
         return acc.concat(_react.Children.map(children, function (child, c) {
           return (0, _react.cloneElement)(child, { datum: datum, index: index, data: data, key: index + '_' + c, _key: index + '_' + c });
         }));
@@ -15597,6 +15599,8 @@ var _TransitionGroup = __webpack_require__(14);
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
+var _helpers = __webpack_require__(1);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -15625,7 +15629,9 @@ var Grid = function (_Component) {
       var gridData = (0, _d3V4Grid2.default)();
 
       ['size', 'nodeSize', 'rows', 'cols', 'bands', 'padding', 'data'].forEach(function (key) {
-        if ((0, _itsSet2.default)(_this2.props[key])) gridData = gridData[key](_this2.props[key]);
+        if ((0, _itsSet2.default)(_this2.props[key])) {
+          gridData = gridData[key]((0, _helpers.isFunction)(_this2.props[key]) ? _this2.props[key](_this2.props) : _this2.props[key]);
+        }
       });
 
       gridData.layout();
@@ -17648,7 +17654,7 @@ function threshold() {
 
 "use strict";
 /* unused harmony export milliseconds */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 
 
 var millisecond = __WEBPACK_IMPORTED_MODULE_0__interval__["a" /* default */](function() {
@@ -17683,7 +17689,7 @@ var milliseconds = millisecond.range;
 
 "use strict";
 /* unused harmony export seconds */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration__ = __webpack_require__(10);
 
 
@@ -17708,7 +17714,7 @@ var seconds = second.range;
 
 "use strict";
 /* unused harmony export minutes */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration__ = __webpack_require__(10);
 
 
@@ -17733,7 +17739,7 @@ var minutes = minute.range;
 
 "use strict";
 /* unused harmony export hours */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration__ = __webpack_require__(10);
 
 
@@ -17760,7 +17766,7 @@ var hours = hour.range;
 
 "use strict";
 /* unused harmony export days */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration__ = __webpack_require__(10);
 
 
@@ -17798,7 +17804,7 @@ var days = day.range;
 /* unused harmony export thursdays */
 /* unused harmony export fridays */
 /* unused harmony export saturdays */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration__ = __webpack_require__(10);
 
 
@@ -17837,7 +17843,7 @@ var saturdays = saturday.range;
 
 "use strict";
 /* unused harmony export months */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 
 
 var month = __WEBPACK_IMPORTED_MODULE_0__interval__["a" /* default */](function(date) {
@@ -17861,7 +17867,7 @@ var months = month.range;
 
 "use strict";
 /* unused harmony export years */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 
 
 var year = __WEBPACK_IMPORTED_MODULE_0__interval__["a" /* default */](function(date) {
@@ -17896,7 +17902,7 @@ var years = year.range;
 
 "use strict";
 /* unused harmony export utcMinutes */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration__ = __webpack_require__(10);
 
 
@@ -17921,7 +17927,7 @@ var utcMinutes = utcMinute.range;
 
 "use strict";
 /* unused harmony export utcHours */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration__ = __webpack_require__(10);
 
 
@@ -17946,7 +17952,7 @@ var utcHours = utcHour.range;
 
 "use strict";
 /* unused harmony export utcDays */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration__ = __webpack_require__(10);
 
 
@@ -17984,7 +17990,7 @@ var utcDays = utcDay.range;
 /* unused harmony export utcThursdays */
 /* unused harmony export utcFridays */
 /* unused harmony export utcSaturdays */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__duration__ = __webpack_require__(10);
 
 
@@ -18023,7 +18029,7 @@ var utcSaturdays = utcSaturday.range;
 
 "use strict";
 /* unused harmony export utcMonths */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 
 
 var utcMonth = __WEBPACK_IMPORTED_MODULE_0__interval__["a" /* default */](function(date) {
@@ -18047,7 +18053,7 @@ var utcMonths = utcMonth.range;
 
 "use strict";
 /* unused harmony export utcYears */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__interval__ = __webpack_require__(2);
 
 
 var utcYear = __WEBPACK_IMPORTED_MODULE_0__interval__["a" /* default */](function(date) {
@@ -18293,7 +18299,7 @@ var _utilsDeepGet = __webpack_require__(428);
 
 var _utilsDeepGet2 = _interopRequireDefault(_utilsDeepGet);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _TransitionGroup = __webpack_require__(14);
 
@@ -18607,7 +18613,7 @@ var _itsSet = __webpack_require__(5);
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _TransitionGroup = __webpack_require__(14);
 
@@ -19936,7 +19942,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _constants = __webpack_require__(11);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _AnimatedElement2 = __webpack_require__(12);
 
@@ -20021,7 +20027,7 @@ var _TransitionGroup = __webpack_require__(14);
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20063,7 +20069,7 @@ var Pack = function (_Component) {
           includeRoot = _props.includeRoot;
 
 
-      var packData = this.getPack()(data);
+      var packData = this.getPack()((0, _helpers.isFunction)(data) ? data(this.props) : data);
       var filteredData = (0, _helpers.flattenHierarchy)(packData).slice(includeRoot ? 0 : 1).map(function (datum) {
         var result = Object.assign({}, datum.data, datum);
         delete result.data;
@@ -21212,6 +21218,8 @@ var _TransitionGroup = __webpack_require__(14);
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
+var _helpers = __webpack_require__(1);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21280,7 +21288,7 @@ var Pie = function (_Component) {
           data = _props2.data,
           sort = _props2.sort;
 
-      var pieData = this.getPie()(data);
+      var pieData = this.getPie()((0, _helpers.isFunction)(data) ? data(this.props) : data);
       if ((0, _itsSet2.default)(sort)) pieData = pieData.sort(function (a, b) {
         return sort(a.data, b.data);
       });
@@ -21490,7 +21498,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _constants = __webpack_require__(11);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _AnimatedElement2 = __webpack_require__(12);
 
@@ -21648,7 +21656,7 @@ var _d3Shape = __webpack_require__(41);
 
 var _constants = __webpack_require__(11);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _AnimatedElement2 = __webpack_require__(12);
 
@@ -21774,7 +21782,7 @@ var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
 var _constants = __webpack_require__(11);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _TransitionGroup = __webpack_require__(14);
 
@@ -21887,7 +21895,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _constants = __webpack_require__(11);
 
-var _helpers = __webpack_require__(2);
+var _helpers = __webpack_require__(1);
 
 var _AnimatedElement2 = __webpack_require__(12);
 

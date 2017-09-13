@@ -22,6 +22,8 @@ var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
+var _helpers = require('./helpers');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50,7 +52,9 @@ var Grid = function (_Component) {
       var gridData = (0, _d3V4Grid2.default)();
 
       ['size', 'nodeSize', 'rows', 'cols', 'bands', 'padding', 'data'].forEach(function (key) {
-        if ((0, _itsSet2.default)(_this2.props[key])) gridData = gridData[key](_this2.props[key]);
+        if ((0, _itsSet2.default)(_this2.props[key])) {
+          gridData = gridData[key]((0, _helpers.isFunction)(_this2.props[key]) ? _this2.props[key](_this2.props) : _this2.props[key]);
+        }
       });
 
       gridData.layout();

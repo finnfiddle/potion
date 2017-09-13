@@ -20,6 +20,8 @@ var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
+var _helpers = require('./helpers');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -88,7 +90,7 @@ var Pie = function (_Component) {
           data = _props2.data,
           sort = _props2.sort;
 
-      var pieData = this.getPie()(data);
+      var pieData = this.getPie()((0, _helpers.isFunction)(data) ? data(this.props) : data);
       if ((0, _itsSet2.default)(sort)) pieData = pieData.sort(function (a, b) {
         return sort(a.data, b.data);
       });

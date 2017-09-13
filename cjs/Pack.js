@@ -62,7 +62,7 @@ var Pack = function (_Component) {
           includeRoot = _props.includeRoot;
 
 
-      var packData = this.getPack()(data);
+      var packData = this.getPack()((0, _helpers.isFunction)(data) ? data(this.props) : data);
       var filteredData = (0, _helpers.flattenHierarchy)(packData).slice(includeRoot ? 0 : 1).map(function (datum) {
         var result = Object.assign({}, datum.data, datum);
         delete result.data;

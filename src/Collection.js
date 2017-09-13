@@ -1,5 +1,6 @@
 import React, { PropTypes, Children, cloneElement, Component } from 'react';
 
+import { isFunction } from './helpers';
 import TransitionGroup from './TransitionGroup';
 
 export default class Collection extends Component {
@@ -11,7 +12,7 @@ export default class Collection extends Component {
 
   renderChildren() {
     const { data, children } = this.props;
-    return data.reduce((acc, datum, index) =>
+    return (isFunction(data) ? data(this.props) : data).reduce((acc, datum, index) =>
       acc.concat(Children.map(children, (child, c) =>
         cloneElement(child, { datum, index, data, key: `${index}_${c}`, _key: `${index}_${c}` })
       ))

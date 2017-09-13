@@ -3,6 +3,7 @@ import itsSet from 'its-set';
 import grid from 'd3-v4-grid';
 
 import TransitionGroup from './TransitionGroup';
+import { isFunction } from './helpers';
 
 export default class Grid extends Component {
 
@@ -23,7 +24,11 @@ export default class Grid extends Component {
       'padding',
       'data',
     ].forEach((key) => {
-      if (itsSet(this.props[key])) gridData = gridData[key](this.props[key]);
+      if (itsSet(this.props[key])) {
+        gridData = gridData[key](
+          (isFunction(this.props[key]) ? this.props[key](this.props) : this.props[key])
+        );
+      }
     });
 
     gridData.layout();
