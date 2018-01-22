@@ -1,4 +1,6 @@
-import React, { Children, cloneElement, PropTypes, Component } from 'react';
+import React, { Children, cloneElement, Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { pack } from 'd3-hierarchy';
 import itsSet from 'its-set';
 

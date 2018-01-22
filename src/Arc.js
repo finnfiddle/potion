@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { arc } from 'd3-shape';
 import itsSet from 'its-set';
 

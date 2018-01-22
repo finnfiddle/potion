@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
@@ -119,13 +123,13 @@ exports.default = Grid;
 
 
 Grid.propTypes = {
-  size: _react.PropTypes.arrayOf(_react.PropTypes.number),
-  nodeSize: _react.PropTypes.arrayOf(_react.PropTypes.number),
-  rows: _react.PropTypes.number,
-  cols: _react.PropTypes.number,
-  bands: _react.PropTypes.bool,
-  padding: _react.PropTypes.arrayOf(_react.PropTypes.number),
-  data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.func]),
-  children: _react.PropTypes.node,
-  singularChildren: _react.PropTypes.node
+  size: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  nodeSize: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  rows: _propTypes2.default.number,
+  cols: _propTypes2.default.number,
+  bands: _propTypes2.default.bool,
+  padding: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.func]),
+  children: _propTypes2.default.node,
+  singularChildren: _propTypes2.default.node
 };

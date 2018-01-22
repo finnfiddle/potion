@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import * as d3Axis from 'd3-axis';
 import { interpolate } from 'd3-interpolate';
 

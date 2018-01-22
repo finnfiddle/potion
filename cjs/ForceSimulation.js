@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _d3Force = require('d3-force');
 
 var _itsSet = require('its-set');
@@ -234,19 +238,19 @@ exports.default = ForceSimulation;
 
 
 ForceSimulation.propTypes = {
-  nodes: _react.PropTypes.array.isRequired,
-  links: _react.PropTypes.array,
-  forces: _react.PropTypes.object,
-  node: _react.PropTypes.node.isRequired,
-  link: _react.PropTypes.node,
-  alpha: _react.PropTypes.number,
-  alphaMin: _react.PropTypes.number,
-  alphaDecay: _react.PropTypes.number,
-  alphaTarget: _react.PropTypes.number,
-  velocityDecay: _react.PropTypes.number,
-  onTick: _react.PropTypes.func,
-  onEnd: _react.PropTypes.func,
-  running: _react.PropTypes.bool
+  nodes: _propTypes2.default.array.isRequired,
+  links: _propTypes2.default.array,
+  forces: _propTypes2.default.object,
+  node: _propTypes2.default.node.isRequired,
+  link: _propTypes2.default.node,
+  alpha: _propTypes2.default.number,
+  alphaMin: _propTypes2.default.number,
+  alphaDecay: _propTypes2.default.number,
+  alphaTarget: _propTypes2.default.number,
+  velocityDecay: _propTypes2.default.number,
+  onTick: _propTypes2.default.func,
+  onEnd: _propTypes2.default.func,
+  running: _propTypes2.default.bool
 };
 
 ForceSimulation.defaultProps = {

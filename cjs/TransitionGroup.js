@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _TransitionGroup = require('react-transition-group/TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
@@ -62,8 +66,8 @@ exports.default = TransitionGroup;
 
 
 TransitionGroup.propTypes = {
-  component: _react.PropTypes.oneOfType([_react.PropTypes.element, _react.PropTypes.string]),
-  children: _react.PropTypes.node
+  component: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.string]),
+  children: _propTypes2.default.node
 };
 
 TransitionGroup.defaultProps = {

@@ -1,4 +1,4 @@
-import { PropTypes } from 'react';
+import PropTypes from 'prop-types';
 import itsSet from 'its-set';
 import { interpolate } from 'd3-interpolate';
 import * as ease from 'd3-ease';

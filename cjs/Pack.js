@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _d3Hierarchy = require('d3-hierarchy');
 
 var _itsSet = require('its-set');
@@ -100,16 +104,16 @@ exports.default = Pack;
 
 
 Pack.propTypes = {
-  radius: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  size: _react.PropTypes.arrayOf(_react.PropTypes.number),
-  padding: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
+  radius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  size: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  padding: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
   // packSiblings: PropTypes.arrayOf(
   //  PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })
   // ),
   // packEnclose: PropTypes.number,
-  data: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.func]),
-  children: _react.PropTypes.node,
-  includeRoot: _react.PropTypes.bool
+  data: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
+  children: _propTypes2.default.node,
+  includeRoot: _propTypes2.default.bool
 };
 
 Pack.defaultProps = {

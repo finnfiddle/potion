@@ -1,4 +1,5 @@
-import React, { PropTypes, Children, cloneElement, Component } from 'react';
+import React, { Children, cloneElement, Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { isFunction } from './helpers';
 import TransitionGroup from './TransitionGroup';

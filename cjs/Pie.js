@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _d3Shape = require('d3-shape');
 
 var _itsSet = require('its-set');
@@ -111,14 +115,14 @@ exports.default = Pie;
 
 
 Pie.propTypes = {
-  value: _react.PropTypes.func,
-  sort: _react.PropTypes.func,
-  sortValues: _react.PropTypes.func,
-  startAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  endAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  padAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.func]),
-  id: _react.PropTypes.func,
-  singularChildren: _react.PropTypes.node,
-  children: _react.PropTypes.node
+  value: _propTypes2.default.func,
+  sort: _propTypes2.default.func,
+  sortValues: _propTypes2.default.func,
+  startAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  endAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  padAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.func]),
+  id: _propTypes2.default.func,
+  singularChildren: _propTypes2.default.node,
+  children: _propTypes2.default.node
 };

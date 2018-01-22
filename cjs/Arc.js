@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _d3Shape = require('d3-shape');
 
 var _itsSet = require('its-set');
@@ -103,10 +107,10 @@ exports.default = Arc;
 
 
 Arc.propTypes = {
-  innerRadius: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  outerRadius: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  startAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  endAngle: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
+  innerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  outerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  startAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  endAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func])
 };
 
 Arc.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps, {

@@ -14,6 +14,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _deepEqual = require('deep-equal');
 
 var _deepEqual2 = _interopRequireDefault(_deepEqual);
@@ -105,7 +109,7 @@ exports.default = Svg;
 
 
 Svg.propTypes = {
-  patterns: _react.PropTypes.array
+  patterns: _propTypes2.default.array
 };
 
 Svg.defaultProps = Object.assign({

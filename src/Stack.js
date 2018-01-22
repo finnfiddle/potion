@@ -1,5 +1,6 @@
 import { Component } from 'react';
-// import { Children, cloneElement, PropTypes } from 'react';
+// import { Children, cloneElement } from 'react';
+// import PropTypes from 'prop-types';
 // import d3Shape from 'd3-shape';
 // import itsSet from 'its-set';
 

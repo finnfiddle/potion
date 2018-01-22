@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactTransitionGroup from 'react-transition-group/TransitionGroup';
 
 import { bindMouseEvents } from './helpers';

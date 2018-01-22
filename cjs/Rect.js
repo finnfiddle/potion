@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _constants = require('./constants');
 
 var _helpers = require('./helpers');
@@ -59,10 +63,10 @@ exports.default = Rect;
 
 
 Rect.propTypes = {
-  x: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
-  y: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
-  height: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
-  width: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number])
+  x: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
+  y: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
+  height: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
+  width: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number])
 };
 
 Rect.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);

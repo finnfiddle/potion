@@ -6,7 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _itsSet = require('its-set');
 
@@ -406,18 +408,18 @@ exports.default = AnimatedElement;
 
 
 AnimatedElement.propTypes = {
-  datum: _react.PropTypes.object,
-  datumAccessor: _react.PropTypes.oneOfType([_react.PropTypes.func]),
-  enterDatum: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.func]),
-  exitDatum: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.func]),
-  enterEase: _react.PropTypes.oneOf(EASE_TYPES),
-  updateEase: _react.PropTypes.oneOf(EASE_TYPES),
-  exitEase: _react.PropTypes.oneOf(EASE_TYPES),
-  enterDuration: _react.PropTypes.number,
-  updateDuration: _react.PropTypes.number,
-  exitDuration: _react.PropTypes.number,
-  propsToCheckForChanges: _react.PropTypes.arrayOf(_react.PropTypes.string),
-  datumPropsToTween: _react.PropTypes.arrayOf(_react.PropTypes.string)
+  datum: _propTypes2.default.object,
+  datumAccessor: _propTypes2.default.oneOfType([_propTypes2.default.func]),
+  enterDatum: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
+  exitDatum: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
+  enterEase: _propTypes2.default.oneOf(EASE_TYPES),
+  updateEase: _propTypes2.default.oneOf(EASE_TYPES),
+  exitEase: _propTypes2.default.oneOf(EASE_TYPES),
+  enterDuration: _propTypes2.default.number,
+  updateDuration: _propTypes2.default.number,
+  exitDuration: _propTypes2.default.number,
+  propsToCheckForChanges: _propTypes2.default.arrayOf(_propTypes2.default.string),
+  datumPropsToTween: _propTypes2.default.arrayOf(_propTypes2.default.string)
 };
 
 AnimatedElement.defaultProps = {

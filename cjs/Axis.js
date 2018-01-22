@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _d3Axis = require('d3-axis');
 
 var d3Axis = _interopRequireWildcard(_d3Axis);
@@ -89,8 +93,8 @@ exports.default = Axis;
 
 
 Axis.propTypes = {
-  placement: _react.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
-  scale: _react.PropTypes.func.isRequired
+  placement: _propTypes2.default.oneOf(['top', 'bottom', 'left', 'right']),
+  scale: _propTypes2.default.func.isRequired
 };
 
 Axis.defaultProps = {

@@ -61,7 +61,8 @@
     "babel-preset-stage-2": "^6.5.0",
     "chai": "^3.5.0",
     "chai-string": "^1.4.0",
-    "enzyme": "^2.2.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-babel": "^3.1.0",
@@ -73,16 +74,16 @@
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "nodemon": "^1.9.1",
-    "react": "^15.0.0",
-    "react-addons-test-utils": "^15.0.0",
-    "react-dom": "^15.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "sinon": "^1.17.3",
     "uglifyjs-webpack-plugin": "^0.4.6",
-    "webpack": "^3.0.0"
+    "webpack": "^3.0.0",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "peerDependencies": {
-    "react": "~0.14.8 || ^15.0.0",
-    "react-dom": "~0.14.8 || ^15.0.0"
+    "react": "~0.14.8 || ^15.0.0 || ^16.0.0",
+    "react-dom": "~0.14.8 || ^15.0.0 || ^16.0.0"
   },
   "dependencies": {
     "array-uniq": "^1.0.3",
@@ -91,6 +92,7 @@
     "d3-ease": "^1.0.3",
     "d3-force": "^1.0.6",
     "d3-hierarchy": "^1.1.5",
+    "d3-interpolate": "^1.1.6",
     "d3-selection": "^1.0.3",
     "d3-shape": "^1.0.4",
     "d3-transition": "^1.0.3",
@@ -98,6 +100,7 @@
     "deep-equal": "^1.0.1",
     "intersect": "^1.0.1",
     "its-set": "^1.2.1",
+    "prop-types": "^15.6.0",
     "react-transition-group": "^1.2.0",
     "utils-deep-get": "^1.0.0"
   }

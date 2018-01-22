@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 import Svg from '../Svg';
 import Group from '../Group';
@@ -25,7 +25,7 @@ describe('Group', () => {
         />
       </Svg>
     );
-    const expected = shallow(
+    const expected = mount(
       <svg>
         <g>
           <g

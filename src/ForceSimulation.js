@@ -1,4 +1,5 @@
-import React, { Children, cloneElement, PropTypes } from 'react';
+import React, { Children, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import { forceSimulation } from 'd3-force';
 import itsSet from 'its-set';
 

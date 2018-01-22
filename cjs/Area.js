@@ -8,6 +8,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = require('react');
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -49,17 +55,17 @@ exports.default = Area;
 
 
 Area.propTypes = {
-  x: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  x0: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  x1: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  y: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  y0: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  y1: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  defined: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  curve: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  context: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  lineX0: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  lineY0: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  lineX1: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  lineY1: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
+  x: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  x0: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  x1: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  y: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  y0: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  y1: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  defined: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  curve: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  context: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  lineX0: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  lineY0: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  lineX1: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  lineY1: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func])
 };

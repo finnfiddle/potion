@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
@@ -113,8 +117,8 @@ exports.default = SymbolShape;
 
 
 SymbolShape.propTypes = {
-  size: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  type: _react.PropTypes.oneOf(Object.keys(SYMBOLS))
+  size: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  type: _propTypes2.default.oneOf(Object.keys(SYMBOLS))
 };
 
 SymbolShape.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);

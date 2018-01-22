@@ -3,6 +3,11 @@ const chai = require('chai');
 chai.use(require('chai-string'));
 global.expect = chai.expect;
 
+const { configure } = require('enzyme');
+const Adapter = require('enzyme-adapter-react-16');
+
+configure({ adapter: new Adapter() });
+
 const exposedProperties = ['window', 'navigator', 'document'];
 
 global.document = jsdom('');

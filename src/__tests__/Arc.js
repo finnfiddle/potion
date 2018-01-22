@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 import Svg from '../Svg';
 import Arc from '../Arc';
@@ -20,14 +20,12 @@ describe('Arc', () => {
           fill='black'
           stroke='red'
           strokeWidth={2}
-          style={{
-            display: 'block',
-          }}
+          style={{ display: 'block' }}
           datum={{ foo: 100 }}
         />
       </Svg>
     );
-    const expected = shallow(
+    const expected = mount(
       <svg>
         <g>
           <path

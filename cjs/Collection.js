@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _helpers = require('./helpers');
 
 var _TransitionGroup = require('./TransitionGroup');
@@ -74,6 +78,6 @@ exports.default = Collection;
 
 
 Collection.propTypes = {
-  data: _react.PropTypes.oneOfType([_react.PropTypes.array, _react.PropTypes.func]),
-  children: _react.PropTypes.node
+  data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.func]),
+  children: _propTypes2.default.node
 };

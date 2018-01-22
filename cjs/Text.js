@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _constants = require('./constants');
 
 var _helpers = require('./helpers');
@@ -63,8 +67,8 @@ exports.default = Text;
 
 
 Text.propTypes = {
-  dx: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  dy: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
+  dx: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  dy: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func])
 };
 
 Text.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);

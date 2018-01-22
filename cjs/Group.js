@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
@@ -136,11 +140,11 @@ exports.default = Group;
 
 
 Group.propTypes = {
-  x: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
-  y: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
-  rotation: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
-  rotationOriginX: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number]),
-  rotationOriginY: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.number])
+  x: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
+  y: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
+  rotation: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
+  rotationOriginX: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
+  rotationOriginY: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number])
 };
 
 Group.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps, {

@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _constants = require('./constants');
 
 var _helpers = require('./helpers');
@@ -64,9 +68,9 @@ exports.default = Circle;
 
 
 Circle.propTypes = {
-  cx: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  cy: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func]),
-  r: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.func])
+  cx: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  cy: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  r: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func])
 };
 
 Circle.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
