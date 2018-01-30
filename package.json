@@ -101,7 +101,8 @@
     "intersect": "^1.0.1",
     "its-set": "^1.2.1",
     "prop-types": "^15.6.0",
-    "react-transition-group": "^1.2.0",
+    "react-faux-dom": "^4.1.0",
+    "react-transition-group": "^1.2.1",
     "utils-deep-get": "^1.0.0"
   }
 }

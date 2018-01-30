@@ -4,9 +4,33 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = require('babel-runtime/helpers/extends');
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -24,7 +48,7 @@ var _utilsDeepGet = require('utils-deep-get');
 
 var _utilsDeepGet2 = _interopRequireDefault(_utilsDeepGet);
 
-var _helpers = require('./helpers');
+var _util = require('./util');
 
 var _TransitionGroup = require('./TransitionGroup');
 
@@ -36,25 +60,19 @@ var _AnimatedElement3 = _interopRequireDefault(_AnimatedElement2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var Group = function (_AnimatedElement) {
-  _inherits(Group, _AnimatedElement);
+  (0, _inherits3.default)(Group, _AnimatedElement);
 
   function Group(props) {
-    _classCallCheck(this, Group);
+    (0, _classCallCheck3.default)(this, Group);
 
-    var _this = _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).call(this, props));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (Group.__proto__ || (0, _getPrototypeOf2.default)(Group)).call(this, props));
 
     _this.displayName = 'Group';
     return _this;
   }
 
-  _createClass(Group, [{
+  (0, _createClass3.default)(Group, [{
     key: 'getDerivedAttrNames',
     value: function getDerivedAttrNames() {
       return ['transform'];
@@ -92,7 +110,7 @@ var Group = function (_AnimatedElement) {
           return function (datum) {
             var attrInputNames = _this2.derivedAttrInputNames[key];
 
-            var _getAttrs = _this2.getAttrs(Object.assign({}, props, { datum: datum }), attrInputNames, shouldGetDatum),
+            var _getAttrs = _this2.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames, shouldGetDatum),
                 x = _getAttrs.x,
                 y = _getAttrs.y,
                 rotation = _getAttrs.rotation,
@@ -117,7 +135,7 @@ var Group = function (_AnimatedElement) {
 
       return _react.Children.map(children, function (child) {
         if (!(0, _itsSet2.default)(child)) return null;
-        var props = child !== null && (0, _helpers.isFunction)((0, _utilsDeepGet2.default)(child, 'type')) ? Object.assign({ datum: datum, data: data, index: index, enterDatum: enterDatum, exitDatum: exitDatum }, child.props) : child.props;
+        var props = child !== null && (0, _util.isFunction)((0, _utilsDeepGet2.default)(child, 'type')) ? (0, _assign2.default)({ datum: datum, data: data, index: index, enterDatum: enterDatum, exitDatum: exitDatum }, child.props) : child.props;
         return (0, _react.cloneElement)(child, props);
       });
     }
@@ -127,12 +145,11 @@ var Group = function (_AnimatedElement) {
       var style = this.getStyle(this.props);
       return _react2.default.createElement(
         _TransitionGroup2.default,
-        _extends({}, this.state, { style: style }, (0, _helpers.bindMouseEvents)(this.props)),
+        (0, _extends3.default)({}, this.state, { style: style }, (0, _util.bindMouseEvents)(this.props)),
         this.renderChildren()
       );
     }
   }]);
-
   return Group;
 }(_AnimatedElement3.default);
 
@@ -147,7 +164,7 @@ Group.propTypes = {
   rotationOriginY: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number])
 };
 
-Group.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps, {
+Group.defaultProps = (0, _assign2.default)({}, _AnimatedElement3.default.defaultProps, {
   x: 0,
   y: 0,
   rotation: 0,

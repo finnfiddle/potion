@@ -7,7 +7,7 @@ import 'd3-transition';
 import uniq from 'array-uniq';
 
 import SelectSelf from './SelectSelf';
-import { isFunction, pick, omit } from '../helpers';
+import { isFunction, pick, omit } from '../util';
 
 const EASE_TYPES = Object.keys(ease);
 const PRIVATE_PROP_NAMES = [

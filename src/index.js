@@ -22,7 +22,7 @@ import SymbolShape from './SymbolShape';
 import Svg from './Svg';
 import Text from './Text';
 import TransitionGroup from './TransitionGroup';
-import helpers from './helpers';
+import helpers from './util';
 
 export {
   Arc,

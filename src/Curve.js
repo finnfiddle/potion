@@ -2,7 +2,7 @@ import { Component } from 'react';
 // import itsSet from 'its-set';
 // import d3Shape from 'd3-shape';
 //
-// import { bindMouseEvents } from './helpers';
+// import { bindMouseEvents } from './util';
 
 export default class Curve extends Component {
 

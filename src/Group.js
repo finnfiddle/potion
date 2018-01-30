@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import itsSet from 'its-set';
 import get from 'utils-deep-get';
 
-import { bindMouseEvents, isFunction } from './helpers';
+import { bindMouseEvents, isFunction } from './util';
 import TransitionGroup from './TransitionGroup';
 import AnimatedElement from './mixins/AnimatedElement';
 

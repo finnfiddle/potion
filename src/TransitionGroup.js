@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTransitionGroup from 'react-transition-group/TransitionGroup';
 
-import { bindMouseEvents } from './helpers';
+import { bindMouseEvents } from './util';
 
 export default class TransitionGroup extends Component {
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { forceSimulation } from 'd3-force';
 import itsSet from 'its-set';
 
-import { isObject } from './helpers';
+import { isObject } from './util';
 import TransitionGroup from './TransitionGroup';
 import SelectSelf from './mixins/SelectSelf';
 

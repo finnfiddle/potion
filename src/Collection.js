@@ -1,7 +1,7 @@
 import React, { Children, cloneElement, Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { isFunction } from './helpers';
+import { isFunction } from './util';
 import TransitionGroup from './TransitionGroup';
 
 export default class Collection extends Component {

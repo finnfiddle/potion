@@ -1,5 +1,6 @@
 import itsSet from 'its-set';
 import intersection from 'intersect';
+import isEqual from 'deep-equal';
 
 import { MOUSE_EVENTS } from './constants';
 
@@ -58,6 +59,17 @@ export const omit = (obj, keys) => {
   keys.forEach(key => delete result[key]);
   return result;
 };
+
+const changes = (object, base) =>
+  Object.keys(object).reduce((result, key) => {
+    const value = object[key];
+    if (!isEqual(value, base[key])) {
+      result[key] = (isObject(value) && isObject(base[key])) ? changes(value, base[key]) : value;
+    }
+    return result;
+  }, {});
+
+export const diff = (object, base) => changes(object, base);
 
 export default {
   cap,

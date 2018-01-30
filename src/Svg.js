@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import deepEqual from 'deep-equal';
 
 import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './helpers';
+import { bindMouseEvents } from './util';
 import TransitionGroup from './TransitionGroup';
 import AnimatedElement from './mixins/AnimatedElement';
 
@@ -34,15 +34,15 @@ export default class Svg extends AnimatedElement {
   }
 
   addPatterns(props) {
-    const selection = this.selectSelf();
-    props.patterns.forEach(pattern => {
-      selection.call(pattern);
-    });
+    // const selection = this.selectSelf();
+    // props.patterns.forEach(pattern => {
+    //   selection.call(pattern);
+    // });
   }
 
   render() {
     return (
-      <svg
+      <this.props.component
         {...this.state}
         style={this.getStyle(this.props)}
         {...bindMouseEvents(this.props)}
@@ -50,7 +50,7 @@ export default class Svg extends AnimatedElement {
         <TransitionGroup>
           {this.props.children}
         </TransitionGroup>
-      </svg>
+      </this.props.component>
     );
   }
 
@@ -62,4 +62,5 @@ Svg.propTypes = {
 
 Svg.defaultProps = Object.assign({
   patterns: [],
+  component: 'svg',
 }, AnimatedElement.defaultProps);

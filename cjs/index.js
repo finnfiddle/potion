@@ -101,9 +101,9 @@ var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
-var _helpers = require('./helpers');
+var _util = require('./util');
 
-var _helpers2 = _interopRequireDefault(_helpers);
+var _util2 = _interopRequireDefault(_util);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -131,4 +131,4 @@ exports.SymbolShape = _SymbolShape2.default;
 exports.Svg = _Svg2.default;
 exports.Text = _Text2.default;
 exports.TransitionGroup = _TransitionGroup2.default;
-exports.helpers = _helpers2.default;
+exports.helpers = _util2.default;

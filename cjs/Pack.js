@@ -4,7 +4,29 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -20,66 +42,85 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
+var _deepEqual = require('deep-equal');
+
+var _deepEqual2 = _interopRequireDefault(_deepEqual);
+
 var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
-var _helpers = require('./helpers');
+var _util = require('./util');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var Pack = function (_Component) {
-  _inherits(Pack, _Component);
+  (0, _inherits3.default)(Pack, _Component);
 
   function Pack(props) {
-    _classCallCheck(this, Pack);
+    (0, _classCallCheck3.default)(this, Pack);
 
-    var _this = _possibleConstructorReturn(this, (Pack.__proto__ || Object.getPrototypeOf(Pack)).call(this, props));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (Pack.__proto__ || (0, _getPrototypeOf2.default)(Pack)).call(this, props));
 
     _this.displayName = 'Pack';
+    _this.state = {
+      data: []
+    };
     return _this;
   }
 
-  _createClass(Pack, [{
-    key: 'getPack',
-    value: function getPack() {
-      var _this2 = this;
-
-      var p = (0, _d3Hierarchy.pack)();
-      ['radius', 'size', 'padding'].forEach(function (key) {
-        if ((0, _itsSet2.default)(_this2.props[key])) p = p[key](_this2.props[key]);
-      });
-      return p;
+  (0, _createClass3.default)(Pack, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.calculateData(this.props);
     }
   }, {
-    key: 'renderChildren',
-    value: function renderChildren() {
-      var _props = this.props,
-          data = _props.data,
-          children = _props.children,
-          includeRoot = _props.includeRoot;
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.radius !== nextProps.radius || !(0, _deepEqual2.default)(this.props.size, nextProps.size) || this.props.padding !== nextProps.padding || !(0, _deepEqual2.default)(this.props.data.data, nextProps.data.data)) {
+        this.calculateData(nextProps);
+      }
+    }
+  }, {
+    key: 'calculatePack',
+    value: function calculatePack(props) {
+      var pack = (0, _d3Hierarchy.pack)();
+      ['radius', 'size', 'padding'].forEach(function (key) {
+        if ((0, _itsSet2.default)(props[key])) pack = pack[key](props[key]);
+      });
+      return pack;
+    }
+  }, {
+    key: 'calculateData',
+    value: function calculateData(props) {
+      var data = props.data,
+          includeRoot = props.includeRoot;
 
 
-      var packData = this.getPack()((0, _helpers.isFunction)(data) ? data(this.props) : data);
-      var filteredData = (0, _helpers.flattenHierarchy)(packData).slice(includeRoot ? 0 : 1).map(function (datum) {
-        var result = Object.assign({}, datum.data, datum);
+      var packData = this.calculatePack(props)((0, _util.isFunction)(data) ? data(props) : data);
+      var calculatedData = (0, _util.flattenHierarchy)(packData).slice(includeRoot ? 0 : 1).map(function (datum) {
+        console.log({ datum: datum });
+        var result = (0, _assign2.default)({}, datum.data, datum);
         delete result.data;
         delete result.parent;
         return result;
       });
+      this.setState({ data: calculatedData });
+      return calculatedData;
+    }
+  }, {
+    key: 'renderChildren',
+    value: function renderChildren() {
+      var _this2 = this;
 
-      return filteredData.reduce(function (acc, datum, index) {
+      var children = this.props.children;
+
+      return this.state.data.reduce(function (acc, datum, index) {
         return acc.concat(_react.Children.map(children, function (child, c) {
           return (0, _react.cloneElement)(child, {
             datum: datum,
             index: index,
-            data: filteredData,
+            data: _this2.state.data,
             key: index + '_' + c,
             _key: index + '_' + c
           });
@@ -91,18 +132,18 @@ var Pack = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         _TransitionGroup2.default,
-        null,
+        { component: this.props.component },
         this.renderChildren()
       );
     }
   }]);
-
   return Pack;
 }(_react.Component);
 
-exports.default = Pack;
-
-
+Pack.defaultProps = {
+  includeRoot: true,
+  component: 'g'
+};
 Pack.propTypes = {
   radius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
   size: _propTypes2.default.arrayOf(_propTypes2.default.number),
@@ -113,9 +154,7 @@ Pack.propTypes = {
   // packEnclose: PropTypes.number,
   data: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
   children: _propTypes2.default.node,
-  includeRoot: _propTypes2.default.bool
+  includeRoot: _propTypes2.default.bool,
+  component: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element])
 };
-
-Pack.defaultProps = {
-  includeRoot: true
-};
+exports.default = Pack;

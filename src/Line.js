@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './helpers';
+import { bindMouseEvents } from './util';
 import AnimatedElement from './mixins/AnimatedElement';
 
 export default class Line extends AnimatedElement {

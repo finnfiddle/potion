@@ -1,16 +1,22 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './helpers';
+import Element from './Element';
 
-import AnimatedElement from './mixins/AnimatedElement';
+export default class Rect extends Element {
 
-export default class Rect extends AnimatedElement {
+  static displayName = 'Rect';
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Rect';
+  static propTypes = {
+    x: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    y: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    height: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    width: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+  }
+
+  static defaultProps = {
+    ...Element.defaultProps,
+    component: 'rect',
   }
 
   getAttrNames() {
@@ -18,18 +24,7 @@ export default class Rect extends AnimatedElement {
   }
 
   render() {
-    return (
-      <rect {...this.state} style={this.getStyle(this.props)} {...bindMouseEvents(this.props)} />
-    );
+    return this.state.el;
   }
 
 }
-
-Rect.propTypes = {
-  x: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  y: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  height: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  width: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-};
-
-Rect.defaultProps = Object.assign({}, AnimatedElement.defaultProps);
