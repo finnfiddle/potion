@@ -1,34 +1,33 @@
-import React from 'react';
+import { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './util';
-import AnimatedElement from './mixins/AnimatedElement';
+import Element from './Element';
+import { isFunction } from './util';
 
-export default class Text extends AnimatedElement {
+export default class Text extends Element {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Text';
+  static displayName = 'Text';
+
+  static propTypes = {
+    dx: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    dy: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   }
+
+  static defaultProps = {
+    ...Element.defaultProps,
+    component: 'text',
+  };
 
   getAttrNames() {
     return ['dx', 'dy'].concat(TWEENABLE_SVG_PRESENTATION_ATTRS);
   }
 
   render() {
-    return (
-      <text {...this.state} style={this.getStyle(this.props)} {...bindMouseEvents(this.props)}>
-        {this.props.children}
-      </text>
-    );
+    const { children } = this.props;
+    return this.state.el ? cloneElement(this.state.el, {
+      children: isFunction(children) ? children(this.props) : children,
+    }) : null;
   }
 
 }
-
-Text.propTypes = {
-  dx: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  dy: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-};
-
-Text.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _assign = require('babel-runtime/core-js/object/assign');
-
-var _assign2 = _interopRequireDefault(_assign);
-
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -50,28 +46,22 @@ var _deepEqual2 = _interopRequireDefault(_deepEqual);
 
 var _constants = require('./constants');
 
-var _util = require('./util');
-
 var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
-var _AnimatedElement2 = require('./mixins/AnimatedElement');
+var _Element2 = require('./Element');
 
-var _AnimatedElement3 = _interopRequireDefault(_AnimatedElement2);
+var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Svg = function (_AnimatedElement) {
-  (0, _inherits3.default)(Svg, _AnimatedElement);
+var Svg = function (_Element) {
+  (0, _inherits3.default)(Svg, _Element);
 
-  function Svg(props) {
+  function Svg() {
     (0, _classCallCheck3.default)(this, Svg);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Svg.__proto__ || (0, _getPrototypeOf2.default)(Svg)).call(this, props));
-
-    _this.displayName = 'Svg';
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (Svg.__proto__ || (0, _getPrototypeOf2.default)(Svg)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(Svg, [{
@@ -100,6 +90,7 @@ var Svg = function (_AnimatedElement) {
   }, {
     key: 'addPatterns',
     value: function addPatterns(props) {
+      console.log('add patterns', props.patterns);
       // const selection = this.selectSelf();
       // props.patterns.forEach(pattern => {
       //   selection.call(pattern);
@@ -108,30 +99,25 @@ var Svg = function (_AnimatedElement) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        this.props.component,
-        (0, _extends3.default)({}, this.state, {
-          style: this.getStyle(this.props)
-        }, (0, _util.bindMouseEvents)(this.props)),
-        _react2.default.createElement(
+      return this.state.el ? (0, _react.cloneElement)(this.state.el, {
+        children: _react2.default.createElement(
           _TransitionGroup2.default,
-          null,
+          { component: this.props.groupComponent },
           this.props.children
         )
-      );
+      }) : null;
     }
   }]);
   return Svg;
-}(_AnimatedElement3.default);
+}(_Element3.default);
 
-exports.default = Svg;
-
-
+Svg.displayName = 'Svg';
+Svg.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+  patterns: [],
+  component: 'svg',
+  groupComponent: 'g'
+});
 Svg.propTypes = {
   patterns: _propTypes2.default.array
 };
-
-Svg.defaultProps = (0, _assign2.default)({
-  patterns: [],
-  component: 'svg'
-}, _AnimatedElement3.default.defaultProps);
+exports.default = Svg;

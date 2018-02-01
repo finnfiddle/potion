@@ -8,7 +8,9 @@ import TransitionGroup from './TransitionGroup';
 import { flattenHierarchy, isFunction } from './util';
 
 export default class Pack extends Component {
-  
+
+  static displayName = 'Pack';
+
   static defaultProps = {
     includeRoot: true,
     component: 'g',
@@ -33,7 +35,6 @@ export default class Pack extends Component {
 
   constructor(props) {
     super(props);
-    this.displayName = 'Pack';
     this.state = {
       data: [],
     };
@@ -75,7 +76,6 @@ export default class Pack extends Component {
     const calculatedData = flattenHierarchy(packData)
       .slice(includeRoot ? 0 : 1)
       .map(datum => {
-        console.log({ datum });
         const result = Object.assign({}, datum.data, datum);
         delete result.data;
         delete result.parent;

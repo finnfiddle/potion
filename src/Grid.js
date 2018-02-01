@@ -8,9 +8,22 @@ import { isFunction } from './util';
 
 export default class Grid extends Component {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Grid';
+  static displayName = 'Grid';
+
+  static propTypes = {
+    size: PropTypes.arrayOf(PropTypes.number),
+    nodeSize: PropTypes.arrayOf(PropTypes.number),
+    rows: PropTypes.number,
+    cols: PropTypes.number,
+    bands: PropTypes.bool,
+    padding: PropTypes.arrayOf(PropTypes.number),
+    data: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.func,
+    ]),
+    children: PropTypes.node,
+    singularChildren: PropTypes.node,
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   }
 
   getGrid() {
@@ -72,25 +85,10 @@ export default class Grid extends Component {
   render() {
     const gridData = this.getGrid();
     return (
-      <TransitionGroup>
+      <TransitionGroup component={this.props.component}>
         {this.renderChildren(gridData)}
         {this.renderSingularChildren(gridData)}
       </TransitionGroup>
     );
   }
 }
-
-Grid.propTypes = {
-  size: PropTypes.arrayOf(PropTypes.number),
-  nodeSize: PropTypes.arrayOf(PropTypes.number),
-  rows: PropTypes.number,
-  cols: PropTypes.number,
-  bands: PropTypes.bool,
-  padding: PropTypes.arrayOf(PropTypes.number),
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func,
-  ]),
-  children: PropTypes.node,
-  singularChildren: PropTypes.node,
-};

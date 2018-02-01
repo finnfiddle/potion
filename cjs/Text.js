@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _assign = require('babel-runtime/core-js/object/assign');
-
-var _assign2 = _interopRequireDefault(_assign);
-
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -34,32 +30,26 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
-var _react2 = _interopRequireDefault(_react);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _constants = require('./constants');
 
+var _Element2 = require('./Element');
+
+var _Element3 = _interopRequireDefault(_Element2);
+
 var _util = require('./util');
-
-var _AnimatedElement2 = require('./mixins/AnimatedElement');
-
-var _AnimatedElement3 = _interopRequireDefault(_AnimatedElement2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Text = function (_AnimatedElement) {
-  (0, _inherits3.default)(Text, _AnimatedElement);
+var Text = function (_Element) {
+  (0, _inherits3.default)(Text, _Element);
 
-  function Text(props) {
+  function Text() {
     (0, _classCallCheck3.default)(this, Text);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Text.__proto__ || (0, _getPrototypeOf2.default)(Text)).call(this, props));
-
-    _this.displayName = 'Text';
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (Text.__proto__ || (0, _getPrototypeOf2.default)(Text)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(Text, [{
@@ -70,22 +60,22 @@ var Text = function (_AnimatedElement) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'text',
-        (0, _extends3.default)({}, this.state, { style: this.getStyle(this.props) }, (0, _util.bindMouseEvents)(this.props)),
-        this.props.children
-      );
+      var children = this.props.children;
+
+      return this.state.el ? (0, _react.cloneElement)(this.state.el, {
+        children: (0, _util.isFunction)(children) ? children(this.props) : children
+      }) : null;
     }
   }]);
   return Text;
-}(_AnimatedElement3.default);
+}(_Element3.default);
 
-exports.default = Text;
-
-
+Text.displayName = 'Text';
 Text.propTypes = {
   dx: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
   dy: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func])
 };
-
-Text.defaultProps = (0, _assign2.default)({}, _AnimatedElement3.default.defaultProps);
+Text.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+  component: 'text'
+});
+exports.default = Text;

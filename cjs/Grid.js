@@ -55,13 +55,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Grid = function (_Component) {
   (0, _inherits3.default)(Grid, _Component);
 
-  function Grid(props) {
+  function Grid() {
     (0, _classCallCheck3.default)(this, Grid);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Grid.__proto__ || (0, _getPrototypeOf2.default)(Grid)).call(this, props));
-
-    _this.displayName = 'Grid';
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (Grid.__proto__ || (0, _getPrototypeOf2.default)(Grid)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(Grid, [{
@@ -125,7 +121,7 @@ var Grid = function (_Component) {
       var gridData = this.getGrid();
       return _react2.default.createElement(
         _TransitionGroup2.default,
-        null,
+        { component: this.props.component },
         this.renderChildren(gridData),
         this.renderSingularChildren(gridData)
       );
@@ -134,9 +130,7 @@ var Grid = function (_Component) {
   return Grid;
 }(_react.Component);
 
-exports.default = Grid;
-
-
+Grid.displayName = 'Grid';
 Grid.propTypes = {
   size: _propTypes2.default.arrayOf(_propTypes2.default.number),
   nodeSize: _propTypes2.default.arrayOf(_propTypes2.default.number),
@@ -146,5 +140,7 @@ Grid.propTypes = {
   padding: _propTypes2.default.arrayOf(_propTypes2.default.number),
   data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.func]),
   children: _propTypes2.default.node,
-  singularChildren: _propTypes2.default.node
+  singularChildren: _propTypes2.default.node,
+  component: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element])
 };
+exports.default = Grid;

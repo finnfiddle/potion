@@ -12,10 +12,6 @@ var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _assign = require('babel-runtime/core-js/object/assign');
-
-var _assign2 = _interopRequireDefault(_assign);
-
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -36,10 +32,6 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -52,11 +44,9 @@ var _d3Shape = require('d3-shape');
 
 var _constants = require('./constants');
 
-var _util = require('./util');
+var _Element2 = require('./Element');
 
-var _AnimatedElement2 = require('./mixins/AnimatedElement');
-
-var _AnimatedElement3 = _interopRequireDefault(_AnimatedElement2);
+var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70,16 +60,12 @@ var SYMBOLS = {
   symbolWye: _d3Shape.symbolWye
 };
 
-var SymbolShape = function (_AnimatedElement) {
-  (0, _inherits3.default)(SymbolShape, _AnimatedElement);
+var SymbolShape = function (_Element) {
+  (0, _inherits3.default)(SymbolShape, _Element);
 
-  function SymbolShape(props) {
+  function SymbolShape() {
     (0, _classCallCheck3.default)(this, SymbolShape);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (SymbolShape.__proto__ || (0, _getPrototypeOf2.default)(SymbolShape)).call(this, props));
-
-    _this.displayName = 'SymbolShape';
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (SymbolShape.__proto__ || (0, _getPrototypeOf2.default)(SymbolShape)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(SymbolShape, [{
@@ -106,14 +92,14 @@ var SymbolShape = function (_AnimatedElement) {
     }
   }, {
     key: 'getDerivationMethod',
-    value: function getDerivationMethod(key, props, shouldGetDatum) {
+    value: function getDerivationMethod(key, props) {
       var _this2 = this;
 
       switch (key) {
         case 'd':
           return function (datum) {
             var attrInputNames = _this2.derivedAttrInputNames[key];
-            var attrValues = _this2.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames, shouldGetDatum);
+            var attrValues = _this2.getAttr((0, _extends3.default)({}, props, { datum: datum }), attrInputNames);
             var symbolInstance = (0, _d3Shape.symbol)();
             var size = attrValues.size,
                 type = attrValues.type;
@@ -128,18 +114,18 @@ var SymbolShape = function (_AnimatedElement) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('path', (0, _extends3.default)({}, this.state, { style: this.getStyle(this.props) }, (0, _util.bindMouseEvents)(this.props)));
+      return this.state.el;
     }
   }]);
   return SymbolShape;
-}(_AnimatedElement3.default);
+}(_Element3.default);
 
-exports.default = SymbolShape;
-
-
+SymbolShape.displayName = 'SymbolShape';
 SymbolShape.propTypes = {
   size: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
   type: _propTypes2.default.oneOf((0, _keys2.default)(SYMBOLS))
 };
-
-SymbolShape.defaultProps = (0, _assign2.default)({}, _AnimatedElement3.default.defaultProps);
+SymbolShape.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+  component: 'path'
+});
+exports.default = SymbolShape;

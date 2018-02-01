@@ -8,9 +8,23 @@ import { isFunction } from './util';
 
 export default class Pie extends Component {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Pie';
+  static displayName = 'Pie';
+
+  static propTypes = {
+    value: PropTypes.func,
+    sort: PropTypes.func,
+    sortValues: PropTypes.func,
+    startAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    endAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    padAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    data: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.func,
+    ]),
+    id: PropTypes.func,
+    singularChildren: PropTypes.node,
+    children: PropTypes.node,
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   }
 
   getPie() {
@@ -58,7 +72,7 @@ export default class Pie extends Component {
     if (itsSet(sort)) pieData = pieData.sort((a, b) => sort(a.data, b.data));
 
     return (
-      <TransitionGroup>
+      <TransitionGroup component={this.props.component}>
         {this.renderChildren(pieData)}
         {this.renderSingularChildren(pieData)}
       </TransitionGroup>
@@ -66,19 +80,3 @@ export default class Pie extends Component {
   }
 
 }
-
-Pie.propTypes = {
-  value: PropTypes.func,
-  sort: PropTypes.func,
-  sortValues: PropTypes.func,
-  startAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  endAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  padAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func,
-  ]),
-  id: PropTypes.func,
-  singularChildren: PropTypes.node,
-  children: PropTypes.node,
-};

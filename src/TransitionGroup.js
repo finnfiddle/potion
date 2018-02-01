@@ -6,9 +6,15 @@ import { bindMouseEvents } from './util';
 
 export default class TransitionGroup extends Component {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'TransitionGroup';
+  static displayName = 'TransitionGroup';
+
+  static propTypes = {
+    component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    children: PropTypes.node,
+  }
+
+  static defaultProps = {
+    component: 'g',
   }
 
   render() {
@@ -21,12 +27,3 @@ export default class TransitionGroup extends Component {
   }
 
 }
-
-TransitionGroup.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-  children: PropTypes.node,
-};
-
-TransitionGroup.defaultProps = {
-  component: 'g',
-};

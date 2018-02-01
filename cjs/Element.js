@@ -133,13 +133,31 @@ var Element = function (_Component) {
       return [];
     }
   }, {
+    key: 'getDerivedAttrNames',
+    value: function getDerivedAttrNames() {
+      return [];
+    }
+  }, {
+    key: 'getDerivedAttrInputNames',
+    value: function getDerivedAttrInputNames() {
+      return [];
+    }
+  }, {
+    key: 'getDatum',
+    value: function getDatum(datum, nextProps) {
+      var props = nextProps || this.props;
+      var datumAccessor = props.datumAccessor;
+
+      return datumAccessor ? datumAccessor((0, _extends5.default)({}, props, { datum: datum })) : datum;
+    }
+  }, {
     key: 'getDrawData',
     value: function getDrawData(stage, nextProps) {
       var props = nextProps || this.props;
       switch (stage) {
         case BEFORE_ENTER:
           {
-            var datum = this.getProp('enterDatum', props) || this.getProp('datum', props);
+            var datum = this.getDatum(this.getProp('enterDatum', props) || this.getProp('datum', props));
             var normalizedProps = (0, _extends5.default)({}, props, { datum: datum });
             return {
               attr: this.getAttr(normalizedProps),
@@ -149,7 +167,7 @@ var Element = function (_Component) {
           }
         case ENTER:
           {
-            var _datum = this.getProp('datum', props);
+            var _datum = this.getDatum(this.getProp('datum', props));
             var _normalizedProps = (0, _extends5.default)({}, props, { datum: _datum });
             return {
               attr: this.getAttr(_normalizedProps),
@@ -164,10 +182,10 @@ var Element = function (_Component) {
           }
         case UPDATE:
           {
-            var _datum2 = this.getProp('datum', props);
+            var _datum2 = this.getDatum(this.getProp('datum', props));
             var datumHasChanged = false;
             if (nextProps) {
-              datumHasChanged = !(0, _deepEqual2.default)(this.getProp('datum', this.props), this.getProp('datum', nextProps));
+              datumHasChanged = !(0, _deepEqual2.default)(_datum2, this.getDatum(this.getProp('datum', nextProps), nextProps));
             }
             var _normalizedProps2 = (0, _extends5.default)({}, props, { datum: _datum2 });
             var attr = this.getAttr(_normalizedProps2);
@@ -184,7 +202,7 @@ var Element = function (_Component) {
           }
         case EXIT:
           {
-            var _datum3 = this.getProp('exitDatum', props) || this.getProp('datum', props);
+            var _datum3 = this.getDatum(this.getProp('exitDatum', props) || this.getProp('datum', props));
             var _normalizedProps3 = (0, _extends5.default)({}, props, { datum: _datum3 });
             return {
               attr: this.getAttr(_normalizedProps3),
@@ -234,12 +252,20 @@ var Element = function (_Component) {
           props = _ref.props,
           selection = _ref.selection;
 
+      if (!props || !selection) return;
+      if (!fromDatum || !toDatum) {
+        this.derivedAttrNames.forEach(function (key) {
+          selection.attr(key, _this3.getDerivationMethod(key, props)());
+        });
+        this.solidify();
+        return;
+      }
       this.derivedAttrNames.forEach(function (key) {
         _this3.attrTween({
           attrName: key,
           fromDatum: fromDatum,
           toDatum: toDatum,
-          selection: selection,
+          selection: selection.constructor.name === 'Transition' ? selection : selection.transition(),
           derivationMethod: _this3.getDerivationMethod(key, props)
         });
       });
@@ -294,7 +320,8 @@ var Element = function (_Component) {
 
       var attrKeys = (0, _keys2.default)(attr);
       var styleKeys = (0, _keys2.default)(style);
-      if (!attrKeys.length && !styleKeys.length) {
+      if (!attrKeys.length && !styleKeys.length && !this.derivedAttrNames.length) {
+        this.solidify();
         callback();
         return;
       }

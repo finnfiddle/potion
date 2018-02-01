@@ -62,7 +62,6 @@ var Pack = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Pack.__proto__ || (0, _getPrototypeOf2.default)(Pack)).call(this, props));
 
-    _this.displayName = 'Pack';
     _this.state = {
       data: []
     };
@@ -99,7 +98,6 @@ var Pack = function (_Component) {
 
       var packData = this.calculatePack(props)((0, _util.isFunction)(data) ? data(props) : data);
       var calculatedData = (0, _util.flattenHierarchy)(packData).slice(includeRoot ? 0 : 1).map(function (datum) {
-        console.log({ datum: datum });
         var result = (0, _assign2.default)({}, datum.data, datum);
         delete result.data;
         delete result.parent;
@@ -140,6 +138,7 @@ var Pack = function (_Component) {
   return Pack;
 }(_react.Component);
 
+Pack.displayName = 'Pack';
 Pack.defaultProps = {
   includeRoot: true,
   component: 'g'

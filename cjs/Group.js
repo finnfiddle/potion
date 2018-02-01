@@ -4,13 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = require('babel-runtime/helpers/extends');
-
-var _extends3 = _interopRequireDefault(_extends2);
-
 var _assign = require('babel-runtime/core-js/object/assign');
 
 var _assign2 = _interopRequireDefault(_assign);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -54,22 +54,18 @@ var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
-var _AnimatedElement2 = require('./mixins/AnimatedElement');
+var _Element2 = require('./Element');
 
-var _AnimatedElement3 = _interopRequireDefault(_AnimatedElement2);
+var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Group = function (_AnimatedElement) {
-  (0, _inherits3.default)(Group, _AnimatedElement);
+var Group = function (_Element) {
+  (0, _inherits3.default)(Group, _Element);
 
-  function Group(props) {
+  function Group() {
     (0, _classCallCheck3.default)(this, Group);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Group.__proto__ || (0, _getPrototypeOf2.default)(Group)).call(this, props));
-
-    _this.displayName = 'Group';
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (Group.__proto__ || (0, _getPrototypeOf2.default)(Group)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(Group, [{
@@ -102,7 +98,7 @@ var Group = function (_AnimatedElement) {
     }
   }, {
     key: 'getDerivationMethod',
-    value: function getDerivationMethod(key, props, shouldGetDatum) {
+    value: function getDerivationMethod(key, props) {
       var _this2 = this;
 
       switch (key) {
@@ -110,12 +106,12 @@ var Group = function (_AnimatedElement) {
           return function (datum) {
             var attrInputNames = _this2.derivedAttrInputNames[key];
 
-            var _getAttrs = _this2.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames, shouldGetDatum),
-                x = _getAttrs.x,
-                y = _getAttrs.y,
-                rotation = _getAttrs.rotation,
-                rotationOriginX = _getAttrs.rotationOriginX,
-                rotationOriginY = _getAttrs.rotationOriginY;
+            var _getAttr = _this2.getAttr((0, _extends3.default)({}, props, { datum: datum }), attrInputNames),
+                x = _getAttr.x,
+                y = _getAttr.y,
+                rotation = _getAttr.rotation,
+                rotationOriginX = _getAttr.rotationOriginX,
+                rotationOriginY = _getAttr.rotationOriginY;
 
             return 'translate(' + x + ', ' + y + ') rotate(' + rotation + ', ' + rotationOriginX + ', ' + rotationOriginY + ')'; // eslint-disable-line max-len
           };
@@ -142,20 +138,19 @@ var Group = function (_AnimatedElement) {
   }, {
     key: 'render',
     value: function render() {
-      var style = this.getStyle(this.props);
-      return _react2.default.createElement(
-        _TransitionGroup2.default,
-        (0, _extends3.default)({}, this.state, { style: style }, (0, _util.bindMouseEvents)(this.props)),
-        this.renderChildren()
-      );
+      return this.state.el ? (0, _react.cloneElement)(this.state.el, {
+        children: _react2.default.createElement(
+          _TransitionGroup2.default,
+          { component: this.props.groupComponent },
+          this.renderChildren()
+        )
+      }) : null;
     }
   }]);
   return Group;
-}(_AnimatedElement3.default);
+}(_Element3.default);
 
-exports.default = Group;
-
-
+Group.displayName = 'Group';
 Group.propTypes = {
   x: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
   y: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
@@ -163,11 +158,12 @@ Group.propTypes = {
   rotationOriginX: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
   rotationOriginY: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number])
 };
-
-Group.defaultProps = (0, _assign2.default)({}, _AnimatedElement3.default.defaultProps, {
+Group.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
   x: 0,
   y: 0,
   rotation: 0,
   rotationOriginX: 0,
-  rotationOriginY: 0
+  rotationOriginY: 0,
+  component: 'g'
 });
+exports.default = Group;

@@ -81,11 +81,27 @@ export default class Element extends Component {
     return [];
   }
 
+  getDerivedAttrNames() {
+    return [];
+  }
+
+  getDerivedAttrInputNames() {
+    return [];
+  }
+
+  getDatum(datum, nextProps) {
+    const props = nextProps || this.props;
+    const { datumAccessor } = props;
+    return datumAccessor ? datumAccessor({ ...props, datum }) : datum;
+  }
+
   getDrawData(stage, nextProps) {
     const props = nextProps || this.props;
     switch (stage) {
       case BEFORE_ENTER: {
-        const datum = this.getProp('enterDatum', props) || this.getProp('datum', props);
+        const datum = this.getDatum(
+          this.getProp('enterDatum', props) || this.getProp('datum', props)
+        );
         const normalizedProps = { ...props, datum };
         return {
           attr: this.getAttr(normalizedProps),
@@ -94,7 +110,7 @@ export default class Element extends Component {
         };
       }
       case ENTER: {
-        const datum = this.getProp('datum', props);
+        const datum = this.getDatum(this.getProp('datum', props));
         const normalizedProps = { ...props, datum };
         return {
           attr: this.getAttr(normalizedProps),
@@ -108,12 +124,12 @@ export default class Element extends Component {
         };
       }
       case UPDATE: {
-        const datum = this.getProp('datum', props);
+        const datum = this.getDatum(this.getProp('datum', props));
         let datumHasChanged = false;
         if (nextProps) {
           datumHasChanged = !isEqual(
-            this.getProp('datum', this.props),
-            this.getProp('datum', nextProps)
+            datum,
+            this.getDatum(this.getProp('datum', nextProps), nextProps)
           );
         }
         const normalizedProps = { ...props, datum };
@@ -130,7 +146,9 @@ export default class Element extends Component {
         };
       }
       case EXIT: {
-        const datum = this.getProp('exitDatum', props) || this.getProp('datum', props);
+        const datum = this.getDatum(
+          this.getProp('exitDatum', props) || this.getProp('datum', props)
+        );
         const normalizedProps = { ...props, datum };
         return {
           attr: this.getAttr(normalizedProps),
@@ -166,13 +184,24 @@ export default class Element extends Component {
   }
 
   tweenDerivedAttrs({ fromDatum, toDatum, props, selection }) {
+    if (!props || !selection) return;
+    if (!fromDatum || !toDatum) {
+      this.derivedAttrNames
+        .forEach(key => {
+          selection.attr(key, this.getDerivationMethod(key, props)());
+        });
+      this.solidify();
+      return;
+    }
     this.derivedAttrNames
       .forEach(key => {
         this.attrTween({
           attrName: key,
           fromDatum,
           toDatum,
-          selection,
+          selection: selection.constructor.name === 'Transition' ?
+            selection :
+            selection.transition(),
           derivationMethod: this.getDerivationMethod(key, props),
         });
       });
@@ -217,7 +246,8 @@ export default class Element extends Component {
   }) {
     const attrKeys = Object.keys(attr);
     const styleKeys = Object.keys(style);
-    if (!attrKeys.length && !styleKeys.length) {
+    if (!attrKeys.length && !styleKeys.length && !this.derivedAttrNames.length) {
+      this.solidify();
       callback();
       return;
     }

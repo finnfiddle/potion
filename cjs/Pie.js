@@ -49,13 +49,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Pie = function (_Component) {
   (0, _inherits3.default)(Pie, _Component);
 
-  function Pie(props) {
+  function Pie() {
     (0, _classCallCheck3.default)(this, Pie);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Pie.__proto__ || (0, _getPrototypeOf2.default)(Pie)).call(this, props));
-
-    _this.displayName = 'Pie';
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (Pie.__proto__ || (0, _getPrototypeOf2.default)(Pie)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(Pie, [{
@@ -113,7 +109,7 @@ var Pie = function (_Component) {
 
       return _react2.default.createElement(
         _TransitionGroup2.default,
-        null,
+        { component: this.props.component },
         this.renderChildren(pieData),
         this.renderSingularChildren(pieData)
       );
@@ -122,9 +118,7 @@ var Pie = function (_Component) {
   return Pie;
 }(_react.Component);
 
-exports.default = Pie;
-
-
+Pie.displayName = 'Pie';
 Pie.propTypes = {
   value: _propTypes2.default.func,
   sort: _propTypes2.default.func,
@@ -135,5 +129,7 @@ Pie.propTypes = {
   data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.func]),
   id: _propTypes2.default.func,
   singularChildren: _propTypes2.default.node,
-  children: _propTypes2.default.node
+  children: _propTypes2.default.node,
+  component: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element])
 };
+exports.default = Pie;

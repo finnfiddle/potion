@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import deepEqual from 'deep-equal';
+import isEqual from 'deep-equal';
 
 import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './util';
 import TransitionGroup from './TransitionGroup';
-import AnimatedElement from './mixins/AnimatedElement';
+import Element from './Element';
 
-export default class Svg extends AnimatedElement {
+export default class Svg extends Element {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Svg';
+  static displayName = 'Svg';
+
+  static defaultProps = {
+    ...Element.defaultProps,
+    patterns: [],
+    component: 'svg',
+    groupComponent: 'g',
+  }
+
+  static propTypes = {
+    patterns: PropTypes.array,
   }
 
   componentDidMount() {
@@ -19,7 +26,7 @@ export default class Svg extends AnimatedElement {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!deepEqual(this.props.patterns, nextProps.patterns)) {
+    if (!isEqual(this.props.patterns, nextProps.patterns)) {
       this.addPatterns(nextProps);
     }
     super.componentWillReceiveProps(nextProps);
@@ -34,6 +41,7 @@ export default class Svg extends AnimatedElement {
   }
 
   addPatterns(props) {
+    console.log('add patterns', props.patterns);
     // const selection = this.selectSelf();
     // props.patterns.forEach(pattern => {
     //   selection.call(pattern);
@@ -41,26 +49,13 @@ export default class Svg extends AnimatedElement {
   }
 
   render() {
-    return (
-      <this.props.component
-        {...this.state}
-        style={this.getStyle(this.props)}
-        {...bindMouseEvents(this.props)}
-      >
-        <TransitionGroup>
+    return this.state.el ? cloneElement(this.state.el, {
+      children: (
+        <TransitionGroup component={this.props.groupComponent}>
           {this.props.children}
         </TransitionGroup>
-      </this.props.component>
-    );
+      ),
+    }) : null;
   }
 
 }
-
-Svg.propTypes = {
-  patterns: PropTypes.array,
-};
-
-Svg.defaultProps = Object.assign({
-  patterns: [],
-  component: 'svg',
-}, AnimatedElement.defaultProps);

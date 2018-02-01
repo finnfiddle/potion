@@ -43,13 +43,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Collection = function (_Component) {
   (0, _inherits3.default)(Collection, _Component);
 
-  function Collection(props) {
+  function Collection() {
     (0, _classCallCheck3.default)(this, Collection);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Collection.__proto__ || (0, _getPrototypeOf2.default)(Collection)).call(this, props));
-
-    _this.displayName = 'Collection';
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (Collection.__proto__ || (0, _getPrototypeOf2.default)(Collection)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(Collection, [{
@@ -77,7 +73,7 @@ var Collection = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         _TransitionGroup2.default,
-        null,
+        { component: this.props.component },
         this.renderChildren()
       );
     }
@@ -85,10 +81,10 @@ var Collection = function (_Component) {
   return Collection;
 }(_react.Component);
 
-exports.default = Collection;
-
-
+Collection.displayName = 'Collection';
 Collection.propTypes = {
   data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.func]),
-  children: _propTypes2.default.node
+  children: _propTypes2.default.node,
+  component: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element])
 };
+exports.default = Collection;

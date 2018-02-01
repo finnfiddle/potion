@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _assign = require('babel-runtime/core-js/object/assign');
-
-var _assign2 = _interopRequireDefault(_assign);
-
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -32,34 +28,24 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _constants = require('./constants');
 
-var _util = require('./util');
+var _Element2 = require('./Element');
 
-var _AnimatedElement2 = require('./mixins/AnimatedElement');
-
-var _AnimatedElement3 = _interopRequireDefault(_AnimatedElement2);
+var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Line = function (_AnimatedElement) {
-  (0, _inherits3.default)(Line, _AnimatedElement);
+var Line = function (_Element) {
+  (0, _inherits3.default)(Line, _Element);
 
-  function Line(props) {
+  function Line() {
     (0, _classCallCheck3.default)(this, Line);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Line.__proto__ || (0, _getPrototypeOf2.default)(Line)).call(this, props));
-
-    _this.displayName = 'Line';
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (Line.__proto__ || (0, _getPrototypeOf2.default)(Line)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(Line, [{
@@ -70,25 +56,20 @@ var Line = function (_AnimatedElement) {
   }, {
     key: 'render',
     value: function render() {
-      var className = this.props.className;
-
-      return _react2.default.createElement('line', (0, _extends3.default)({}, this.state, {
-        className: className,
-        style: this.getStyle(this.props)
-      }, (0, _util.bindMouseEvents)(this.props)));
+      return this.state.el;
     }
   }]);
   return Line;
-}(_AnimatedElement3.default);
+}(_Element3.default);
 
-exports.default = Line;
-
-
+Line.displayName = 'Line';
 Line.propTypes = {
   x1: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]).isRequired,
   x2: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]).isRequired,
   y1: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]).isRequired,
   y2: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]).isRequired
 };
-
-Line.defaultProps = (0, _assign2.default)({}, _AnimatedElement3.default.defaultProps);
+Line.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+  component: 'line'
+});
+exports.default = Line;

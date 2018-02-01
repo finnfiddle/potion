@@ -6,9 +6,15 @@ import TransitionGroup from './TransitionGroup';
 
 export default class Collection extends Component {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Collection';
+  static displayName = 'Collection';
+
+  static propTypes = {
+    data: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.func,
+    ]),
+    children: PropTypes.node,
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   }
 
   renderChildren() {
@@ -29,18 +35,10 @@ export default class Collection extends Component {
 
   render() {
     return (
-      <TransitionGroup>
+      <TransitionGroup component={this.props.component}>
         {this.renderChildren()}
       </TransitionGroup>
     );
   }
 
 }
-
-Collection.propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func,
-  ]),
-  children: PropTypes.node,
-};

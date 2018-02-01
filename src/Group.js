@@ -3,15 +3,30 @@ import PropTypes from 'prop-types';
 import itsSet from 'its-set';
 import get from 'utils-deep-get';
 
-import { bindMouseEvents, isFunction } from './util';
+import { isFunction } from './util';
 import TransitionGroup from './TransitionGroup';
-import AnimatedElement from './mixins/AnimatedElement';
+import Element from './Element';
 
-export default class Group extends AnimatedElement {
+export default class Group extends Element {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Group';
+  static displayName = 'Group';
+
+  static propTypes = {
+    x: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    y: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    rotation: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    rotationOriginX: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+    rotationOriginY: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
+  }
+
+  static defaultProps = {
+    ...Element.defaultProps,
+    x: 0,
+    y: 0,
+    rotation: 0,
+    rotationOriginX: 0,
+    rotationOriginY: 0,
+    component: 'g',
   }
 
   getDerivedAttrNames() {
@@ -38,7 +53,7 @@ export default class Group extends AnimatedElement {
     return ['x', 'y', 'rotation', 'rotationOriginX', 'rotationOriginY'];
   }
 
-  getDerivationMethod(key, props, shouldGetDatum) {
+  getDerivationMethod(key, props) {
     switch (key) {
       case 'transform':
         return datum => {
@@ -49,7 +64,7 @@ export default class Group extends AnimatedElement {
             rotation,
             rotationOriginX,
             rotationOriginY,
-          } = this.getAttrs(Object.assign({}, props, { datum }), attrInputNames, shouldGetDatum);
+          } = this.getAttr({ ...props, datum }, attrInputNames);
           return `translate(${x}, ${y}) rotate(${rotation}, ${rotationOriginX}, ${rotationOriginY})`; // eslint-disable-line max-len
         };
       // no default
@@ -68,27 +83,12 @@ export default class Group extends AnimatedElement {
   }
 
   render() {
-    const style = this.getStyle(this.props);
-    return (
-      <TransitionGroup {...this.state} style={style} {...bindMouseEvents(this.props)}>
-        {this.renderChildren()}
-      </TransitionGroup>
-    );
+    return this.state.el ? cloneElement(this.state.el, {
+      children: (
+        <TransitionGroup component={this.props.groupComponent}>
+          {this.renderChildren()}
+        </TransitionGroup>
+      ),
+    }) : null;
   }
 }
-
-Group.propTypes = {
-  x: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  y: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  rotation: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  rotationOriginX: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-  rotationOriginY: PropTypes.oneOfType([PropTypes.func, PropTypes.number]),
-};
-
-Group.defaultProps = Object.assign({}, AnimatedElement.defaultProps, {
-  x: 0,
-  y: 0,
-  rotation: 0,
-  rotationOriginX: 0,
-  rotationOriginY: 0,
-});

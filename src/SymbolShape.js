@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import itsSet from 'its-set';
 import {
@@ -23,14 +22,20 @@ const SYMBOLS = {
 };
 
 import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './util';
-import AnimatedElement from './mixins/AnimatedElement';
+import Element from './Element';
 
-export default class SymbolShape extends AnimatedElement {
+export default class SymbolShape extends Element {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'SymbolShape';
+  static displayName = 'SymbolShape';
+
+  static propTypes = {
+    size: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    type: PropTypes.oneOf(Object.keys(SYMBOLS)),
+  };
+
+  static defaultProps = {
+    ...Element.defaultProps,
+    component: 'path',
   }
 
   getAttrNames() {
@@ -51,16 +56,12 @@ export default class SymbolShape extends AnimatedElement {
     };
   }
 
-  getDerivationMethod(key, props, shouldGetDatum) {
+  getDerivationMethod(key, props) {
     switch (key) {
       case 'd':
         return datum => {
           const attrInputNames = this.derivedAttrInputNames[key];
-          const attrValues = this.getAttrs(
-            Object.assign({}, props, { datum }),
-            attrInputNames,
-            shouldGetDatum
-          );
+          const attrValues = this.getAttr({ ...props, datum }, attrInputNames);
           let symbolInstance = symbol();
           const { size, type } = attrValues;
           if (itsSet(size)) symbolInstance = symbolInstance.size(size);
@@ -72,16 +73,7 @@ export default class SymbolShape extends AnimatedElement {
   }
 
   render() {
-    return (
-      <path {...this.state} style={this.getStyle(this.props)} {...bindMouseEvents(this.props)} />
-    );
+    return this.state.el;
   }
 
 }
-
-SymbolShape.propTypes = {
-  size: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  type: PropTypes.oneOf(Object.keys(SYMBOLS)),
-};
-
-SymbolShape.defaultProps = Object.assign({}, AnimatedElement.defaultProps);
