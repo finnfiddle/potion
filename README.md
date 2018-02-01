@@ -998,4 +998,22 @@ The strategy for combining React with D3 is very inspired by the work of [Swizec
 
 `// TODO: document`
 
+## Transformations
 
+```
+  <Circle
+    transform={[
+      { type: 'scale', value: [x, y] }
+    ]}
+  />
+```
+
+Or
+
+```
+  <Circle
+    transform={{
+      scale: [x, y]
+    }}
+  />
+```

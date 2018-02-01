@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as d3Axis from 'd3-axis';
 import { interpolate } from 'd3-interpolate';
 
-import { cap, omit } from './helpers';
+import { cap, omit } from './util';
 import SelectSelf from './mixins/SelectSelf';
 
 export default class Axis extends SelectSelf {

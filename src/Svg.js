@@ -1,65 +1,41 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import deepEqual from 'deep-equal';
+// import deepEqual from 'deep-equal';
 
-import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './helpers';
-import TransitionGroup from './TransitionGroup';
-import AnimatedElement from './mixins/AnimatedElement';
+import Element from './Element';
 
-export default class Svg extends AnimatedElement {
+export default class Svg extends Element {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Svg';
-  }
+  static displayName = 'Svg';
 
-  componentDidMount() {
-    this.addPatterns(this.props);
-  }
+  static propTypes = {
+    patterns: PropTypes.array,
+  };
 
-  componentWillReceiveProps(nextProps) {
-    if (!deepEqual(this.props.patterns, nextProps.patterns)) {
-      this.addPatterns(nextProps);
-    }
-    super.componentWillReceiveProps(nextProps);
-  }
+  static defaultProps = {
+    ...Element.defaultProps,
+    patterns: [],
+    component: 'svg',
+  };
 
-  getAttrNames() {
-    return ['width', 'height'].concat(TWEENABLE_SVG_PRESENTATION_ATTRS);
-  }
+  // componentDidMount() {
+  //   this.addPatterns(this.props);
+  // }
 
-  getPrivatePropNames() {
-    return ['patterns'];
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (!deepEqual(this.props.patterns, nextProps.patterns)) {
+  //     this.addPatterns(nextProps);
+  //   }
+  //   super.componentWillReceiveProps(nextProps);
+  // }
 
-  addPatterns(props) {
-    const selection = this.selectSelf();
-    props.patterns.forEach(pattern => {
-      selection.call(pattern);
-    });
-  }
+  // getPrivatePropNames() {
+  //   return ['patterns'];
+  // }
 
-  render() {
-    return (
-      <svg
-        {...this.state}
-        style={this.getStyle(this.props)}
-        {...bindMouseEvents(this.props)}
-      >
-        <TransitionGroup>
-          {this.props.children}
-        </TransitionGroup>
-      </svg>
-    );
-  }
-
+  // addPatterns(props) {
+  //   const selection = this.selectSelf();
+  //   props.patterns.forEach(pattern => {
+  //     selection.call(pattern);
+  //   });
+  // }
 }
-
-Svg.propTypes = {
-  patterns: PropTypes.array,
-};
-
-Svg.defaultProps = Object.assign({
-  patterns: [],
-}, AnimatedElement.defaultProps);

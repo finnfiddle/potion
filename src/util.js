@@ -1,3 +1,4 @@
+import React, { version } from 'react';
 import itsSet from 'its-set';
 import intersection from 'intersect';
 
@@ -57,6 +58,32 @@ export const omit = (obj, keys) => {
   const result = Object.assign({}, obj);
   keys.forEach(key => delete result[key]);
   return result;
+};
+
+const getTranformation = meta => ({
+  matrix: ([a, b, c, d, e, f]) => `matrix(${a}, ${b}, ${c}, ${d}, ${e}, ${f})`,
+  translate: ([x, y]) => `translate(${x}${y ? `, ${y}` : ''})`,
+  scale: ([x, y]) => `scale(${x}${y ? `, ${y}` : ''})`,
+  rotate: ([a, x, y]) => `rotate(${a}${x ? `, ${x}` : ''}${y ? `, ${y}` : ''})`,
+  skewX: ([a]) => `skewX(${a})`,
+  skewy: ([a]) => `skewy(${a})`,
+})[meta.type](meta.value);
+
+export const getTransformationsFromArray = arr =>
+  arr.reduce((acc, meta) =>
+    `${acc} ${getTranformation(meta)}`
+  , '');
+
+export const getTransformationsFromObject = obj =>
+  Object.keys(obj).reduce((acc, type) =>
+    `${acc} ${getTranformation({ type, value: obj[type] })}`
+  , '');
+
+export const wrapIfOutdated = (inner, outer) => {
+  const the = { outer };
+  return version < 16 ? (
+    <the.outer children={inner} />
+  ) : inner;
 };
 
 export default {

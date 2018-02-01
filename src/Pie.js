@@ -4,7 +4,7 @@ import { pie } from 'd3-shape';
 import itsSet from 'its-set';
 
 import TransitionGroup from './TransitionGroup';
-import { isFunction } from './helpers';
+import { isFunction } from './util';
 
 export default class Pie extends Component {
 

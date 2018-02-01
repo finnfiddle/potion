@@ -1,17 +1,46 @@
-import React, { Children, cloneElement, Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { pack } from 'd3-hierarchy';
 import itsSet from 'its-set';
+import { TransitionMotion, spring } from 'react-motion';
 
-import TransitionGroup from './TransitionGroup';
-import { flattenHierarchy, isFunction } from './helpers';
+import { flattenHierarchy, wrapIfOutdated } from './util';
 
 export default class Pack extends Component {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Pack';
+  static displayName = 'Pack';
+
+  static propTypes = {
+    radius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    size: PropTypes.arrayOf(PropTypes.number),
+    padding: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    data: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.func,
+    ]),
+    includeRoot: PropTypes.bool,
+    children: PropTypes.func.isRequired,
+
+    // enterDatum
+    // exitDatum
+    // enterEase
+    // updateEase
+    // exitEase
+  };
+
+  static defaultProps = {
+    includeRoot: true,
+  };
+
+  constructor() {
+    super();
+    this.handleWillEnter = this.handleWillEnter.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.animate) {
+      this.setState({ });
+    }
   }
 
   getPack() {
@@ -20,66 +49,53 @@ export default class Pack extends Component {
       'radius',
       'size',
       'padding',
-      // 'packSiblings',
-      // 'packEnclose',
     ].forEach((key) => {
       if (itsSet(this.props[key])) p = p[key](this.props[key]);
     });
     return p;
   }
 
-  renderChildren() {
-    const { data, children, includeRoot } = this.props;
-
-    const packData = this.getPack()((isFunction(data) ? data(this.props) : data));
-    const filteredData = flattenHierarchy(packData)
-      .slice(includeRoot ? 0 : 1)
-      .map(datum => {
-        const result = Object.assign({}, datum.data, datum);
-        delete result.data;
-        delete result.parent;
-        return result;
-      });
-
-    return filteredData.reduce((acc, datum, index) =>
-      acc.concat(Children.map(children, (child, c) =>
-        cloneElement(child, {
-          datum,
-          index,
-          data: filteredData,
-          key: `${index}_${c}`,
-          _key: `${index}_${c}`,
-        })
-      ))
-    , []);
+  handleWillEnter(styleThatWillEnter) {
+    console.log(styleThatWillEnter);
+    return null;
   }
 
-  render() {
-    return (
-      <TransitionGroup>
-        {this.renderChildren()}
-      </TransitionGroup>
+  renderStatic() {
+    const { data, includeRoot, children } = this.props;
+    return wrapIfOutdated(
+      children(
+        flattenHierarchy(this.getPack()(data)).slice(includeRoot ? 0 : 1)
+      ),
+      'g'
     );
   }
 
+  renderAnimated() {
+    const { data, includeRoot, children, enterDatum, exitDatum } = this.props;
+    console.log(flattenHierarchy(this.getPack()(data)).slice(includeRoot ? 0 : 1).map(d => ({ key: d.data.key, style: enterDatum(d) })));
+    return (
+      <TransitionMotion
+        defaultStyles={flattenHierarchy(this.getPack()(data)).slice(includeRoot ? 0 : 1).map(d => ({ key: d.data.key, style: enterDatum(d) }))}
+        // willEnter={this.handleWillEnter}
+        willLeave={exitDatum}
+        styles={
+          flattenHierarchy(this.getPack()(data)).slice(includeRoot ? 0 : 1).map(d => ({ key: d.data.key, style: d }))
+        }
+      >
+        {interpolatedStyles => {
+          console.log(interpolatedStyles);
+          return (
+            <g>
+              {children(interpolatedStyles)}
+            </g>
+          );
+        }}
+      </TransitionMotion>
+    );
+  }
+
+  render() {
+    return this.props.animate ? this.renderAnimated() : this.renderStatic();
+  }
+
 }
-
-Pack.propTypes = {
-  radius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  size: PropTypes.arrayOf(PropTypes.number),
-  padding: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  // packSiblings: PropTypes.arrayOf(
-  //  PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })
-  // ),
-  // packEnclose: PropTypes.number,
-  data: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.func,
-  ]),
-  children: PropTypes.node,
-  includeRoot: PropTypes.bool,
-};
-
-Pack.defaultProps = {
-  includeRoot: true,
-};

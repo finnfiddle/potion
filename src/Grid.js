@@ -4,7 +4,7 @@ import itsSet from 'its-set';
 import grid from 'd3-v4-grid';
 
 import TransitionGroup from './TransitionGroup';
-import { isFunction } from './helpers';
+import { isFunction } from './util';
 
 export default class Grid extends Component {
 

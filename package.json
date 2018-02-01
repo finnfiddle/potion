@@ -101,6 +101,7 @@
     "intersect": "^1.0.1",
     "its-set": "^1.2.1",
     "prop-types": "^15.6.0",
+    "react-motion": "^0.5.2",
     "react-transition-group": "^1.2.0",
     "utils-deep-get": "^1.0.0"
   }

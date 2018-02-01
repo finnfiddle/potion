@@ -1,8 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import itsSet from 'its-set';
 import {
-  symbol,
+  symbol as d3Symbol,
   symbolCircle,
   symbolCross,
   symbolDiamond,
@@ -22,66 +21,34 @@ const SYMBOLS = {
   symbolWye,
 };
 
-import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './helpers';
-import AnimatedElement from './mixins/AnimatedElement';
+import Element from './Element';
 
-export default class SymbolShape extends AnimatedElement {
+export default class SymbolShape extends Element {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'SymbolShape';
-  }
+  static displayName = 'SymbolShape';
 
-  getAttrNames() {
-    return TWEENABLE_SVG_PRESENTATION_ATTRS;
-  }
+  static propTypes = {
+    size: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    type: PropTypes.oneOf(Object.keys(SYMBOLS)),
+  };
 
-  getPrivatePropNames() {
-    return ['size', 'type'];
-  }
+  static defaultProps = {
+    ...Element.defaultProps,
+    component: 'path',
+  };
 
-  getDerivedAttrNames() {
-    return ['d'];
-  }
-
-  getDerivedAttrInputNames() {
+  getSchema() {
     return {
-      d: ['size', 'type'],
+      d: {
+        inputs: ['size', 'type'],
+        calculation: () => {
+          let symbol = d3Symbol();
+          const { size, type } = this.props;
+          if (itsSet(size)) symbol = symbol.size(size);
+          if (itsSet(type)) symbol = symbol.type(SYMBOLS[type]);
+          return symbol();
+        },
+      },
     };
   }
-
-  getDerivationMethod(key, props, shouldGetDatum) {
-    switch (key) {
-      case 'd':
-        return datum => {
-          const attrInputNames = this.derivedAttrInputNames[key];
-          const attrValues = this.getAttrs(
-            Object.assign({}, props, { datum }),
-            attrInputNames,
-            shouldGetDatum
-          );
-          let symbolInstance = symbol();
-          const { size, type } = attrValues;
-          if (itsSet(size)) symbolInstance = symbolInstance.size(size);
-          if (itsSet(type)) symbolInstance = symbolInstance.type(SYMBOLS[type]);
-          return symbolInstance();
-        };
-      // no default
-    }
-  }
-
-  render() {
-    return (
-      <path {...this.state} style={this.getStyle(this.props)} {...bindMouseEvents(this.props)} />
-    );
-  }
-
 }
-
-SymbolShape.propTypes = {
-  size: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  type: PropTypes.oneOf(Object.keys(SYMBOLS)),
-};
-
-SymbolShape.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

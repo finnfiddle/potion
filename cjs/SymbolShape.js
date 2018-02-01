@@ -4,9 +4,37 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _keys = require('babel-runtime/core-js/object/keys');
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _keys2 = _interopRequireDefault(_keys);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _react = require('react');
 
@@ -26,17 +54,11 @@ var _constants = require('./constants');
 
 var _helpers = require('./helpers');
 
-var _AnimatedElement2 = require('./mixins/AnimatedElement');
+var _Element2 = require('./Element');
 
-var _AnimatedElement3 = _interopRequireDefault(_AnimatedElement2);
+var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var SYMBOLS = {
   symbolCircle: _d3Shape.symbolCircle,
@@ -48,19 +70,15 @@ var SYMBOLS = {
   symbolWye: _d3Shape.symbolWye
 };
 
-var SymbolShape = function (_AnimatedElement) {
-  _inherits(SymbolShape, _AnimatedElement);
+var SymbolShape = function (_Element) {
+  (0, _inherits3.default)(SymbolShape, _Element);
 
-  function SymbolShape(props) {
-    _classCallCheck(this, SymbolShape);
-
-    var _this = _possibleConstructorReturn(this, (SymbolShape.__proto__ || Object.getPrototypeOf(SymbolShape)).call(this, props));
-
-    _this.displayName = 'SymbolShape';
-    return _this;
+  function SymbolShape() {
+    (0, _classCallCheck3.default)(this, SymbolShape);
+    return (0, _possibleConstructorReturn3.default)(this, (SymbolShape.__proto__ || (0, _getPrototypeOf2.default)(SymbolShape)).apply(this, arguments));
   }
 
-  _createClass(SymbolShape, [{
+  (0, _createClass3.default)(SymbolShape, [{
     key: 'getAttrNames',
     value: function getAttrNames() {
       return _constants.TWEENABLE_SVG_PRESENTATION_ATTRS;
@@ -91,7 +109,7 @@ var SymbolShape = function (_AnimatedElement) {
         case 'd':
           return function (datum) {
             var attrInputNames = _this2.derivedAttrInputNames[key];
-            var attrValues = _this2.getAttrs(Object.assign({}, props, { datum: datum }), attrInputNames, shouldGetDatum);
+            var attrValues = _this2.getAttrs((0, _assign2.default)({}, props, { datum: datum }), attrInputNames, shouldGetDatum);
             var symbolInstance = (0, _d3Shape.symbol)();
             var size = attrValues.size,
                 type = attrValues.type;
@@ -106,19 +124,16 @@ var SymbolShape = function (_AnimatedElement) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('path', _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
+      return _react2.default.createElement('path', (0, _extends3.default)({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
     }
   }]);
-
   return SymbolShape;
-}(_AnimatedElement3.default);
+}(_Element3.default);
 
-exports.default = SymbolShape;
-
-
+SymbolShape.displayName = 'SymbolShape';
 SymbolShape.propTypes = {
   size: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  type: _propTypes2.default.oneOf(Object.keys(SYMBOLS))
+  type: _propTypes2.default.oneOf((0, _keys2.default)(SYMBOLS))
 };
-
-SymbolShape.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
+SymbolShape.defaultProps = _Element3.default.defaultProps;
+exports.default = SymbolShape;
