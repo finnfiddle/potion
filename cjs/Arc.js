@@ -16,6 +16,10 @@ var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
@@ -50,6 +54,28 @@ var Arc = function (_Element) {
     return (0, _possibleConstructorReturn3.default)(this, (Arc.__proto__ || (0, _getPrototypeOf2.default)(Arc)).apply(this, arguments));
   }
 
+  (0, _createClass3.default)(Arc, [{
+    key: 'getSchema',
+    value: function getSchema() {
+      return {
+        d: {
+          get inputs() {
+            return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
+          },
+          calculation: function calculation(props) {
+            var calc = (0, _d3Shape.arc)();
+            var keys = this.inputs;
+            keys.forEach(function (attrName) {
+              if ((0, _itsSet2.default)(props[attrName])) {
+                calc = calc[attrName](props[attrName]);
+              }
+            });
+            return calc();
+          }
+        }
+      };
+    }
+  }]);
   return Arc;
 }(_Element3.default);
 
@@ -61,29 +87,10 @@ Arc.propTypes = {
   endAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func])
 };
 Arc.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+  component: 'path',
   innerRadius: 0,
   outerRadius: 0,
   startAngle: 0,
   endAngle: 0
 });
-Arc.schema = {
-  attrs: _constants.TWEENABLE_SVG_PRESENTATION_ATTRS,
-  derivedAttrs: {
-    d: {
-      get inputs() {
-        return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
-      },
-      calculation: function calculation(props) {
-        var calc = (0, _d3Shape.arc)();
-        var keys = this.inputs();
-        keys.forEach(function (attrName) {
-          if ((0, _itsSet2.default)(props[attrName])) {
-            calc = calc[attrName](props[attrName]);
-          }
-        });
-        return calc();
-      }
-    }
-  }
-};
 exports.default = Arc;

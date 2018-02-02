@@ -44,7 +44,7 @@ var _TransitionGroup = require('react-transition-group/TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
-var _helpers = require('./helpers');
+var _util = require('./util');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -69,7 +69,7 @@ var TransitionGroup = function (_Component) {
 
       return _react2.default.createElement(
         _TransitionGroup2.default,
-        (0, _extends3.default)({}, restProps, (0, _helpers.bindMouseEvents)(this.props)),
+        (0, _extends3.default)({}, restProps, (0, _util.bindMouseEvents)(this.props)),
         children
       );
     }

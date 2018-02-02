@@ -31,7 +31,7 @@ export default class Element extends Component {
   getDerivedAttrs() {
     return Object.keys(this.schema).reduce((acc, key) => ({
       ...acc,
-      [key]: this.schema[key].calculation(),
+      [key]: this.schema[key].calculation(this.props),
     }), {});
   }
 

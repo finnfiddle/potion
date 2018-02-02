@@ -32,7 +32,7 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _helpers = require('./helpers');
+var _util = require('./util');
 
 var _TransitionGroup = require('./TransitionGroup');
 
@@ -59,7 +59,7 @@ var Collection = function (_Component) {
           data = _props.data,
           children = _props.children;
 
-      var resolvedData = (0, _helpers.isFunction)(data) ? data(this.props) : data;
+      var resolvedData = (0, _util.isFunction)(data) ? data(this.props) : data;
       return resolvedData.reduce(function (acc, datum, index) {
         return acc.concat(_react.Children.map(children, function (child, c) {
           return (0, _react.cloneElement)(child, {

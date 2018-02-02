@@ -38,7 +38,7 @@ var d3Axis = _interopRequireWildcard(_d3Axis);
 
 var _d3Interpolate = require('d3-interpolate');
 
-var _helpers = require('./helpers');
+var _util = require('./util');
 
 var _SelectSelf2 = require('./mixins/SelectSelf');
 
@@ -88,13 +88,13 @@ var Axis = function (_SelectSelf) {
     value: function renderAxis(scale) {
       var placement = this.props.placement;
 
-      var axis = d3Axis['axis' + (0, _helpers.cap)(placement)](scale);
+      var axis = d3Axis['axis' + (0, _util.cap)(placement)](scale);
       this.selectSelf().call(axis);
     }
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('g', (0, _helpers.omit)(this.props, ['scale', 'placement', 'datum', 'index', 'enterDatum', 'exitDatum']));
+      return _react2.default.createElement('g', (0, _util.omit)(this.props, ['scale', 'placement', 'datum', 'index', 'enterDatum', 'exitDatum']));
     }
   }]);
   return Axis;

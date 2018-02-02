@@ -1,16 +1,51 @@
-import React, { Children, cloneElement, Component } from 'react';
 import PropTypes from 'prop-types';
 import { pie } from 'd3-shape';
 import itsSet from 'its-set';
 
-import TransitionGroup from './TransitionGroup';
-import { isFunction } from './util';
+import Layout from './Layout';
 
-export default class Pie extends Component {
+const unpackHierarchyList = (hierarchy) =>
+  hierarchy.map(d => ({
+    key: d.data.key,
+    data: d,
+    style: {
+      startAngle: d.startAngle,
+      endAngle: d.endAngle,
+    },
+  }));
+
+export default class Pie extends Layout {
+
+  static propTypes = {
+    ...Layout.propTypes,
+    value: PropTypes.func,
+    sort: PropTypes.func,
+    sortValues: PropTypes.func,
+    startAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    endAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    padAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    data: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.func,
+    ]),
+    id: PropTypes.func,
+  };
 
   constructor(props) {
     super(props);
     this.displayName = 'Pie';
+  }
+
+  getData() {
+    return this.getPie()(this.props.data);
+  }
+
+  getAnimatedData() {
+    return unpackHierarchyList(this.getData());
+  }
+
+  getStaticData() {
+    return this.getData();
   }
 
   getPie() {
@@ -27,58 +62,4 @@ export default class Pie extends Component {
     });
     return p;
   }
-
-  renderSingularChildren(pieData) {
-    const { singularChildren } = this.props;
-    return Children.map(singularChildren, child =>
-      cloneElement(child, { data: pieData })
-    );
-  }
-
-  renderChildren(pieData) {
-    const { children, id } = this.props;
-    // TODO: throw error if non unique ids
-    return pieData.reduce((acc, datum, index) =>
-      acc.concat(Children.map(children, child => {
-        const key = id(datum.data);
-        return cloneElement(child, {
-          datum,
-          index,
-          data: pieData,
-          key,
-          _key: key,
-        });
-      }))
-    , []);
-  }
-
-  render() {
-    const { data, sort } = this.props;
-    let pieData = this.getPie()((isFunction(data) ? data(this.props) : data));
-    if (itsSet(sort)) pieData = pieData.sort((a, b) => sort(a.data, b.data));
-
-    return (
-      <TransitionGroup>
-        {this.renderChildren(pieData)}
-        {this.renderSingularChildren(pieData)}
-      </TransitionGroup>
-    );
-  }
-
 }
-
-Pie.propTypes = {
-  value: PropTypes.func,
-  sort: PropTypes.func,
-  sortValues: PropTypes.func,
-  startAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  endAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  padAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func,
-  ]),
-  id: PropTypes.func,
-  singularChildren: PropTypes.node,
-  children: PropTypes.node,
-};

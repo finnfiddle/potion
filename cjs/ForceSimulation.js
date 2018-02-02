@@ -42,7 +42,7 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _helpers = require('./helpers');
+var _util = require('./util');
 
 var _TransitionGroup = require('./TransitionGroup');
 
@@ -211,7 +211,7 @@ var ForceSimulation = function (_SelectSelf) {
   }, {
     key: 'normalizeLinks',
     value: function normalizeLinks(links) {
-      return (0, _helpers.isObject)(links[links.length - 1].source) ? links : links.map(function (link) {
+      return (0, _util.isObject)(links[links.length - 1].source) ? links : links.map(function (link) {
         return {
           source: {
             id: link.source,

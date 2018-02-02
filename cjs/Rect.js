@@ -16,10 +16,6 @@ var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = require('babel-runtime/helpers/createClass');
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
 var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
@@ -28,17 +24,9 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _constants = require('./constants');
-
-var _helpers = require('./helpers');
 
 var _Element2 = require('./Element');
 
@@ -54,17 +42,6 @@ var Rect = function (_Element) {
     return (0, _possibleConstructorReturn3.default)(this, (Rect.__proto__ || (0, _getPrototypeOf2.default)(Rect)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Rect, [{
-    key: 'getAttrNames',
-    value: function getAttrNames() {
-      return ['x', 'y', 'height', 'width'].concat(_constants.TWEENABLE_SVG_PRESENTATION_ATTRS);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement('rect', (0, _extends3.default)({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
-    }
-  }]);
   return Rect;
 }(_Element3.default);
 
@@ -75,5 +52,7 @@ Rect.propTypes = {
   height: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]),
   width: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number])
 };
-Rect.defaultProps = _Element3.default.defaultProps;
+Rect.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+  component: 'rect'
+});
 exports.default = Rect;

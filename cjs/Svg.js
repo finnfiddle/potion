@@ -16,41 +16,17 @@ var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = require('babel-runtime/helpers/createClass');
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
 var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = require('babel-runtime/helpers/get');
-
-var _get3 = _interopRequireDefault(_get2);
 
 var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _deepEqual = require('deep-equal');
-
-var _deepEqual2 = _interopRequireDefault(_deepEqual);
-
-var _constants = require('./constants');
-
-var _helpers = require('./helpers');
-
-var _TransitionGroup = require('./TransitionGroup');
-
-var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
 var _Element2 = require('./Element');
 
@@ -66,61 +42,16 @@ var Svg = function (_Element) {
     return (0, _possibleConstructorReturn3.default)(this, (Svg.__proto__ || (0, _getPrototypeOf2.default)(Svg)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Svg, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.addPatterns(this.props);
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (!(0, _deepEqual2.default)(this.props.patterns, nextProps.patterns)) {
-        this.addPatterns(nextProps);
-      }
-      (0, _get3.default)(Svg.prototype.__proto__ || (0, _getPrototypeOf2.default)(Svg.prototype), 'componentWillReceiveProps', this).call(this, nextProps);
-    }
-  }, {
-    key: 'getAttrNames',
-    value: function getAttrNames() {
-      return ['width', 'height'].concat(_constants.TWEENABLE_SVG_PRESENTATION_ATTRS);
-    }
-  }, {
-    key: 'getPrivatePropNames',
-    value: function getPrivatePropNames() {
-      return ['patterns'];
-    }
-  }, {
-    key: 'addPatterns',
-    value: function addPatterns(props) {
-      var selection = this.selectSelf();
-      props.patterns.forEach(function (pattern) {
-        selection.call(pattern);
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'svg',
-        (0, _extends3.default)({}, this.state, {
-          style: this.getStyle(this.props)
-        }, (0, _helpers.bindMouseEvents)(this.props)),
-        _react2.default.createElement(
-          _TransitionGroup2.default,
-          null,
-          this.props.children
-        )
-      );
-    }
-  }]);
   return Svg;
 }(_Element3.default);
+// import deepEqual from 'deep-equal';
 
 Svg.displayName = 'Svg';
 Svg.propTypes = {
   patterns: _propTypes2.default.array
 };
 Svg.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
-  patterns: []
+  patterns: [],
+  component: 'svg'
 });
 exports.default = Svg;

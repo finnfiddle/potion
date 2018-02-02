@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _assign = require('babel-runtime/core-js/object/assign');
+var _extends2 = require('babel-runtime/helpers/extends');
 
-var _assign2 = _interopRequireDefault(_assign);
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -28,10 +28,6 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -42,95 +38,77 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _TransitionGroup = require('./TransitionGroup');
+var _reactMotion = require('react-motion');
 
-var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
+var _util = require('./util');
 
-var _helpers = require('./helpers');
+var _Layout2 = require('./Layout');
+
+var _Layout3 = _interopRequireDefault(_Layout2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Pack = function (_Component) {
-  (0, _inherits3.default)(Pack, _Component);
+var unpackHierarchyList = function unpackHierarchyList(hierarchy) {
+  return hierarchy.map(function (d) {
+    return { key: d.data.key, data: d, style: { r: d.r, x: d.x, y: d.y } };
+  });
+};
 
-  function Pack(props) {
+var Pack = function (_Layout) {
+  (0, _inherits3.default)(Pack, _Layout);
+
+  function Pack() {
     (0, _classCallCheck3.default)(this, Pack);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Pack.__proto__ || (0, _getPrototypeOf2.default)(Pack)).call(this, props));
-
-    _this.displayName = 'Pack';
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (Pack.__proto__ || (0, _getPrototypeOf2.default)(Pack)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(Pack, [{
+    key: 'getAnimatedData',
+    value: function getAnimatedData() {
+      return unpackHierarchyList(this.getFlattenedHierarchy());
+    }
+  }, {
+    key: 'getStaticData',
+    value: function getStaticData() {
+      return this.getFlattenedHierarchy();
+    }
+  }, {
     key: 'getPack',
-    value: function getPack() {
-      var _this2 = this;
-
+    value: function getPack(customProps) {
+      var props = customProps || this.props;
       var p = (0, _d3Hierarchy.pack)();
       ['radius', 'size', 'padding'].forEach(function (key) {
-        if ((0, _itsSet2.default)(_this2.props[key])) p = p[key](_this2.props[key]);
+        if ((0, _itsSet2.default)(props[key])) p = p[key](props[key]);
       });
       return p;
     }
   }, {
-    key: 'renderChildren',
-    value: function renderChildren() {
+    key: 'getFlattenedHierarchy',
+    value: function getFlattenedHierarchy() {
       var _props = this.props,
           data = _props.data,
-          children = _props.children,
+          sum = _props.sum,
           includeRoot = _props.includeRoot;
 
-
-      var packData = this.getPack()((0, _helpers.isFunction)(data) ? data(this.props) : data);
-      var filteredData = (0, _helpers.flattenHierarchy)(packData).slice(includeRoot ? 0 : 1).map(function (datum) {
-        var result = (0, _assign2.default)({}, datum.data, datum);
-        delete result.data;
-        delete result.parent;
-        return result;
-      });
-
-      return filteredData.reduce(function (acc, datum, index) {
-        return acc.concat(_react.Children.map(children, function (child, c) {
-          return (0, _react.cloneElement)(child, {
-            datum: datum,
-            index: index,
-            data: filteredData,
-            key: index + '_' + c,
-            _key: index + '_' + c
-          });
-        }));
-      }, []);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        _TransitionGroup2.default,
-        null,
-        this.renderChildren()
-      );
+      return (0, _util.flattenHierarchy)(this.getPack(this.props)((0, _d3Hierarchy.hierarchy)(data).sum(sum))).slice(includeRoot ? 0 : 1);
     }
   }]);
   return Pack;
-}(_react.Component);
+}(_Layout3.default);
 
-exports.default = Pack;
-
-
+Pack.displayName = 'Pack';
 Pack.propTypes = {
   radius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
   size: _propTypes2.default.arrayOf(_propTypes2.default.number),
   padding: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  // packSiblings: PropTypes.arrayOf(
-  //  PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })
-  // ),
-  // packEnclose: PropTypes.number,
   data: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
-  children: _propTypes2.default.node,
-  includeRoot: _propTypes2.default.bool
+  includeRoot: _propTypes2.default.bool,
+  sum: _propTypes2.default.func
 };
-
-Pack.defaultProps = {
-  includeRoot: true
-};
+Pack.defaultProps = (0, _extends3.default)({}, _Layout3.default.defaultProps, {
+  includeRoot: true,
+  sum: function sum(d) {
+    return d.value;
+  }
+});
+exports.default = Pack;

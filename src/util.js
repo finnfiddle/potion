@@ -29,6 +29,17 @@ export function flattenHierarchy(object) {
   return result;
 }
 
+// export function mapHierarchy(object, mapper, isRoot = true) {
+//   const result = isRoot ? { ...object } : {
+//     ...object,
+//     ...mapper(object),
+//   };
+//   if (object.children) {
+//     result.children = object.children.map(child => mapHierarchy(child, mapper, false));
+//   }
+//   return result;
+// }
+
 export function radiansToDegrees(radians) {
   return radians * 180 / Math.PI;
 }

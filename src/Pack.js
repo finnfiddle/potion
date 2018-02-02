@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { pack } from 'd3-hierarchy';
+import { pack, hierarchy } from 'd3-hierarchy';
 import itsSet from 'its-set';
-import { TransitionMotion, spring } from 'react-motion';
+import { spring } from 'react-motion';
 
-import { flattenHierarchy, wrapIfOutdated } from './util';
+import { flattenHierarchy } from './util';
+import Layout from './Layout';
 
-export default class Pack extends Component {
+const unpackHierarchyList = (hierarchy) =>
+  hierarchy.map(d => ({ key: d.data.key, data: d, style: { r: d.r, x: d.x, y: d.y } }));
+
+export default class Pack extends Layout {
 
   static displayName = 'Pack';
 
@@ -19,83 +22,43 @@ export default class Pack extends Component {
       PropTypes.func,
     ]),
     includeRoot: PropTypes.bool,
-    children: PropTypes.func.isRequired,
-
-    // enterDatum
-    // exitDatum
-    // enterEase
-    // updateEase
-    // exitEase
+    sum: PropTypes.func,
   };
 
   static defaultProps = {
+    ...Layout.defaultProps,
     includeRoot: true,
+    sum: d => d.value,
   };
 
-  constructor() {
-    super();
-    this.handleWillEnter = this.handleWillEnter.bind(this);
+  getAnimatedData() {
+    return unpackHierarchyList(this.getFlattenedHierarchy());
   }
 
-  componentDidMount() {
-    if (this.props.animate) {
-      this.setState({ });
-    }
+  getStaticData() {
+    return this.getFlattenedHierarchy();
   }
 
-  getPack() {
+  getPack(customProps) {
+    const props = customProps || this.props;
     let p = pack();
     [
       'radius',
       'size',
       'padding',
     ].forEach((key) => {
-      if (itsSet(this.props[key])) p = p[key](this.props[key]);
+      if (itsSet(props[key])) p = p[key](props[key]);
     });
     return p;
   }
 
-  handleWillEnter(styleThatWillEnter) {
-    console.log(styleThatWillEnter);
-    return null;
+  getFlattenedHierarchy() {
+    const { data, sum, includeRoot } = this.props;
+    return flattenHierarchy(
+      this.getPack(this.props)(
+        hierarchy(data).sum(sum)
+      )
+    )
+    .slice(includeRoot ? 0 : 1);
   }
-
-  renderStatic() {
-    const { data, includeRoot, children } = this.props;
-    return wrapIfOutdated(
-      children(
-        flattenHierarchy(this.getPack()(data)).slice(includeRoot ? 0 : 1)
-      ),
-      'g'
-    );
-  }
-
-  renderAnimated() {
-    const { data, includeRoot, children, enterDatum, exitDatum } = this.props;
-    console.log(flattenHierarchy(this.getPack()(data)).slice(includeRoot ? 0 : 1).map(d => ({ key: d.data.key, style: enterDatum(d) })));
-    return (
-      <TransitionMotion
-        defaultStyles={flattenHierarchy(this.getPack()(data)).slice(includeRoot ? 0 : 1).map(d => ({ key: d.data.key, style: enterDatum(d) }))}
-        // willEnter={this.handleWillEnter}
-        willLeave={exitDatum}
-        styles={
-          flattenHierarchy(this.getPack()(data)).slice(includeRoot ? 0 : 1).map(d => ({ key: d.data.key, style: d }))
-        }
-      >
-        {interpolatedStyles => {
-          console.log(interpolatedStyles);
-          return (
-            <g>
-              {children(interpolatedStyles)}
-            </g>
-          );
-        }}
-      </TransitionMotion>
-    );
-  }
-
-  render() {
-    return this.props.animate ? this.renderAnimated() : this.renderStatic();
-  }
-
 }

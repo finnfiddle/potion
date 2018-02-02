@@ -43,12 +43,12 @@ export default class Arc extends Element {
         get inputs() {
           return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
         },
-        calculation() {
+        calculation(props) {
           let calc = arc();
           const keys = this.inputs;
           keys.forEach(attrName => {
-            if (itsSet(this.props[attrName])) {
-              calc = calc[attrName](this.props[attrName]);
+            if (itsSet(props[attrName])) {
+              calc = calc[attrName](props[attrName]);
             }
           });
           return calc();

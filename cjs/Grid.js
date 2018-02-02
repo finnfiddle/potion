@@ -48,7 +48,7 @@ var _TransitionGroup = require('./TransitionGroup');
 
 var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
-var _helpers = require('./helpers');
+var _util = require('./util');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73,7 +73,7 @@ var Grid = function (_Component) {
 
       ['size', 'nodeSize', 'rows', 'cols', 'bands', 'padding', 'data'].forEach(function (key) {
         if ((0, _itsSet2.default)(_this2.props[key])) {
-          gridData = gridData[key]((0, _helpers.isFunction)(_this2.props[key]) ? _this2.props[key](_this2.props) : _this2.props[key]);
+          gridData = gridData[key]((0, _util.isFunction)(_this2.props[key]) ? _this2.props[key](_this2.props) : _this2.props[key]);
         }
       });
 

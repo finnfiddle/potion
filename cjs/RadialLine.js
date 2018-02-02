@@ -31,7 +31,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import itsSet from 'its-set';
 // import d3Shape from 'd3-shape';
 //
-// import { bindMouseEvents } from './helpers';
+// import { bindMouseEvents } from './util';
 
 var RadialLine = function (_Component) {
   (0, _inherits3.default)(RadialLine, _Component);

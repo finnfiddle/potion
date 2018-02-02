@@ -27,7 +27,7 @@
     "charting"
   ],
   "options": {
-    "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.js"
+    "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.test.js --timeout 5000"
   },
   "main": "./cjs/index.js",
   "scripts": {

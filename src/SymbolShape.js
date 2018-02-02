@@ -41,9 +41,9 @@ export default class SymbolShape extends Element {
     return {
       d: {
         inputs: ['size', 'type'],
-        calculation: () => {
+        calculation: (props) => {
           let symbol = d3Symbol();
-          const { size, type } = this.props;
+          const { size, type } = props;
           if (itsSet(size)) symbol = symbol.size(size);
           if (itsSet(type)) symbol = symbol.type(SYMBOLS[type]);
           return symbol();

@@ -64,7 +64,7 @@ var _SelectSelf2 = require('./SelectSelf');
 
 var _SelectSelf3 = _interopRequireDefault(_SelectSelf2);
 
-var _helpers = require('../helpers');
+var _util = require('../util');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -113,7 +113,7 @@ var Element = function (_SelectSelf) {
       var resolvedEnterDatum = this.getDatum(this.props);
       var enterDatumIsSet = (0, _itsSet2.default)(enterDatum);
       if (enterDatumIsSet) {
-        resolvedEnterDatum = (0, _helpers.isFunction)(enterDatum) ? enterDatum(this.props) : enterDatum;
+        resolvedEnterDatum = (0, _util.isFunction)(enterDatum) ? enterDatum(this.props) : enterDatum;
       }
 
       var calculatedEnterDatum = this.assignAbsolutePropsToDatum(resolvedEnterDatum, this.props, !enterDatumIsSet);
@@ -176,7 +176,7 @@ var Element = function (_SelectSelf) {
       var nextCombinedAttrs = (0, _assign2.default)({}, nextAttrs, nextDerivedAttrs);
       var nextState = this.getState(nextProps, nextCombinedAttrs);
 
-      if ((0, _itsSet2.default)(nextDatum) && (0, _itsSet2.default)(this.currentDatum) && !(0, _deepEqual2.default)((0, _helpers.pick)(this.currentDatum, (0, _keys2.default)(nextDatum)), nextDatum)) {
+      if ((0, _itsSet2.default)(nextDatum) && (0, _itsSet2.default)(this.currentDatum) && !(0, _deepEqual2.default)((0, _util.pick)(this.currentDatum, (0, _keys2.default)(nextDatum)), nextDatum)) {
         if (!updateDuration) {
           this.setState(nextState);
         } else {
@@ -219,7 +219,7 @@ var Element = function (_SelectSelf) {
 
       var resolvedExitDatum = datum;
       if ((0, _itsSet2.default)(exitDatum)) {
-        resolvedExitDatum = (0, _helpers.isFunction)(exitDatum) ? exitDatum(this.props) : exitDatum;
+        resolvedExitDatum = (0, _util.isFunction)(exitDatum) ? exitDatum(this.props) : exitDatum;
       }
 
       var computedExitDatum = this.assignAbsolutePropsToDatum(resolvedExitDatum, this.props, DONT_GET_DATUM);
@@ -255,7 +255,7 @@ var Element = function (_SelectSelf) {
   }, {
     key: 'getState',
     value: function getState(props, attrs) {
-      return (0, _helpers.omit)((0, _assign2.default)({}, props || this.props, attrs || this.attrs), this.privatePropNames);
+      return (0, _util.omit)((0, _assign2.default)({}, props || this.props, attrs || this.attrs), this.privatePropNames);
     }
   }, {
     key: 'getAttrNames',
@@ -299,7 +299,7 @@ var Element = function (_SelectSelf) {
 
       var startingAcc = shouldGetDatum ? (0, _assign2.default)({}, this.getDatum((0, _assign2.default)({}, props, { datum: datum }))) : datum;
       return this.allAttrInputNames.filter(function (name) {
-        return !(0, _helpers.isFunction)(props[name]);
+        return !(0, _util.isFunction)(props[name]);
       }).reduce(function (acc, name) {
         return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, name, props[name]));
       }, startingAcc);
@@ -349,7 +349,7 @@ var Element = function (_SelectSelf) {
         var propsWithResolvedDatum = (0, _assign2.default)({}, props, { datum: datum });
         var prop = propsWithResolvedDatum[key];
         if (!(0, _itsSet2.default)(prop)) return acc;
-        if ((0, _helpers.isFunction)(prop) && (0, _itsSet2.default)(datum)) {
+        if ((0, _util.isFunction)(prop) && (0, _itsSet2.default)(datum)) {
           prop = prop(propsWithResolvedDatum);
         }
         return (0, _assign2.default)({}, _this4.attrDefaults, acc, (0, _defineProperty3.default)({}, key, prop));
@@ -360,7 +360,7 @@ var Element = function (_SelectSelf) {
     value: function getStyle(props) {
       var style = props.style;
 
-      if ((0, _helpers.isFunction)(style)) return style(props);
+      if ((0, _util.isFunction)(style)) return style(props);
       return style || {};
     }
   }, {
@@ -404,7 +404,7 @@ var Element = function (_SelectSelf) {
     value: function attrTween(attrName, fromDatum, toDatum, transition, derivationMethod) {
       var datumPropsToTween = this.props.datumPropsToTween;
 
-      var keysToInterpolate = (0, _keys2.default)(datumPropsToTween.length ? (0, _helpers.pick)(toDatum, datumPropsToTween) : toDatum);
+      var keysToInterpolate = (0, _keys2.default)(datumPropsToTween.length ? (0, _util.pick)(toDatum, datumPropsToTween) : toDatum);
 
       var interpolater = keysToInterpolate.reduce(function (acc, key) {
         return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _d3Interpolate.interpolate)((0, _itsSet2.default)(fromDatum[key]) ? fromDatum[key] : toDatum[key], toDatum[key])));
