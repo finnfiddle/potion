@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types';
-import { treemap, hierarchy } from 'd3-hierarchy';
+import { cluster, hierarchy } from 'd3-hierarchy';
 
 import { flattenHierarchy } from './util';
 import Layout from './Layout';
 
 export default class Pack extends Layout {
 
-  static displayName = 'Tree';
+  static displayName = 'Cluster';
 
   static propTypes = {
+    separation: PropTypes.number,
+    size: PropTypes.arrayOf(PropTypes.number),
+    nodeSize: PropTypes.number,
     data: PropTypes.object.isRequired,
-    keys: PropTypes.number,
-    value: PropTypes.number,
-    order: PropTypes.number,
-    offset: PropTypes.func,
+    includeRoot: PropTypes.bool,
+    sum: PropTypes.func,
   };
 
   static defaultProps = {
@@ -24,18 +25,11 @@ export default class Pack extends Layout {
 
   getSchema() {
     return {
-      layout: treemap,
-      layoutProps: [
-        'keys',
-        'value',
-        'order',
-        'offset',
-      ],
+      layout: cluster,
+      layoutProps: ['nodeSize', 'size', 'separation'],
       selectStylesToTween: d => ({
-        x0: d.x0,
-        y0: d.y0,
-        x1: d.x1,
-        y1: d.y1,
+        x: d.x,
+        y: d.y,
       }),
     };
   }

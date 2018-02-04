@@ -1,53 +1,69 @@
 import Arc from './Arc';
 import Area from './Area';
-import Axis from './Axis';
-import AxisBottom from './AxisBottom';
-import AxisLeft from './AxisLeft';
-import AxisRight from './AxisRight';
-import AxisTop from './AxisTop';
+import AreaRadial from './AreaRadial';
+// import Axis from './Axis';
+// import AxisBottom from './AxisBottom';
+// import AxisLeft from './AxisLeft';
+// import AxisRight from './AxisRight';
+// import AxisTop from './AxisTop';
+// import Chord from './Chord';
 import Circle from './Circle';
 import Collection from './Collection';
-import Curve from './Curve';
-import Grid from './Grid';
+// import Contours from './Contours';
+import Cluster from './Cluster';
+// import GeoCircle from './GeoCircle';
+// import GeoPath from './GeoPath';
+// import Grid from './Grid';
 import Group from './Group';
-import ForceSimulation from './ForceSimulation';
+// import ForceSimulation from './ForceSimulation';
 import Line from './Line';
+import LineRadial from './LineRadial';
+// import Link from './Link';
 import Pack from './Pack';
+import Partition from './Partition';
 import Pie from './Pie';
-import RadialArea from './RadialArea';
-import RadialLine from './RadialLine';
 import Rect from './Rect';
 import Stack from './Stack';
 import SymbolShape from './SymbolShape';
 import Svg from './Svg';
 import Text from './Text';
-import TransitionGroup from './TransitionGroup';
-import helpers from './util';
+import Tree from './Tree';
+import Treemap from './Treemap';
+// import Voronoi from './Voronoi';
+import util from './util';
 
 export {
   Arc,
   Area,
-  Axis,
-  AxisBottom,
-  AxisLeft,
-  AxisRight,
-  AxisTop,
+  AreaRadial,
+  // Axis,
+  // AxisBottom,
+  // AxisLeft,
+  // AxisRight,
+  // AxisTop,
+  // Chord,
   Circle,
   Collection,
-  Curve,
-  Grid,
+  // Contours,
+  Cluster,
+  // GeoCircle,
+  // GeoPath,
+  // Grid,
   Group,
-  ForceSimulation,
+  // ForceSimulation,
   Line,
+  LineRadial,
+  // Link,
   Pack,
+  Partition,
   Pie,
-  RadialArea,
-  RadialLine,
   Rect,
   Stack,
   SymbolShape,
   Svg,
   Text,
-  TransitionGroup,
-  helpers,
+  Tree,
+  Treemap,
+  // Voronoi,
+  util,
 };

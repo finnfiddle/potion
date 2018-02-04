@@ -1,46 +1,28 @@
-import React, { Children, cloneElement, Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { isFunction } from './util';
-import TransitionGroup from './TransitionGroup';
+import Layout from './Layout';
+import { isNumber } from './util';
 
-export default class Collection extends Component {
+export default class Collection extends Layout {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Collection';
+  static displayName = 'Collection';
+
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    children: PropTypes.func,
+  };
+
+  getSchema() {
+    return {
+      selectStylesToTween: d => Object.keys(d).reduce((acc, key) => {
+        const result = { ...acc };
+        if (isNumber(d[key])) result[key] = d[key];
+        return result;
+      }, {}),
+    };
   }
 
-  renderChildren() {
-    const { data, children } = this.props;
-    const resolvedData = isFunction(data) ? data(this.props) : data;
-    return resolvedData.reduce((acc, datum, index) =>
-      acc.concat(Children.map(children, (child, c) =>
-        cloneElement(child, {
-          datum,
-          index,
-          data: resolvedData,
-          key: `${index}_${c}`,
-          _key: `${index}_${c}`,
-        })
-      ))
-    , []);
+  getData() {
+    return this.props.data;
   }
-
-  render() {
-    return (
-      <TransitionGroup>
-        {this.renderChildren()}
-      </TransitionGroup>
-    );
-  }
-
 }
-
-Collection.propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func,
-  ]),
-  children: PropTypes.node,
-};

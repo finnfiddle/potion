@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.wrapIfOutdated = exports.getTransformationsFromObject = exports.getTransformationsFromArray = exports.omit = exports.pick = exports.isObject = exports.isFunction = exports.isString = exports.isArray = undefined;
+exports.wrapIfOutdated = exports.getTransformationsFromObject = exports.getTransformationsFromArray = exports.omit = exports.pick = exports.isObject = exports.isFunction = exports.isNumber = exports.isString = exports.isArray = undefined;
 
 var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
 
@@ -98,6 +98,10 @@ function bindMouseEvents(props) {
 
 var isString = exports.isString = function isString(val) {
   return typeof val === 'string';
+};
+
+var isNumber = exports.isNumber = function isNumber(val) {
+  return typeof val === 'number';
 };
 
 var isFunction = exports.isFunction = function isFunction(val) {

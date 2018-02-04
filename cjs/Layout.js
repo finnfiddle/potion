@@ -46,6 +46,10 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactMotion = require('react-motion');
 
+var _itsSet = require('its-set');
+
+var _itsSet2 = _interopRequireDefault(_itsSet);
+
 var _util = require('./util');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -67,6 +71,7 @@ var Layout = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Layout.__proto__ || (0, _getPrototypeOf2.default)(Layout)).call(this));
 
+    _this.schema = _this.getSchema();
     _this.getEnterStyle = _this.getEnterStyle.bind(_this);
     _this.getExitStyle = _this.getExitStyle.bind(_this);
     return _this;
@@ -94,12 +99,45 @@ var Layout = function (_Component) {
       }, {});
     }
   }, {
-    key: 'transformDefaultStyles',
-    value: function transformDefaultStyles(data) {
+    key: 'getLayout',
+    value: function getLayout() {
       var _this2 = this;
 
+      var _schema = this.schema,
+          layout = _schema.layout,
+          layoutProps = _schema.layoutProps;
+
+      var p = layout();
+      layoutProps.forEach(function (key) {
+        if ((0, _itsSet2.default)(_this2.props[key])) p = p[key](_this2.props[key]);
+      });
+      return p;
+    }
+  }, {
+    key: 'getAnimatedData',
+    value: function getAnimatedData() {
+      var _this3 = this;
+
+      return this.getData().map(function (d) {
+        return {
+          key: d.key || d.data.key,
+          data: d,
+          style: _this3.schema.selectStylesToTween(d)
+        };
+      });
+    }
+  }, {
+    key: 'getStaticData',
+    value: function getStaticData() {
+      return this.getData();
+    }
+  }, {
+    key: 'transformDefaultStyles',
+    value: function transformDefaultStyles(data) {
+      var _this4 = this;
+
       return data.map(function (d) {
-        return (0, _extends6.default)({}, d, { style: _this2.props.nodeEnter(d.style) });
+        return (0, _extends6.default)({}, d, { style: _this4.props.nodeEnter(d.style) });
       });
     }
   }, {
@@ -121,7 +159,7 @@ var Layout = function (_Component) {
   }, {
     key: 'renderAnimated',
     value: function renderAnimated() {
-      var _this3 = this;
+      var _this5 = this;
 
       var children = this.props.children;
 
@@ -136,9 +174,9 @@ var Layout = function (_Component) {
         },
         function (interpolatedStyles) {
           return _react2.default.createElement(
-            _this3.props.component,
+            _this5.props.component,
             null,
-            (0, _util.wrapIfOutdated)(children(_this3.transformInterpolatedStyles(interpolatedStyles)), 'g')
+            children(_this5.transformInterpolatedStyles(interpolatedStyles))
           );
         }
       );
@@ -146,7 +184,12 @@ var Layout = function (_Component) {
   }, {
     key: 'renderStatic',
     value: function renderStatic() {
-      return (0, _util.wrapIfOutdated)(this.props.children(this.getStaticData()), 'g');
+      console.log(this.getStaticData());
+      return _react2.default.createElement(
+        this.props.component,
+        null,
+        this.props.children(this.getStaticData())
+      );
     }
   }, {
     key: 'render',
@@ -163,7 +206,7 @@ Layout.propTypes = {
   nodeEnter: _propTypes2.default.func,
   nodeExit: _propTypes2.default.func,
   animate: _propTypes2.default.bool,
-  component: _propTypes2.default.element
+  component: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.string])
 };
 Layout.defaultProps = {
   animate: false,

@@ -9,11 +9,12 @@ export default class Pack extends Layout {
   static displayName = 'Tree';
 
   static propTypes = {
+    separation: PropTypes.number,
+    size: PropTypes.arrayOf(PropTypes.number),
+    nodeSize: PropTypes.number,
     data: PropTypes.object.isRequired,
-    keys: PropTypes.number,
-    value: PropTypes.number,
-    order: PropTypes.number,
-    offset: PropTypes.func,
+    includeRoot: PropTypes.bool,
+    sum: PropTypes.func,
   };
 
   static defaultProps = {
@@ -26,10 +27,16 @@ export default class Pack extends Layout {
     return {
       layout: treemap,
       layoutProps: [
-        'keys',
-        'value',
-        'order',
-        'offset',
+        'tile',
+        'size',
+        'round',
+        'padding',
+        'paddingInner',
+        'paddingOuter',
+        'paddingTop',
+        'paddingRight',
+        'paddingBottom',
+        'paddingLeft',
       ],
       selectStylesToTween: d => ({
         x0: d.x0,

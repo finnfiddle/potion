@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TransitionMotion, spring } from 'react-motion';
+import itsSet from 'its-set';
 
 import { wrapIfOutdated, isObject } from './util';
 
@@ -19,7 +20,7 @@ export default class Layout extends Component {
     nodeEnter: PropTypes.func,
     nodeExit: PropTypes.func,
     animate: PropTypes.bool,
-    component: PropTypes.element,
+    component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   };
 
   static defaultProps = {
@@ -31,6 +32,7 @@ export default class Layout extends Component {
 
   constructor() {
     super();
+    this.schema = this.getSchema();
     this.getEnterStyle = this.getEnterStyle.bind(this);
     this.getExitStyle = this.getExitStyle.bind(this);
   }
@@ -50,6 +52,27 @@ export default class Layout extends Component {
       ...acc,
       [key]: isObject(result[key]) ? result[key].val : result[key],
     }), {});
+  }
+
+  getLayout() {
+    const { layout, layoutProps } = this.schema;
+    let p = layout();
+    layoutProps.forEach((key) => {
+      if (itsSet(this.props[key])) p = p[key](this.props[key]);
+    });
+    return p;
+  }
+
+  getAnimatedData() {
+    return this.getData().map(d => ({
+      key: d.key || d.data.key,
+      data: d,
+      style: this.schema.selectStylesToTween(d),
+    }));
+  }
+
+  getStaticData() {
+    return this.getData();
   }
 
   transformDefaultStyles(data) {
@@ -83,11 +106,8 @@ export default class Layout extends Component {
       >
         {interpolatedStyles => (
           <this.props.component>
-            {wrapIfOutdated(
-              children(
-                this.transformInterpolatedStyles(interpolatedStyles)
-              ),
-              'g'
+            {children(
+              this.transformInterpolatedStyles(interpolatedStyles)
             )}
           </this.props.component>
         )}
@@ -96,7 +116,12 @@ export default class Layout extends Component {
   }
 
   renderStatic() {
-    return wrapIfOutdated(this.props.children(this.getStaticData()), 'g');
+    console.log(this.getStaticData());
+    return (
+      <this.props.component>
+        {this.props.children(this.getStaticData())}
+      </this.props.component>
+    );
   }
 
   render() {

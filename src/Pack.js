@@ -1,26 +1,19 @@
 import PropTypes from 'prop-types';
-import { pack, hierarchy } from 'd3-hierarchy';
-import itsSet from 'its-set';
-import { spring } from 'react-motion';
+import * as h from 'd3-hierarchy';
+const { pack, hierarchy } = h;
 
 import { flattenHierarchy } from './util';
 import Layout from './Layout';
-
-const unpackHierarchyList = (hierarchy) =>
-  hierarchy.map(d => ({ key: d.data.key, data: d, style: { r: d.r, x: d.x, y: d.y } }));
 
 export default class Pack extends Layout {
 
   static displayName = 'Pack';
 
   static propTypes = {
-    radius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    radius: PropTypes.number,
     size: PropTypes.arrayOf(PropTypes.number),
-    padding: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-    data: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.func,
-    ]),
+    padding: PropTypes.number,
+    data: PropTypes.object.isRequired,
     includeRoot: PropTypes.bool,
     sum: PropTypes.func,
   };
@@ -31,31 +24,22 @@ export default class Pack extends Layout {
     sum: d => d.value,
   };
 
-  getAnimatedData() {
-    return unpackHierarchyList(this.getFlattenedHierarchy());
+  getSchema() {
+    return {
+      layout: pack,
+      layoutProps: ['radius', 'size', 'padding'],
+      selectStylesToTween: d => ({
+        r: d.r,
+        x: d.x,
+        y: d.y,
+      }),
+    };
   }
 
-  getStaticData() {
-    return this.getFlattenedHierarchy();
-  }
-
-  getPack(customProps) {
-    const props = customProps || this.props;
-    let p = pack();
-    [
-      'radius',
-      'size',
-      'padding',
-    ].forEach((key) => {
-      if (itsSet(props[key])) p = p[key](props[key]);
-    });
-    return p;
-  }
-
-  getFlattenedHierarchy() {
+  getData() {
     const { data, sum, includeRoot } = this.props;
     return flattenHierarchy(
-      this.getPack(this.props)(
+      this.getLayout()(
         hierarchy(data).sum(sum)
       )
     )

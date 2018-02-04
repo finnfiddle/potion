@@ -32,7 +32,9 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _d3Shape = require('d3-shape');
+var _d3Hierarchy = require('d3-hierarchy');
+
+var _util = require('./util');
 
 var _Layout2 = require('./Layout');
 
@@ -40,24 +42,24 @@ var _Layout3 = _interopRequireDefault(_Layout2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Pie = function (_Layout) {
-  (0, _inherits3.default)(Pie, _Layout);
+var Pack = function (_Layout) {
+  (0, _inherits3.default)(Pack, _Layout);
 
-  function Pie() {
-    (0, _classCallCheck3.default)(this, Pie);
-    return (0, _possibleConstructorReturn3.default)(this, (Pie.__proto__ || (0, _getPrototypeOf2.default)(Pie)).apply(this, arguments));
+  function Pack() {
+    (0, _classCallCheck3.default)(this, Pack);
+    return (0, _possibleConstructorReturn3.default)(this, (Pack.__proto__ || (0, _getPrototypeOf2.default)(Pack)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Pie, [{
+  (0, _createClass3.default)(Pack, [{
     key: 'getSchema',
     value: function getSchema() {
       return {
-        layout: _d3Shape.pie,
-        layoutProps: ['value', 'sort', 'sortValues', 'startAngle', 'endAngle', 'padAngle'],
+        layout: _d3Hierarchy.tree,
+        layoutProps: ['nodeSize', 'size', 'separation'],
         selectStylesToTween: function selectStylesToTween(d) {
           return {
-            startAngle: d.startAngle,
-            endAngle: d.endAngle
+            x: d.x,
+            y: d.y
           };
         }
       };
@@ -65,21 +67,30 @@ var Pie = function (_Layout) {
   }, {
     key: 'getData',
     value: function getData() {
-      return this.getLayout()(this.props.data);
+      var _props = this.props,
+          data = _props.data,
+          sum = _props.sum,
+          includeRoot = _props.includeRoot;
+
+      return (0, _util.flattenHierarchy)(this.getLayout()((0, _d3Hierarchy.hierarchy)(data).sum(sum))).slice(includeRoot ? 0 : 1);
     }
   }]);
-  return Pie;
+  return Pack;
 }(_Layout3.default);
 
-Pie.displayName = 'Pie';
-Pie.propTypes = (0, _extends3.default)({}, _Layout3.default.propTypes, {
-  value: _propTypes2.default.func,
-  sort: _propTypes2.default.func,
-  sortValues: _propTypes2.default.func,
-  startAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  endAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  padAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.func]),
-  id: _propTypes2.default.func
+Pack.displayName = 'Tree';
+Pack.propTypes = {
+  separation: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  size: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  nodeSize: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  data: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
+  includeRoot: _propTypes2.default.bool,
+  sum: _propTypes2.default.func
+};
+Pack.defaultProps = (0, _extends3.default)({}, _Layout3.default.defaultProps, {
+  includeRoot: true,
+  sum: function sum(d) {
+    return d.value;
+  }
 });
-exports.default = Pie;
+exports.default = Pack;

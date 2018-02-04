@@ -44,24 +44,24 @@ var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Arc = function (_Element) {
-  (0, _inherits3.default)(Arc, _Element);
+var Line = function (_Element) {
+  (0, _inherits3.default)(Line, _Element);
 
-  function Arc() {
-    (0, _classCallCheck3.default)(this, Arc);
-    return (0, _possibleConstructorReturn3.default)(this, (Arc.__proto__ || (0, _getPrototypeOf2.default)(Arc)).apply(this, arguments));
+  function Line() {
+    (0, _classCallCheck3.default)(this, Line);
+    return (0, _possibleConstructorReturn3.default)(this, (Line.__proto__ || (0, _getPrototypeOf2.default)(Line)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Arc, [{
+  (0, _createClass3.default)(Line, [{
     key: 'getSchema',
     value: function getSchema() {
       return {
         d: {
           get inputs() {
-            return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
+            return ['angle', 'radius', 'defined', 'curve', 'context'];
           },
           calculation: function calculation(props) {
-            var calc = (0, _d3Shape.arc)();
+            var calc = (0, _d3Shape.lineRadial)();
             var keys = this.inputs;
             keys.forEach(function (attrName) {
               if ((0, _itsSet2.default)(props[attrName])) {
@@ -74,21 +74,18 @@ var Arc = function (_Element) {
       };
     }
   }]);
-  return Arc;
+  return Line;
 }(_Element3.default);
 
-Arc.displayName = 'Arc';
-Arc.propTypes = {
-  innerRadius: _propTypes2.default.number,
-  outerRadius: _propTypes2.default.number,
-  startAngle: _propTypes2.default.number,
-  endAngle: _propTypes2.default.number
+Line.displayName = 'Line';
+Line.propTypes = {
+  angle: _propTypes2.default.number,
+  radius: _propTypes2.default.number,
+  defined: _propTypes2.default.number,
+  curve: _propTypes2.default.number,
+  context: _propTypes2.default.number
 };
-Arc.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
-  component: 'path',
-  innerRadius: 0,
-  outerRadius: 0,
-  startAngle: 0,
-  endAngle: 0
+Line.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+  component: 'path'
 });
-exports.default = Arc;
+exports.default = Line;

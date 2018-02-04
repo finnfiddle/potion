@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { area } from 'd3-shape';
+import { lineRadial } from 'd3-shape';
 import itsSet from 'its-set';
 
 import Element from './Element';
@@ -9,19 +9,11 @@ export default class Line extends Element {
   static displayName = 'Line';
 
   static propTypes = {
-    x: PropTypes.number,
-    x0: PropTypes.number,
-    x1: PropTypes.number,
-    y: PropTypes.number,
-    y0: PropTypes.number,
-    y1: PropTypes.number,
+    angle: PropTypes.number,
+    radius: PropTypes.number,
     defined: PropTypes.number,
     curve: PropTypes.number,
     context: PropTypes.number,
-    lineX0: PropTypes.number,
-    lineY0: PropTypes.number,
-    lineX1: PropTypes.number,
-    lineY1: PropTypes.number,
   };
 
   static defaultProps = {
@@ -33,10 +25,16 @@ export default class Line extends Element {
     return {
       d: {
         get inputs() {
-          return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
+          return [
+            'angle',
+            'radius',
+            'defined',
+            'curve',
+            'context',
+          ];
         },
         calculation(props) {
-          let calc = area();
+          let calc = lineRadial();
           const keys = this.inputs;
           keys.forEach(attrName => {
             if (itsSet(props[attrName])) {

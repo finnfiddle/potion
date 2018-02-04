@@ -34,11 +34,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _d3Hierarchy = require('d3-hierarchy');
 
-var _itsSet = require('its-set');
-
-var _itsSet2 = _interopRequireDefault(_itsSet);
-
-var _reactMotion = require('react-motion');
+var h = _interopRequireWildcard(_d3Hierarchy);
 
 var _util = require('./util');
 
@@ -46,13 +42,12 @@ var _Layout2 = require('./Layout');
 
 var _Layout3 = _interopRequireDefault(_Layout2);
 
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var unpackHierarchyList = function unpackHierarchyList(hierarchy) {
-  return hierarchy.map(function (d) {
-    return { key: d.data.key, data: d, style: { r: d.r, x: d.x, y: d.y } };
-  });
-};
+var pack = h.pack,
+    hierarchy = h.hierarchy;
 
 var Pack = function (_Layout) {
   (0, _inherits3.default)(Pack, _Layout);
@@ -63,34 +58,29 @@ var Pack = function (_Layout) {
   }
 
   (0, _createClass3.default)(Pack, [{
-    key: 'getAnimatedData',
-    value: function getAnimatedData() {
-      return unpackHierarchyList(this.getFlattenedHierarchy());
+    key: 'getSchema',
+    value: function getSchema() {
+      return {
+        layout: pack,
+        layoutProps: ['radius', 'size', 'padding'],
+        selectStylesToTween: function selectStylesToTween(d) {
+          return {
+            r: d.r,
+            x: d.x,
+            y: d.y
+          };
+        }
+      };
     }
   }, {
-    key: 'getStaticData',
-    value: function getStaticData() {
-      return this.getFlattenedHierarchy();
-    }
-  }, {
-    key: 'getPack',
-    value: function getPack(customProps) {
-      var props = customProps || this.props;
-      var p = (0, _d3Hierarchy.pack)();
-      ['radius', 'size', 'padding'].forEach(function (key) {
-        if ((0, _itsSet2.default)(props[key])) p = p[key](props[key]);
-      });
-      return p;
-    }
-  }, {
-    key: 'getFlattenedHierarchy',
-    value: function getFlattenedHierarchy() {
+    key: 'getData',
+    value: function getData() {
       var _props = this.props,
           data = _props.data,
           sum = _props.sum,
           includeRoot = _props.includeRoot;
 
-      return (0, _util.flattenHierarchy)(this.getPack(this.props)((0, _d3Hierarchy.hierarchy)(data).sum(sum))).slice(includeRoot ? 0 : 1);
+      return (0, _util.flattenHierarchy)(this.getLayout()(hierarchy(data).sum(sum))).slice(includeRoot ? 0 : 1);
     }
   }]);
   return Pack;
@@ -98,10 +88,10 @@ var Pack = function (_Layout) {
 
 Pack.displayName = 'Pack';
 Pack.propTypes = {
-  radius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  radius: _propTypes2.default.number,
   size: _propTypes2.default.arrayOf(_propTypes2.default.number),
-  padding: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  data: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
+  padding: _propTypes2.default.number,
+  data: _propTypes2.default.object.isRequired,
   includeRoot: _propTypes2.default.bool,
   sum: _propTypes2.default.func
 };
