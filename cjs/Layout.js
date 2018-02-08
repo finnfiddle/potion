@@ -4,37 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _keys = require('babel-runtime/core-js/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
-
-var _extends5 = require('babel-runtime/helpers/extends');
-
-var _extends6 = _interopRequireDefault(_extends5);
-
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = require('babel-runtime/helpers/createClass');
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = require('babel-runtime/helpers/inherits');
-
-var _inherits3 = _interopRequireDefault(_inherits2);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -54,13 +26,21 @@ var _util = require('./util');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var Layout = function (_Component) {
-  (0, _inherits3.default)(Layout, _Component);
+  _inherits(Layout, _Component);
 
   function Layout() {
-    (0, _classCallCheck3.default)(this, Layout);
+    _classCallCheck(this, Layout);
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Layout.__proto__ || (0, _getPrototypeOf2.default)(Layout)).call(this));
+    var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this));
 
     _this.schema = _this.getSchema();
     _this.getEnterStyle = _this.getEnterStyle.bind(_this);
@@ -68,14 +48,14 @@ var Layout = function (_Component) {
     return _this;
   }
 
-  (0, _createClass3.default)(Layout, [{
+  _createClass(Layout, [{
     key: 'getEnterStyle',
     value: function getEnterStyle(_ref) {
       var style = _ref.style;
 
-      var result = (0, _extends6.default)({}, style, this.props.nodeEnter(style));
-      return (0, _keys2.default)(result).reduce(function (acc, key) {
-        return (0, _extends6.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _util.isObject)(result[key]) ? result[key].val : result[key]));
+      var result = _extends({}, style, this.props.nodeEnter(style));
+      return Object.keys(result).reduce(function (acc, key) {
+        return _extends({}, acc, _defineProperty({}, key, (0, _util.isObject)(result[key]) ? result[key].val : result[key]));
       }, {});
     }
   }, {
@@ -83,10 +63,10 @@ var Layout = function (_Component) {
     value: function getExitStyle(_ref2) {
       var style = _ref2.style;
 
-      var result = (0, _extends6.default)({}, style, this.props.nodeExit(style));
+      var result = _extends({}, style, this.props.nodeExit(style));
 
-      return (0, _keys2.default)(result).reduce(function (acc, key) {
-        return (0, _extends6.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _util.isObject)(result[key]) ? result[key].val : result[key]));
+      return Object.keys(result).reduce(function (acc, key) {
+        return _extends({}, acc, _defineProperty({}, key, (0, _util.isObject)(result[key]) ? result[key].val : result[key]));
       }, {});
     }
   }, {
@@ -128,7 +108,7 @@ var Layout = function (_Component) {
       var _this4 = this;
 
       return data.map(function (d) {
-        return (0, _extends6.default)({}, d, { style: _this4.props.nodeEnter(d.style) });
+        return _extends({}, d, { style: _this4.props.nodeEnter(d.style) });
       });
     }
   }, {
@@ -137,9 +117,9 @@ var Layout = function (_Component) {
       var _this5 = this;
 
       return data.map(function (d) {
-        return (0, _extends6.default)({}, d, {
-          style: (0, _keys2.default)(d.style).reduce(function (acc, key) {
-            return (0, _extends6.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _reactMotion.spring)(d.style[key], {
+        return _extends({}, d, {
+          style: Object.keys(d.style).reduce(function (acc, key) {
+            return _extends({}, acc, _defineProperty({}, key, (0, _reactMotion.spring)(d.style[key], {
               stiffness: _this5.props.springStiffness,
               damping: _this5.props.springDamping
             })));
@@ -155,7 +135,7 @@ var Layout = function (_Component) {
             style = d.style,
             key = d.key;
 
-        return (0, _extends6.default)({ key: key }, data, style);
+        return _extends({ key: key }, data, style);
       });
     }
   }, {
@@ -197,6 +177,7 @@ var Layout = function (_Component) {
       return this.props.animate ? this.renderAnimated() : this.renderStatic();
     }
   }]);
+
   return Layout;
 }(_react.Component);
 
