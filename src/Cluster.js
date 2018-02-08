@@ -4,7 +4,7 @@ import { cluster, hierarchy } from 'd3-hierarchy';
 import { flattenHierarchy } from './util';
 import Layout from './Layout';
 
-export default class Pack extends Layout {
+export default class Cluster extends Layout {
 
   static displayName = 'Cluster';
 

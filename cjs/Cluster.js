@@ -42,15 +42,15 @@ var _Layout3 = _interopRequireDefault(_Layout2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Pack = function (_Layout) {
-  (0, _inherits3.default)(Pack, _Layout);
+var Cluster = function (_Layout) {
+  (0, _inherits3.default)(Cluster, _Layout);
 
-  function Pack() {
-    (0, _classCallCheck3.default)(this, Pack);
-    return (0, _possibleConstructorReturn3.default)(this, (Pack.__proto__ || (0, _getPrototypeOf2.default)(Pack)).apply(this, arguments));
+  function Cluster() {
+    (0, _classCallCheck3.default)(this, Cluster);
+    return (0, _possibleConstructorReturn3.default)(this, (Cluster.__proto__ || (0, _getPrototypeOf2.default)(Cluster)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Pack, [{
+  (0, _createClass3.default)(Cluster, [{
     key: 'getSchema',
     value: function getSchema() {
       return {
@@ -75,11 +75,11 @@ var Pack = function (_Layout) {
       return (0, _util.flattenHierarchy)(this.getLayout()((0, _d3Hierarchy.hierarchy)(data).sum(sum))).slice(includeRoot ? 0 : 1);
     }
   }]);
-  return Pack;
+  return Cluster;
 }(_Layout3.default);
 
-Pack.displayName = 'Cluster';
-Pack.propTypes = {
+Cluster.displayName = 'Cluster';
+Cluster.propTypes = {
   separation: _propTypes2.default.number,
   size: _propTypes2.default.arrayOf(_propTypes2.default.number),
   nodeSize: _propTypes2.default.number,
@@ -87,10 +87,10 @@ Pack.propTypes = {
   includeRoot: _propTypes2.default.bool,
   sum: _propTypes2.default.func
 };
-Pack.defaultProps = (0, _extends3.default)({}, _Layout3.default.defaultProps, {
+Cluster.defaultProps = (0, _extends3.default)({}, _Layout3.default.defaultProps, {
   includeRoot: true,
   sum: function sum(d) {
     return d.value;
   }
 });
-exports.default = Pack;
+exports.default = Cluster;

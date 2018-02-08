@@ -9,7 +9,7 @@ export default class Collection extends Layout {
 
   static propTypes = {
     data: PropTypes.array.isRequired,
-    children: PropTypes.func,
+    children: PropTypes.func.isRequired,
   };
 
   getSchema() {

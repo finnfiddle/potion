@@ -59,11 +59,16 @@ var Element = function (_Component) {
     _this.schema = _this.getSchema();
     _this.privateProps = (0, _keys2.default)(_this.schema).reduce(function (acc, key) {
       return acc.concat(_this.schema[key].inputs);
-    }, []).concat(['component']);
+    }, []).concat(['component']).concat(_this.getPrivateProps());
     return _this;
   }
 
   (0, _createClass3.default)(Element, [{
+    key: 'getPrivateProps',
+    value: function getPrivateProps() {
+      return [];
+    }
+  }, {
     key: 'getSchema',
     value: function getSchema() {
       return {};

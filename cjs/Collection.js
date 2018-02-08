@@ -77,6 +77,6 @@ var Collection = function (_Layout) {
 Collection.displayName = 'Collection';
 Collection.propTypes = {
   data: _propTypes2.default.array.isRequired,
-  children: _propTypes2.default.func
+  children: _propTypes2.default.func.isRequired
 };
 exports.default = Collection;

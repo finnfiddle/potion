@@ -1,10 +1,11 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { tree, hierarchy } from 'd3-hierarchy';
 
 import { flattenHierarchy } from './util';
 import Layout from './Layout';
 
-export default class Pack extends Layout {
+export default class Tree extends Layout {
 
   static displayName = 'Tree';
 
@@ -15,6 +16,8 @@ export default class Pack extends Layout {
     data: PropTypes.object.isRequired,
     includeRoot: PropTypes.bool,
     sum: PropTypes.func,
+    links: PropTypes.func,
+    children: PropTypes.func,
   };
 
   static defaultProps = {
@@ -42,5 +45,23 @@ export default class Pack extends Layout {
       )
     )
     .slice(includeRoot ? 0 : 1);
+  }
+
+  // getData() {
+  //   const { data, sum, includeRoot } = this.props;
+  //   return this.getLayout()(
+  //     hierarchy(data).sum(sum)
+  //   )
+  //   .nodes()
+  //   .slice(includeRoot ? 0 : 1);
+  // }
+
+  renderChildren(data) {
+    return (
+      <this.props.component>
+        {this.props.children(data.nodes())}
+        {this.props.links(data.links())}
+      </this.props.component>
+    );
   }
 }

@@ -44,15 +44,15 @@ var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Line = function (_Element) {
-  (0, _inherits3.default)(Line, _Element);
+var AreaRadial = function (_Element) {
+  (0, _inherits3.default)(AreaRadial, _Element);
 
-  function Line() {
-    (0, _classCallCheck3.default)(this, Line);
-    return (0, _possibleConstructorReturn3.default)(this, (Line.__proto__ || (0, _getPrototypeOf2.default)(Line)).apply(this, arguments));
+  function AreaRadial() {
+    (0, _classCallCheck3.default)(this, AreaRadial);
+    return (0, _possibleConstructorReturn3.default)(this, (AreaRadial.__proto__ || (0, _getPrototypeOf2.default)(AreaRadial)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Line, [{
+  (0, _createClass3.default)(AreaRadial, [{
     key: 'getSchema',
     value: function getSchema() {
       return {
@@ -68,32 +68,33 @@ var Line = function (_Element) {
                 calc = calc[attrName](props[attrName]);
               }
             });
-            return calc();
+            return calc(props.points);
           }
         }
       };
     }
   }]);
-  return Line;
+  return AreaRadial;
 }(_Element3.default);
 
-Line.displayName = 'Line';
-Line.propTypes = {
-  angle: _propTypes2.default.number,
-  startAngle: _propTypes2.default.number,
-  endAngle: _propTypes2.default.number,
-  radius: _propTypes2.default.number,
-  innerRadius: _propTypes2.default.number,
-  outerRadius: _propTypes2.default.number,
+AreaRadial.displayName = 'AreaRadial';
+AreaRadial.propTypes = {
+  angle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  startAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  endAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  radius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  innerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  outerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
   defined: _propTypes2.default.number,
   curve: _propTypes2.default.number,
   context: _propTypes2.default.number,
-  lineStartAngle: _propTypes2.default.number,
-  lineInnerRadius: _propTypes2.default.number,
-  lineEndAngle: _propTypes2.default.number,
-  lineOuterRadius: _propTypes2.default.number
+  lineStartAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  lineInnerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  lineEndAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  lineOuterRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  points: _propTypes2.default.array.isRequired
 };
-Line.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+AreaRadial.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
   component: 'path'
 });
-exports.default = Line;
+exports.default = AreaRadial;

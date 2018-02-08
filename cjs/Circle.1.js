@@ -34,24 +34,24 @@ var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Svg = function (_Element) {
-  (0, _inherits3.default)(Svg, _Element);
+var Circle = function (_Element) {
+  (0, _inherits3.default)(Circle, _Element);
 
-  function Svg() {
-    (0, _classCallCheck3.default)(this, Svg);
-    return (0, _possibleConstructorReturn3.default)(this, (Svg.__proto__ || (0, _getPrototypeOf2.default)(Svg)).apply(this, arguments));
+  function Circle() {
+    (0, _classCallCheck3.default)(this, Circle);
+    return (0, _possibleConstructorReturn3.default)(this, (Circle.__proto__ || (0, _getPrototypeOf2.default)(Circle)).apply(this, arguments));
   }
 
-  return Svg;
+  return Circle;
 }(_Element3.default);
-// import deepEqual from 'deep-equal';
 
-Svg.displayName = 'Svg';
-Svg.propTypes = {
-  patterns: _propTypes2.default.array
+Circle.displayName = 'Circle';
+Circle.propTypes = {
+  cx: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  cy: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  r: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func])
 };
-Svg.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
-  // patterns: [],
-  component: 'svg'
+Circle.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+  component: 'circle'
 });
-exports.default = Svg;
+exports.default = Circle;

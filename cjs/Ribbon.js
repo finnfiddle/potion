@@ -32,7 +32,7 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _d3Shape = require('d3-shape');
+var _d3Chord = require('d3-chord');
 
 var _itsSet = require('its-set');
 
@@ -44,18 +44,18 @@ var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Line = function (_Element) {
-  (0, _inherits3.default)(Line, _Element);
+var Ribbon = function (_Element) {
+  (0, _inherits3.default)(Ribbon, _Element);
 
-  function Line() {
-    (0, _classCallCheck3.default)(this, Line);
-    return (0, _possibleConstructorReturn3.default)(this, (Line.__proto__ || (0, _getPrototypeOf2.default)(Line)).apply(this, arguments));
+  function Ribbon() {
+    (0, _classCallCheck3.default)(this, Ribbon);
+    return (0, _possibleConstructorReturn3.default)(this, (Ribbon.__proto__ || (0, _getPrototypeOf2.default)(Ribbon)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Line, [{
+  (0, _createClass3.default)(Ribbon, [{
     key: 'getPrivateProps',
     value: function getPrivateProps() {
-      return ['points'];
+      return ['source', 'target'];
     }
   }, {
     key: 'getSchema',
@@ -63,41 +63,34 @@ var Line = function (_Element) {
       return {
         d: {
           get inputs() {
-            return ['angle', 'radius', 'defined', 'curve', 'context'];
+            return ['radius', 'startAngle', 'endAngle'];
           },
           calculation: function calculation(props) {
-            var calc = (0, _d3Shape.lineRadial)();
+            var calc = (0, _d3Chord.ribbon)();
             var keys = this.inputs;
             keys.forEach(function (attrName) {
               if ((0, _itsSet2.default)(props[attrName])) {
                 calc = calc[attrName](props[attrName]);
               }
             });
-            return calc(props.points);
+            return calc({ source: props.source, target: props.target });
           }
         }
       };
     }
   }]);
-  return Line;
+  return Ribbon;
 }(_Element3.default);
 
-Line.displayName = 'LineRadial';
-Line.propTypes = {
-  angle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+Ribbon.displayName = 'Ribbon';
+Ribbon.propTypes = {
+  source: _propTypes2.default.object.isRequired,
+  target: _propTypes2.default.object.isRequired,
   radius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  defined: _propTypes2.default.number,
-  curve: _propTypes2.default.number,
-  context: _propTypes2.default.number,
-  points: _propTypes2.default.array.isRequired
+  startAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  endAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func])
 };
-Line.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
-  component: 'path',
-  angle: function angle(d) {
-    return d[0];
-  },
-  radius: function radius(d) {
-    return d[1];
-  }
+Ribbon.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+  component: 'path'
 });
-exports.default = Line;
+exports.default = Ribbon;

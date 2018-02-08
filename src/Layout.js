@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 import { TransitionMotion, spring } from 'react-motion';
 import itsSet from 'its-set';
 
-import { wrapIfOutdated, isObject } from './util';
-
-const packHierarchyList = (unpacked) =>
-  unpacked.map(d => {
-    const { data, style } = d;
-    return { ...data, ...style };
-  });
+import { isObject } from './util';
 
 export default class Layout extends Component {
 
@@ -21,6 +15,8 @@ export default class Layout extends Component {
     nodeExit: PropTypes.func,
     animate: PropTypes.bool,
     component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    springStiffness: PropTypes.number,
+    springDamping: PropTypes.number,
   };
 
   static defaultProps = {
@@ -28,6 +24,8 @@ export default class Layout extends Component {
     nodeEnter: d => d,
     nodeExit: d => d,
     component: 'g',
+    springStiffness: 170,
+    springDamping: 26,
   };
 
   constructor() {
@@ -85,17 +83,22 @@ export default class Layout extends Component {
       style: Object.keys(d.style)
         .reduce((acc, key) => ({
           ...acc,
-          [key]: spring(d.style[key]),
+          [key]: spring(d.style[key], {
+            stiffness: this.props.springStiffness,
+            damping: this.props.springDamping,
+          }),
         }), {}),
     }));
   }
 
   transformInterpolatedStyles(data) {
-    return packHierarchyList(data);
+    return data.map(d => {
+      const { data, style, key } = d;
+      return { key, ...data, ...style };
+    });
   }
 
   renderAnimated() {
-    const { children } = this.props;
     const data = this.getAnimatedData();
     return (
       <TransitionMotion
@@ -104,22 +107,21 @@ export default class Layout extends Component {
         willEnter={this.getEnterStyle}
         willLeave={this.getExitStyle}
       >
-        {interpolatedStyles => (
-          <this.props.component>
-            {children(
-              this.transformInterpolatedStyles(interpolatedStyles)
-            )}
-          </this.props.component>
+        {interpolatedStyles => this.renderChildren(
+          this.transformInterpolatedStyles(interpolatedStyles)
         )}
       </TransitionMotion>
     );
   }
 
   renderStatic() {
-    console.log(this.getStaticData());
+    return this.renderChildren(this.getStaticData());
+  }
+
+  renderChildren(data) {
     return (
       <this.props.component>
-        {this.props.children(this.getStaticData())}
+        {this.props.children(data)}
       </this.props.component>
     );
   }

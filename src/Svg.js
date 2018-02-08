@@ -13,7 +13,7 @@ export default class Svg extends Element {
 
   static defaultProps = {
     ...Element.defaultProps,
-    patterns: [],
+    // patterns: [],
     component: 'svg',
   };
 

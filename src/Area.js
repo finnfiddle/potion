@@ -4,17 +4,17 @@ import itsSet from 'its-set';
 
 import Element from './Element';
 
-export default class Line extends Element {
+export default class Area extends Element {
 
-  static displayName = 'Line';
+  static displayName = 'Area';
 
   static propTypes = {
-    x: PropTypes.number,
-    x0: PropTypes.number,
-    x1: PropTypes.number,
-    y: PropTypes.number,
-    y0: PropTypes.number,
-    y1: PropTypes.number,
+    x: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    x0: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    x1: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    y: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    y0: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    y1: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
     defined: PropTypes.number,
     curve: PropTypes.number,
     context: PropTypes.number,
@@ -22,6 +22,7 @@ export default class Line extends Element {
     lineY0: PropTypes.number,
     lineX1: PropTypes.number,
     lineY1: PropTypes.number,
+    points: PropTypes.array.isRequired,
   };
 
   static defaultProps = {
@@ -33,7 +34,21 @@ export default class Line extends Element {
     return {
       d: {
         get inputs() {
-          return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
+          return [
+            'x',
+            'x0',
+            'x1',
+            'y',
+            'y0',
+            'y1',
+            'defined',
+            'curve',
+            'context',
+            'lineX0',
+            'lineY0',
+            'lineX1',
+            'lineY1',
+          ];
         },
         calculation(props) {
           let calc = area();
@@ -43,7 +58,7 @@ export default class Line extends Element {
               calc = calc[attrName](props[attrName]);
             }
           });
-          return calc();
+          return calc(props.points);
         },
       },
     };

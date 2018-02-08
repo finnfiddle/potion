@@ -9,12 +9,19 @@ export default class Pack extends Layout {
   static displayName = 'Tree';
 
   static propTypes = {
-    separation: PropTypes.number,
-    size: PropTypes.arrayOf(PropTypes.number),
-    nodeSize: PropTypes.number,
     data: PropTypes.object.isRequired,
     includeRoot: PropTypes.bool,
     sum: PropTypes.func,
+    size: PropTypes.arrayOf(PropTypes.number),
+    tile: PropTypes.func,
+    round: PropTypes.bool,
+    padding: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    paddingInner: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    paddingOuter: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    paddingTop: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    paddingRight: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    paddingBottom: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    paddingLeft: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   };
 
   static defaultProps = {

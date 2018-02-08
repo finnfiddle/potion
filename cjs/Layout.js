@@ -12,6 +12,10 @@ var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
 
+var _extends5 = require('babel-runtime/helpers/extends');
+
+var _extends6 = _interopRequireDefault(_extends5);
+
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -32,10 +36,6 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _extends5 = require('babel-runtime/helpers/extends');
-
-var _extends6 = _interopRequireDefault(_extends5);
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -53,15 +53,6 @@ var _itsSet2 = _interopRequireDefault(_itsSet);
 var _util = require('./util');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var packHierarchyList = function packHierarchyList(unpacked) {
-  return unpacked.map(function (d) {
-    var data = d.data,
-        style = d.style;
-
-    return (0, _extends6.default)({}, data, style);
-  });
-};
 
 var Layout = function (_Component) {
   (0, _inherits3.default)(Layout, _Component);
@@ -143,10 +134,15 @@ var Layout = function (_Component) {
   }, {
     key: 'transformStyles',
     value: function transformStyles(data) {
+      var _this5 = this;
+
       return data.map(function (d) {
         return (0, _extends6.default)({}, d, {
           style: (0, _keys2.default)(d.style).reduce(function (acc, key) {
-            return (0, _extends6.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _reactMotion.spring)(d.style[key])));
+            return (0, _extends6.default)({}, acc, (0, _defineProperty3.default)({}, key, (0, _reactMotion.spring)(d.style[key], {
+              stiffness: _this5.props.springStiffness,
+              damping: _this5.props.springDamping
+            })));
           }, {})
         });
       });
@@ -154,14 +150,18 @@ var Layout = function (_Component) {
   }, {
     key: 'transformInterpolatedStyles',
     value: function transformInterpolatedStyles(data) {
-      return packHierarchyList(data);
+      return data.map(function (d) {
+        var data = d.data,
+            style = d.style,
+            key = d.key;
+
+        return (0, _extends6.default)({ key: key }, data, style);
+      });
     }
   }, {
     key: 'renderAnimated',
     value: function renderAnimated() {
-      var _this5 = this;
-
-      var children = this.props.children;
+      var _this6 = this;
 
       var data = this.getAnimatedData();
       return _react2.default.createElement(
@@ -173,22 +173,22 @@ var Layout = function (_Component) {
           willLeave: this.getExitStyle
         },
         function (interpolatedStyles) {
-          return _react2.default.createElement(
-            _this5.props.component,
-            null,
-            children(_this5.transformInterpolatedStyles(interpolatedStyles))
-          );
+          return _this6.renderChildren(_this6.transformInterpolatedStyles(interpolatedStyles));
         }
       );
     }
   }, {
     key: 'renderStatic',
     value: function renderStatic() {
-      console.log(this.getStaticData());
+      return this.renderChildren(this.getStaticData());
+    }
+  }, {
+    key: 'renderChildren',
+    value: function renderChildren(data) {
       return _react2.default.createElement(
         this.props.component,
         null,
-        this.props.children(this.getStaticData())
+        this.props.children(data)
       );
     }
   }, {
@@ -206,7 +206,9 @@ Layout.propTypes = {
   nodeEnter: _propTypes2.default.func,
   nodeExit: _propTypes2.default.func,
   animate: _propTypes2.default.bool,
-  component: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.string])
+  component: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.string]),
+  springStiffness: _propTypes2.default.number,
+  springDamping: _propTypes2.default.number
 };
 Layout.defaultProps = {
   animate: false,
@@ -216,6 +218,8 @@ Layout.defaultProps = {
   nodeExit: function nodeExit(d) {
     return d;
   },
-  component: 'g'
+  component: 'g',
+  springStiffness: 170,
+  springDamping: 26
 };
 exports.default = Layout;

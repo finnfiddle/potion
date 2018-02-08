@@ -15,10 +15,7 @@ export default class Pie extends Layout {
     startAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
     endAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
     padAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-    data: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.func,
-    ]),
+    data: PropTypes.array.isRequired,
     id: PropTypes.func,
   };
 

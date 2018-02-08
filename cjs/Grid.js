@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _assign = require('babel-runtime/core-js/object/assign');
+var _extends2 = require('babel-runtime/helpers/extends');
 
-var _assign2 = _interopRequireDefault(_assign);
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -28,115 +28,77 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _itsSet = require('its-set');
-
-var _itsSet2 = _interopRequireDefault(_itsSet);
 
 var _d3V4Grid = require('d3-v4-grid');
 
 var _d3V4Grid2 = _interopRequireDefault(_d3V4Grid);
 
-var _TransitionGroup = require('./TransitionGroup');
+var _Layout2 = require('./Layout');
 
-var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
-
-var _util = require('./util');
+var _Layout3 = _interopRequireDefault(_Layout2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Grid = function (_Component) {
-  (0, _inherits3.default)(Grid, _Component);
+var Grid = function (_Layout) {
+  (0, _inherits3.default)(Grid, _Layout);
 
-  function Grid(props) {
+  function Grid() {
     (0, _classCallCheck3.default)(this, Grid);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Grid.__proto__ || (0, _getPrototypeOf2.default)(Grid)).call(this, props));
-
-    _this.displayName = 'Grid';
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (Grid.__proto__ || (0, _getPrototypeOf2.default)(Grid)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(Grid, [{
-    key: 'getGrid',
-    value: function getGrid() {
-      var _this2 = this;
-
-      var gridData = (0, _d3V4Grid2.default)();
-
-      ['size', 'nodeSize', 'rows', 'cols', 'bands', 'padding', 'data'].forEach(function (key) {
-        if ((0, _itsSet2.default)(_this2.props[key])) {
-          gridData = gridData[key]((0, _util.isFunction)(_this2.props[key]) ? _this2.props[key](_this2.props) : _this2.props[key]);
+    key: 'getSchema',
+    value: function getSchema() {
+      return {
+        layout: _d3V4Grid2.default,
+        layoutProps: ['size', 'nodeSize', 'rows', 'cols', 'bands', 'padding', 'data'],
+        selectStylesToTween: function selectStylesToTween(d) {
+          return {
+            x: d.x,
+            y: d.y,
+            nodeWidth: d.nodeWidth,
+            nodeHeight: d.nodeHeight
+          };
         }
-      });
+      };
+    }
+  }, {
+    key: 'getData',
+    value: function getData() {
+      var layout = this.getLayout();
 
-      gridData.layout();
+      layout.layout();
 
+      var size = layout.size();
+      var nodeSize = layout.nodeSize();
+      var padding = layout.padding();
       var meta = {
-        size: gridData.size(),
-        nodeSize: gridData.nodeSize(),
-        rows: gridData.rows(),
-        cols: gridData.cols(),
-        bands: gridData.bands(),
-        padding: gridData.padding()
+        nodeWidth: nodeSize[0],
+        nodeHeight: nodeSize[1],
+        size: size,
+        padding: padding,
+        // width: size[0],
+        // height: size[1],
+        // paddingHorizontal: padding[0],
+        // paddingVertical: padding[1],
+        rows: layout.rows(),
+        cols: layout.cols(),
+        bands: layout.bands()
       };
 
-      return gridData.nodes().map(function (d) {
-        return (0, _assign2.default)({}, d, meta);
+      return layout.nodes().map(function (node) {
+        return (0, _extends3.default)({}, node, meta);
       });
-    }
-  }, {
-    key: 'renderChildren',
-    value: function renderChildren(gridData) {
-      var children = this.props.children;
-
-
-      return gridData.reduce(function (acc, datum, index) {
-        return acc.concat(_react.Children.map(children, function (child, c) {
-          return (0, _react.cloneElement)(child, {
-            datum: datum,
-            index: index,
-            data: gridData,
-            key: index + '_' + c,
-            _key: index + '_' + c
-          });
-        }));
-      }, []);
-    }
-  }, {
-    key: 'renderSingularChildren',
-    value: function renderSingularChildren(gridData) {
-      var singularChildren = this.props.singularChildren;
-
-      return _react.Children.map(singularChildren, function (child) {
-        return (0, _react.cloneElement)(child, { data: gridData });
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var gridData = this.getGrid();
-      return _react2.default.createElement(
-        _TransitionGroup2.default,
-        null,
-        this.renderChildren(gridData),
-        this.renderSingularChildren(gridData)
-      );
     }
   }]);
   return Grid;
-}(_react.Component);
+}(_Layout3.default);
 
-exports.default = Grid;
-
-
+Grid.displayName = 'Grid';
 Grid.propTypes = {
   size: _propTypes2.default.arrayOf(_propTypes2.default.number),
   nodeSize: _propTypes2.default.arrayOf(_propTypes2.default.number),
@@ -144,7 +106,8 @@ Grid.propTypes = {
   cols: _propTypes2.default.number,
   bands: _propTypes2.default.bool,
   padding: _propTypes2.default.arrayOf(_propTypes2.default.number),
-  data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.func]),
-  children: _propTypes2.default.node,
+  data: _propTypes2.default.array,
+  children: _propTypes2.default.func,
   singularChildren: _propTypes2.default.node
 };
+exports.default = Grid;

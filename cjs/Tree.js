@@ -28,6 +28,10 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -42,15 +46,15 @@ var _Layout3 = _interopRequireDefault(_Layout2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Pack = function (_Layout) {
-  (0, _inherits3.default)(Pack, _Layout);
+var Tree = function (_Layout) {
+  (0, _inherits3.default)(Tree, _Layout);
 
-  function Pack() {
-    (0, _classCallCheck3.default)(this, Pack);
-    return (0, _possibleConstructorReturn3.default)(this, (Pack.__proto__ || (0, _getPrototypeOf2.default)(Pack)).apply(this, arguments));
+  function Tree() {
+    (0, _classCallCheck3.default)(this, Tree);
+    return (0, _possibleConstructorReturn3.default)(this, (Tree.__proto__ || (0, _getPrototypeOf2.default)(Tree)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Pack, [{
+  (0, _createClass3.default)(Tree, [{
     key: 'getSchema',
     value: function getSchema() {
       return {
@@ -74,23 +78,45 @@ var Pack = function (_Layout) {
 
       return (0, _util.flattenHierarchy)(this.getLayout()((0, _d3Hierarchy.hierarchy)(data).sum(sum))).slice(includeRoot ? 0 : 1);
     }
+
+    // getData() {
+    //   const { data, sum, includeRoot } = this.props;
+    //   return this.getLayout()(
+    //     hierarchy(data).sum(sum)
+    //   )
+    //   .nodes()
+    //   .slice(includeRoot ? 0 : 1);
+    // }
+
+  }, {
+    key: 'renderChildren',
+    value: function renderChildren(data) {
+      return _react2.default.createElement(
+        this.props.component,
+        null,
+        this.props.children(data.nodes()),
+        this.props.links(data.links())
+      );
+    }
   }]);
-  return Pack;
+  return Tree;
 }(_Layout3.default);
 
-Pack.displayName = 'Tree';
-Pack.propTypes = {
+Tree.displayName = 'Tree';
+Tree.propTypes = {
   separation: _propTypes2.default.number,
   size: _propTypes2.default.arrayOf(_propTypes2.default.number),
   nodeSize: _propTypes2.default.number,
   data: _propTypes2.default.object.isRequired,
   includeRoot: _propTypes2.default.bool,
-  sum: _propTypes2.default.func
+  sum: _propTypes2.default.func,
+  links: _propTypes2.default.func,
+  children: _propTypes2.default.func
 };
-Pack.defaultProps = (0, _extends3.default)({}, _Layout3.default.defaultProps, {
+Tree.defaultProps = (0, _extends3.default)({}, _Layout3.default.defaultProps, {
   includeRoot: true,
   sum: function sum(d) {
     return d.value;
   }
 });
-exports.default = Pack;
+exports.default = Tree;

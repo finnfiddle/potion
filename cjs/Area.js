@@ -44,21 +44,21 @@ var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Line = function (_Element) {
-  (0, _inherits3.default)(Line, _Element);
+var Area = function (_Element) {
+  (0, _inherits3.default)(Area, _Element);
 
-  function Line() {
-    (0, _classCallCheck3.default)(this, Line);
-    return (0, _possibleConstructorReturn3.default)(this, (Line.__proto__ || (0, _getPrototypeOf2.default)(Line)).apply(this, arguments));
+  function Area() {
+    (0, _classCallCheck3.default)(this, Area);
+    return (0, _possibleConstructorReturn3.default)(this, (Area.__proto__ || (0, _getPrototypeOf2.default)(Area)).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(Line, [{
+  (0, _createClass3.default)(Area, [{
     key: 'getSchema',
     value: function getSchema() {
       return {
         d: {
           get inputs() {
-            return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
+            return ['x', 'x0', 'x1', 'y', 'y0', 'y1', 'defined', 'curve', 'context', 'lineX0', 'lineY0', 'lineX1', 'lineY1'];
           },
           calculation: function calculation(props) {
             var calc = (0, _d3Shape.area)();
@@ -68,32 +68,33 @@ var Line = function (_Element) {
                 calc = calc[attrName](props[attrName]);
               }
             });
-            return calc();
+            return calc(props.points);
           }
         }
       };
     }
   }]);
-  return Line;
+  return Area;
 }(_Element3.default);
 
-Line.displayName = 'Line';
-Line.propTypes = {
-  x: _propTypes2.default.number,
-  x0: _propTypes2.default.number,
-  x1: _propTypes2.default.number,
-  y: _propTypes2.default.number,
-  y0: _propTypes2.default.number,
-  y1: _propTypes2.default.number,
+Area.displayName = 'Area';
+Area.propTypes = {
+  x: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  x0: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  x1: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  y: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  y0: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  y1: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
   defined: _propTypes2.default.number,
   curve: _propTypes2.default.number,
   context: _propTypes2.default.number,
   lineX0: _propTypes2.default.number,
   lineY0: _propTypes2.default.number,
   lineX1: _propTypes2.default.number,
-  lineY1: _propTypes2.default.number
+  lineY1: _propTypes2.default.number,
+  points: _propTypes2.default.array.isRequired
 };
-Line.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
+Area.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
   component: 'path'
 });
-exports.default = Line;
+exports.default = Area;

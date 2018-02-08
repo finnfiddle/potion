@@ -4,24 +4,25 @@ import itsSet from 'its-set';
 
 import Element from './Element';
 
-export default class Line extends Element {
+export default class AreaRadial extends Element {
 
-  static displayName = 'Line';
+  static displayName = 'AreaRadial';
 
   static propTypes = {
-    angle: PropTypes.number,
-    startAngle: PropTypes.number,
-    endAngle: PropTypes.number,
-    radius: PropTypes.number,
-    innerRadius: PropTypes.number,
-    outerRadius: PropTypes.number,
+    angle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    startAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    endAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    radius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    innerRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    outerRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
     defined: PropTypes.number,
     curve: PropTypes.number,
     context: PropTypes.number,
-    lineStartAngle: PropTypes.number,
-    lineInnerRadius: PropTypes.number,
-    lineEndAngle: PropTypes.number,
-    lineOuterRadius: PropTypes.number,
+    lineStartAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    lineInnerRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    lineEndAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    lineOuterRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    points: PropTypes.array.isRequired,
   };
 
   static defaultProps = {
@@ -57,7 +58,7 @@ export default class Line extends Element {
               calc = calc[attrName](props[attrName]);
             }
           });
-          return calc();
+          return calc(props.points);
         },
       },
     };

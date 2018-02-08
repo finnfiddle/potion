@@ -1,31 +1,28 @@
 import PropTypes from 'prop-types';
-import { lineRadial } from 'd3-shape';
+import { ribbon } from 'd3-chord';
 import itsSet from 'its-set';
 
 import Element from './Element';
 
-export default class Line extends Element {
+export default class Ribbon extends Element {
 
-  static displayName = 'LineRadial';
+  static displayName = 'Ribbon';
 
   static propTypes = {
-    angle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    source: PropTypes.object.isRequired,
+    target: PropTypes.object.isRequired,
     radius: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-    defined: PropTypes.number,
-    curve: PropTypes.number,
-    context: PropTypes.number,
-    points: PropTypes.array.isRequired,
+    startAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    endAngle: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   };
 
   static defaultProps = {
     ...Element.defaultProps,
     component: 'path',
-    angle: d => d[0],
-    radius: d => d[1],
   };
 
   getPrivateProps() {
-    return ['points'];
+    return ['source', 'target'];
   }
 
   getSchema() {
@@ -33,25 +30,22 @@ export default class Line extends Element {
       d: {
         get inputs() {
           return [
-            'angle',
             'radius',
-            'defined',
-            'curve',
-            'context',
+            'startAngle',
+            'endAngle',
           ];
         },
         calculation(props) {
-          let calc = lineRadial();
+          let calc = ribbon();
           const keys = this.inputs;
           keys.forEach(attrName => {
             if (itsSet(props[attrName])) {
               calc = calc[attrName](props[attrName]);
             }
           });
-          return calc(props.points);
+          return calc({ source: props.source, target: props.target });
         },
       },
     };
   }
-
 }

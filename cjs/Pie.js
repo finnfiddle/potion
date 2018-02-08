@@ -79,7 +79,7 @@ Pie.propTypes = (0, _extends3.default)({}, _Layout3.default.propTypes, {
   startAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
   endAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
   padAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.func]),
+  data: _propTypes2.default.array.isRequired,
   id: _propTypes2.default.func
 });
 exports.default = Pie;

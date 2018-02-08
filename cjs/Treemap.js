@@ -82,12 +82,19 @@ var Pack = function (_Layout) {
 
 Pack.displayName = 'Tree';
 Pack.propTypes = {
-  separation: _propTypes2.default.number,
-  size: _propTypes2.default.arrayOf(_propTypes2.default.number),
-  nodeSize: _propTypes2.default.number,
   data: _propTypes2.default.object.isRequired,
   includeRoot: _propTypes2.default.bool,
-  sum: _propTypes2.default.func
+  sum: _propTypes2.default.func,
+  size: _propTypes2.default.arrayOf(_propTypes2.default.number),
+  tile: _propTypes2.default.func,
+  round: _propTypes2.default.bool,
+  padding: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  paddingInner: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  paddingOuter: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  paddingTop: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  paddingRight: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  paddingBottom: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  paddingLeft: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func])
 };
 Pack.defaultProps = (0, _extends3.default)({}, _Layout3.default.defaultProps, {
   includeRoot: true,

@@ -6,14 +6,14 @@ import AreaRadial from './AreaRadial';
 // import AxisLeft from './AxisLeft';
 // import AxisRight from './AxisRight';
 // import AxisTop from './AxisTop';
-// import Chord from './Chord';
+import Chord from './Chord';
 import Circle from './Circle';
 import Collection from './Collection';
 // import Contours from './Contours';
 import Cluster from './Cluster';
 // import GeoCircle from './GeoCircle';
 // import GeoPath from './GeoPath';
-// import Grid from './Grid';
+import Grid from './Grid';
 import Group from './Group';
 // import ForceSimulation from './ForceSimulation';
 import Line from './Line';
@@ -22,7 +22,9 @@ import LineRadial from './LineRadial';
 import Pack from './Pack';
 import Partition from './Partition';
 import Pie from './Pie';
+// import Polygon from './Polygon';
 import Rect from './Rect';
+import Ribbon from './Ribbon';
 import Stack from './Stack';
 import SymbolShape from './SymbolShape';
 import Svg from './Svg';
@@ -41,14 +43,14 @@ export {
   // AxisLeft,
   // AxisRight,
   // AxisTop,
-  // Chord,
+  Chord,
   Circle,
   Collection,
   // Contours,
   Cluster,
   // GeoCircle,
   // GeoPath,
-  // Grid,
+  Grid,
   Group,
   // ForceSimulation,
   Line,
@@ -57,7 +59,9 @@ export {
   Pack,
   Partition,
   Pie,
+  // Polygon,
   Rect,
+  Ribbon,
   Stack,
   SymbolShape,
   Svg,

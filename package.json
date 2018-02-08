@@ -89,11 +89,11 @@
     "array-uniq": "^1.0.3",
     "babel-runtime": "^6.20.0",
     "d3-axis": "^1.0.4",
+    "d3-chord": "^1.0.4",
     "d3-ease": "^1.0.3",
     "d3-force": "^1.0.6",
     "d3-hierarchy": "^1.1.5",
     "d3-interpolate": "^1.1.6",
-    "d3-selection": "^1.0.3",
     "d3-shape": "^1.0.4",
     "d3-transition": "^1.0.3",
     "d3-v4-grid": "^2.0.1",
@@ -102,7 +102,6 @@
     "its-set": "^1.2.1",
     "prop-types": "^15.6.0",
     "react-motion": "^0.5.2",
-    "react-transition-group": "^1.2.0",
     "utils-deep-get": "^1.0.0"
   }
 }

@@ -21,7 +21,12 @@ export default class Element extends Component {
       .reduce((acc, key) =>
         acc.concat(this.schema[key].inputs)
       , [])
-      .concat(['component']);
+      .concat(['component'])
+      .concat(this.getPrivateProps());
+  }
+
+  getPrivateProps() {
+    return [];
   }
 
   getSchema() {
