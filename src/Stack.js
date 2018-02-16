@@ -1,45 +1,54 @@
-import { Component } from 'react';
-// import { Children, cloneElement } from 'react';
-// import PropTypes from 'prop-types';
-// import d3Shape from 'd3-shape';
-// import itsSet from 'its-set';
+import PropTypes from 'prop-types';
+import { stack } from 'd3-shape';
 
-export default class Stack extends Component {
+import Layout from './Layout';
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Stack';
+export default class Stack extends Layout {
+
+  static displayName = 'Stack';
+
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    keys: PropTypes.array,
+    value: PropTypes.func,
+    order: PropTypes.array,
+    offset: PropTypes.func,
+  };
+
+  static defaultProps = {
+    ...Layout.defaultProps,
+  };
+
+  getSchema() {
+    return {
+      layout: stack,
+      layoutProps: [
+        'keys',
+        'value',
+        'order',
+        'offset',
+      ],
+      selectStylesToTween: d => d.reduce((acc, child, index) => ({
+        ...acc,
+        [`${index}_0`]: child[0],
+        [`${index}_1`]: child[1],
+      }), {}),
+    };
   }
 
-  render() {
-    return 'TODO';
-    // const { children, name, data } = this.props;
-    // const stackData = this.getStack(data);
-    //
-    // return Children.map(children, child =>
-    //   cloneElement(child, { [name]: stackData }),
-    // );
+  transformInterpolatedStyles(data) {
+    return data.map(d => {
+      const { data, style } = d;
+      const result = [...data];
+      Object.keys(style).forEach(key => {
+        const [row, col] = key.split('_');
+        result[row][col] = style[key];
+      });
+      return result;
+    });
   }
 
-  // getStack() {
-  //   let stack = d3Shape.stack();
-  //   [
-  //     'keys',
-  //     'value',
-  //     'order',
-  //     'offset',
-  //   ].forEach((key) => {
-  //     if (itsSet(this.props[key])) stack = stack[key](this.props[key]);
-  //   });
-  //   return stack;
-  // },
-
+  getData() {
+    return this.getLayout()(this.props.data);
+  }
 }
-
-Stack.propTypes = {
-  // name
-  // keys
-  // value
-  // order
-  // offset
-};

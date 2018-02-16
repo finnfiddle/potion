@@ -1,34 +1,18 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
-import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './helpers';
-import AnimatedElement from './mixins/AnimatedElement';
+import Element from './Element';
 
-export default class Text extends AnimatedElement {
+export default class Text extends Element {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Text';
+  static displayName = 'Text';
+
+  static propTypes = {
+    dx: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    dy: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+  };
+
+  static defaultProps = {
+    ...Element.defaultProps,
+    component: 'text',
   }
-
-  getAttrNames() {
-    return ['dx', 'dy'].concat(TWEENABLE_SVG_PRESENTATION_ATTRS);
-  }
-
-  render() {
-    return (
-      <text {...this.state} style={this.getStyle(this.props)} {...bindMouseEvents(this.props)}>
-        {this.props.children}
-      </text>
-    );
-  }
-
 }
-
-Text.propTypes = {
-  dx: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-  dy: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
-};
-
-Text.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

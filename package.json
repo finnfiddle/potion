@@ -1,6 +1,6 @@
 {
   "name": "number-picture",
-  "version": "0.5.0",
+  "version": "1.0.0-3",
   "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
     "charting"
   ],
   "options": {
-    "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.js"
+    "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.test.js --timeout 5000"
   },
   "main": "./cjs/index.js",
   "scripts": {
@@ -42,7 +42,8 @@
     "precommit": "npm run prepublish && npm run git:add_build",
     "testonly": "mocha $npm_package_options_mocha",
     "test": "npm run lint && npm run testonly",
-    "test-watch": "npm run testonly -- --watch --watch-extensions js"
+    "test-watch": "npm run testonly -- --watch --watch-extensions js",
+    "publish:next": "npm publish --tag next"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -89,11 +90,11 @@
     "array-uniq": "^1.0.3",
     "babel-runtime": "^6.20.0",
     "d3-axis": "^1.0.4",
+    "d3-chord": "^1.0.4",
     "d3-ease": "^1.0.3",
     "d3-force": "^1.0.6",
     "d3-hierarchy": "^1.1.5",
     "d3-interpolate": "^1.1.6",
-    "d3-selection": "^1.0.3",
     "d3-shape": "^1.0.4",
     "d3-transition": "^1.0.3",
     "d3-v4-grid": "^2.0.1",
@@ -101,7 +102,7 @@
     "intersect": "^1.0.1",
     "its-set": "^1.2.1",
     "prop-types": "^15.6.0",
-    "react-transition-group": "^1.2.0",
+    "react-motion": "^0.5.2",
     "utils-deep-get": "^1.0.0"
   }
 }

@@ -1,40 +1,21 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
-import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './helpers';
-import AnimatedElement from './mixins/AnimatedElement';
+import Element from './Element';
 
-export default class Line extends AnimatedElement {
+export default class Line extends Element {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Line';
-  }
+  static displayName = 'Line';
 
-  getAttrNames() {
-    return ['x1', 'x2', 'y1', 'y2'].concat(TWEENABLE_SVG_PRESENTATION_ATTRS);
-  }
+  static propTypes = {
+    x1: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
+    x2: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
+    y1: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
+    y2: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
+  };
 
-  render() {
-    const { className } = this.props;
-    return (
-      <line
-        {...this.state}
-        className={className}
-        style={this.getStyle(this.props)}
-        {...bindMouseEvents(this.props)}
-      />
-    );
-  }
+  static defaultProps = {
+    ...Element.defaultProps,
+    component: 'line',
+  };
 
 }
-
-Line.propTypes = {
-  x1: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
-  x2: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
-  y1: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
-  y2: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
-};
-
-Line.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

@@ -8,10 +8,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -22,13 +18,9 @@ var _itsSet = require('its-set');
 
 var _itsSet2 = _interopRequireDefault(_itsSet);
 
-var _constants = require('./constants');
+var _Element2 = require('./Element');
 
-var _helpers = require('./helpers');
-
-var _AnimatedElement2 = require('./mixins/AnimatedElement');
-
-var _AnimatedElement3 = _interopRequireDefault(_AnimatedElement2);
+var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38,84 +30,53 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Arc = function (_AnimatedElement) {
-  _inherits(Arc, _AnimatedElement);
+var Arc = function (_Element) {
+  _inherits(Arc, _Element);
 
-  function Arc(props) {
+  function Arc() {
     _classCallCheck(this, Arc);
 
-    var _this = _possibleConstructorReturn(this, (Arc.__proto__ || Object.getPrototypeOf(Arc)).call(this, props));
-
-    _this.displayName = 'Arc';
-    return _this;
+    return _possibleConstructorReturn(this, (Arc.__proto__ || Object.getPrototypeOf(Arc)).apply(this, arguments));
   }
 
   _createClass(Arc, [{
-    key: 'getAttrNames',
-    value: function getAttrNames() {
-      return _constants.TWEENABLE_SVG_PRESENTATION_ATTRS;
-    }
-  }, {
-    key: 'getPrivatePropNames',
-    value: function getPrivatePropNames() {
-      return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
-    }
-  }, {
-    key: 'getDerivedAttrNames',
-    value: function getDerivedAttrNames() {
-      return ['d'];
-    }
-  }, {
-    key: 'getDerivedAttrInputNames',
-    value: function getDerivedAttrInputNames() {
+    key: 'getSchema',
+    value: function getSchema() {
       return {
-        d: ['innerRadius', 'outerRadius', 'startAngle', 'endAngle']
-      };
-    }
-  }, {
-    key: 'getDerivationMethod',
-    value: function getDerivationMethod(key, props, shouldGetDatum) {
-      var _this2 = this;
-
-      switch (key) {
-        case 'd':
-          return function (datum) {
-            var derivationMethod = (0, _d3Shape.arc)();
-            var attrInputNames = _this2.derivedAttrInputNames[key];
-            var attrValues = _this2.getAttrs(Object.assign({}, props, { datum: datum }), attrInputNames, shouldGetDatum);
-            attrInputNames.forEach(function (attrName) {
+        d: {
+          get inputs() {
+            return ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'];
+          },
+          calculation: function calculation(props) {
+            var calc = (0, _d3Shape.arc)();
+            var keys = this.inputs;
+            keys.forEach(function (attrName) {
               if ((0, _itsSet2.default)(props[attrName])) {
-                derivationMethod = derivationMethod[attrName](attrValues[attrName]);
+                calc = calc[attrName](props[attrName]);
               }
             });
-            return derivationMethod();
-          };
-        // no default
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement('path', _extends({}, this.state, { style: this.getStyle(this.props) }, (0, _helpers.bindMouseEvents)(this.props)));
+            return calc();
+          }
+        }
+      };
     }
   }]);
 
   return Arc;
-}(_AnimatedElement3.default);
+}(_Element3.default);
 
-exports.default = Arc;
-
-
+Arc.displayName = 'Arc';
 Arc.propTypes = {
-  innerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  outerRadius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  startAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  endAngle: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func])
+  innerRadius: _propTypes2.default.number,
+  outerRadius: _propTypes2.default.number,
+  startAngle: _propTypes2.default.number,
+  endAngle: _propTypes2.default.number
 };
-
-Arc.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps, {
+Arc.defaultProps = _extends({}, _Element3.default.defaultProps, {
+  component: 'path',
   innerRadius: 0,
   outerRadius: 0,
   startAngle: 0,
   endAngle: 0
 });
+exports.default = Arc;

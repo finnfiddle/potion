@@ -1,96 +1,67 @@
-import React, { Children, cloneElement, Component } from 'react';
 import PropTypes from 'prop-types';
-import itsSet from 'its-set';
 import grid from 'd3-v4-grid';
 
-import TransitionGroup from './TransitionGroup';
-import { isFunction } from './helpers';
+import Layout from './Layout';
 
-export default class Grid extends Component {
+export default class Grid extends Layout {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Grid';
+  static displayName = 'Grid';
+
+  static propTypes = {
+    size: PropTypes.arrayOf(PropTypes.number),
+    nodeSize: PropTypes.arrayOf(PropTypes.number),
+    rows: PropTypes.number,
+    cols: PropTypes.number,
+    bands: PropTypes.bool,
+    padding: PropTypes.arrayOf(PropTypes.number),
+    data: PropTypes.array,
+    children: PropTypes.func,
+    singularChildren: PropTypes.node,
+  };
+
+  getSchema() {
+    return {
+      layout: grid,
+      layoutProps: [
+        'size',
+        'nodeSize',
+        'rows',
+        'cols',
+        'bands',
+        'padding',
+        'data',
+      ],
+      selectStylesToTween: d => ({
+        x: d.x,
+        y: d.y,
+        nodeWidth: d.nodeWidth,
+        nodeHeight: d.nodeHeight,
+      }),
+    };
   }
 
-  getGrid() {
-    let gridData = grid();
+  getData() {
+    const layout = this.getLayout();
 
-    [
-      'size',
-      'nodeSize',
-      'rows',
-      'cols',
-      'bands',
-      'padding',
-      'data',
-    ].forEach((key) => {
-      if (itsSet(this.props[key])) {
-        gridData = gridData[key](
-          (isFunction(this.props[key]) ? this.props[key](this.props) : this.props[key])
-        );
-      }
-    });
+    layout.layout();
 
-    gridData.layout();
-
+    const size = layout.size();
+    const nodeSize = layout.nodeSize();
+    const padding = layout.padding();
     const meta = {
-      size: gridData.size(),
-      nodeSize: gridData.nodeSize(),
-      rows: gridData.rows(),
-      cols: gridData.cols(),
-      bands: gridData.bands(),
-      padding: gridData.padding(),
+      nodeWidth: nodeSize[0],
+      nodeHeight: nodeSize[1],
+      size,
+      padding,
+      // width: size[0],
+      // height: size[1],
+      // paddingHorizontal: padding[0],
+      // paddingVertical: padding[1],
+      rows: layout.rows(),
+      cols: layout.cols(),
+      bands: layout.bands(),
     };
 
-    return gridData.nodes().map(d => Object.assign({}, d, meta));
-  }
-
-  renderChildren(gridData) {
-    const { children } = this.props;
-
-    return gridData.reduce((acc, datum, index) =>
-      acc.concat(Children.map(children, (child, c) =>
-        cloneElement(child, {
-          datum,
-          index,
-          data: gridData,
-          key: `${index}_${c}`,
-          _key: `${index}_${c}`,
-        })
-      ))
-    , []);
-  }
-
-  renderSingularChildren(gridData) {
-    const { singularChildren } = this.props;
-    return Children.map(singularChildren, child =>
-      cloneElement(child, { data: gridData })
-    );
-  }
-
-  render() {
-    const gridData = this.getGrid();
-    return (
-      <TransitionGroup>
-        {this.renderChildren(gridData)}
-        {this.renderSingularChildren(gridData)}
-      </TransitionGroup>
-    );
+    return layout.nodes().map(node => ({ ...node, ...meta }));
   }
 }
-
-Grid.propTypes = {
-  size: PropTypes.arrayOf(PropTypes.number),
-  nodeSize: PropTypes.arrayOf(PropTypes.number),
-  rows: PropTypes.number,
-  cols: PropTypes.number,
-  bands: PropTypes.bool,
-  padding: PropTypes.arrayOf(PropTypes.number),
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func,
-  ]),
-  children: PropTypes.node,
-  singularChildren: PropTypes.node,
-};

@@ -1,78 +1,67 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { area } from 'd3-shape';
+import itsSet from 'its-set';
 
-export default class Area extends Component {
+import Element from './Element';
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Area';
+export default class Area extends Element {
+
+  static displayName = 'Area';
+
+  static propTypes = {
+    x: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    x0: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    x1: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    y: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    y0: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    y1: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+    defined: PropTypes.number,
+    curve: PropTypes.number,
+    context: PropTypes.number,
+    lineX0: PropTypes.number,
+    lineY0: PropTypes.number,
+    lineX1: PropTypes.number,
+    lineY1: PropTypes.number,
+    points: PropTypes.array.isRequired,
+  };
+
+  static defaultProps = {
+    ...Element.defaultProps,
+    component: 'path',
+  };
+
+  getSchema() {
+    return {
+      d: {
+        get inputs() {
+          return [
+            'x',
+            'x0',
+            'x1',
+            'y',
+            'y0',
+            'y1',
+            'defined',
+            'curve',
+            'context',
+            'lineX0',
+            'lineY0',
+            'lineX1',
+            'lineY1',
+          ];
+        },
+        calculation(props) {
+          let calc = area();
+          const keys = this.inputs;
+          keys.forEach(attrName => {
+            if (itsSet(props[attrName])) {
+              calc = calc[attrName](props[attrName]);
+            }
+          });
+          return calc(props.points);
+        },
+      },
+    };
   }
-
-  render() {
-    return 'TODO';
-  }
-
-  // getArea() {
-  //   let area = d3Shape.area();
-  //   ['innerRadius', 'outerRadius', 'startAngle', 'endAngle'].forEach((key) => {
-  //     if (itsSet(this.props[key])) area = area[key](this.props[key]);
-  //   });
-  //   return area;
-  // },
 
 }
-
-Area.propTypes = {
-  x: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  x0: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  x1: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  y: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  y0: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  y1: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  defined: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  curve: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  context: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  lineX0: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  lineY0: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  lineX1: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  lineY1: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-};

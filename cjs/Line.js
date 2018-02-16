@@ -6,23 +6,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _constants = require('./constants');
+var _Element2 = require('./Element');
 
-var _helpers = require('./helpers');
-
-var _AnimatedElement2 = require('./mixins/AnimatedElement');
-
-var _AnimatedElement3 = _interopRequireDefault(_AnimatedElement2);
+var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,46 +22,26 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Line = function (_AnimatedElement) {
-  _inherits(Line, _AnimatedElement);
+var Line = function (_Element) {
+  _inherits(Line, _Element);
 
-  function Line(props) {
+  function Line() {
     _classCallCheck(this, Line);
 
-    var _this = _possibleConstructorReturn(this, (Line.__proto__ || Object.getPrototypeOf(Line)).call(this, props));
-
-    _this.displayName = 'Line';
-    return _this;
+    return _possibleConstructorReturn(this, (Line.__proto__ || Object.getPrototypeOf(Line)).apply(this, arguments));
   }
 
-  _createClass(Line, [{
-    key: 'getAttrNames',
-    value: function getAttrNames() {
-      return ['x1', 'x2', 'y1', 'y2'].concat(_constants.TWEENABLE_SVG_PRESENTATION_ATTRS);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var className = this.props.className;
-
-      return _react2.default.createElement('line', _extends({}, this.state, {
-        className: className,
-        style: this.getStyle(this.props)
-      }, (0, _helpers.bindMouseEvents)(this.props)));
-    }
-  }]);
-
   return Line;
-}(_AnimatedElement3.default);
+}(_Element3.default);
 
-exports.default = Line;
-
-
+Line.displayName = 'Line';
 Line.propTypes = {
   x1: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]).isRequired,
   x2: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]).isRequired,
   y1: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]).isRequired,
   y2: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.number]).isRequired
 };
-
-Line.defaultProps = Object.assign({}, _AnimatedElement3.default.defaultProps);
+Line.defaultProps = _extends({}, _Element3.default.defaultProps, {
+  component: 'line'
+});
+exports.default = Line;

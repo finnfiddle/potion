@@ -1,48 +1,29 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
-import { TWEENABLE_SVG_PRESENTATION_ATTRS } from './constants';
-import { bindMouseEvents } from './helpers';
-import AnimatedElement from './mixins/AnimatedElement';
+import Element from './Element';
 
-export default class Circle extends AnimatedElement {
+export default class Circle extends Element {
 
-  constructor(props) {
-    super(props);
-    this.displayName = 'Circle';
-  }
+  static displayName = 'Circle';
 
-  getAttrNames() {
-    return ['cx', 'cy', 'r'].concat(TWEENABLE_SVG_PRESENTATION_ATTRS);
-  }
+  static propTypes = {
+    cx: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.func,
+    ]),
+    cy: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.func,
+    ]),
+    r: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.func,
+    ]),
+  };
 
-  render() {
-    const { className } = this.props;
-    return (
-      <circle
-        {...this.state}
-        className={className}
-        style={this.getStyle(this.props)}
-        {...bindMouseEvents(this.props)}
-      />
-    );
-  }
+  static defaultProps = {
+    ...Element.defaultProps,
+    component: 'circle',
+  };
 
 }
-
-Circle.propTypes = {
-  cx: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  cy: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-  r: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.func,
-  ]),
-};
-
-Circle.defaultProps = Object.assign({}, AnimatedElement.defaultProps);

@@ -5,7 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.omit = exports.pick = exports.isObject = exports.isFunction = exports.isString = exports.isArray = undefined;
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof2 = require('babel-runtime/helpers/typeof');
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
 
 exports.cap = cap;
 exports.mapObject = mapObject;
@@ -25,8 +39,6 @@ var _constants = require('./constants');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 // convert first letter of word to uppercase
 function cap(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -37,8 +49,8 @@ var isArray = exports.isArray = function isArray(val) {
 };
 
 function mapObject(object, iterator) {
-  return (isArray(object) ? object : Object.keys(object)).reduce(function (acc, key) {
-    return Object.assign({}, acc, _defineProperty({}, key, iterator(object[key], key)));
+  return (isArray(object) ? object : (0, _keys2.default)(object)).reduce(function (acc, key) {
+    return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, iterator(object[key], key)));
   }, {});
 }
 
@@ -57,9 +69,9 @@ function radiansToDegrees(radians) {
 }
 
 function bindMouseEvents(props) {
-  var setProps = (0, _intersect2.default)(Object.keys(props), _constants.MOUSE_EVENTS);
+  var setProps = (0, _intersect2.default)((0, _keys2.default)(props), _constants.MOUSE_EVENTS);
   return setProps.reduce(function (acc, key) {
-    return Object.assign({}, acc, _defineProperty({}, key, function () {
+    return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, function () {
       return props[key](props);
     }));
   }, {});
@@ -74,7 +86,7 @@ var isFunction = exports.isFunction = function isFunction(val) {
 };
 
 var isObject = exports.isObject = function isObject(val) {
-  return (typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object' && val !== null;
+  return (typeof val === 'undefined' ? 'undefined' : (0, _typeof3.default)(val)) === 'object' && val !== null;
 };
 
 var pick = exports.pick = function pick(obj, keys) {
@@ -86,7 +98,7 @@ var pick = exports.pick = function pick(obj, keys) {
 };
 
 var omit = exports.omit = function omit(obj, keys) {
-  var result = Object.assign({}, obj);
+  var result = (0, _assign2.default)({}, obj);
   keys.forEach(function (key) {
     return delete result[key];
   });

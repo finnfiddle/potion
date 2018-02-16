@@ -4,11 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
 
 var _propTypes = require('prop-types');
 
@@ -16,15 +14,15 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _d3Hierarchy = require('d3-hierarchy');
 
-var _itsSet = require('its-set');
+var h = _interopRequireWildcard(_d3Hierarchy);
 
-var _itsSet2 = _interopRequireDefault(_itsSet);
+var _util = require('./util');
 
-var _TransitionGroup = require('./TransitionGroup');
+var _Layout2 = require('./Layout');
 
-var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
+var _Layout3 = _interopRequireDefault(_Layout2);
 
-var _helpers = require('./helpers');
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34,88 +32,61 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Pack = function (_Component) {
-  _inherits(Pack, _Component);
+var pack = h.pack,
+    hierarchy = h.hierarchy;
 
-  function Pack(props) {
+var Pack = function (_Layout) {
+  _inherits(Pack, _Layout);
+
+  function Pack() {
     _classCallCheck(this, Pack);
 
-    var _this = _possibleConstructorReturn(this, (Pack.__proto__ || Object.getPrototypeOf(Pack)).call(this, props));
-
-    _this.displayName = 'Pack';
-    return _this;
+    return _possibleConstructorReturn(this, (Pack.__proto__ || Object.getPrototypeOf(Pack)).apply(this, arguments));
   }
 
   _createClass(Pack, [{
-    key: 'getPack',
-    value: function getPack() {
-      var _this2 = this;
-
-      var p = (0, _d3Hierarchy.pack)();
-      ['radius', 'size', 'padding'].forEach(function (key) {
-        if ((0, _itsSet2.default)(_this2.props[key])) p = p[key](_this2.props[key]);
-      });
-      return p;
+    key: 'getSchema',
+    value: function getSchema() {
+      return {
+        layout: pack,
+        layoutProps: ['radius', 'size', 'padding'],
+        selectStylesToTween: function selectStylesToTween(d) {
+          return {
+            r: d.r,
+            x: d.x,
+            y: d.y
+          };
+        }
+      };
     }
   }, {
-    key: 'renderChildren',
-    value: function renderChildren() {
+    key: 'getData',
+    value: function getData() {
       var _props = this.props,
           data = _props.data,
-          children = _props.children,
+          sum = _props.sum,
           includeRoot = _props.includeRoot;
 
-
-      var packData = this.getPack()((0, _helpers.isFunction)(data) ? data(this.props) : data);
-      var filteredData = (0, _helpers.flattenHierarchy)(packData).slice(includeRoot ? 0 : 1).map(function (datum) {
-        var result = Object.assign({}, datum.data, datum);
-        delete result.data;
-        delete result.parent;
-        return result;
-      });
-
-      return filteredData.reduce(function (acc, datum, index) {
-        return acc.concat(_react.Children.map(children, function (child, c) {
-          return (0, _react.cloneElement)(child, {
-            datum: datum,
-            index: index,
-            data: filteredData,
-            key: index + '_' + c,
-            _key: index + '_' + c
-          });
-        }));
-      }, []);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        _TransitionGroup2.default,
-        null,
-        this.renderChildren()
-      );
+      return (0, _util.flattenHierarchy)(this.getLayout()(hierarchy(data).sum(sum))).slice(includeRoot ? 0 : 1);
     }
   }]);
 
   return Pack;
-}(_react.Component);
+}(_Layout3.default);
 
-exports.default = Pack;
-
-
+Pack.displayName = 'Pack';
 Pack.propTypes = {
-  radius: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
+  radius: _propTypes2.default.number,
   size: _propTypes2.default.arrayOf(_propTypes2.default.number),
-  padding: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  // packSiblings: PropTypes.arrayOf(
-  //  PropTypes.shape({ x: PropTypes.number, y: PropTypes.number })
-  // ),
-  // packEnclose: PropTypes.number,
-  data: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.func]),
-  children: _propTypes2.default.node,
-  includeRoot: _propTypes2.default.bool
+  padding: _propTypes2.default.number,
+  data: _propTypes2.default.object.isRequired,
+  includeRoot: _propTypes2.default.bool,
+  sum: _propTypes2.default.func
 };
-
-Pack.defaultProps = {
-  includeRoot: true
-};
+Pack.defaultProps = _extends({}, _Layout3.default.defaultProps, {
+  includeRoot: true,
+  sum: function sum(d) {
+    return d.value;
+  }
+});
+exports.default = Pack;

@@ -17,7 +17,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // import itsSet from 'its-set';
 // import d3Shape from 'd3-shape';
 //
-// import { bindMouseEvents } from './helpers';
+// import { bindMouseEvents } from './util';
 
 var RadialLine = function (_Component) {
   _inherits(RadialLine, _Component);
