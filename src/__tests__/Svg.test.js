@@ -25,7 +25,6 @@ describe('Svg', () => {
         height={400}
         style={{ display: 'block' }}
         foo='bar'
-        transform=''
       />
     );
 

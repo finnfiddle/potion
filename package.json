@@ -1,6 +1,6 @@
 {
   "name": "number-picture",
-  "version": "1.0.0-0",
+  "version": "1.0.0-3",
   "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
   "repository": {
     "type": "git",
@@ -42,7 +42,8 @@
     "precommit": "npm run prepublish && npm run git:add_build",
     "testonly": "mocha $npm_package_options_mocha",
     "test": "npm run lint && npm run testonly",
-    "test-watch": "npm run testonly -- --watch --watch-extensions js"
+    "test-watch": "npm run testonly -- --watch --watch-extensions js",
+    "publish:next": "npm publish --tag next"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

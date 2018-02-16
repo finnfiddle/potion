@@ -10,10 +10,6 @@ export default class Element extends Component {
     transform: PropTypes.object,
   }
 
-  static defaultProps = {
-    transform: {},
-  }
-
   constructor() {
     super();
     this.schema = this.getSchema();

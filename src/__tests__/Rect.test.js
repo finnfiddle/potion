@@ -35,7 +35,6 @@ describe('Rect', () => {
         strokeWidth={2}
         style={{ display: 'block' }}
         foo='bar'
-        transform=''
       />
     );
 

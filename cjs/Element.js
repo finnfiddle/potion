@@ -90,7 +90,4 @@ Element.propTypes = {
   children: _propTypes2.default.node,
   transform: _propTypes2.default.object
 };
-Element.defaultProps = {
-  transform: {}
-};
 exports.default = Element;
