@@ -1,17 +1,20 @@
 {
-  "name": "number-picture",
-  "version": "1.0.0-5",
+  "name": "@lego/main",
+  "version": "1.0.0-0",
   "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/finnfiddle/number-picture"
+    "url": "https://github.com/finnfiddle/lego"
   },
   "author": "Finn Fitzsimons",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/finnfiddle/number-picture/issues"
+    "url": "https://github.com/finnfiddle/lego/issues"
   },
-  "homepage": "https://github.com/finnfiddle/number-picture",
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/finnfiddle/lego",
   "keywords": [
     "react-component",
     "react",
@@ -26,26 +29,27 @@
     "chart",
     "charting"
   ],
-  "options": {
-    "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.test.js --timeout 5000"
-  },
-  "main": "./cjs/index.js",
   "scripts": {
-    "start": "babel --watch --plugins \"transform-runtime\" src --ignore __tests__ --out-dir ./cjs",
-    "prepublish": "npm run lint && npm test && npm run build",
-    "build": "npm run build:cjs && npm run build:umd",
-    "build:cjs": "babel src --ignore __tests__ --out-dir ./cjs",
+    "clean": "lerna clean --yes && node ./scripts/clean.js",
+    "bootstrap": "npm run clean && lerna bootstrap",
+    "publish": "lerna publish --npm-tag=next --cd-version=premajor --preid=next && npm publish",
+    "build": "npm run build:lib && npm run build:umd",
     "build:umd": "webpack && NODE_ENV=production webpack",
-    "git:add_build": "git add ./cjs ./umd",
-    "lint": "eslint ./src",
-    "lintfix": "eslint ./src --fix",
-    "precommit": "npm run prepublish && npm run git:add_build",
-    "testonly": "mocha $npm_package_options_mocha",
-    "test": "npm run lint && npm run testonly",
-    "test-watch": "npm run testonly -- --watch --watch-extensions js",
-    "publish:next": "npm publish --tag next"
+    "build:storybook": "build-storybook",
+    "build:lib": "node ./scripts/build.js",
+    "build:lib:main": "babel ./src --ignore __tests__ --out-dir ./lib",
+    "start": "node ./scripts/start.js",
+    "storybook": "start-storybook -p 6006",
+    "screenshot": "storybook-chrome-screenshot -p 9001 -c .storybook",
+    "prepublish": "npm run bootstrap && npm run lint && npm run build && npm test && npm run screenshot",
+    "lint": "eslint ./packages/**/src --fix",
+    "test": "mocha --require ./scripts/pre_test packages/**/__tests__/**/*.test.js --timeout 5000"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.3.14",
+    "@storybook/addon-links": "^3.3.14",
+    "@storybook/addons": "^3.3.14",
+    "@storybook/react": "^3.3.14",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^6.1.2",
@@ -58,9 +62,9 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "^6.7.4",
-    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-2": "^6.5.0",
+    "babel-runtime": "^6.20.0",
     "chai": "^3.5.0",
     "chai-string": "^1.4.0",
     "enzyme": "^3.3.0",
@@ -71,41 +75,17 @@
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^1.5.5",
     "eslint-plugin-react": "^5.2.2",
-    "gulp-eslint": "^2.1.0",
     "husky": "^0.14.3",
     "jsdom": "^8.1.0",
+    "lerna": "^2.9.0",
     "mocha": "^2.4.5",
     "nodemon": "^1.9.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "sinon": "^1.17.3",
+    "storybook-chrome-screenshot": "^1.0.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.0.0",
     "webpack-visualizer-plugin": "^0.1.11"
-  },
-  "peerDependencies": {
-    "react": "~0.14.8 || ^15.0.0 || ^16.0.0",
-    "react-dom": "~0.14.8 || ^15.0.0 || ^16.0.0"
-  },
-  "dependencies": {
-    "array-uniq": "^1.0.3",
-    "babel-runtime": "^6.20.0",
-    "d3-axis": "^1.0.4",
-    "d3-chord": "^1.0.4",
-    "d3-ease": "^1.0.3",
-    "d3-force": "^1.0.6",
-    "d3-hierarchy": "^1.1.5",
-    "d3-interpolate": "^1.1.6",
-    "d3-shape": "^1.0.4",
-    "d3-transition": "^1.0.3",
-    "d3-v4-grid": "^2.0.1",
-    "deep-equal": "^1.0.1",
-    "intersect": "^1.0.1",
-    "its-set": "^1.2.1",
-    "prop-types": "^15.6.0",
-    "react-motion": "^0.5.2",
-    "react-svg-textures": "^1.4.3",
-    "uigradients": "^0.2.1",
-    "utils-deep-get": "^1.0.0"
   }
 }

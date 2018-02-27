@@ -1,0 +1,45 @@
+{
+  "name": "@lego/element",
+  "version": "1.0.0-0",
+  "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/finnfiddle/number-picture"
+  },
+  "author": "Finn Fitzsimons",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/finnfiddle/number-picture/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/finnfiddle/number-picture",
+  "keywords": [
+    "react-component",
+    "react",
+    "d3",
+    "visualisation",
+    "visualization",
+    "datavis",
+    "dataviz",
+    "data",
+    "svg",
+    "graphics",
+    "chart",
+    "charting"
+  ],
+  "main": "lib/index.js",
+  "jsnext:main": "src/index",
+  "peerDependencies": {
+    "react": "~0.14.8 || ^15.0.0 || ^16.0.0",
+    "react-dom": "~0.14.8 || ^15.0.0 || ^16.0.0"
+  },
+  "dependencies": {
+    "@lego/util": "^1.0.0-0",
+    "babel-runtime": "^6.20.0",
+    "d3-chord": "^1.0.4",
+    "d3-shape": "^1.0.4",
+    "its-set": "^1.2.3"
+  }
+}
