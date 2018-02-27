@@ -1,20 +1,20 @@
 {
-  "name": "@lego/element",
-  "version": "1.0.0-0",
-  "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
+  "name": "@potion/element",
+  "version": "1.0.0-next.0",
+  "description": "React components for declaratively composing animated, interactive SVG visualizations using D3 - Elements/Shapes",
   "repository": {
     "type": "git",
-    "url": "https://github.com/finnfiddle/number-picture"
+    "url": "https://github.com/finnfiddle/potion"
   },
   "author": "Finn Fitzsimons",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/finnfiddle/number-picture/issues"
+    "url": "https://github.com/finnfiddle/potion/issues"
   },
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/finnfiddle/number-picture",
+  "homepage": "https://github.com/finnfiddle/potion",
   "keywords": [
     "react-component",
     "react",
@@ -36,7 +36,7 @@
     "react-dom": "~0.14.8 || ^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "@lego/util": "^1.0.0-0",
+    "@potion/util": "^1.0.0-next.0",
     "babel-runtime": "^6.20.0",
     "d3-chord": "^1.0.4",
     "d3-shape": "^1.0.4",
