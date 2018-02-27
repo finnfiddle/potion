@@ -33,7 +33,7 @@
     "clean": "lerna clean --yes && node ./scripts/clean.js",
     "bootstrap": "npm run clean && lerna bootstrap",
     "publish": "lerna publish --npm-tag=next --cd-version=premajor --preid=next && npm publish",
-    "build": "npm run build:lib && npm run build:umd",
+    "build": "npm run build:lib && npm run build:umd && npm run build:lib:main",
     "build:umd": "webpack && NODE_ENV=production webpack",
     "build:storybook": "build-storybook",
     "build:lib": "node ./scripts/build.js",
