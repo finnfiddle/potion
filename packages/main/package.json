@@ -1,7 +1,7 @@
 {
-  "name": "@potion/layout",
+  "name": "@potion/main",
   "version": "1.0.0-next.1",
-  "description": "React components for declaratively composing animated, interactive SVG visualizations using D3 - Layouts",
+  "description": "React components for declaratively composing animated, interactive SVG visualizations using D3 - Extras",
   "repository": {
     "type": "git",
     "url": "https://github.com/finnfiddle/potion"
@@ -36,14 +36,7 @@
     "react-dom": "~0.14.8 || ^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "@potion/util": "^1.0.0-next.1",
     "babel-runtime": "^6.20.0",
-    "d3-chord": "^1.0.4",
-    "d3-hierarchy": "^1.1.5",
-    "d3-shape": "^1.0.4",
-    "d3-v4-grid": "^2.0.2",
-    "its-set": "^1.2.3",
-    "prop-types": "^15.6.0",
-    "react-motion": "^0.5.2"
+    "prop-types": "^15.6.0"
   }
 }
