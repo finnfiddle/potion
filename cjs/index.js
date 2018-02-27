@@ -3,7 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.util = exports.Treemap = exports.Tree = exports.Text = exports.Svg = exports.SymbolShape = exports.Stack = exports.Ribbon = exports.Rect = exports.Pie = exports.Partition = exports.Pack = exports.LineRadial = exports.Line = exports.Group = exports.Grid = exports.Cluster = exports.Collection = exports.Circle = exports.Chord = exports.AreaRadial = exports.Area = exports.Arc = undefined;
+exports.util = exports.Treemap = exports.Tree = exports.Text = exports.Svg = exports.SymbolShape = exports.Stack = exports.Ribbon = exports.Rect = exports.Pie = exports.Partition = exports.Pack = exports.Pattern = exports.LineRadial = exports.LinearGradient = exports.Line = exports.Group = exports.Grid = exports.Cluster = exports.Collection = exports.Circle = exports.Chord = exports.AreaRadial = exports.Area = exports.Arc = undefined;
+
+var _reactSvgTextures = require('react-svg-textures');
+
+var Pattern = _interopRequireWildcard(_reactSvgTextures);
 
 var _Arc = require('./Arc');
 
@@ -44,6 +48,10 @@ var _Group2 = _interopRequireDefault(_Group);
 var _Line = require('./Line');
 
 var _Line2 = _interopRequireDefault(_Line);
+
+var _LinearGradient = require('./LinearGradient');
+
+var _LinearGradient2 = _interopRequireDefault(_LinearGradient);
 
 var _LineRadial = require('./LineRadial');
 
@@ -99,18 +107,11 @@ var _util2 = _interopRequireDefault(_util);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 // import Link from './Link';
 
-// import ForceSimulation from './ForceSimulation';
-
-// import GeoCircle from './GeoCircle';
-// import GeoPath from './GeoPath';
-
-// import Axis from './Axis';
-// import AxisBottom from './AxisBottom';
-// import AxisLeft from './AxisLeft';
-// import AxisRight from './AxisRight';
-// import AxisTop from './AxisTop';
+// import Contours from './Contours';
 exports.Arc = _Arc2.default;
 exports.Area = _Area2.default;
 exports.AreaRadial = _AreaRadial2.default;
@@ -121,7 +122,9 @@ exports.Cluster = _Cluster2.default;
 exports.Grid = _Grid2.default;
 exports.Group = _Group2.default;
 exports.Line = _Line2.default;
+exports.LinearGradient = _LinearGradient2.default;
 exports.LineRadial = _LineRadial2.default;
+exports.Pattern = Pattern;
 exports.Pack = _Pack2.default;
 exports.Partition = _Partition2.default;
 exports.Pie = _Pie2.default;
@@ -138,4 +141,13 @@ exports.util = _util2.default;
 
 // import Polygon from './Polygon';
 
-// import Contours from './Contours';
+// import ForceSimulation from './ForceSimulation';
+
+// import GeoCircle from './GeoCircle';
+// import GeoPath from './GeoPath';
+
+// import Axis from './Axis';
+// import AxisBottom from './AxisBottom';
+// import AxisLeft from './AxisLeft';
+// import AxisRight from './AxisRight';
+// import AxisTop from './AxisTop';

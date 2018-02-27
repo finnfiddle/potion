@@ -1,3 +1,5 @@
+import * as Pattern from 'react-svg-textures';
+
 import Arc from './Arc';
 import Area from './Area';
 import AreaRadial from './AreaRadial';
@@ -17,6 +19,7 @@ import Grid from './Grid';
 import Group from './Group';
 // import ForceSimulation from './ForceSimulation';
 import Line from './Line';
+import LinearGradient from './LinearGradient';
 import LineRadial from './LineRadial';
 // import Link from './Link';
 import Pack from './Pack';
@@ -54,8 +57,10 @@ export {
   Group,
   // ForceSimulation,
   Line,
+  LinearGradient,
   LineRadial,
   // Link,
+  Pattern,
   Pack,
   Partition,
   Pie,

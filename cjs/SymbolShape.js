@@ -4,9 +4,33 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = require('babel-runtime/helpers/extends');
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
 
 var _propTypes = require('prop-types');
 
@@ -24,12 +48,6 @@ var _Element3 = _interopRequireDefault(_Element2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var SYMBOLS = {
   symbolCircle: _d3Shape.symbolCircle,
   symbolCross: _d3Shape.symbolCross,
@@ -41,15 +59,14 @@ var SYMBOLS = {
 };
 
 var SymbolShape = function (_Element) {
-  _inherits(SymbolShape, _Element);
+  (0, _inherits3.default)(SymbolShape, _Element);
 
   function SymbolShape() {
-    _classCallCheck(this, SymbolShape);
-
-    return _possibleConstructorReturn(this, (SymbolShape.__proto__ || Object.getPrototypeOf(SymbolShape)).apply(this, arguments));
+    (0, _classCallCheck3.default)(this, SymbolShape);
+    return (0, _possibleConstructorReturn3.default)(this, (SymbolShape.__proto__ || (0, _getPrototypeOf2.default)(SymbolShape)).apply(this, arguments));
   }
 
-  _createClass(SymbolShape, [{
+  (0, _createClass3.default)(SymbolShape, [{
     key: 'getSchema',
     value: function getSchema() {
       return {
@@ -68,16 +85,15 @@ var SymbolShape = function (_Element) {
       };
     }
   }]);
-
   return SymbolShape;
 }(_Element3.default);
 
 SymbolShape.displayName = 'SymbolShape';
 SymbolShape.propTypes = {
   size: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.func]),
-  type: _propTypes2.default.oneOf(Object.keys(SYMBOLS))
+  type: _propTypes2.default.oneOf((0, _keys2.default)(SYMBOLS))
 };
-SymbolShape.defaultProps = _extends({}, _Element3.default.defaultProps, {
+SymbolShape.defaultProps = (0, _extends3.default)({}, _Element3.default.defaultProps, {
   component: 'path'
 });
 exports.default = SymbolShape;

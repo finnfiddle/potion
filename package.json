@@ -1,6 +1,6 @@
 {
   "name": "number-picture",
-  "version": "1.0.0-3",
+  "version": "1.0.0-5",
   "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
   "repository": {
     "type": "git",
@@ -51,6 +51,7 @@
     "babel-eslint": "^6.1.2",
     "babel-loader": "^7.1.1",
     "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-inline-json-import": "^0.2.1",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-plugin-transform-es2015-modules-umd": "^6.6.5",
@@ -103,6 +104,8 @@
     "its-set": "^1.2.1",
     "prop-types": "^15.6.0",
     "react-motion": "^0.5.2",
+    "react-svg-textures": "^1.4.3",
+    "uigradients": "^0.2.1",
     "utils-deep-get": "^1.0.0"
   }
 }
