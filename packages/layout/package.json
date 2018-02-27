@@ -1,6 +1,6 @@
 {
   "name": "@potion/layout",
-  "version": "1.0.0-next.0",
+  "version": "2.0.0-next.0",
   "description": "React components for declaratively composing animated, interactive SVG visualizations using D3 - Layouts",
   "repository": {
     "type": "git",
@@ -29,9 +29,6 @@
     "chart",
     "charting"
   ],
-  "options": {
-    "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.test.js --timeout 5000"
-  },
   "main": "lib/index.js",
   "jsnext:main": "src/index",
   "peerDependencies": {
@@ -39,7 +36,7 @@
     "react-dom": "~0.14.8 || ^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "@potion/util": "^1.0.0-next.0",
+    "@potion/util": "^2.0.0-next.0",
     "babel-runtime": "^6.20.0",
     "d3-chord": "^1.0.4",
     "d3-hierarchy": "^1.1.5",
