@@ -8198,4 +8198,4 @@ exports.default = Text;
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=lego-element.js.map
+//# sourceMappingURL=potion-element.js.map

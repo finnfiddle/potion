@@ -2,7 +2,7 @@ import { Component } from 'react';
 // import itsSet from 'its-set';
 // import d3Shape from 'd3-shape';
 //
-// import { bindMouseEvents } from '@lego/util';
+// import { bindMouseEvents } from '@potion/util';
 
 export default class RadialLine extends Component {
 

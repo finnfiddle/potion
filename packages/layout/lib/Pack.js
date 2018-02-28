@@ -14,7 +14,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _d3Hierarchy = require('d3-hierarchy');
 
-var _util = require('@lego/util');
+var _util = require('@potion/util');
 
 var _Layout2 = require('./Layout');
 

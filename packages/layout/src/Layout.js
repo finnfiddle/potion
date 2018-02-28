@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { TransitionMotion, spring } from 'react-motion';
 import itsSet from 'its-set';
 
-import { isObject } from '@lego/util';
+import { isObject } from '@potion/util';
 
 export default class Layout extends Component {
 

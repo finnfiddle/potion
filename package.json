@@ -1,20 +1,22 @@
 {
-  "name": "@lego/main",
-  "version": "1.0.0-0",
+  "name": "@potion/dev",
+  "version": "1.0.0-1",
   "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
   "repository": {
     "type": "git",
-    "url": "https://github.com/finnfiddle/lego"
+    "url": "https://github.com/finnfiddle/potion"
   },
   "author": "Finn Fitzsimons",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/finnfiddle/lego/issues"
+    "url": "https://github.com/finnfiddle/potion/issues"
   },
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/finnfiddle/lego",
+  "main": "lib/index.js",
+  "jsnext:main": "src/index",
+  "homepage": "https://github.com/finnfiddle/potion",
   "keywords": [
     "react-component",
     "react",
@@ -32,16 +34,14 @@
   "scripts": {
     "clean": "lerna clean --yes && node ./scripts/clean.js",
     "bootstrap": "npm run clean && lerna bootstrap",
-    "publish": "lerna publish --npm-tag=next --cd-version=premajor --preid=next && npm publish",
-    "build": "npm run build:lib && npm run build:umd && npm run build:lib:main",
+    "publish": "npm run bootstrap && npm run lint && npm run build && npm test && npm run screenshot && lerna publish --npm-tag=next --preid=next && npm publish",
+    "build": "npm run build:lib && npm run build:umd",
     "build:umd": "webpack && NODE_ENV=production webpack",
     "build:storybook": "build-storybook",
     "build:lib": "node ./scripts/build.js",
-    "build:lib:main": "babel ./src --ignore __tests__ --out-dir ./lib",
     "start": "node ./scripts/start.js",
     "storybook": "start-storybook -p 6006",
     "screenshot": "storybook-chrome-screenshot -p 9001 -c .storybook",
-    "prepublish": "npm run bootstrap && npm run lint && npm run build && npm test && npm run screenshot",
     "lint": "eslint ./packages/**/src --fix",
     "test": "mocha --require ./scripts/pre_test packages/**/__tests__/**/*.test.js --timeout 5000"
   },
@@ -61,6 +61,7 @@
     "babel-plugin-transform-es2015-modules-umd": "^6.6.5",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-plugin-webpack-loaders": "^0.9.0",
     "babel-polyfill": "^6.7.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.5.0",

@@ -6,7 +6,7 @@ import {
   isArray,
   getTransformationsFromArray,
   getTransformationsFromObject,
-} from '@lego/util';
+} from '@potion/util';
 
 export default class Element extends Component {
 

@@ -11,7 +11,7 @@ For example the Pie Layout will calculate metadata from the input dataset like s
 Renders a D3 Chord layout.
 
 ```javascript
-import { Chord } from 'number-picture';
+import { Chord } from '@potion/layout';
 ```
 
 ### Usage
@@ -65,7 +65,7 @@ import { Chord } from 'number-picture';
 Renders a D3 Cluster layout.
 
 ```javascript
-import { Cluster } from 'number-picture';
+import { Cluster } from '@potion/layout';
 ```
 
 ### Usage
@@ -147,7 +147,7 @@ import { Cluster } from 'number-picture';
 Generic Layout component for animating datasets.
 
 ```javascript
-import { Collection } from 'number-picture';
+import { Collection } from '@potion/layout';
 ```
 
 ### Usage
@@ -183,7 +183,7 @@ import { Collection } from 'number-picture';
 Renders a grid layout using the `d3-v4-grid` library.
 
 ```javascript
-import { Grid } from 'number-picture';
+import { Grid } from '@potion/layout';
 ```
 
 ### Usage
@@ -242,7 +242,7 @@ import { Grid } from 'number-picture';
 Renders a D3 Pack layout.
 
 ```javascript
-import { Pack } from 'number-picture';
+import { Pack } from '@potion/layout';
 ```
 
 ### Usage
@@ -295,7 +295,7 @@ import { Pack } from 'number-picture';
 Renders a D3 Partition layout.
 
 ```javascript
-import { Partition } from 'number-picture';
+import { Partition } from '@potion/layout';
 ```
 
 ### Usage
@@ -368,7 +368,7 @@ import { Partition } from 'number-picture';
 Renders a D3 Pie layout.
 
 ```javascript
-import { Pie } from 'number-picture';
+import { Pie } from '@potion/layout';
 ```
 
 ### Usage
@@ -424,7 +424,7 @@ import { Pie } from 'number-picture';
 Renders a D3 Stack layout.
 
 ```javascript
-import { Stack } from 'number-picture';
+import { Stack } from '@potion/layout';
 ```
 
 ### Usage
@@ -490,7 +490,7 @@ import { Stack } from 'number-picture';
 Renders a D3 Treemap layout.
 
 ```
-import { Treemap } from 'number-picture';
+import { Treemap } from '@potion/layout';
 ```
 
 ### Usage

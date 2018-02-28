@@ -3,7 +3,7 @@
 // import { forceSimulation } from 'd3-force';
 // import itsSet from 'its-set';
 
-// import { isObject } from '@lego/util';
+// import { isObject } from '@potion/util';
 // import TransitionGroup from './TransitionGroup';
 // import SelectSelf from './mixins/SelectSelf';
 

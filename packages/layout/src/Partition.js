@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { partition, hierarchy } from 'd3-hierarchy';
 
-import { flattenHierarchy } from '@lego/util';
+import { flattenHierarchy } from '@potion/util';
 import Layout from './Layout';
 
 export default class Pack extends Layout {

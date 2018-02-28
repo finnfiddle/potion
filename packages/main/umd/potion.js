@@ -14414,7 +14414,7 @@ exports.Pattern = exports.LinearGradient = undefined;
 
 var _reactSvgTextures = __webpack_require__(250);
 
-var Pattern = _interopRequireWildcard(_reactSvgTextures);
+var _reactSvgTextures2 = _interopRequireDefault(_reactSvgTextures);
 
 var _LinearGradient = __webpack_require__(258);
 
@@ -14422,10 +14422,8 @@ var _LinearGradient2 = _interopRequireDefault(_LinearGradient);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
 exports.LinearGradient = _LinearGradient2.default;
-exports.Pattern = Pattern;
+exports.Pattern = _reactSvgTextures2.default;
 
 // import Axis from './Axis';
 // import AxisBottom from './AxisBottom';
@@ -26364,4 +26362,4 @@ exports.default = Pack;
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=lego.js.map
+//# sourceMappingURL=potion.js.map

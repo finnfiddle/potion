@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import Layout from './Layout';
-import { isNumber } from '@lego/util';
+import { isNumber } from '@potion/util';
 
 export default class Collection extends Layout {
 

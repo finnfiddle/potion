@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { tree, hierarchy } from 'd3-hierarchy';
 
-import { flattenHierarchy } from '@lego/util';
+import { flattenHierarchy } from '@potion/util';
 import Layout from './Layout';
 
 export default class Tree extends Layout {

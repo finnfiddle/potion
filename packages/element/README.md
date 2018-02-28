@@ -1,15 +1,15 @@
 # Shapes/Elements<a class="anchor" name="elements"></a>
 
-Number Picture provides several shape primitives for constructing visualizations. They all render SVG by default but this can be overridden using component injection. The prop names are designed to be as similar to the API of native SVG and D3 generators.
+Potion provides several shape primitives for constructing visualizations. They all render SVG by default but this can be overridden using component injection. The prop names are designed to be as similar to the API of native SVG and D3 generators.
 
 ## Arc<a class="anchor" name="elements__arc"></a>
 
 Renders an arc shape using the D3 Arc generator.
 
-![Arc](https://raw.githubusercontent.com/finnfiddle/lego/master/packages/element/__screenshots__/Element-Arc.png "Arc")
+![Arc](https://raw.githubusercontent.com/finnfiddle/potion/master/packages/element/__screenshots__/Element-Arc.png "Arc")
 
 ```javascript
-import { Arc } from '@lego/element';
+import { Arc } from '@potion/element';
 ```
 
 ### Usage
@@ -38,10 +38,10 @@ import { Arc } from '@lego/element';
 
 Renders an area shape using the D3 Area generator.
 
-![Area](https://raw.githubusercontent.com/finnfiddle/lego/master/packages/element/__screenshots__/Element-Area.png "Area")
+![Area](https://raw.githubusercontent.com/finnfiddle/potion/master/packages/element/__screenshots__/Element-Area.png "Area")
 
 ```javascript
-import { Area } from '@lego/element';
+import { Area } from '@potion/element';
 ```
 
 ### Usage
@@ -70,10 +70,10 @@ import { Area } from '@lego/element';
 
 Renders a radial area shape using the D3 Radial Area generator.
 
-<!-- ![AreaRadial](https://raw.githubusercontent.com/finnfiddle/lego/master/packages/element/__screenshots__/Element-AreaRadial.png "AreaRadial") -->
+<!-- ![AreaRadial](https://raw.githubusercontent.com/finnfiddle/potion/master/packages/element/__screenshots__/Element-AreaRadial.png "AreaRadial") -->
 
 ```javascript
-import { RadialArea } from '@lego/element';
+import { RadialArea } from '@potion/element';
 ```
 
 ```javascript
@@ -84,10 +84,10 @@ import { RadialArea } from '@lego/element';
 
 Renders a circle.
 
-![Circle](https://raw.githubusercontent.com/finnfiddle/lego/master/packages/element/__screenshots__/Element-Circle.png "Circle")
+![Circle](https://raw.githubusercontent.com/finnfiddle/potion/master/packages/element/__screenshots__/Element-Circle.png "Circle")
 
 ```javascript
-import { Circle } from '@lego/element';
+import { Circle } from '@potion/element';
 ```
 
 ### Usage
@@ -110,7 +110,7 @@ import { Circle } from '@lego/element';
 Renders a symbol shape using the D3 Symbol generator.
 
 ```javascript
-import { Group } from '@lego/element';
+import { Group } from '@potion/element';
 ```
 
 ### Usage
@@ -131,10 +131,10 @@ import { Group } from '@lego/element';
 
 Renders a line.
 
-![Line](https://raw.githubusercontent.com/finnfiddle/lego/master/packages/element/__screenshots__/Element-Line.png "Line")
+![Line](https://raw.githubusercontent.com/finnfiddle/potion/master/packages/element/__screenshots__/Element-Line.png "Line")
 
 ```javascript
-import { Line } from '@lego/element';
+import { Line } from '@potion/element';
 ```
 
 ### Usage
@@ -157,10 +157,10 @@ import { Line } from '@lego/element';
 
 Renders a radial line using the D3 radial line generator.
 
-![LineRadial](https://raw.githubusercontent.com/finnfiddle/lego/master/packages/element/__screenshots__/Element-LineRadial.png "LineRadial")
+![LineRadial](https://raw.githubusercontent.com/finnfiddle/potion/master/packages/element/__screenshots__/Element-LineRadial.png "LineRadial")
 
 ```javascript
-import { LineRadial } from '@lego/element';
+import { LineRadial } from '@potion/element';
 ```
 
 ### Usage
@@ -199,10 +199,10 @@ import { LineRadial } from '@lego/element';
 
 Renders a rectangle.
 
-![Rect](https://raw.githubusercontent.com/finnfiddle/lego/master/packages/element/__screenshots__/Element-Rect.png "Rect")
+![Rect](https://raw.githubusercontent.com/finnfiddle/potion/master/packages/element/__screenshots__/Element-Rect.png "Rect")
 
 ```javascript
-import { Rect } from '@lego/element';
+import { Rect } from '@potion/element';
 ```
 
 ### Usage
@@ -225,10 +225,10 @@ import { Rect } from '@lego/element';
 
 Renders a ribbon using the D3 Ribbon generator.
 
-![Ribbon](https://raw.githubusercontent.com/finnfiddle/lego/master/packages/element/__screenshots__/Element-Ribbon.png "Ribbon")
+![Ribbon](https://raw.githubusercontent.com/finnfiddle/potion/master/packages/element/__screenshots__/Element-Ribbon.png "Ribbon")
 
 ```javascript
-import { Ribbon } from '@lego/element';
+import { Ribbon } from '@potion/element';
 ```
 
 ### Usage
@@ -265,7 +265,7 @@ import { Ribbon } from '@lego/element';
 Renders an Svg element.
 
 ```javascript
-import { Svg } from '@lego/element';
+import { Svg } from '@potion/element';
 ```
 
 ### Usage
@@ -286,10 +286,10 @@ import { Svg } from '@lego/element';
 
 Renders a symbol shape using the D3 symbol generator.
 
-![SymbolShape](https://raw.githubusercontent.com/finnfiddle/lego/master/packages/element/__screenshots__/Element-SymbolShape.png "SymbolShape")
+![SymbolShape](https://raw.githubusercontent.com/finnfiddle/potion/master/packages/element/__screenshots__/Element-SymbolShape.png "SymbolShape")
 
 ```javascript
-import { SymbolShape } from '@lego/element';
+import { SymbolShape } from '@potion/element';
 ```
 
 ### Usage
@@ -310,10 +310,10 @@ import { SymbolShape } from '@lego/element';
 
 Renders text.
 
-![Text](https://raw.githubusercontent.com/finnfiddle/lego/master/packages/element/__screenshots__/Element-Text.png "Text")
+![Text](https://raw.githubusercontent.com/finnfiddle/potion/master/packages/element/__screenshots__/Element-Text.png "Text")
 
 ```javascript
-import { Text } from '@lego/element';
+import { Text } from '@potion/element';
 ```
 
 ### Usage

@@ -1,4 +1,4 @@
-import * as Pattern from 'react-svg-textures';
+import Pattern from 'react-svg-textures';
 
 // import Axis from './Axis';
 // import AxisBottom from './AxisBottom';

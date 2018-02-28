@@ -16,7 +16,7 @@ var _Layout2 = require('./Layout');
 
 var _Layout3 = _interopRequireDefault(_Layout2);
 
-var _util = require('@lego/util');
+var _util = require('@potion/util');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

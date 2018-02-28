@@ -3,13 +3,13 @@
 To install React with Yarn, run:
 
 ```bash
-yarn add number-picture@next
+yarn add potion@next
 ```
 
 To install React with npm, run:
 
 ```bash
-npm install number-picture@next
+npm install potion@next
 ```
 
 <h1>&nbsp;</h1>
@@ -21,7 +21,7 @@ A basic example to get you up and running.
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Svg, Circle } from 'number-picture';
+import { Svg, Circle } from 'potion';
 
 ReactDOM.render(
   <Svg width={400} height={400}>

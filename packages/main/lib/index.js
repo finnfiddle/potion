@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _index = require('../packages/element/src/index');
+var _index = require('../../element/src/index');
 
 Object.keys(_index).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -16,7 +16,7 @@ Object.keys(_index).forEach(function (key) {
   });
 });
 
-var _index2 = require('../packages/extra/src/index');
+var _index2 = require('../../extra/src/index');
 
 Object.keys(_index2).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -28,7 +28,7 @@ Object.keys(_index2).forEach(function (key) {
   });
 });
 
-var _index3 = require('../packages/layout/src/index');
+var _index3 = require('../../layout/src/index');
 
 Object.keys(_index3).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -40,7 +40,7 @@ Object.keys(_index3).forEach(function (key) {
   });
 });
 
-var _index4 = require('../packages/util/src/index');
+var _index4 = require('../../util/src/index');
 
 Object.keys(_index4).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
