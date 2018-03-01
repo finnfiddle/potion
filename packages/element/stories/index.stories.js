@@ -18,7 +18,7 @@ addDecorator(initScreenshot());
 
 storiesOf('Element', module)
 
-  .add('Arc', withScreenshot()(() => (
+  .add('Arc', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Arc
         innerRadius={150}
@@ -33,7 +33,7 @@ storiesOf('Element', module)
     </Svg>
   )))
 
-  .add('Area', withScreenshot()(() => (
+  .add('Area', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Area
         x={d => d.x}
@@ -53,7 +53,7 @@ storiesOf('Element', module)
     </Svg>
   )))
 
-  // .add('AreaRadial', withScreenshot()(() => (
+  // .add('AreaRadial', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
   //   <Svg width={500} height={500}>
   //     <Arc
   //       innerRadius={150}
@@ -68,19 +68,19 @@ storiesOf('Element', module)
   //   </Svg>
   // )))
 
-  .add('Circle', withScreenshot()(() => (
+  .add('Circle', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Circle cx={250} cy={250} r={150} fill='black' />
     </Svg>
   )))
 
-  .add('Line', withScreenshot()(() => (
+  .add('Line', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Line x1={50} y1={50} x2={450} y2={450} stroke='black' strokeWidth={4} />
     </Svg>
   )))
 
-  .add('LineRadial', withScreenshot()(() => (
+  .add('LineRadial', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <LineRadial
         radius={100}
@@ -104,13 +104,13 @@ storiesOf('Element', module)
     </Svg>
   )))
 
-  .add('Rect', withScreenshot()(() => (
+  .add('Rect', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Rect x={100} y={100} width={300} height={300} fill='black' />
     </Svg>
   )))
 
-  .add('Ribbon', withScreenshot()(() => (
+  .add('Ribbon', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Ribbon
         source={{
@@ -131,7 +131,7 @@ storiesOf('Element', module)
     </Svg>
   )))
 
-  .add('SymbolShape', withScreenshot()(() => (
+  .add('SymbolShape', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <SymbolShape
         size={10000}
@@ -142,7 +142,7 @@ storiesOf('Element', module)
     </Svg>
   )))
 
-  .add('Text', withScreenshot()(() => (
+  .add('Text', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Text
         dx={250}

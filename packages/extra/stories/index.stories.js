@@ -9,7 +9,7 @@ addDecorator(initScreenshot());
 
 storiesOf('Extra', module)
 
-  .add('Pattern', withScreenshot()(() => (
+  .add('Pattern', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <svg width={500} height={500}>
       <Pattern.Paths
         id='my-pattern'
@@ -25,7 +25,7 @@ storiesOf('Extra', module)
     </svg>
   )))
 
-  .add('LinearGradient', withScreenshot()(() => (
+  .add('LinearGradient', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <svg width={500} height={500}>
       <LinearGradient
         id='my-gradient'

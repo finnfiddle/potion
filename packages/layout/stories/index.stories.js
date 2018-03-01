@@ -20,7 +20,7 @@ addDecorator(initScreenshot());
 
 storiesOf('Layout', module)
 
-  .add('Chord', withScreenshot()(() => (
+  .add('Chord', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Chord
         data={[
@@ -48,7 +48,7 @@ storiesOf('Layout', module)
     </Svg>
   )))
 
-  .add('Cluster', withScreenshot()(() => (
+  .add('Cluster', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Group transform={{ translate: [40, 80] }}>
         <Cluster
@@ -104,7 +104,7 @@ storiesOf('Layout', module)
     </Svg>
   )))
 
-  .add('Collection', withScreenshot()(() => (
+  .add('Collection', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Collection
         data={[
@@ -121,7 +121,7 @@ storiesOf('Layout', module)
     </Svg>
   )))
 
-  .add('Grid', withScreenshot()(() => (
+  .add('Grid', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Grid
         data={[
@@ -153,7 +153,7 @@ storiesOf('Layout', module)
     </Svg>
   )))
 
-  .add('Pack', withScreenshot()(() => (
+  .add('Pack', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Pack
         data={{
@@ -186,7 +186,7 @@ storiesOf('Layout', module)
     </Svg>
   )))
 
-  .add('Partition', withScreenshot()(() => (
+  .add('Partition', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Partition
         data={{
@@ -233,7 +233,7 @@ storiesOf('Layout', module)
     </Svg>
   )))
 
-  .add('Pie', withScreenshot()(() => (
+  .add('Pie', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Pie
         data={[
@@ -263,7 +263,7 @@ storiesOf('Layout', module)
     </Svg>
   )))
 
-  .add('Stack', withScreenshot()(() => (
+  .add('Stack', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Stack
         data={[
@@ -304,7 +304,7 @@ storiesOf('Layout', module)
     </Svg>
   )))
 
-  .add('Treemap', withScreenshot()(() => (
+  .add('Treemap', withScreenshot({ viewport: { width: 500, height: 500 } })(() => (
     <Svg width={500} height={500}>
       <Treemap
         data={{
