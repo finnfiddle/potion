@@ -1,6 +1,6 @@
 {
   "name": "@potion/util",
-  "version": "1.0.0-next.2",
+  "version": "1.0.0-next.3",
   "description": "React components for declaratively composing animated, interactive SVG visualizations using D3 - Utils",
   "repository": {
     "type": "git",
