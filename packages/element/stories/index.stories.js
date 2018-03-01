@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { storiesOf, addDecorator, configure } from '@storybook/react';
+import { storiesOf, addDecorator } from '@storybook/react';
 import { initScreenshot, withScreenshot } from 'storybook-chrome-screenshot';
 
 import Svg from '../src/Svg';
@@ -48,6 +48,7 @@ storiesOf('Element', module)
           { x: 5 * 90, y1: 5 * 50 },
         ]}
         fill='black'
+        transform={{ rotate: [180, 250, 250] }}
       />
     </Svg>
   )))

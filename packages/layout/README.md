@@ -10,6 +10,8 @@ For example the Pie Layout will calculate metadata from the input dataset like s
 
 Renders a D3 Chord layout.
 
+![Chord](https://raw.githubusercontent.com/finnfiddle/potion/lego/__screenshots__/Layout-Chord.png "Chord")
+
 ```javascript
 import { Chord } from '@potion/layout';
 ```
@@ -63,6 +65,8 @@ import { Chord } from '@potion/layout';
 ## Cluster<a class="anchor" name="layouts__cluster"></a>
 
 Renders a D3 Cluster layout.
+
+![Cluster](https://raw.githubusercontent.com/finnfiddle/potion/lego/__screenshots__/Layout-Cluster.png "Cluster")
 
 ```javascript
 import { Cluster } from '@potion/layout';
@@ -146,6 +150,8 @@ import { Cluster } from '@potion/layout';
 
 Generic Layout component for animating datasets.
 
+![Collection](https://raw.githubusercontent.com/finnfiddle/potion/lego/__screenshots__/Layout-Collection.png "Collection")
+
 ```javascript
 import { Collection } from '@potion/layout';
 ```
@@ -182,6 +188,8 @@ import { Collection } from '@potion/layout';
 
 Renders a grid layout using the `d3-v4-grid` library.
 
+![Grid](https://raw.githubusercontent.com/finnfiddle/potion/lego/__screenshots__/Layout-Grid.png "Grid")
+
 ```javascript
 import { Grid } from '@potion/layout';
 ```
@@ -211,7 +219,7 @@ import { Grid } from '@potion/layout';
     <Circle
       key={key}
       cx={x + nodeWidth / 2}
-      cy={y + node200}
+      cy={y + nodeHeight / 2}
       r={value}
       fill="black"
     />
@@ -240,6 +248,8 @@ import { Grid } from '@potion/layout';
 ## Pack<a class="anchor" name="layouts__pack"></a>
 
 Renders a D3 Pack layout.
+
+![Pack](https://raw.githubusercontent.com/finnfiddle/potion/lego/__screenshots__/Layout-Pack.png "Pack")
 
 ```javascript
 import { Pack } from '@potion/layout';
@@ -293,6 +303,8 @@ import { Pack } from '@potion/layout';
 ## Partition<a class="anchor" name="layouts__partition"></a>
 
 Renders a D3 Partition layout.
+
+![Partition](https://raw.githubusercontent.com/finnfiddle/potion/lego/__screenshots__/Layout-Partition.png "Partition")
 
 ```javascript
 import { Partition } from '@potion/layout';
@@ -367,6 +379,8 @@ import { Partition } from '@potion/layout';
 
 Renders a D3 Pie layout.
 
+![Pie](https://raw.githubusercontent.com/finnfiddle/potion/lego/__screenshots__/Layout-Pie.png "Pie")
+
 ```javascript
 import { Pie } from '@potion/layout';
 ```
@@ -422,6 +436,8 @@ import { Pie } from '@potion/layout';
 ## Stack<a class="anchor" name="layouts__stack"></a>
 
 Renders a D3 Stack layout.
+
+![Stack](https://raw.githubusercontent.com/finnfiddle/potion/lego/__screenshots__/Layout-Stack.png "Stack")
 
 ```javascript
 import { Stack } from '@potion/layout';
@@ -488,6 +504,8 @@ import { Stack } from '@potion/layout';
 ## Treemap<a class="anchor" name="layouts__treemap"></a>
 
 Renders a D3 Treemap layout.
+
+![Treemap](https://raw.githubusercontent.com/finnfiddle/potion/lego/__screenshots__/Layout-Treemap.png "Treemap")
 
 ```
 import { Treemap } from '@potion/layout';

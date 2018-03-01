@@ -34,7 +34,7 @@
   "scripts": {
     "clean": "lerna clean --yes && node ./scripts/clean.js",
     "bootstrap": "npm run clean && lerna bootstrap",
-    "publish": "npm run bootstrap && npm run lint && npm run build && npm test && npm run screenshot && lerna publish --npm-tag=next --preid=next && npm publish",
+    "publish": "npm run bootstrap && npm run lint && npm run build && npm test && npm run screenshot && lerna publish --npm-tag=next --preid=next",
     "build": "npm run build:lib && npm run build:umd",
     "build:umd": "webpack && NODE_ENV=production webpack",
     "build:storybook": "build-storybook",

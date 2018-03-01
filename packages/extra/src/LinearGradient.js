@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import gradients from '../node_modules/uigradients/src/gradient_list.json';
+import gradients from '../node_modules/uigradients/gradients.json';
+
+const GRADIENTS_HASH = gradients.reduce((acc, g) => ({
+  ...acc,
+  [g.name.toLowerCase()]: g.colors,
+}), {});
+
+const GRADIENT_NAMES = Object.keys(GRADIENTS_HASH);
 
 const randomGradientName = () => {
-  const keys = Object.keys(gradients);
-  const index = Math.floor(Math.random() * keys.length);
-  return keys[index];
+  const index = Math.floor(Math.random() * GRADIENT_NAMES.length);
+  return GRADIENT_NAMES[index];
 };
 
-export default class LinearGRadient extends Component {
+export default class LinearGradient extends Component {
 
   static propTypes = {
     components: PropTypes.shape({
       linearGradient: PropTypes.node,
       stop: PropTypes.node,
     }),
-    name: PropTypes.oneOf(Object.keys(gradients)),
+    name: PropTypes.oneOf(GRADIENT_NAMES),
     colors: PropTypes.array,
     offsets: PropTypes.arrayOf(PropTypes.string),
   }
@@ -30,8 +36,7 @@ export default class LinearGRadient extends Component {
 
   render() {
     const { name, colors, components, offsets, ...rest } = this.props;
-
-    const finalColors = colors || gradients[name || randomGradientName()];
+    const finalColors = colors || GRADIENTS_HASH[name || randomGradientName()];
     const numColors = finalColors.length;
 
     return (
