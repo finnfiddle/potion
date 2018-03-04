@@ -7,3 +7,5 @@
 npm-debug.log
 node_modules
 bundle-stats.html
+lerna-debug.log
+package-lock.json
