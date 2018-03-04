@@ -303,7 +303,7 @@ import { SymbolShape } from '@potion/element';
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | size | number |  | area of SymbolShape shape |
-| type | string |  | name of D3 SymbolShape generator function. Possible values: `symbolShapeCircle`, `symbolShapeCross`, `symbolShapeDiamond`, `symbolShapeSquare`, `symbolShapeStar`, `symbolShapeTriangle`, `symbolShapeWye` |
+| type | string |  | name of D3 SymbolShape generator function. Possible values: `symbolCircle`, `symbolCross`, `symbolDiamond`, `symbolSquare`, `symbolStar`, `symbolTriangle`, `symbolWye` |
 | component | element/string | `'path'` | component type that gets rendered |
               
 ## Text<a class="anchor" name="elements__text"></a>

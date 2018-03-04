@@ -17,6 +17,7 @@ export default class Layout extends Component {
     component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     springStiffness: PropTypes.number,
     springDamping: PropTypes.number,
+    interpolate: PropTypes.func,
   };
 
   static defaultProps = {
@@ -26,6 +27,7 @@ export default class Layout extends Component {
     component: 'g',
     springStiffness: 170,
     springDamping: 26,
+    interpolate: () => ({}),
   };
 
   constructor() {
@@ -36,7 +38,7 @@ export default class Layout extends Component {
   }
 
   getEnterStyle({ style }) {
-    const result = { ...style, ...this.props.nodeEnter(style) };
+    const result = { ...style, ...this.props.interpolate(style), ...this.props.nodeEnter(style) };
     return Object.keys(result).reduce((acc, key) => ({
       ...acc,
       [key]: isObject(result[key]) ? result[key].val : result[key],
@@ -44,7 +46,7 @@ export default class Layout extends Component {
   }
 
   getExitStyle({ style }) {
-    const result = { ...style, ...this.props.nodeExit(style) };
+    const result = { ...style, ...this.props.interpolate(style), ...this.props.nodeExit(style) };
 
     return Object.keys(result).reduce((acc, key) => ({
       ...acc,
@@ -65,7 +67,7 @@ export default class Layout extends Component {
     return this.getData().map(d => ({
       key: d.key || d.data.key,
       data: d,
-      style: this.schema.selectStylesToTween(d),
+      style: { ...this.props.interpolate(d), ...this.schema.selectStylesToTween(d) },
     }));
   }
 

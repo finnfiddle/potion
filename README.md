@@ -7,6 +7,8 @@
 
 Potion is a collection of **React** components for declaratively composing animated, interactive visualizations.
 
+(Formerly NumberPicture.js)
+
 ## Links
 
 - [Documentation](http://numberpicture.com/docs)

@@ -1,7 +1,7 @@
 {
   "name": "@potion/dev",
   "version": "1.0.0-1",
-  "description": "React components for declaratively composing animated, interactive SVG visualizations using D3",
+  "description": "React components for declaratively composing animated, interactive visualizations",
   "repository": {
     "type": "git",
     "url": "https://github.com/finnfiddle/potion"

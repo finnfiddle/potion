@@ -475,7 +475,7 @@ var Layout = function (_Component) {
     value: function getEnterStyle(_ref) {
       var style = _ref.style;
 
-      var result = _extends({}, style, this.props.nodeEnter(style));
+      var result = _extends({}, style, this.props.interpolate(style), this.props.nodeEnter(style));
       return Object.keys(result).reduce(function (acc, key) {
         return _extends({}, acc, _defineProperty({}, key, (0, _util.isObject)(result[key]) ? result[key].val : result[key]));
       }, {});
@@ -485,7 +485,7 @@ var Layout = function (_Component) {
     value: function getExitStyle(_ref2) {
       var style = _ref2.style;
 
-      var result = _extends({}, style, this.props.nodeExit(style));
+      var result = _extends({}, style, this.props.interpolate(style), this.props.nodeExit(style));
 
       return Object.keys(result).reduce(function (acc, key) {
         return _extends({}, acc, _defineProperty({}, key, (0, _util.isObject)(result[key]) ? result[key].val : result[key]));
@@ -515,7 +515,7 @@ var Layout = function (_Component) {
         return {
           key: d.key || d.data.key,
           data: d,
-          style: _this3.schema.selectStylesToTween(d)
+          style: _extends({}, _this3.props.interpolate(d), _this3.schema.selectStylesToTween(d))
         };
       });
     }
@@ -611,7 +611,8 @@ Layout.propTypes = {
   animate: _propTypes2.default.bool,
   component: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.string]),
   springStiffness: _propTypes2.default.number,
-  springDamping: _propTypes2.default.number
+  springDamping: _propTypes2.default.number,
+  interpolate: _propTypes2.default.func
 };
 Layout.defaultProps = {
   animate: false,
@@ -623,7 +624,10 @@ Layout.defaultProps = {
   },
   component: 'g',
   springStiffness: 170,
-  springDamping: 26
+  springDamping: 26,
+  interpolate: function interpolate() {
+    return {};
+  }
 };
 exports.default = Layout;
 
