@@ -1,6 +1,6 @@
 # Potion
 
-[![npm version](https://badge.fury.io/js/@potion/dev.svg)](https://badge.fury.io/js/@potion/dev)
+[![npm version](https://badge.fury.io/js/%40potion%2Fdev.svg)](https://badge.fury.io/js/%40potion%2Fdev)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
 [http://numberpicture.com/build](http://numberpicture.com/build)
