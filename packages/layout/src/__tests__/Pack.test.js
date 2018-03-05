@@ -3,6 +3,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
+import Svg from '../../../element/src/Svg';
 import Pack from '../Pack';
 import { setTimeout } from 'timers';
 
@@ -176,5 +177,39 @@ describe('Pack', () => {
       });
 
     }, 1000);
+  });
+
+  it('rn', () => {
+    const actual = mount(
+      <Svg components={{ g: 'rng' }}>
+        <Pack
+          data={{
+            children: [
+              { value: 1, key: '1' },
+              { value: 2, key: '2' },
+              { value: 3, key: '3' },
+            ],
+          }}
+          sum={datum => datum.value}
+          size={[200, 200]}
+          includeRoot={false}
+        >{
+          nodes =>
+            nodes.map(({ x, y, r, data: { key } }) => (
+              <circle
+                key={key}
+                cx={Math.round(x)}
+                cy={Math.round(y)}
+                r={Math.round(r)}
+                fill='black'
+              />
+            ))
+        }</Pack>
+      </Svg>
+    );
+
+    expect(actual.html()).to.equal(
+      '<svg><rng><circle cx="53" cy="54" r="32" fill="black"></circle><circle cx="130" cy="54" r="45" fill="black"></circle><circle cx="76" cy="138" r="55" fill="black"></circle></rng></svg>'
+    );
   });
 });

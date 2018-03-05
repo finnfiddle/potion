@@ -15,7 +15,8 @@ export default class Line extends Element {
 
   static defaultProps = {
     ...Element.defaultProps,
-    component: 'line',
   };
+
+  defaultComponent='line'
 
 }

@@ -3,11 +3,31 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.wrapIfOutdated = exports.getTransformationsFromObject = exports.getTransformationsFromArray = exports.omit = exports.pick = exports.isObject = exports.isFunction = exports.isNumber = exports.isString = exports.isArray = exports.constants = undefined;
+exports.wrapIfOutdated = exports.getRNSvgTransformations = exports.getRNSvgTransformationsFromObject = exports.getRNSvgTransformationsFromArray = exports.getTransformations = exports.getTransformationsFromObject = exports.getTransformationsFromArray = exports.omit = exports.pick = exports.isObject = exports.isFunction = exports.isNumber = exports.isString = exports.isArray = exports.types = exports.constants = undefined;
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+var _extends2 = require('babel-runtime/helpers/extends');
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _typeof2 = require('babel-runtime/helpers/typeof');
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
 
 exports.cap = cap;
 exports.mapObject = mapObject;
@@ -29,11 +49,13 @@ var _intersect2 = _interopRequireDefault(_intersect);
 
 var _constants = require('./constants');
 
+var _types = require('./types');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var constants = exports.constants = { MOUSE_EVENTS: _constants.MOUSE_EVENTS };
+
+var types = exports.types = { componentsType: _types.componentsType };
 
 // convert first letter of word to uppercase
 function cap(word) {
@@ -45,8 +67,8 @@ var isArray = exports.isArray = function isArray(val) {
 };
 
 function mapObject(object, iterator) {
-  return (isArray(object) ? object : Object.keys(object)).reduce(function (acc, key) {
-    return Object.assign({}, acc, _defineProperty({}, key, iterator(object[key], key)));
+  return (isArray(object) ? object : (0, _keys2.default)(object)).reduce(function (acc, key) {
+    return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, iterator(object[key], key)));
   }, {});
 }
 
@@ -76,9 +98,9 @@ function radiansToDegrees(radians) {
 }
 
 function bindMouseEvents(props) {
-  var setProps = (0, _intersect2.default)(Object.keys(props), _constants.MOUSE_EVENTS);
+  var setProps = (0, _intersect2.default)((0, _keys2.default)(props), _constants.MOUSE_EVENTS);
   return setProps.reduce(function (acc, key) {
-    return Object.assign({}, acc, _defineProperty({}, key, function () {
+    return (0, _assign2.default)({}, acc, (0, _defineProperty3.default)({}, key, function () {
       return props[key](props);
     }));
   }, {});
@@ -97,7 +119,7 @@ var isFunction = exports.isFunction = function isFunction(val) {
 };
 
 var isObject = exports.isObject = function isObject(val) {
-  return (typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object' && val !== null;
+  return (typeof val === 'undefined' ? 'undefined' : (0, _typeof3.default)(val)) === 'object' && val !== null;
 };
 
 var pick = exports.pick = function pick(obj, keys) {
@@ -109,7 +131,7 @@ var pick = exports.pick = function pick(obj, keys) {
 };
 
 var omit = exports.omit = function omit(obj, keys) {
-  var result = Object.assign({}, obj);
+  var result = (0, _assign2.default)({}, obj);
   keys.forEach(function (key) {
     return delete result[key];
   });
@@ -119,7 +141,7 @@ var omit = exports.omit = function omit(obj, keys) {
 var getTranformation = function getTranformation(meta) {
   return {
     matrix: function matrix(_ref) {
-      var _ref2 = _slicedToArray(_ref, 6),
+      var _ref2 = (0, _slicedToArray3.default)(_ref, 6),
           a = _ref2[0],
           b = _ref2[1],
           c = _ref2[2],
@@ -130,21 +152,21 @@ var getTranformation = function getTranformation(meta) {
       return 'matrix(' + a + ', ' + b + ', ' + c + ', ' + d + ', ' + e + ', ' + f + ')';
     },
     translate: function translate(_ref3) {
-      var _ref4 = _slicedToArray(_ref3, 2),
+      var _ref4 = (0, _slicedToArray3.default)(_ref3, 2),
           x = _ref4[0],
           y = _ref4[1];
 
       return 'translate(' + x + (y ? ', ' + y : '') + ')';
     },
     scale: function scale(_ref5) {
-      var _ref6 = _slicedToArray(_ref5, 2),
+      var _ref6 = (0, _slicedToArray3.default)(_ref5, 2),
           x = _ref6[0],
           y = _ref6[1];
 
       return 'scale(' + x + (y ? ', ' + y : '') + ')';
     },
     rotate: function rotate(_ref7) {
-      var _ref8 = _slicedToArray(_ref7, 3),
+      var _ref8 = (0, _slicedToArray3.default)(_ref7, 3),
           a = _ref8[0],
           x = _ref8[1],
           y = _ref8[2];
@@ -152,16 +174,16 @@ var getTranformation = function getTranformation(meta) {
       return 'rotate(' + a + (x ? ', ' + x : '') + (y ? ', ' + y : '') + ')';
     },
     skewX: function skewX(_ref9) {
-      var _ref10 = _slicedToArray(_ref9, 1),
+      var _ref10 = (0, _slicedToArray3.default)(_ref9, 1),
           a = _ref10[0];
 
       return 'skewX(' + a + ')';
     },
-    skewy: function skewy(_ref11) {
-      var _ref12 = _slicedToArray(_ref11, 1),
+    skewY: function skewY(_ref11) {
+      var _ref12 = (0, _slicedToArray3.default)(_ref11, 1),
           a = _ref12[0];
 
-      return 'skewy(' + a + ')';
+      return 'skewY(' + a + ')';
     }
   }[meta.type](meta.value);
 };
@@ -173,9 +195,56 @@ var getTransformationsFromArray = exports.getTransformationsFromArray = function
 };
 
 var getTransformationsFromObject = exports.getTransformationsFromObject = function getTransformationsFromObject(obj) {
-  return Object.keys(obj).reduce(function (acc, type) {
+  return (0, _keys2.default)(obj).reduce(function (acc, type) {
     return acc + ' ' + getTranformation({ type: type, value: obj[type] });
   }, '');
+};
+
+var getTransformations = exports.getTransformations = function getTransformations(transform) {
+  return isArray(transform) ? getTransformationsFromArray(transform) : getTransformationsFromObject(transform);
+};
+
+var getRNSvgTranformation = function getRNSvgTranformation(meta) {
+  return {
+    translate: function translate(_ref13) {
+      var _ref14 = (0, _slicedToArray3.default)(_ref13, 2),
+          x = _ref14[0],
+          y = _ref14[1];
+
+      return { x: x, y: y };
+    },
+    scale: function scale(_ref15) {
+      var _ref16 = (0, _slicedToArray3.default)(_ref15, 2),
+          x = _ref16[0],
+          y = _ref16[1];
+
+      return y ? { scaleX: x, scaleY: y } : { scale: x };
+    },
+    rotate: function rotate(_ref17) {
+      var _ref18 = (0, _slicedToArray3.default)(_ref17, 3),
+          a = _ref18[0],
+          x = _ref18[1],
+          y = _ref18[2];
+
+      return { rotation: a, originX: x, originY: y };
+    }
+  }[meta.type](meta.value);
+};
+
+var getRNSvgTransformationsFromArray = exports.getRNSvgTransformationsFromArray = function getRNSvgTransformationsFromArray(arr) {
+  return arr.reduce(function (acc, meta) {
+    return (0, _extends3.default)({}, acc, getRNSvgTranformation(meta));
+  }, {});
+};
+
+var getRNSvgTransformationsFromObject = exports.getRNSvgTransformationsFromObject = function getRNSvgTransformationsFromObject(obj) {
+  return (0, _keys2.default)(obj).reduce(function (acc, type) {
+    return (0, _extends3.default)({}, acc, getRNSvgTranformation({ type: type, value: obj[type] }));
+  }, {});
+};
+
+var getRNSvgTransformations = exports.getRNSvgTransformations = function getRNSvgTransformations(transform) {
+  return isArray(transform) ? getRNSvgTransformationsFromArray(transform) : getRNSvgTransformationsFromObject(transform);
 };
 
 var wrapIfOutdated = exports.wrapIfOutdated = function wrapIfOutdated(inner, outer) {
