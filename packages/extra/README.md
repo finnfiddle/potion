@@ -6,7 +6,7 @@ Extra elements/effects used when visualizing data like gradients, patterns, axes
 
 Potion provides the ability to fill shapes with patterns using the third-party library [react-svg-textures](https://github.com/finnfiddle/react-svg-textures).
 
-![Pattern](https://raw.githubusercontent.com/finnfiddle/number-picture/lego/__screenshots__/Extra-Pattern.png "Pattern")
+![Pattern](https://raw.githubusercontent.com/finnfiddle/potion/master/__screenshots__/Extra-Pattern.png "Pattern")
 
 ### Example:
 
@@ -28,7 +28,7 @@ import { Pattern } from '@potion/extra';
 
 Potion provides the ability to fill shapes with linear and radial gradients. Many preset gradients are provided by [uiGradients](https://uigradients.com).
 
-![LinearGradient](https://raw.githubusercontent.com/finnfiddle/number-picture/lego/__screenshots__/Extra-LinearGradient.png "LinearGradient")
+![LinearGradient](https://raw.githubusercontent.com/finnfiddle/potion/master/__screenshots__/Extra-LinearGradient.png "LinearGradient")
 
 ### Example:
 
