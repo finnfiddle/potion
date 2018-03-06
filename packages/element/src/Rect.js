@@ -15,6 +15,7 @@ export default class Rect extends Element {
 
   static defaultProps = {
     ...Element.defaultProps,
-    component: 'rect',
   };
+
+  defaultComponent='rect'
 }

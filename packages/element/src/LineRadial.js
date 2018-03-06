@@ -19,10 +19,11 @@ export default class Line extends Element {
 
   static defaultProps = {
     ...Element.defaultProps,
-    component: 'path',
     angle: d => d[0],
     radius: d => d[1],
   };
+
+  defaultComponent='path'
 
   getPrivateProps() {
     return ['points'];

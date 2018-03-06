@@ -4,8 +4,6 @@ export default class Group extends Element {
 
   static displayName = 'Group';
 
-  static defaultProps = {
-    component: 'g',
-  }
+  defaultComponent='g'
 
 }

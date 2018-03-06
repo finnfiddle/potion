@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TransitionMotion, spring } from 'react-motion';
 import itsSet from 'its-set';
+import get from 'lodash.get';
 
-import { isObject } from '@potion/util';
+import { isObject, types } from '@potion/util';
 
 export default class Layout extends Component {
 
@@ -24,11 +25,14 @@ export default class Layout extends Component {
     animate: false,
     nodeEnter: d => d,
     nodeExit: d => d,
-    component: 'g',
     springStiffness: 170,
     springDamping: 26,
     interpolate: () => ({}),
   };
+
+  static contextTypes = {
+    components: types.componentsType,
+  }
 
   constructor() {
     super();
@@ -74,6 +78,8 @@ export default class Layout extends Component {
   getStaticData() {
     return this.getData();
   }
+
+  defaultComponent='g'
 
   transformDefaultStyles(data) {
     return data.map(d => ({ ...d, style: this.props.nodeEnter(d.style) }));
@@ -121,10 +127,16 @@ export default class Layout extends Component {
   }
 
   renderChildren(data) {
+    const { defaultComponent } = this;
+    const the = {
+      component: this.props.component ||
+        get(this, `context.components.${defaultComponent}`) ||
+        defaultComponent,
+    };
     return (
-      <this.props.component>
+      <the.component>
         {this.props.children(data)}
-      </this.props.component>
+      </the.component>
     );
   }
 

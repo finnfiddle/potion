@@ -13,6 +13,7 @@ export default class Text extends Element {
 
   static defaultProps = {
     ...Element.defaultProps,
-    component: 'text',
   }
+
+  defaultComponent='text'
 }

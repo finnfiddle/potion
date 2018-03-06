@@ -17,12 +17,13 @@ export default class Arc extends Element {
 
   static defaultProps = {
     ...Element.defaultProps,
-    component: 'path',
     innerRadius: 0,
     outerRadius: 0,
     startAngle: 0,
     endAngle: 0,
   };
+
+  defaultComponent='path'
 
   getSchema() {
     return {

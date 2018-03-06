@@ -18,8 +18,9 @@ export default class Ribbon extends Element {
 
   static defaultProps = {
     ...Element.defaultProps,
-    component: 'path',
   };
+
+  defaultComponent='path'
 
   getPrivateProps() {
     return ['source', 'target'];

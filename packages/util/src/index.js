@@ -3,8 +3,10 @@ import itsSet from 'its-set';
 import intersection from 'intersect';
 
 import { MOUSE_EVENTS } from './constants';
-
 export const constants = { MOUSE_EVENTS };
+
+import { componentsType } from './types';
+export const types = { componentsType };
 
 // convert first letter of word to uppercase
 export function cap(word) {
@@ -75,24 +77,47 @@ export const omit = (obj, keys) => {
   return result;
 };
 
-const getTranformation = meta => ({
+const getTranformation = (meta) => ({
   matrix: ([a, b, c, d, e, f]) => `matrix(${a}, ${b}, ${c}, ${d}, ${e}, ${f})`,
   translate: ([x, y]) => `translate(${x}${y ? `, ${y}` : ''})`,
   scale: ([x, y]) => `scale(${x}${y ? `, ${y}` : ''})`,
   rotate: ([a, x, y]) => `rotate(${a}${x ? `, ${x}` : ''}${y ? `, ${y}` : ''})`,
   skewX: ([a]) => `skewX(${a})`,
-  skewy: ([a]) => `skewy(${a})`,
+  skewY: ([a]) => `skewY(${a})`,
 })[meta.type](meta.value);
 
-export const getTransformationsFromArray = arr =>
+export const getTransformationsFromArray = (arr) =>
   arr.reduce((acc, meta) =>
     `${acc} ${getTranformation(meta)}`
   , '');
 
-export const getTransformationsFromObject = obj =>
+export const getTransformationsFromObject = (obj) =>
   Object.keys(obj).reduce((acc, type) =>
     `${acc} ${getTranformation({ type, value: obj[type] })}`
   , '');
+
+export const getTransformations = transform => isArray(transform) ?
+  getTransformationsFromArray(transform) :
+  getTransformationsFromObject(transform);
+
+const getRNSvgTranformation = (meta) => ({
+  translate: ([x, y]) => ({ x, y }),
+  scale: ([x, y]) => y ? { scaleX: x, scaleY: y } : { scale: x },
+  rotate: ([a, x, y]) => ({ rotation: a, originX: x, originY: y }),
+})[meta.type](meta.value);
+
+export const getRNSvgTransformationsFromArray = (arr) =>
+  arr.reduce((acc, meta) => ({ ...acc, ...getRNSvgTranformation(meta) }), {});
+
+export const getRNSvgTransformationsFromObject = (obj) =>
+  Object.keys(obj).reduce((acc, type) => ({
+    ...acc,
+    ...getRNSvgTranformation({ type, value: obj[type] }),
+  }), {});
+
+export const getRNSvgTransformations = transform => isArray(transform) ?
+  getRNSvgTransformationsFromArray(transform) :
+  getRNSvgTransformationsFromObject(transform);
 
 export const wrapIfOutdated = (inner, outer) => {
   const the = { outer };

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import get from 'lodash.get';
 
 import {
   omit,
-  isArray,
-  getTransformationsFromArray,
-  getTransformationsFromObject,
+  getTransformations,
+  getRNSvgTransformations,
+  types,
 } from '@potion/util';
 
 export default class Element extends Component {
@@ -13,6 +14,12 @@ export default class Element extends Component {
   static propTypes = {
     children: PropTypes.node,
     transform: PropTypes.object,
+    component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  }
+
+  static contextTypes = {
+    components: types.componentsType,
+    env: PropTypes.oneOf(['web', 'react-native-svg']),
   }
 
   constructor() {
@@ -42,22 +49,39 @@ export default class Element extends Component {
   }
 
   getTransformations() {
+    const env = this.context.env || 'web';
     const { transform } = this.props;
-    if (!transform) return undefined;
-    return isArray(transform) ?
-      getTransformationsFromArray(transform) :
-      getTransformationsFromObject(transform);
+
+    if (!transform) return {};
+
+    switch (env) {
+      case 'web':
+      default: {
+        return {
+          transform: getTransformations(transform),
+        };
+      }
+      case 'react-native-svg': {
+        return getRNSvgTransformations(transform);
+      }
+    }
   }
 
   render() {
+    const { defaultComponent } = this;
+    const the = {
+      component: this.props.component ||
+        get(this, `context.components.${defaultComponent}`) ||
+        defaultComponent,
+    };
     return (
-      <this.props.component
+      <the.component
         {...this.getDerivedAttrs()}
         {...omit(this.props, this.privateProps)}
-        transform={this.getTransformations()}
+        {...this.getTransformations()}
       >
         {this.props.children}
-      </this.props.component>
+      </the.component>
     );
   }
 }

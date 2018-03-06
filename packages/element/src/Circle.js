@@ -23,7 +23,8 @@ export default class Circle extends Element {
 
   static defaultProps = {
     ...Element.defaultProps,
-    component: 'circle',
   };
+
+  defaultComponent='circle'
 
 }

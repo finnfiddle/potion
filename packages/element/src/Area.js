@@ -27,8 +27,9 @@ export default class Area extends Element {
 
   static defaultProps = {
     ...Element.defaultProps,
-    component: 'path',
   };
+
+  defaultComponent='path'
 
   getSchema() {
     return {
