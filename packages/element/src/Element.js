@@ -14,6 +14,7 @@ export default class Element extends Component {
   static propTypes = {
     children: PropTypes.node,
     transform: PropTypes.object,
+    component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   }
 
   static contextTypes = {
@@ -69,7 +70,9 @@ export default class Element extends Component {
   render() {
     const { defaultComponent } = this;
     const the = {
-      component: get(this, `context.components.${defaultComponent}`) || defaultComponent,
+      component: this.props.component ||
+        get(this, `context.components.${defaultComponent}`) ||
+        defaultComponent,
     };
     return (
       <the.component

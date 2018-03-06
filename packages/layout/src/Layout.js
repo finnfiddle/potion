@@ -129,7 +129,9 @@ export default class Layout extends Component {
   renderChildren(data) {
     const { defaultComponent } = this;
     const the = {
-      component: get(this, `context.components.${defaultComponent}`) || defaultComponent,
+      component: this.props.component ||
+        get(this, `context.components.${defaultComponent}`) ||
+        defaultComponent,
     };
     return (
       <the.component>
