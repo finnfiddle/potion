@@ -1,6 +1,6 @@
 {
   "name": "@potion/extra",
-  "version": "1.0.0-next.10",
+  "version": "1.0.0-next.11",
   "description": "React components for declaratively composing animated, interactive visualizations - Extras",
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
+    "lodash.get": "^4.4.2",
     "prop-types": "^15.6.0",
     "react-svg-textures": "^1.4.3",
     "uigradients": "https://github.com/ghosh/uiGradients.git"
