@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { types } from '@potion/util';
+import { types, defaultProps } from '@potion/util';
 
 import Element from './Element';
 
@@ -9,7 +9,7 @@ export default class Svg extends Element {
 
   static propTypes = {
     patterns: PropTypes.array,
-    components: types.componentsType,
+    components: types.components,
   };
 
   static defaultProps = {
@@ -19,7 +19,7 @@ export default class Svg extends Element {
   };
 
   static childContextTypes = {
-    components: types.componentsType,
+    components: types.components,
     env: PropTypes.oneOf(['web', 'react-native-svg']),
   }
 
@@ -28,22 +28,7 @@ export default class Svg extends Element {
   getChildContext() {
     return {
       components: {
-        svg: 'svg',
-        circle: 'circle',
-        ellipse: 'ellipse',
-        g: 'g',
-        linearGradient: 'linearGradient',
-        radialGradient: 'radialGradient',
-        line: 'line',
-        path: 'path',
-        polygon: 'polygon',
-        polyline: 'polyline',
-        rect: 'rect',
-        symbol: 'symbol',
-        text: 'text',
-        use: 'use',
-        defs: 'defs',
-        stop: 'stop',
+        ...defaultProps.components,
         ...this.props.components,
       },
       env: this.props.env,

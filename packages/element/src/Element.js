@@ -15,10 +15,11 @@ export default class Element extends Component {
     children: PropTypes.node,
     transform: PropTypes.object,
     component: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    components: types.components,
   }
 
   static contextTypes = {
-    components: types.componentsType,
+    components: types.components,
     env: PropTypes.oneOf(['web', 'react-native-svg']),
   }
 
@@ -29,7 +30,7 @@ export default class Element extends Component {
       .reduce((acc, key) =>
         acc.concat(this.schema[key].inputs)
       , [])
-      .concat(['component'])
+      .concat(['component', 'transform'])
       .concat(this.getPrivateProps());
   }
 
@@ -69,8 +70,10 @@ export default class Element extends Component {
 
   render() {
     const { defaultComponent } = this;
+    const { component, components } = this.props;
     const the = {
-      component: this.props.component ||
+      component: component ||
+        get(components, defaultComponent) ||
         get(this, `context.components.${defaultComponent}`) ||
         defaultComponent,
     };

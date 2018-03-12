@@ -4,37 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _extends3 = require('babel-runtime/helpers/extends');
-
-var _extends4 = _interopRequireDefault(_extends3);
-
-var _keys = require('babel-runtime/core-js/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
-
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = require('babel-runtime/helpers/createClass');
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = require('babel-runtime/helpers/inherits');
-
-var _inherits3 = _interopRequireDefault(_inherits2);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -52,22 +24,30 @@ var _util = require('@potion/util');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var Element = function (_Component) {
-  (0, _inherits3.default)(Element, _Component);
+  _inherits(Element, _Component);
 
   function Element() {
-    (0, _classCallCheck3.default)(this, Element);
+    _classCallCheck(this, Element);
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Element.__proto__ || (0, _getPrototypeOf2.default)(Element)).call(this));
+    var _this = _possibleConstructorReturn(this, (Element.__proto__ || Object.getPrototypeOf(Element)).call(this));
 
     _this.schema = _this.getSchema();
-    _this.privateProps = (0, _keys2.default)(_this.schema).reduce(function (acc, key) {
+    _this.privateProps = Object.keys(_this.schema).reduce(function (acc, key) {
       return acc.concat(_this.schema[key].inputs);
-    }, []).concat(['component']).concat(_this.getPrivateProps());
+    }, []).concat(['component', 'transform']).concat(_this.getPrivateProps());
     return _this;
   }
 
-  (0, _createClass3.default)(Element, [{
+  _createClass(Element, [{
     key: 'getPrivateProps',
     value: function getPrivateProps() {
       return [];
@@ -82,8 +62,8 @@ var Element = function (_Component) {
     value: function getDerivedAttrs() {
       var _this2 = this;
 
-      return (0, _keys2.default)(this.schema).reduce(function (acc, key) {
-        return (0, _extends4.default)({}, acc, (0, _defineProperty3.default)({}, key, _this2.schema[key].calculation(_this2.props)));
+      return Object.keys(this.schema).reduce(function (acc, key) {
+        return _extends({}, acc, _defineProperty({}, key, _this2.schema[key].calculation(_this2.props)));
       }, {});
     }
   }, {
@@ -113,26 +93,32 @@ var Element = function (_Component) {
     key: 'render',
     value: function render() {
       var defaultComponent = this.defaultComponent;
+      var _props = this.props,
+          component = _props.component,
+          components = _props.components;
 
       var the = {
-        component: (0, _lodash2.default)(this, 'context.components.' + defaultComponent) || defaultComponent
+        component: component || (0, _lodash2.default)(components, defaultComponent) || (0, _lodash2.default)(this, 'context.components.' + defaultComponent) || defaultComponent
       };
       return _react2.default.createElement(
         the.component,
-        (0, _extends4.default)({}, this.getDerivedAttrs(), (0, _util.omit)(this.props, this.privateProps), this.getTransformations()),
+        _extends({}, this.getDerivedAttrs(), (0, _util.omit)(this.props, this.privateProps), this.getTransformations()),
         this.props.children
       );
     }
   }]);
+
   return Element;
 }(_react.Component);
 
 Element.propTypes = {
   children: _propTypes2.default.node,
-  transform: _propTypes2.default.object
+  transform: _propTypes2.default.object,
+  component: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.string]),
+  components: _util.types.components
 };
 Element.contextTypes = {
-  components: _util.types.componentsType,
+  components: _util.types.components,
   env: _propTypes2.default.oneOf(['web', 'react-native-svg'])
 };
 exports.default = Element;

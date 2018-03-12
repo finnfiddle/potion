@@ -5,8 +5,11 @@ import intersection from 'intersect';
 import { MOUSE_EVENTS } from './constants';
 export const constants = { MOUSE_EVENTS };
 
-import { componentsType } from './types';
-export const types = { componentsType };
+import { components as componentsType } from './types';
+export const types = { components: componentsType };
+
+import defaultProps from './defaultProps';
+export { defaultProps };
 
 // convert first letter of word to uppercase
 export function cap(word) {

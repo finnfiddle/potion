@@ -31,7 +31,7 @@ export default class Layout extends Component {
   };
 
   static contextTypes = {
-    components: types.componentsType,
+    components: types.components,
   }
 
   constructor() {
@@ -102,7 +102,14 @@ export default class Layout extends Component {
   transformInterpolatedStyles(data) {
     return data.map(d => {
       const { data, style, key } = d;
-      return { key, ...data, ...style };
+      return {
+        key,
+        ...Object.getOwnPropertyNames(data).reduce((acc, key) => ({
+          ...acc,
+          [key]: data[key],
+        }), {}),
+        ...style,
+      };
     });
   }
 

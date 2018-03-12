@@ -6,6 +6,8 @@ Extra elements/effects used when visualizing data like gradients, patterns, axes
 
 Potion provides the ability to fill shapes with patterns using the third-party library [react-svg-textures](https://github.com/finnfiddle/react-svg-textures).
 
+**Note:** [not supported](https://github.com/react-native-community/react-native-svg/issues/194) on React Native.
+
 ![Pattern](https://raw.githubusercontent.com/finnfiddle/potion/master/__screenshots__/Extra-Pattern.png "Pattern")
 
 ### Example:
