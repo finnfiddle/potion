@@ -1,6 +1,6 @@
 {
   "name": "@potion/extra",
-  "version": "1.0.0-next.16",
+  "version": "1.0.0-next.17",
   "description": "React components for declaratively composing animated, interactive visualizations - Extras",
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "react-dom": "~0.14.8 || ^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "@potion/util": "^1.0.0-next.16",
+    "@potion/util": "^1.0.0-next.17",
     "babel-runtime": "^6.20.0",
     "lodash.get": "^4.4.2",
     "prop-types": "^15.6.0",
