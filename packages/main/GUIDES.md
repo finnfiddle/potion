@@ -107,7 +107,7 @@ const {
 Another approach is the manually inject the foreign components into each Potion component we use through its `component` prop:
 
 ```javascript
-import { Svg, Circle } from '@potion/element';
+import { Svg as PotionSvg, Circle as PotionCircle } from '@potion/element';
 import { Svg as RNSvg } from 'expo';
 
 <PotionSvg
@@ -136,7 +136,7 @@ Currently, Potion supports two environments: `web` or `react-native-svg`.
 Example:
 
 ```javascript
-import { Svg, Circle } from '@potion/element';
+import { Svg as PotionSvg, Circle as PotionCircle } from '@potion/element';
 import { Svg as RNSvg } from 'expo';
 
 <PotionSvg
@@ -159,7 +159,7 @@ import { Svg as RNSvg } from 'expo';
 We can also set the environment on the `Svg` Potion component which will automatically set the environment for all its child Potion components through the context. The above example can be rewritten as follows:
 
 ```javascript
-import { Svg, Circle } from '@potion/element';
+import { Svg as PotionSvg, Circle as PotionCircle } from '@potion/element';
 import { Svg as RNSvg } from 'expo';
 
 <PotionSvg
