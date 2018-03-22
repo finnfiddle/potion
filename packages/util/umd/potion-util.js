@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("React"));
 	else if(typeof define === 'function' && define.amd)
-		define("LegoUtil", ["React"], factory);
+		define("PotionUtil", ["React"], factory);
 	else if(typeof exports === 'object')
-		exports["LegoUtil"] = factory(require("React"));
+		exports["PotionUtil"] = factory(require("React"));
 	else
-		root["LegoUtil"] = factory(root["React"]);
+		root["PotionUtil"] = factory(root["React"]);
 })(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_5__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

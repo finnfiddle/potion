@@ -30,8 +30,8 @@ export default class Stack extends Layout {
       ],
       selectStylesToTween: d => d.reduce((acc, child, index) => ({
         ...acc,
-        [`${index}_0`]: child[0],
-        [`${index}_1`]: child[1],
+        [`[${index},0]`]: child[0],
+        [`[${index},1]`]: child[1],
       }), {}),
     };
   }
@@ -41,7 +41,7 @@ export default class Stack extends Layout {
       const { data, style } = d;
       const result = [...data];
       Object.keys(style).forEach(key => {
-        const [row, col] = key.split('_');
+        const [row, col] = key.slice(1, -1).split(',');
         result[row][col] = style[key];
       });
       return result;

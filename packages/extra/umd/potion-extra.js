@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("React"));
 	else if(typeof define === 'function' && define.amd)
-		define("LegoExtra", ["React"], factory);
+		define("PotionExtra", ["React"], factory);
 	else if(typeof exports === 'object')
-		exports["LegoExtra"] = factory(require("React"));
+		exports["PotionExtra"] = factory(require("React"));
 	else
-		root["LegoExtra"] = factory(root["React"]);
+		root["PotionExtra"] = factory(root["React"]);
 })(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -7488,12 +7488,12 @@ Circles.propTypes =  true ? {
   complement: _propTypes2.default.bool,
   radius: _propTypes2.default.number,
   components: _propTypes2.default.shape({
-    defs: [_propTypes2.default.func, _propTypes2.default.string],
-    g: [_propTypes2.default.func, _propTypes2.default.string],
-    circle: [_propTypes2.default.func, _propTypes2.default.string],
-    rect: [_propTypes2.default.func, _propTypes2.default.string],
-    pattern: [_propTypes2.default.func, _propTypes2.default.string],
-    path: [_propTypes2.default.func, _propTypes2.default.string]
+    defs: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    g: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    circle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    rect: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    pattern: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    path: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string])
   })
 } : {};
 module.exports = exports['default'];
@@ -8235,12 +8235,12 @@ Lines.propTypes =  true ? {
   background: _propTypes2.default.string,
   id: _propTypes2.default.string,
   components: _propTypes2.default.shape({
-    defs: [_propTypes2.default.func, _propTypes2.default.string],
-    g: [_propTypes2.default.func, _propTypes2.default.string],
-    circle: [_propTypes2.default.func, _propTypes2.default.string],
-    rect: [_propTypes2.default.func, _propTypes2.default.string],
-    pattern: [_propTypes2.default.func, _propTypes2.default.string],
-    path: [_propTypes2.default.func, _propTypes2.default.string]
+    defs: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    g: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    circle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    rect: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    pattern: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    path: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string])
   })
 } : {};
 module.exports = exports['default'];
@@ -8348,12 +8348,12 @@ Paths.propTypes =  true ? {
   background: _propTypes2.default.string,
   id: _propTypes2.default.string,
   components: _propTypes2.default.shape({
-    defs: [_propTypes2.default.func, _propTypes2.default.string],
-    g: [_propTypes2.default.func, _propTypes2.default.string],
-    circle: [_propTypes2.default.func, _propTypes2.default.string],
-    rect: [_propTypes2.default.func, _propTypes2.default.string],
-    pattern: [_propTypes2.default.func, _propTypes2.default.string],
-    path: [_propTypes2.default.func, _propTypes2.default.string]
+    defs: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    g: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    circle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    rect: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    pattern: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    path: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string])
   })
 } : {};
 module.exports = exports['default'];

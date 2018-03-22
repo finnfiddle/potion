@@ -33,7 +33,7 @@ module.exports = packages.map(packageName => ({
   output: {
     path: `${__dirname}/packages/${packageName}/umd`,
     filename: `potion${packageName === 'main' ? '' : `-${packageName}`}${process.env.NODE_ENV === 'production' ? '.min' : ''}.js`,
-    library: `Lego${packageName === 'main' ? '' : `${packageName[0].toUpperCase()}${packageName.slice(1)}`}`,
+    library: `Potion${packageName === 'main' ? '' : `${packageName[0].toUpperCase()}${packageName.slice(1)}`}`,
     libraryTarget: 'umd',
     umdNamedDefine: true,
   },

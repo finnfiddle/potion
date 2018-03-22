@@ -51,7 +51,7 @@ var Stack = function (_Layout) {
           return d.reduce(function (acc, child, index) {
             var _extends2;
 
-            return _extends({}, acc, (_extends2 = {}, _defineProperty(_extends2, index + '_0', child[0]), _defineProperty(_extends2, index + '_1', child[1]), _extends2));
+            return _extends({}, acc, (_extends2 = {}, _defineProperty(_extends2, '[' + index + ',0]', child[0]), _defineProperty(_extends2, '[' + index + ',1]', child[1]), _extends2));
           }, {});
         }
       };
@@ -65,10 +65,10 @@ var Stack = function (_Layout) {
 
         var result = [].concat(_toConsumableArray(data));
         Object.keys(style).forEach(function (key) {
-          var _key$split = key.split('_'),
-              _key$split2 = _slicedToArray(_key$split, 2),
-              row = _key$split2[0],
-              col = _key$split2[1];
+          var _key$slice$split = key.slice(1, -1).split(','),
+              _key$slice$split2 = _slicedToArray(_key$slice$split, 2),
+              row = _key$slice$split2[0],
+              col = _key$slice$split2[1];
 
           result[row][col] = style[key];
         });

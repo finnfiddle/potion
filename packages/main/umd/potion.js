@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("React"));
 	else if(typeof define === 'function' && define.amd)
-		define("Lego", ["React"], factory);
+		define("Potion", ["React"], factory);
 	else if(typeof exports === 'object')
-		exports["Lego"] = factory(require("React"));
+		exports["Potion"] = factory(require("React"));
 	else
-		root["Lego"] = factory(root["React"]);
+		root["Potion"] = factory(root["React"]);
 })(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_3__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -20330,12 +20330,12 @@ Circles.propTypes =  true ? {
   complement: _propTypes2.default.bool,
   radius: _propTypes2.default.number,
   components: _propTypes2.default.shape({
-    defs: [_propTypes2.default.func, _propTypes2.default.string],
-    g: [_propTypes2.default.func, _propTypes2.default.string],
-    circle: [_propTypes2.default.func, _propTypes2.default.string],
-    rect: [_propTypes2.default.func, _propTypes2.default.string],
-    pattern: [_propTypes2.default.func, _propTypes2.default.string],
-    path: [_propTypes2.default.func, _propTypes2.default.string]
+    defs: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    g: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    circle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    rect: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    pattern: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    path: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string])
   })
 } : {};
 module.exports = exports['default'];
@@ -21077,12 +21077,12 @@ Lines.propTypes =  true ? {
   background: _propTypes2.default.string,
   id: _propTypes2.default.string,
   components: _propTypes2.default.shape({
-    defs: [_propTypes2.default.func, _propTypes2.default.string],
-    g: [_propTypes2.default.func, _propTypes2.default.string],
-    circle: [_propTypes2.default.func, _propTypes2.default.string],
-    rect: [_propTypes2.default.func, _propTypes2.default.string],
-    pattern: [_propTypes2.default.func, _propTypes2.default.string],
-    path: [_propTypes2.default.func, _propTypes2.default.string]
+    defs: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    g: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    circle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    rect: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    pattern: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    path: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string])
   })
 } : {};
 module.exports = exports['default'];
@@ -21190,12 +21190,12 @@ Paths.propTypes =  true ? {
   background: _propTypes2.default.string,
   id: _propTypes2.default.string,
   components: _propTypes2.default.shape({
-    defs: [_propTypes2.default.func, _propTypes2.default.string],
-    g: [_propTypes2.default.func, _propTypes2.default.string],
-    circle: [_propTypes2.default.func, _propTypes2.default.string],
-    rect: [_propTypes2.default.func, _propTypes2.default.string],
-    pattern: [_propTypes2.default.func, _propTypes2.default.string],
-    path: [_propTypes2.default.func, _propTypes2.default.string]
+    defs: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    g: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    circle: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    rect: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    pattern: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string]),
+    path: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.string])
   })
 } : {};
 module.exports = exports['default'];
@@ -30032,7 +30032,7 @@ var Stack = function (_Layout) {
           return d.reduce(function (acc, child, index) {
             var _extends2;
 
-            return _extends({}, acc, (_extends2 = {}, _defineProperty(_extends2, index + '_0', child[0]), _defineProperty(_extends2, index + '_1', child[1]), _extends2));
+            return _extends({}, acc, (_extends2 = {}, _defineProperty(_extends2, '[' + index + ',0]', child[0]), _defineProperty(_extends2, '[' + index + ',1]', child[1]), _extends2));
           }, {});
         }
       };
@@ -30046,10 +30046,10 @@ var Stack = function (_Layout) {
 
         var result = [].concat(_toConsumableArray(data));
         Object.keys(style).forEach(function (key) {
-          var _key$split = key.split('_'),
-              _key$split2 = _slicedToArray(_key$split, 2),
-              row = _key$split2[0],
-              col = _key$split2[1];
+          var _key$slice$split = key.slice(1, -1).split(','),
+              _key$slice$split2 = _slicedToArray(_key$slice$split, 2),
+              row = _key$slice$split2[0],
+              col = _key$slice$split2[1];
 
           result[row][col] = style[key];
         });
