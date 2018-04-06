@@ -1,6 +1,6 @@
 {
   "name": "@potion/layout",
-  "version": "1.0.0-next.21",
+  "version": "1.0.0-next.22",
   "description": "React components for declaratively composing animated, interactive visualizations - Layouts",
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "react-dom": "~0.14.8 || ^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "@potion/util": "^1.0.0-next.21",
+    "@potion/util": "^1.0.0-next.22",
     "babel-runtime": "^6.20.0",
     "d3-chord": "^1.0.4",
     "d3-hierarchy": "^1.1.5",
