@@ -1,6 +1,6 @@
 {
   "name": "@potion/color",
-  "version": "1.0.0-next.22",
+  "version": "1.0.0-next.23",
   "description": "React components for declaratively composing animated, interactive visualizations - Color utils",
   "repository": {
     "type": "git",
@@ -37,5 +37,10 @@
   "peerDependencies": {
     "react": "~0.14.8 || ^15.0.0 || ^16.0.0",
     "react-dom": "~0.14.8 || ^15.0.0 || ^16.0.0"
+  },
+  "dependencies": {
+    "d3-color": "^1.0.3",
+    "d3-scale": "^2.0.0",
+    "d3-scale-chromatic": "^1.2.0"
   }
 }
