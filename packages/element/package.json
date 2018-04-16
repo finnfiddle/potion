@@ -1,6 +1,6 @@
 {
   "name": "@potion/element",
-  "version": "1.0.0-next.24",
+  "version": "1.0.0-next.25",
   "description": "React components for declaratively composing animated, interactive visualizations - Elements/Shapes",
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "react-dom": "~0.14.8 || ^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "@potion/util": "^1.0.0-next.24",
+    "@potion/util": "^1.0.0-next.25",
     "babel-runtime": "^6.20.0",
     "d3-chord": "^1.0.4",
     "d3-shape": "^1.0.4",
