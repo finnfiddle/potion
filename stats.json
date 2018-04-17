@@ -1,0 +1,68 @@
+{
+  "assetsByChunkName": {
+    "component---src-pages-index-js": [
+      "component---src-pages-index-js-7ebb5454f175914f0710.js",
+      "component---src-pages-index-js-7ebb5454f175914f0710.js.map"
+    ],
+    "path---": [
+      "path----557518bd178906f8d58a.js",
+      "path----557518bd178906f8d58a.js.map"
+    ],
+    "component---src-pages-element-js": [
+      "component---src-pages-element-js-0e7d8e2f1c10a7192426.js",
+      "component---src-pages-element-js-0e7d8e2f1c10a7192426.js.map"
+    ],
+    "component---src-pages-guides-js": [
+      "component---src-pages-guides-js-17dad275afecd4a58554.js",
+      "component---src-pages-guides-js-17dad275afecd4a58554.js.map"
+    ],
+    "path---layout": [
+      "path---layout-a98f75ba5f3aff48ce15.js",
+      "path---layout-a98f75ba5f3aff48ce15.js.map"
+    ],
+    "component---src-pages-color-js": [
+      "component---src-pages-color-js-b548c4d6fa53b012cee1.js",
+      "component---src-pages-color-js-b548c4d6fa53b012cee1.js.map"
+    ],
+    "component---src-layouts-index-js": [
+      "component---src-layouts-index-js-12f68b07f4641dec5e66.js",
+      "component---src-layouts-index-js-12f68b07f4641dec5e66.js.map"
+    ],
+    "path---guides": [
+      "path---guides-a98f75ba5f3aff48ce15.js",
+      "path---guides-a98f75ba5f3aff48ce15.js.map"
+    ],
+    "path---index": [
+      "path---index-a0e39f21c11f6a62c5ab.js",
+      "path---index-a0e39f21c11f6a62c5ab.js.map"
+    ],
+    "path---extras": [
+      "path---extras-a98f75ba5f3aff48ce15.js",
+      "path---extras-a98f75ba5f3aff48ce15.js.map"
+    ],
+    "commons": [
+      "commons-8896048144696196b7f1.js",
+      "commons-8896048144696196b7f1.js.map"
+    ],
+    "path---color": [
+      "path---color-a0e39f21c11f6a62c5ab.js",
+      "path---color-a0e39f21c11f6a62c5ab.js.map"
+    ],
+    "path---element": [
+      "path---element-a98f75ba5f3aff48ce15.js",
+      "path---element-a98f75ba5f3aff48ce15.js.map"
+    ],
+    "component---src-pages-layout-js": [
+      "component---src-pages-layout-js-81fc66a1d7a0c3638c83.js",
+      "component---src-pages-layout-js-81fc66a1d7a0c3638c83.js.map"
+    ],
+    "app": [
+      "app-fdfb9c0386b0fe0910fb.js",
+      "app-fdfb9c0386b0fe0910fb.js.map"
+    ],
+    "component---src-pages-extras-js": [
+      "component---src-pages-extras-js-6758c0bd6469377ec628.js",
+      "component---src-pages-extras-js-6758c0bd6469377ec628.js.map"
+    ]
+  }
+}
